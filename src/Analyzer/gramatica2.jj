@@ -1,0 +1,271 @@
+/* adder.jj Adding up numbers */
+options {
+    STATIC = false ;
+}
+
+PARSER_BEGIN(parser) 
+package Analyzer;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
+
+public class parser {
+
+    public parser(){
+    
+    }
+
+    public void inicializar(String entrada){
+        try{
+                //File initialFile = new File("src/main/resources/sample.txt");
+                //InputStream targetStream = new FileInputStream(initialFile);
+                String exampleString=entrada;
+                InputStream stream = new ByteArrayInputStream(exampleString.getBytes(StandardCharsets.UTF_8));
+                parser analizador =new parser(stream);
+                int resultado = analizador.Programa();
+                System.out.println(resultado);
+                System.out.println("Analisis con exito");
+            }
+        catch(ParseException e){
+            System.out.println(e.getMessage());
+            System.out.println("Se han econtrado errores");
+        }
+    }
+
+    public void error_skipto(int kind) {
+        System.out.println("Entro a skip to");
+        ParseException e = generateParseException();  // generate the exception object.
+        System.out.println(e.toString());  // print the error message
+        Token t;
+        int cont=0;
+        do {
+            cont ++;
+            t = getNextToken();
+            System.out.println("Entro a skip to");
+
+            if(cont==200){
+                System.out.println("No se pudo recuperar");
+                break;
+            }
+        } while (t.kind != kind);
+            // The above loop consumes tokens all the way up to a token of
+            // "kind".  We use a do-while loop rather than a while because the
+            // current token is the one immediately before the erroneous token
+            // (in our case the token immediately before what should have been
+            // "if"/"while".
+    }
+
+
+  //public static void main(String args[]) throws ParseException {  
+  //} 
+} 
+PARSER_END(parser)
+
+
+//TOKEN : { < PLUS : "+" > }
+//TOKEN : { < NUMBER : (["0"-"9"])+ > }
+
+TOKEN : 
+{
+    <NUMERO: (["0"-"9"])+ >{System.out.println("NUMERO->"+image);}
+}
+
+TOKEN : {
+    <IDENTIFIER: <LETTER>(<LETTER>|<NUMERO>)*>{System.out.println("Identificador->"+image);}
+    |  <#LETTER: (["a"-"z","A"-"Z"])> 
+}
+
+TOKEN :
+{
+      <tMas       : "+">{System.out.println("tMas->"+image);}
+    | <tPuntoComa : ";">{System.out.println("tPuntoComa->"+image);}
+    /* | <tComillaDoble : "\"">{System.out.println("tComillaDoble->"+image);}    */
+    /* |*/
+}
+
+ 
+SKIP    : { " " }
+SKIP    : { "\n" | "\r" | "\r\n" }
+SKIP   : { 
+    <OTHER:   ~[]>{System.out.println("TokenDesconocido->"+image);}
+}
+
+TOKEN:
+{
+ <QUOTED_STRING:  "/>" ( (~[]) | ("\\" ( ["n","t","b","r","f","\\"] ) ) )* "</" > {System.out.println("tString->"+image);}
+}
+
+
+
+/* Token CADENA():
+{
+    String salida="";
+    Token t;
+}
+{
+    <tComillaDoble>
+    {
+        do{
+            t=getNextToken();
+            if(t.kind!=XLSParserConstants.tComillaDoble){
+                salida +=t.image;
+            }
+        }while(t.kind != XLSParserConstants.tComillaDoble);
+        t.image=salida;
+        System.out.prinln(salida);
+        return t;
+    }
+} */
+
+int Programa() :
+{
+
+}
+{
+    main()
+    < EOF >
+    
+    {return 0;}
+}
+ 
+void main() :
+{
+
+}
+{
+    try{
+        lstSumas()
+    }catch(ParseException e){
+        System.out.println("error alv :(");
+    }
+    
+}
+void lstSumas():
+{
+
+}
+{ 
+
+    (
+         try{ 
+            lstNumeros()
+            <tPuntoComa>
+           <QUOTED_STRING >
+
+           
+            
+          } catch (ParseException e){ 
+            System.out.println("Errores 2");
+            error_skipto(tPuntoComa);
+        }  
+
+    )+            
+}
+
+void lstNumeros():
+{
+
+}
+{
+ //   try{
+        <NUMERO>
+        lstNumerosP() 
+  /*   }catch(ParseException e){
+        {System.out.println("error fatalisimo");}
+         Token t= getNextToken();
+         System.out.println(t.kind);
+         System.out.println(t.image);  
+         Token t;
+            System.out.println(e.toString());
+        do {
+                
+         } while (t.kind != NUMERO && t!=null && t.kind != EOF );   
+    } */
+     
+}
+ 
+
+void lstNumerosP():
+{
+   
+}
+{
+    (
+        <tMas>
+        <NUMERO> 
+    )*
+}
+
+void epsilon () : 
+{
+
+} 
+{  
+    {
+        System.out.println("epsilon");
+    } 
+}
+
+
+/* void cadena () :
+{
+    String  salida="";
+    Token t;
+    Token t2;
+}
+{
+    t2=<tComillaDoble>
+    {
+        System.out.println("omillas");
+        
+        do{
+            System.out.println("do");
+             t=getNextToken();
+            if(t.kind!=t2.kind){ 
+                salida += t.image;
+            }
+        }while(t.kind !=t2.kind);
+        t.image = salida;
+        System.out.println(salida);
+        
+    }
+} */
+/* 
+    int Programa() :
+    {
+        Token t;
+        int i;
+        int value;
+    }
+    {
+        (
+            t = < NUMERO >
+            {i=Integer.parseInt(t.image);}
+            {value=i;}
+            value=lstNumeros(value)
+            <tPuntoComa>
+            {return value; }
+        )*
+        
+    }
+
+    int lstNumeros(int value) :
+    {
+        Token t;
+        int i;
+
+    }
+    {
+        (
+            <tMas>
+            t=<NUMERO>
+            {i=Integer.parseInt(t.image);}
+            {value+=i;}
+            {System.out.println(value);}
+        )*
+        < EOF >
+        {return value;}
+    } 
+*/
+
+
