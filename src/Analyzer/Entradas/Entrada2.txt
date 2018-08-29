@@ -1,0 +1,140 @@
+
+<grupo->[
+		<tipo/> Iniciar Agrupacion </tipo>
+		<etiqueta/> Agrupación 1 </etiqueta>
+		<idpregunta/> info1 </idpregunta>
+	]
+	pregunta:[
+		<tipo/> texto </tipo>
+		<etiqueta/> Cual es tu nombre? "Comentario" </etiqueta>
+		<idpregunta/> nombre </idpregunta>
+		<parametro/>cad_min=5 cad_fila= 1 </parametro>
+		<sugerir/>Esta pregunta no se puede omitir </sugerir>
+		<requeridomsn/>Ingrese un nombre </requeridomsn>
+		<requerido/>verdadero </requerido>
+	]
+	pregunta:[
+		<tipo/> fecha </tipo>
+		<etiqueta/> Que fecha es hoy? </etiqueta>
+		<idpregunta/> hoyes </idpregunta>
+		<predeterminado/>hoy() </predeterminado>
+	]
+	pregunta:[
+		<tipo/> Nota </tipo>
+		<etiqueta/> Se llenara dos arboles Binarios </etiqueta>
+		<idpregunta/> nota_dato </idpregunta>
+	]
+&grupo->[
+		<tipo/> finalizar Agrupacion </tipo>
+		<etiqueta/> null </etiqueta>
+		<idpregunta/> info1 </idpregunta>
+	]
+<grupo->[
+		<tipo/> Iniciar Agrupacion </tipo>
+		<etiqueta/> Agrupación 2 </etiqueta>
+		<idpregunta/> info2 </idpregunta>
+	]
+	pregunta:[
+		<tipo/> Nota </tipo>
+		<etiqueta/> Se incio la instancia del primer Arbol? </etiqueta>
+		<idpregunta/> arbol1 </idpregunta>
+		<codigo_post/>abo1 = nuevo ArbolBinario(); </codigo_post>
+	]
+<ciclo->[
+		<tipo/> Iniciar Ciclo </tipo>
+		<etiqueta/> Ciclo Arbol 1 </etiqueta>
+		<idpregunta/> llenar1 </idpregunta>
+	]
+	pregunta:[
+		<tipo/> entero  </tipo>
+		<etiqueta/> Dame un numero @{color: #FFFF00, tam:15, negrilla }: { Mayor }@ a 1 
+y @{color: #FFFF00, tam:15, negrilla }: { Menor }@ a 20 </etiqueta>
+		<idpregunta/> insertar1 </idpregunta>
+		<restringir/>. >= 1 && . <= 20 </restringir>
+		<requerido/>verdadero </requerido>
+		<codigo_post/>abo1.insertar (@); </codigo_post>
+	]
+&ciclo->[
+		<tipo/> finalizar ciclo </tipo>
+		<etiqueta/> null </etiqueta>
+		<idpregunta/> llenar1 </idpregunta>
+	]
+&grupo->[
+		<tipo/> finalizar Agrupacion </tipo>
+		<etiqueta/> null </etiqueta>
+		<idpregunta/> info2 </idpregunta>
+	]
+<grupo->[
+		<tipo/> iniciar agrupacion </tipo>
+		<etiqueta/> Agrupación 3 </etiqueta>
+		<idpregunta/> info3 </idpregunta>
+	]
+	pregunta:[
+		<tipo/> Nota </tipo>
+		<etiqueta/> Se incio la instancia del segundo arbol </etiqueta>
+		<idpregunta/> arbol2 </idpregunta>
+		<codigo_post/>abo2 = nuevo ArbolBinario(); </codigo_post>
+	]
+<ciclo->[
+		<tipo/> Iniciar Ciclo </tipo>
+		<etiqueta/> null </etiqueta>
+		<idpregunta/> llenar2 </idpregunta>
+	]
+	pregunta:[
+		<tipo/> rango  </tipo>
+		<etiqueta/> Dame un numero @{color: #FFFF00, tam:15, negrilla }: { Mayor }@ a 20
+y @{color: #FFFF00, tam:15, negrilla }: { Menor }@ a 30 </etiqueta>
+		<idpregunta/> insertar2 </idpregunta>
+		<parametro/>iniciar =20 finalizar= 30 </parametro>
+		<requerido/>verdadero </requerido>
+		<codigo_post/>abo2.insertar (@); </codigo_post>
+	]
+&ciclo->[
+		<tipo/> finalizar ciclo </tipo>
+		<etiqueta/> null </etiqueta>
+		<idpregunta/> llenar2 </idpregunta>
+	]
+&grupo->[
+		<tipo/> finalizar Agrupacion </tipo>
+		<etiqueta/> null </etiqueta>
+		<idpregunta/> info3 </idpregunta>
+	]
+<grupo->[
+		<tipo/> Iniciar Agrupacion  </tipo>
+		<etiqueta/> Salida De Resultados </etiqueta>
+		<idpregunta/> impresion </idpregunta>
+	]
+<ciclo->[
+		<tipo/> Iniciar Ciclo </tipo>
+		<etiqueta/> gfsdg </etiqueta>
+		<idpregunta/> llenar3 </idpregunta>
+	]
+	pregunta:[
+		<tipo/> selecciona_uno elegir </tipo>
+		<etiqueta/> Que Arbol desea imprimir: 
+1 - Imprimir el Arbol 1
+2 - Imprimir el Arbol 2 </etiqueta>
+		<idpregunta/> impre_1 </idpregunta>
+	]
+	pregunta:[
+		<tipo/> Nota </tipo>
+		<etiqueta/> Se imprimira el Arbol #[impre_1] </etiqueta>
+		<idpregunta/> impreA </idpregunta>
+		<aplicable/>#[impre_1] = "a1" </aplicable>
+		<codigo_post/>imprimir ("Preorden: Arbol " + #[impre_1]);
+abo1.imprimirPre (); </codigo_post>
+	]
+	pregunta:[
+		<tipo/> Nota </tipo>
+		<etiqueta/> Se imprimira el Arbol #[impre_1] </etiqueta>
+		<idpregunta/> impreB </idpregunta>
+		<aplicable/>#[impre_1] = "a2" </aplicable>
+		<codigo_post/>imprimir ("Preorden: Arbol " + #[impre_1]);
+abo2.imprimirPre (); </codigo_post>
+	]
+	pregunta:[
+		<tipo/> Nota </tipo>
+		<etiqueta/> NO existe la Opcion #[impre_1] </etiqueta>
+		<idpregunta/> error </idpregunta>
+		<aplicable/>#[impre_1] >= "a1" && #[impre_1] <= "a2" </aplicable>
+	]

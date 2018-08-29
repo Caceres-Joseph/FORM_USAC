@@ -5,6 +5,7 @@
  */
 package readExcel;
 
+import Analyzer.Tree.Tablas.tablaErrores;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -20,8 +21,9 @@ public class readRow {
 
     private Row currentRow;
     private boolean filaValida = false;
-
+    public tablaErrores tablaErrores;
     public readRow(Row currentRow) {
+        this.tablaErrores =new tablaErrores();
         this.currentRow = currentRow;
         /*
             Aquí tengo que ordenar la columna
@@ -32,30 +34,38 @@ public class readRow {
         //fin de la fila
     }
 
-    public Map<Integer, String> leerFilaEncabezado() {
-        Map<Integer, String> retorno = new HashMap<>();;
+    public Map<Integer, cell> leerFilaEncabezado() {
+        Map<Integer, cell> retorno = new HashMap<>();;
 
         Iterator<Cell> cellIterator = currentRow.iterator();
 
         //iniciando recorrido de fila
         boolean filaVacia = true;
 
-        Map<Integer, String> tempRetorno = new HashMap<>();
+        Map<Integer, cell> tempRetorno = new HashMap<>();
         while (cellIterator.hasNext()) {
 
             Cell currentCell = cellIterator.next();
             readCell leerCelda = new readCell(currentCell);
 
-            if (!leerCelda.getValue().equals("")) {
+            if (!leerCelda.getValue().val.equals("")) {
                 int indice = currentCell.getColumnIndex();
-                String valor = leerCelda.getValue().toLowerCase();
-                valor=valor.replace(" ", "");//quitando espacios en blanco
-
+                cell vale=leerCelda.getValue();
+               
+                vale.val =vale.val.toLowerCase();
+                vale.val=vale.val.replace(" ", "");//quitando espacios en blanco
+                vale.posY=indice;
 //                System.out.print(indice);
-//                System.out.print("-> " + valor + "|");
-                tempRetorno.put(indice, valor);
+//                System.out.print("-> " + vale.val + "|");
+
+//Verificando si existe otra fila con el mismo nombre prro
+
+    
+                tempRetorno.put(indice, vale);
                 filaVacia = false;
             }
+            
+            tablaErrores.concat(leerCelda.getTablaErrores()); 
         }
 //        System.out.println("");
 
@@ -67,29 +77,54 @@ public class readRow {
         return retorno;
     }
 
-    public Map<String, String> leerFilaCuerpo(Map<Integer, String> encabezado) {
-        Map<String, String> retorno = new LinkedHashMap<>(); 
+    public Map<String, cell> leerFilaCuerpo(Map<Integer, cell> encabezado) {
+        Map<String, cell> retorno = new LinkedHashMap<>(); 
         Iterator<Cell> cellIterator = currentRow.iterator();
 
         //iniciando recorrido de fila
         boolean filaVacia = true;
 
-        Map<String, String> tempRetorno = new LinkedHashMap<>();
+        Map<String, cell> tempRetorno = new LinkedHashMap<>();
         while (cellIterator.hasNext()) {
 
             Cell currentCell = cellIterator.next();
             readCell leerCelda = new readCell(currentCell);
+            
+            if (!leerCelda.getValue().val.equals("")) {
+                
+                
+                cell te=encabezado.get(currentCell.getColumnIndex());
+                if(te==null){
+                    tablaErrores.insertErrorSemantic(currentCell.getRowIndex(),
+                            currentCell.getColumnIndex()
+                            , "La celda con valor "+ leerCelda.getValue().val+" no tiene encabezado :(");
+                      
+                }else{
+                    String indice = te.val;
 
-            if (!leerCelda.getValue().equals("")) {
-                String indice = encabezado.get(currentCell.getColumnIndex());
-                String valor = leerCelda.getValue(); 
-//                System.out.print(indice);
-//                System.out.print("-> " + valor + "|");
-                tempRetorno.put(indice, valor);
+
+                    cell valor = leerCelda.getValue(); 
+
+                    valor.posY=currentCell.getRowIndex();
+
+    //                System.out.print(currentCell.getRowIndex());
+    //                System.out.print("]");
+    //                System.out.print(indice);
+    //                System.out.print("-> " + valor.val + "|");
+
+                    if(tempRetorno.get(indice)==null){
+                        tempRetorno.put(indice, valor);                         
+                    }else{
+                        tablaErrores.insertErrorSyntax(valor.posY, valor.posX, "La celda con valor "+ valor.val+" tiene la celda de cabecera  "+indice+ " duplicada.");
+                    }
+
+                }
                 filaVacia = false;
-            }
+            } 
+            this.tablaErrores.concat(leerCelda.getTablaErrores());
+            
         }
-//        System.out.println("");
+      //System.out.println("");
 
         if (!filaVacia) {
             this.filaValida = true;
@@ -120,5 +155,12 @@ public class readRow {
     public void setFilaValida(boolean filaValida) {
         this.filaValida = filaValida;
     }
+
+    public tablaErrores getTablaErrores() {
+        return tablaErrores;
+    }
+    
+    
+    
 
 }

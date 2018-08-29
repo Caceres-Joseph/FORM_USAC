@@ -1,0 +1,59 @@
+<grupo->[
+                < posX:0 posY:1 tipo />Iniciar Agrupacion 1</ tipo>
+                < posX:1 posY:1 idpregunta />info1 </ idpregunta>
+                < posX:2 posY:1 etiqueta />Agrupación 1 </ etiqueta>
+	]
+	pregunta:[
+		< posX:0 posY:2 tipo />texto </ tipo>
+		< posX:1 posY:2 idpregunta />nombre </ idpregunta>
+		< posX:2 posY:2 etiqueta />Cual es tu nombre? "Comentario" </ etiqueta>
+		< posX:3 posY:2 parametro />cad_min=5 cad_fila= 1 </ parametro>
+		< posX:6 posY:2 sugerir />Esta pregunta no se puede omitir </ sugerir>
+		< posX:9 posY:2 requeridomsn />Ingrese un nombre </ requeridomsn>
+		< posX:10 posY:2 requerido />verdadero </ requerido>
+	]
+        <grupo->[
+                        < posX:0 posY:1 tipo />Iniciar Agrupacion 2</ tipo>
+                        < posX:1 posY:1 idpregunta />info1 </ idpregunta>
+                        < posX:2 posY:1 etiqueta />Agrupación 1 </ etiqueta>
+                ]
+                <ciclo->[
+                                < posX:0 posY:1 tipo />Iniciar Ciclo1 </ tipo>
+                                < posX:1 posY:1 idpregunta />info1 </ idpregunta>
+                                < posX:2 posY:1 etiqueta />Agrupación 1 </ etiqueta>
+                        ]
+                        pregunta:[
+                                < posX:0 posY:2 tipo />texto </ tipo>
+                                < posX:1 posY:2 idpregunta />nombre </ idpregunta>
+                                < posX:2 posY:2 etiqueta />Cual es tu nombre? "Comentario" </ etiqueta>
+                                < posX:3 posY:2 parametro />cad_min=5 cad_fila= 1 </ parametro>
+                                < posX:6 posY:2 sugerir />Esta pregunta no se puede omitir </ sugerir>
+                                < posX:9 posY:2 requeridomsn />Ingrese un nombre </ requeridomsn>
+                                < posX:10 posY:2 requerido />verdadero </ requerido>
+                        ]
+
+                &ciclo->[
+                                < posX:0 posY:1 tipo />Terminar Ciclo1</ tipo>
+                                < posX:1 posY:1 idpregunta />info1 </ idpregunta>
+                                < posX:2 posY:1 etiqueta />Agrupación 1 </ etiqueta>
+                        ] 
+                pregunta:[
+                                < posX:0 posY:2 tipo />texto </ tipo>
+                                < posX:1 posY:2 idpregunta />nombre </ idpregunta>
+                                < posX:2 posY:2 etiqueta />Cual es tu nombre? "Comentario" </ etiqueta>
+                                < posX:3 posY:2 parametro />cad_min=5 cad_fila= 1 </ parametro>
+                                < posX:6 posY:2 sugerir />Esta pregunta no se puede omitir </ sugerir>
+                                < posX:9 posY:2 requeridomsn />Ingrese un nombre </ requeridomsn>
+                                < posX:10 posY:2 requerido />verdadero </ requerido>
+                        ]
+
+        &grupo->[
+                        < posX:0 posY:1 tipo />Terminar Grupo </ tipo>
+                        < posX:1 posY:1 idpregunta />info1 </ idpregunta>
+                        < posX:2 posY:1 etiqueta />Agrupación 1 </ etiqueta>
+                ] 	 
+&grupo->[
+                < posX:0 posY:1 tipo />Terminar Grupo1</ tipo>
+                < posX:1 posY:1 idpregunta />info1 </ idpregunta>
+                < posX:2 posY:1 etiqueta />Agrupación 1 </ etiqueta>
+	] 

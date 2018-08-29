@@ -5,6 +5,7 @@
  */
 package readExcel;
  
+import Analyzer.Tree.Tablas.tablaErrores;
 import org.apache.poi.ss.usermodel.Cell;
 
 /**
@@ -14,10 +15,10 @@ import org.apache.poi.ss.usermodel.Cell;
 public class readCell {
 
     private Cell currentCell;
-    
+    public tablaErrores tablaErrores;
     //otras columnas
     private String columna;
-    private String value;
+    private cell value;
     
 //    private String tipo;
 //    private String idPregunta;
@@ -26,9 +27,13 @@ public class readCell {
     
 
     public readCell(Cell currentCell) {
-        this.currentCell = currentCell;
-        this.leer();
+        this.tablaErrores =new tablaErrores();
+        this.currentCell = currentCell; 
         
+        
+        this.value=new cell();
+        this.leer();
+        this.value.posX=currentCell.getColumnIndex(); 
     }
 
     public void leer() {
@@ -36,43 +41,45 @@ public class readCell {
 //        System.out.print("-");
 //        System.out.print(currentCell.getColumnIndex());
 //        System.out.print(") ");
+        
         if (null == currentCell.getCellTypeEnum()) {
-            this.value="";
+            
+            this.value.val="";
         } else {
             switch (currentCell.getCellTypeEnum()) {
                 case STRING:
-                    this.value=currentCell.getStringCellValue();
+                    this.value.val=currentCell.getStringCellValue();
                     break;
                     
                 case NUMERIC:
-                    this.value=String.valueOf(currentCell.getNumericCellValue());
+                    this.value.val=String.valueOf(currentCell.getNumericCellValue());
                     break;
                     
                 case _NONE: 
-                    this.value="";
+                    this.value.val="";
                     break;
                     
                 case BOOLEAN:
-                    System.out.println("[readCell]Boolean");
-                    this.value=String.valueOf(currentCell.getBooleanCellValue()); 
+                    tablaErrores.println("[readCell]Boolean");
+                    this.value.val=String.valueOf(currentCell.getBooleanCellValue()); 
                     break;
                     
                 case BLANK:
-                    this.value="";
+                    this.value.val="";
                     break;
                 case ERROR:
-                    System.out.println("[readCell]Formato_Error");
-                    this.value="";
+                    tablaErrores.println("[readCell]Formato_Error");
+                    this.value.val="";
                     break;
                     
                 case FORMULA:
-                    System.out.println("[readCell]Formato_Formula");
-                    this.value="";
+                    tablaErrores.println("[readCell]Formato_Formula");
+                    this.value.val="";
                     break;
                     
                 default:
-                    System.out.println("[readCell]Formato_Desconocido");
-                    this.value="";
+                    tablaErrores.println("[readCell]Formato_Desconocido");
+                    this.value.val="";
                     break;
             }
         }
@@ -91,11 +98,17 @@ public class readCell {
         this.currentCell = currentCell;
     }
 
-    public String getValue() {
+    public cell getValue() {
         return value;
     }
 
-    public void setValue(String value) {
+    public void setValue(cell value) {
         this.value = value;
     } 
+
+    public tablaErrores getTablaErrores() {
+        return tablaErrores;
+    }
+    
+    
 }

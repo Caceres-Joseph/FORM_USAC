@@ -1,0 +1,292 @@
+options {
+    STATIC = false ;
+}
+    /*
+    |--------------------------------------------------------------------------
+    | METODOS
+    |-------------------------------------------------------------------------- 
+    */
+
+PARSER_BEGIN(parser) 
+package Analyzer; 
+import java.io.InputStream; 
+
+
+public class parser {
+
+    public parser(){
+    
+    }
+
+    public void inicializar(InputStream stream){
+        try{
+                
+                parser analizador =new parser(stream);
+                analizador.Programa(); 
+                
+                System.out.println("Analisis con exitoso");
+            }
+        catch(ParseException e){
+            System.out.println(e.getMessage());
+            System.out.println("Se han econtrado errores");
+        }
+    }
+
+    public void error_skipto(int kind) { 
+        ParseException e = generateParseException();  // generate the exception object.
+        System.out.println(e.toString());  // print the error message
+        Token t;
+        int cont=0;
+        do {
+            t = getNextToken();   
+        } while (t.kind != kind && t.kind != EOF);  
+    }
+
+    public void error(ParseException e){
+        System.out.println("--------------------------Ocurrió un error prro");
+        
+        int maxSize = 0;
+        for (int i = 0; i < e.expectedTokenSequences.length; i++) {
+            if (maxSize < e.expectedTokenSequences[i].length) {
+                maxSize = e.expectedTokenSequences[i].length;
+            }
+            for (int j = 0; j < e.expectedTokenSequences[i].length; j++) {
+                int indice=e.expectedTokenSequences[i][j];
+                System.out.println("Se esperaba:"+e.tokenImage[indice]);
+ 
+            } 
+        }
+        //System.out.println(e);
+    }
+} 
+
+PARSER_END(parser)
+
+    /*
+    |--------------------------------------------------------------------------
+    | TOKENS
+    |-------------------------------------------------------------------------- 
+    */
+
+
+        /*
+        +-------------------------+
+        |   Identificadores
+        */
+
+TOKEN : 
+{
+        <tNumero: (["0"-"9"])+ >
+            {System.out.println("NUMERO->"+image);}
+}
+
+TOKEN : {
+        <tIdentificador: <tLetra>(<tLetra>|<tNumero>|"_")*>
+            {System.out.println("Identificador->"+image);}
+    |   <#tLetra: (["a"-"z","A"-"Z"])> 
+}
+
+
+        /*
+        +-------------------------+
+        |   Simbolos
+        */
+
+TOKEN :
+{
+         <tMayorQue      : ">" >
+            {System.out.println("tMayorQue->"+image);}
+    |    <tMenorQue      : "<" >
+            {System.out.println("tMenorQue->"+image);}
+
+    |    <tDosPuntos      : ":" >
+            {System.out.println("tDosPntos->"+image);}
+    
+    |    <tComa      : "," >
+            {System.out.println("tComa->"+image);}
+
+    |    <tAmperson      : "&" >
+            {System.out.println("tAmperson->"+image);}
+
+    |    <tAbreCorchete   : "[" >
+            {System.out.println("tAbreCorchete->"+image);}
+    |    <tCierraCorchete : "]" >
+            {System.out.println("tCierraCorchete->"+image);}
+    |    <tGuion : "-" >
+            {System.out.println("tGuion->"+image);}
+         
+}
+
+
+        /*
+        +-------------------------+
+        |   SKIP
+        */
+
+
+SKIP    : { " " }
+SKIP    : { "\n" | "\r" | "\r\n" }
+SKIP   : { 
+    <OTHER:   ~[]>{/* System.out.println("TokenDesconocido->"+image); */}
+}
+
+
+        /*
+        +-------------------------+
+        |   Cadena
+        */
+
+ 
+MORE : {
+    <inicio : "/>" > :s2
+}
+
+<s2> MORE :
+{
+    <cual : (~[])>
+}
+<s2> TOKEN :
+{
+    <tString : "</"  >{System.out.println("tString->"+image); } : DEFAULT
+}
+    /*
+    |--------------------------------------------------------------------------
+    | GRAMATICA
+    |-------------------------------------------------------------------------- 
+    */
+
+        /*
+        +-------------------------+
+        |   Programa
+        */
+
+int Programa():
+{
+
+}
+{
+    S() 
+    < EOF > 
+    {return 0;}
+}
+
+        /*
+        +-------------------------+
+        |   S
+        */
+
+void S():
+{
+
+}
+{
+    LST_P()
+}
+
+        /*
+        +-------------------------+
+        |   LST_P
+        */
+
+void LST_P():
+{
+
+}
+{
+    P()
+    LST_P()
+    |
+    epsilon()
+}
+
+        /*
+        +-------------------------+
+        |   P
+        */
+
+void P():
+{
+    
+}
+{
+    try{
+         
+        <tIdentificador> 
+ 
+        <tDosPuntos>
+        <tAbreCorchete>
+
+        LST_ATRIBUTOS()
+        
+        <tCierraCorchete>
+        |
+        <tMenorQue>
+        <tIdentificador>  
+        PQ()
+        
+        S()
+        
+
+        <tAmperson>
+        <tIdentificador>  
+        PQ()
+    }catch(ParseException e){
+        this.error(e);
+    }
+
+}
+
+        /*
+        +-------------------------+
+        |   PQ
+        */
+
+void PQ():
+{
+
+}
+{
+    <tGuion>
+    <tMayorQue>
+    <tAbreCorchete>
+    LST_ATRIBUTOS()
+    <tCierraCorchete>
+}
+
+        /*
+        +-------------------------+
+        |   LST_ATRIBUTOS
+        */
+
+void LST_ATRIBUTOS():
+{
+
+}
+{
+    (
+        <tMenorQue>
+        <tIdentificador>
+
+        <tString>
+        
+        <tIdentificador>
+        <tMayorQue>
+    )+
+}
+
+
+
+        /*
+        +-------------------------+
+        |   epsilon
+        */
+
+void epsilon () : 
+{
+
+} 
+{  
+    {
+        System.out.println("epsilon");
+    } 
+}

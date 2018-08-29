@@ -9,6 +9,7 @@ package readExcel;
  *
  * @author joseph
  */
+import Analyzer.Tree.Tablas.tablaErrores;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
@@ -17,11 +18,21 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class readExcel {
 
+    public tablaErrores tablaErrores;
+    Map<String, String> hashRetorno = new LinkedHashMap<>();
+
     private static final String FILE_NAME = "/home/joseph/Documentos/Compi2/Ejemplo - Arbol/Arbol1.xlsx";
 //    private static final String FILE_NAME = "/home/joseph/Documentos/Compi2/[COMPI2]PrimerProyecto/Impresion.xlsx";
+
+    public readExcel() {
+        tablaErrores = new tablaErrores();
+
+    }
 
     public String leer(int indexSheet) {
         String retorno = "";
@@ -32,11 +43,91 @@ public class readExcel {
             readSheet sheet = new readSheet(datatypeSheet);
             retorno = sheet.leerOtros();
 
+            tablaErrores.concat(sheet.getTablaErrores());
         } catch (FileNotFoundException e) {
             retorno = String.valueOf(e);
-        } catch (IOException e) {   
+        } catch (IOException e) {
             retorno = String.valueOf(e);
         }
+        return retorno;
+    }
+
+    public String extension(String fullPath) {
+        int dot = fullPath.lastIndexOf(".");
+        return fullPath.substring(dot + 1);
+    }
+
+    public String leerEncuesta(String ruta) {
+        String retorno = "";
+        try {
+            if (this.extension(ruta).equals("xlsx")) {
+                FileInputStream excelFile = new FileInputStream(new File(ruta));
+
+                Workbook workbook = new XSSFWorkbook(excelFile);
+
+                for (int i = 0; i < workbook.getNumberOfSheets(); i++) {
+                    Sheet datatypeSheet = workbook.getSheetAt(i);
+                    String nombreSeet = datatypeSheet.getSheetName().toLowerCase();
+
+                    //Buscando la hoja que se llaman encuesta o encuestas
+                    if (nombreSeet.contains("encuesta")) {
+                        retorno = "";
+                        retorno += "\n_encuesta\n";
+                        readSheet sheet = new readSheet(datatypeSheet);
+                        retorno += sheet.leerEncuesta();
+                        tablaErrores.concat(sheet.getTablaErrores());
+                        hashRetorno.put("encuesta", retorno);
+                    } else if (nombreSeet.contains("opcion")) {
+                        retorno = "";
+                        retorno += "\n_opcion\n";
+                        readSheet sheet = new readSheet(datatypeSheet);
+                        retorno += sheet.leerOtros();
+                        tablaErrores.concat(sheet.getTablaErrores());
+                        hashRetorno.put("opcion", retorno);
+                    } else if (nombreSeet.contains("configu")) { //esta es la hoja opcional
+                        retorno = "";
+                        retorno += "\n_configuracion\n";
+                        readSheet sheet = new readSheet(datatypeSheet);
+                        retorno += sheet.leerOtros();
+                        tablaErrores.concat(sheet.getTablaErrores());
+                        hashRetorno.put("configuracion", retorno);
+                    }
+                }
+
+                retorno = "";
+                String enc = hashRetorno.get("encuesta");
+                if (enc != null) {
+                    retorno += enc;
+                } else {
+                    tablaErrores.insertErrorSemantic(0, 0, "No viene la hoja encuesta");
+                }
+
+                String opciones = hashRetorno.get("opcion");
+                if (opciones != null) {
+                    retorno += opciones;
+                } else {
+                    tablaErrores.insertErrorSemantic(0, 0, "No viene la hoja opciones");
+                }
+
+                String configuracion = hashRetorno.get("configuracion");
+                if (configuracion != null) {
+                    retorno += configuracion;
+                }else{
+                    retorno += "\n_configuracion\n";
+                }
+
+            } else {
+                retorno = "El archivo que seleccionó no es .xlsx";
+                tablaErrores.println(retorno);
+            }
+        } catch (FileNotFoundException e) {
+            retorno = String.valueOf(e);
+            tablaErrores.println(e);
+        } catch (IOException e) {
+            retorno = String.valueOf(e);
+            tablaErrores.println(e);
+        }
+
         return retorno;
     }
 
@@ -48,11 +139,14 @@ public class readExcel {
             Sheet datatypeSheet = workbook.getSheetAt(indexSheet);
             readSheet sheet = new readSheet(datatypeSheet);
             retorno = sheet.leerEncuesta();
+            tablaErrores.concat(sheet.getTablaErrores());
         } catch (FileNotFoundException e) {
             retorno = String.valueOf(e);
         } catch (IOException e) {
             retorno = String.valueOf(e);
         }
+
+        tablaErrores.println(retorno);
         return retorno;
     }
 
@@ -74,50 +168,55 @@ public class readExcel {
                     //getCellTypeEnum shown as deprecated for version 3.15
                     //getCellTypeEnum ill be renamed to getCellType starting from version 4.0
 
-                    System.out.print(currentRow.getRowNum());
-                    System.out.print("-");
-                    System.out.print(currentCell.getColumnIndex());
-                    System.out.print(") ");
+                    tablaErrores.print(currentRow.getRowNum());
+                    tablaErrores.print("-");
+                    tablaErrores.print(currentCell.getColumnIndex());
+                    tablaErrores.print(") ");
                     if (null == currentCell.getCellTypeEnum()) {
-                        System.out.print("Celda null");
+                        tablaErrores.print("Celda null");
                     } else {
                         switch (currentCell.getCellTypeEnum()) {
                             case STRING:
-                                System.out.print(currentCell.getStringCellValue());
+                                tablaErrores.print(currentCell.getStringCellValue());
                                 break;
                             case NUMERIC:
-                                System.out.print(currentCell.getNumericCellValue());
+                                tablaErrores.print(currentCell.getNumericCellValue());
                                 break;
                             case _NONE:
-                                System.out.print("Nada");
+                                tablaErrores.print("Nada");
                                 break;
                             case BOOLEAN:
-                                System.out.print("Boolean");
-                                System.out.print(currentCell.getBooleanCellValue());
+                                tablaErrores.print("Boolean");
+                                tablaErrores.print(currentCell.getBooleanCellValue());
                                 break;
                             case BLANK:
-                                System.out.print("Blanco");
+                                tablaErrores.print("Blanco");
                                 break;
                             case ERROR:
-                                System.out.print("Error");
+                                tablaErrores.print("Error");
                                 break;
                             case FORMULA:
-                                System.out.print("Formula");
+                                tablaErrores.print("Formula");
 
                                 break;
                             default:
-                                System.out.print("Formato de celda desconocido :(");
+                                tablaErrores.print("Formato de celda desconocido :(");
                                 break;
                         }
                     }
-                    System.out.print("---");
+                    tablaErrores.print("---");
                 }
-                System.out.println();
+                tablaErrores.println("");
             }
         } catch (FileNotFoundException e) {
-            System.out.println(e);
+            tablaErrores.println(e);
         } catch (IOException e) {
-            System.out.println(e);
+            tablaErrores.println(e);
         }
     }
+
+    public tablaErrores getTablaErrores() {
+        return tablaErrores;
+    }
+
 }

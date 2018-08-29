@@ -1,0 +1,27 @@
+
+
+#supremo{
+    -fx-background-color: red;
+}
+
+.AnchorPane{
+    -fx-background-color: red;
+}
+.button{
+    -fx-text-fill: #006464;
+    -fx-background-color:blue;
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+    -fx-padding: 5;
+}
+
+#boton{
+    -fx-text-fill: red;
+    -fx-background-color: red;
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+    -fx-padding: 5;
+}
+
+
+
