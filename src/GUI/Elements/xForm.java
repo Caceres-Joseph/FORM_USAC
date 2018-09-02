@@ -37,17 +37,20 @@ public class xForm extends newTab {
 
     @Override
     public void accLeer() {
-        this.showTableErrors();
-        System.out.println("accLeer");
+        
+        InputStream stream = new ByteArrayInputStream(this.entrada.getText().getBytes(StandardCharsets.UTF_8));
+        parser par = new parser(); 
+        par.arbol.tablaSimbolos.tablaErrores=this.tablaErrores;
+        par.inicializar(stream); 
+        
+        //this.tablaErrores.concat(par.raiz.tablaSimbolos.tablaErrores);
+        this.showTableErrors(); 
+        this.arbol=par.arbol;
     }
 
     @Override
     public void accGenerar() {
-        
-        InputStream stream = new ByteArrayInputStream(this.entrada.getText().getBytes(StandardCharsets.UTF_8));
-        parser par = new parser();
-        par.inicializar(stream); 
-        
-        this.tablaErrores.concat(par.tablaSimbolos.tablaErrores);
+        arbol.raiz.execute();
+        this.showTableErrors(); 
     } 
 }

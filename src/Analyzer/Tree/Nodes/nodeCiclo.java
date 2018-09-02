@@ -5,20 +5,23 @@
  */
 package Analyzer.Tree.Nodes;
  
-import Analyzer.Tree.nodeModel; 
+import Analyzer.Tree.Tablas.tablaSimbolos; 
+import Analyzer.Tree.nodeModelGrupoCiclo;
 /**
  *
  * @author joseph
  */
-public class nodeCiclo extends nodeModel{
-     
-    public nodeCiclo() {
-        this.nombreNodo="nodeCiclo";
+public class nodeCiclo extends nodeModelGrupoCiclo{
+      
+    public nodeCiclo(tablaSimbolos tabla) {
+        this.tablaSimbolos=tabla;
+        this.nombreNodo="nodeCiclo"; 
+        
     }
     
     @Override
-    public void execute(Object obj) {
-        
+    public void execute() {
+        this.mensajeDeEjecucion();
     }
     
  

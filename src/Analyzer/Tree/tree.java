@@ -5,23 +5,26 @@
  */
 package Analyzer.Tree;
 
-import Analyzer.Tree.Tablas.*;
-import java.util.ArrayList;
+import Analyzer.Tree.Nodes.nodeRaiz;
+import Analyzer.Tree.Tablas.*; 
 
 /**
  *
  * @author joseph
  */
 public class tree {
-    public ArrayList<nodeModel> raiz;
-    public tablaErrores tablaErrores;
+    public nodeRaiz raiz; 
     public tablaSimbolos tablaSimbolos;
     
     
     public tree(){
-        raiz=new ArrayList<>();
-        tablaErrores=new tablaErrores();
+        raiz=new nodeRaiz(tablaSimbolos);  
         tablaSimbolos=new tablaSimbolos(); 
+    }
+    
+    public void execute(){ 
+      
+        raiz.execute();
     }
     
     

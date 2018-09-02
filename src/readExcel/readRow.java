@@ -22,9 +22,11 @@ public class readRow {
     private Row currentRow;
     private boolean filaValida = false;
     public tablaErrores tablaErrores;
-    public readRow(Row currentRow) {
+    public String ambito="";
+    public readRow(String ambito,Row currentRow) {
         this.tablaErrores =new tablaErrores();
         this.currentRow = currentRow;
+        this.ambito=ambito;
         /*
             Aquí tengo que ordenar la columna
                 tipo
@@ -46,7 +48,7 @@ public class readRow {
         while (cellIterator.hasNext()) {
 
             Cell currentCell = cellIterator.next();
-            readCell leerCelda = new readCell(currentCell);
+            readCell leerCelda = new readCell(ambito,currentCell);
 
             if (!leerCelda.getValue().val.equals("")) {
                 int indice = currentCell.getColumnIndex();
@@ -88,14 +90,14 @@ public class readRow {
         while (cellIterator.hasNext()) {
 
             Cell currentCell = cellIterator.next();
-            readCell leerCelda = new readCell(currentCell);
+            readCell leerCelda = new readCell(ambito,currentCell);
             
             if (!leerCelda.getValue().val.equals("")) {
                 
                 
                 cell te=encabezado.get(currentCell.getColumnIndex());
                 if(te==null){
-                    tablaErrores.insertErrorSemantic(currentCell.getRowIndex(),
+                    tablaErrores.insertErrorSemantic(ambito,currentCell.getRowIndex(),
                             currentCell.getColumnIndex()
                             , "La celda con valor "+ leerCelda.getValue().val+" no tiene encabezado :(");
                       
@@ -115,7 +117,7 @@ public class readRow {
                     if(tempRetorno.get(indice)==null){
                         tempRetorno.put(indice, valor);                         
                     }else{
-                        tablaErrores.insertErrorSyntax(valor.posY, valor.posX, "La celda con valor "+ valor.val+" tiene la celda de cabecera  "+indice+ " duplicada.");
+                        tablaErrores.insertErrorSyntax(ambito ,valor.posY, valor.posX, "La celda con valor "+ valor.val+" tiene la celda de cabecera  "+indice+ " duplicada.");
                     }
 
                 }

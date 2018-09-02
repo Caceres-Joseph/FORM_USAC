@@ -34,23 +34,23 @@ public class readExcel {
 
     }
 
-    public String leer(int indexSheet) {
-        String retorno = "";
-        try {
-            FileInputStream excelFile = new FileInputStream(new File(FILE_NAME));
-            Workbook workbook = new XSSFWorkbook(excelFile);
-            Sheet datatypeSheet = workbook.getSheetAt(indexSheet);
-            readSheet sheet = new readSheet(datatypeSheet);
-            retorno = sheet.leerOtros();
-
-            tablaErrores.concat(sheet.getTablaErrores());
-        } catch (FileNotFoundException e) {
-            retorno = String.valueOf(e);
-        } catch (IOException e) {
-            retorno = String.valueOf(e);
-        }
-        return retorno;
-    }
+//    public String leer(int indexSheet) {
+//        String retorno = "";
+//        try {
+//            FileInputStream excelFile = new FileInputStream(new File(FILE_NAME));
+//            Workbook workbook = new XSSFWorkbook(excelFile);
+//            Sheet datatypeSheet = workbook.getSheetAt(indexSheet);
+//            readSheet sheet = new readSheet(datatypeSheet);
+//            retorno = sheet.leerOtros();
+//
+//            tablaErrores.concat(sheet.getTablaErrores());
+//        } catch (FileNotFoundException e) {
+//            retorno = String.valueOf(e);
+//        } catch (IOException e) {
+//            retorno = String.valueOf(e);
+//        }
+//        return retorno;
+//    }
 
     public String extension(String fullPath) {
         int dot = fullPath.lastIndexOf(".");
@@ -73,21 +73,21 @@ public class readExcel {
                     if (nombreSeet.contains("encuesta")) {
                         retorno = "";
                         retorno += "\n_encuesta\n";
-                        readSheet sheet = new readSheet(datatypeSheet);
+                        readSheet sheet = new readSheet("encuesta",datatypeSheet);
                         retorno += sheet.leerEncuesta();
                         tablaErrores.concat(sheet.getTablaErrores());
                         hashRetorno.put("encuesta", retorno);
                     } else if (nombreSeet.contains("opcion")) {
                         retorno = "";
                         retorno += "\n_opcion\n";
-                        readSheet sheet = new readSheet(datatypeSheet);
+                        readSheet sheet = new readSheet("opcion",datatypeSheet);
                         retorno += sheet.leerOtros();
                         tablaErrores.concat(sheet.getTablaErrores());
                         hashRetorno.put("opcion", retorno);
                     } else if (nombreSeet.contains("configu")) { //esta es la hoja opcional
                         retorno = "";
                         retorno += "\n_configuracion\n";
-                        readSheet sheet = new readSheet(datatypeSheet);
+                        readSheet sheet = new readSheet("opcion",datatypeSheet);
                         retorno += sheet.leerOtros();
                         tablaErrores.concat(sheet.getTablaErrores());
                         hashRetorno.put("configuracion", retorno);
@@ -99,14 +99,14 @@ public class readExcel {
                 if (enc != null) {
                     retorno += enc;
                 } else {
-                    tablaErrores.insertErrorSemantic(0, 0, "No viene la hoja encuesta");
+                    tablaErrores.insertErrorSemantic("Encuesta",0, 0, "No viene la hoja encuesta");
                 }
 
                 String opciones = hashRetorno.get("opcion");
                 if (opciones != null) {
                     retorno += opciones;
                 } else {
-                    tablaErrores.insertErrorSemantic(0, 0, "No viene la hoja opciones");
+                    tablaErrores.insertErrorSemantic("Opciones",0, 0, "No viene la hoja opciones");
                 }
 
                 String configuracion = hashRetorno.get("configuracion");
@@ -131,24 +131,24 @@ public class readExcel {
         return retorno;
     }
 
-    public String leerEncuesta(int indexSheet) {
-        String retorno = "";
-        try {
-            FileInputStream excelFile = new FileInputStream(new File(FILE_NAME));
-            Workbook workbook = new XSSFWorkbook(excelFile);
-            Sheet datatypeSheet = workbook.getSheetAt(indexSheet);
-            readSheet sheet = new readSheet(datatypeSheet);
-            retorno = sheet.leerEncuesta();
-            tablaErrores.concat(sheet.getTablaErrores());
-        } catch (FileNotFoundException e) {
-            retorno = String.valueOf(e);
-        } catch (IOException e) {
-            retorno = String.valueOf(e);
-        }
-
-        tablaErrores.println(retorno);
-        return retorno;
-    }
+//    public String leerEncuesta(int indexSheet) {
+//        String retorno = "";
+//        try {
+//            FileInputStream excelFile = new FileInputStream(new File(FILE_NAME));
+//            Workbook workbook = new XSSFWorkbook(excelFile);
+//            Sheet datatypeSheet = workbook.getSheetAt(indexSheet);
+//            readSheet sheet = new readSheet(datatypeSheet);
+//            retorno = sheet.leerEncuesta();
+//            tablaErrores.concat(sheet.getTablaErrores());
+//        } catch (FileNotFoundException e) {
+//            retorno = String.valueOf(e);
+//        } catch (IOException e) {
+//            retorno = String.valueOf(e);
+//        }
+//
+//        tablaErrores.println(retorno);
+//        return retorno;
+//    }
 
     public void leer2(int sheet) {
         try {

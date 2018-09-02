@@ -22,8 +22,8 @@ public class atributos {
     }
     
     
-    public void insert(String key, String value, String posX, String posY){
-        cell celda=new cell();
+    public void insert(String key,String ambito, String value, String posX, String posY){
+        cell celda=new cell(ambito);
         celda.val=this.quitarDelimitadores(value);
         celda.posX=Integer.valueOf(posX);
         celda.posY=Integer.valueOf(posY);
@@ -46,6 +46,19 @@ public class atributos {
         return false;
     }
     
+    public cell get(String contenido){
+        cell retorno = null;
+        
+        for (String key : lstCell.keySet()) {
+            
+            if(key.toLowerCase().contains(contenido)){
+                return lstCell.get(key); 
+            }
+            
+        }
+        return retorno;
+    }
+    
     public void imprimir(){
         String cadena="";
         Iterator it = lstCell.keySet().iterator();
@@ -53,6 +66,7 @@ public class atributos {
             String key = (String) it.next();
             cell temp=lstCell.get(key);
             cadena+="\t"+key ;
+            cadena+= " ambito:"+ temp.ambito+"";
             cadena+=" x:"+temp.posX +" ";
             cadena+=" y:"+temp.posY +" ";
             cadena+="-> " + temp.val+"\n";
@@ -65,6 +79,5 @@ public class atributos {
         cadena=cadena.replace("/>", "");//quitando espacios en blanco
         cadena=cadena.replace("</", "");//quitando espacios en blanco
         return cadena;
-    }
-    
+    } 
 }

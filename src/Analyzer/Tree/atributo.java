@@ -15,8 +15,8 @@ public class atributo {
     public cell cellVal;
     public String indice;
     
-    public atributo(String key, String value, String posX, String posY){
-        cell celda=new cell();
+    public atributo(String key,String ambito, String value, String posX, String posY){
+        cell celda=new cell(ambito);
         celda.val=this.quitarDelimitadores(value);
         celda.posX=Integer.valueOf(posX);
         celda.posY=Integer.valueOf(posY);

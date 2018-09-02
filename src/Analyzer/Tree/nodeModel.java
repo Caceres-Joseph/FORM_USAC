@@ -5,7 +5,9 @@
  */
 package Analyzer.Tree;
 
-import java.util.ArrayList;
+import Analyzer.Tree.Tablas.tablaSimbolos;
+import java.util.ArrayList; 
+import readExcel.cell;
 
 /**
  *
@@ -17,11 +19,48 @@ public class nodeModel {
     public atributos atrib = new atributos();
     public ArrayList<nodeModel> children = new ArrayList<>();
 
-    public void execute(Object obj) {
+    
+    public String cadenaContenido="";
+    
+    public tablaSimbolos tablaSimbolos;
 
+    //Esto es para el grupo y ciclo
+    String tId_Grupo_Ciclo;
+
+    
+    
+    
+    public void execute() {
+        
+//        tablaSimbolos.tablaErrores.print("[nodeModel]"+this.nombreNodo+"_execute()");
+ 
+
+    } 
+    
+    public void ejectuarHijos(){
+        if (tablaSimbolos!=null) {
+            tablaSimbolos.tablaErrores.println("[nodeModel]"+this.nombreNodo+"_ejectuarHijos()");
+        }
+        for (nodeModel model : children) {
+//            System.out.println(model.nombreNodo);
+            model.execute();
+        }
     }
+    
+    public void mensajeDeEjecucion(){
+        if (tablaSimbolos!=null) {
+            tablaSimbolos.tablaErrores.print("[nodeModel]"+this.nombreNodo+"_execute() idPregunta->");
+           cell temp= this.atrib.get("idpregunta");
+            if(temp!=null){ 
+                String idPregunta=temp.val;
+                this.tablaSimbolos.tablaErrores.println(idPregunta);
+            }else{
+                tablaSimbolos.tablaErrores.println("null");
+            } 
+        }
 
-    ;
+        
+    }
     
     public void insertChildren(nodeModel value) {
         children.add(value);
@@ -32,38 +71,20 @@ public class nodeModel {
         System.out.println("atributos[");
         atrib.imprimir();
         System.out.println("]");
-        imprimirRecursivo(children);
+        imprimirRecursivo(children, nombreNodo);
     }
 
-    public void imprimirRecursivo(ArrayList<nodeModel> elem) {
+    public void imprimirRecursivo(ArrayList<nodeModel> elem, String padre) {
+        
         for (nodeModel model : elem) {
+            System.out.println("--------Hijos de "+padre+"---------------------------");
             System.out.println("---" + model.nombreNodo + "---");
             System.out.println("atributos[");
             model.atrib.imprimir();
             System.out.println("]");
-            imprimirRecursivo(model.children);
+            imprimirRecursivo(model.children, model.nombreNodo);
         }
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | acciones de los botones
-    |-------------------------------------------------------------------------- 
-     */
-    public atributos getAtrib() {
-        return atrib;
-    }
-
-    public void setAtrib(atributos atrib) {
-        this.atrib = atrib;
-    }
-
-    public ArrayList<nodeModel> getChildren() {
-        return children;
-    }
-
-    public void setChildren(ArrayList<nodeModel> children) {
-        this.children = children;
-    }
 
 }

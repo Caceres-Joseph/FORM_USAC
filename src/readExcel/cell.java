@@ -14,11 +14,13 @@ public class cell {
     public int posX;
     public int posY;
     public String val;
+    public String ambito;
     
-    public cell(){
+    public cell(String ambito){
         this.posX=0;
         this.posY=0;
         val="";
+        this.ambito=ambito;
     }
     
 }

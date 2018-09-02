@@ -26,12 +26,12 @@ public class readCell {
 //    private String otraColumna;
     
 
-    public readCell(Cell currentCell) {
+    public readCell(String ambito,Cell currentCell) {
         this.tablaErrores =new tablaErrores();
         this.currentCell = currentCell; 
         
         
-        this.value=new cell();
+        this.value=new cell(ambito);
         this.leer();
         this.value.posX=currentCell.getColumnIndex(); 
     }

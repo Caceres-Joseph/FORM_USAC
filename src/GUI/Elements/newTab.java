@@ -38,13 +38,10 @@ public class newTab {
     public Button btnLeer;
     public Button btnGenerar;
 
-    
     public tablaErrores tablaErrores;
-    
-    
+
     public TextArea entrada = new TextArea("");//tengo que abrir el archivo 
-    
-    
+
     Tab tab = new Tab("tab1");
     AnchorPane contenedor = new AnchorPane();//padre
 
@@ -57,8 +54,8 @@ public class newTab {
     Tab tabExcel = new Tab();
 
     public newTab() {
-        
-        tablaErrores=new tablaErrores();
+
+        tablaErrores = new tablaErrores();
 
     }
 
@@ -106,7 +103,7 @@ public class newTab {
         btnLeer = new Button("Leer");
         btnGenerar = new Button("Generar");
 
-        barraNavegacion = new TextField("entradaChtml.cs");
+        barraNavegacion = new TextField("");
 
         //accionBtnIr(btnLeer, barraNavegacion);
         AnchorPane.setLeftAnchor(btnOpen, 2.0);
@@ -135,13 +132,14 @@ public class newTab {
             if (file != null) {
                 String fileAsString = file.toString();
                 barraNavegacion.setText(fileAsString);
-                
-                readExcel leer=new readExcel();
-         
-                String contenido=leer.leerEncuesta(this.barraNavegacion.getText());
-                
+
+                readExcel leer = new readExcel();
+
+                String contenido = leer.leerEncuesta(this.barraNavegacion.getText());
+
                 tablaErrores.concat(leer.getTablaErrores());
-                this.setTextTabExcel(contenido);                 
+                this.setTextTabExcel(contenido);
+                this.showTableErrors();
             }
 
         });
@@ -290,22 +288,21 @@ public class newTab {
     | Getter and Setters
     |-------------------------------------------------------------------------- 
      */
-    public void setTextTabExcel( String texto) {
-        
+    public void setTextTabExcel(String texto) {
+
         entrada.setText(texto);
-        TextArea lineas = new TextArea();
+//        TextArea lineas2 = new TextArea();
         String numeros = "";
         for (int i = 0; i < 999; i++) {
             numeros += String.valueOf(i) + "\n";
         }
-        lineas.setText(numeros);
-        entrada.scrollTopProperty().addListener((obs, oldVal, newVal) -> {
-            lineas.setScrollTop((double) newVal);
-        });
+//        lineas.setText(numeros);
+//        entrada.scrollTopProperty().addListener((obs, oldVal, newVal) -> {
+//            lineas.setScrollTop((double) newVal);
+//        });
 
-        lineas.setEditable(false);
-        lineas.setDisable(true);
-
+//        lineas.setEditable(false);
+//        lineas.setDisable(true);
         AnchorPane ctn = new AnchorPane();
 
 //        contenido.setStyle("-fx-background-color: green;");
@@ -314,31 +311,29 @@ public class newTab {
         AnchorPane.setRightAnchor(entrada, 10.0);
         AnchorPane.setTopAnchor(entrada, 10.0);
 
-        AnchorPane.setBottomAnchor(lineas, 10.0);
-        AnchorPane.setLeftAnchor(lineas, 0.0);
-        AnchorPane.setTopAnchor(lineas, 10.0);
-
-        ctn.getChildren().setAll(lineas, entrada);
+//        AnchorPane.setBottomAnchor(lineas, 10.0);
+//        AnchorPane.setLeftAnchor(lineas, 0.0);
+//        AnchorPane.setTopAnchor(lineas, 10.0);
+//        ctn.getChildren().setAll(lineas, entrada);
+        ctn.getChildren().setAll(entrada);
 
         tabExcel.setContent(ctn);
- 
+
     }
 
     public tablaErrores getTablaErrores() {
         return tablaErrores;
     }
-    
-    
+
     /*
     |--------------------------------------------------------------------------
     | Pintar la tabla de errores prro
     |-------------------------------------------------------------------------- 
      */
-
-    public void showTableErrors(){
+    public void showTableErrors() {
         //this.tablaErrores.imprimir();
-        cError consolaErr=new cError(this.tablaErrores);
+        cError consolaErr = new cError(this.tablaErrores);
         tabErro.setContent(consolaErr.retornarTabla());
-        
+
     }
 }

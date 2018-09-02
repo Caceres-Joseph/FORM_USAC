@@ -23,10 +23,12 @@ public class readSheet {
     public Map<Integer, cell> encabezado = new HashMap<>();
     private String stringSheet = "";
     public tablaErrores tablaErrores;
+    public String ambito = "";
 
-    public readSheet(Sheet datatypeSheet) {
+    public readSheet(String ambito, Sheet datatypeSheet) {
         this.datatypeSheet = datatypeSheet;
         this.tablaErrores = new tablaErrores();
+        this.ambito = ambito;
     }
 
     public String leerEncuesta() {
@@ -50,7 +52,7 @@ public class readSheet {
         boolean primerFilaValida = false;
         while (iterator.hasNext()) {
             Row currentRow = iterator.next();
-            readRow leerFila = new readRow(currentRow);
+            readRow leerFila = new readRow(ambito, currentRow);
             if (primerFilaValida == false) {
                 Map<Integer, cell> temp = leerFila.leerFilaEncabezado();
                 if (leerFila.isFilaValida()) {//encontré la primer fila válida
@@ -68,7 +70,7 @@ public class readSheet {
     public void getCuerpo(Iterator<Row> iterator) {
         while (iterator.hasNext()) {
             Row currentRow = iterator.next();
-            readRow leerFila = new readRow(currentRow);
+            readRow leerFila = new readRow(ambito, currentRow);
 
             Map<String, cell> fila = leerFila.leerFilaCuerpo(encabezado);
             if (leerFila.isFilaValida()) {
@@ -83,7 +85,7 @@ public class readSheet {
     public void getCuerpoEncuesta(Iterator<Row> iterator) {
         while (iterator.hasNext()) {
             Row currentRow = iterator.next();
-            readRow leerFila = new readRow(currentRow);
+            readRow leerFila = new readRow(ambito, currentRow);
 
             Map<String, cell> fila = leerFila.leerFilaCuerpo(encabezado);
 
@@ -104,7 +106,7 @@ public class readSheet {
         while (it.hasNext()) {
             String key = (String) it.next();
             cell temp = filaHash.get(key);
-            this.stringSheet += "\n\t\t< posX:" + String.valueOf(temp.posX) + " posY:" + String.valueOf(temp.posY) + " " + key + " />" + temp.val + " </ " + key + ">";
+            this.stringSheet += "\n\t\t<  _ambito:" + temp.ambito + " posX:" + String.valueOf(temp.posX) + " posY:" + String.valueOf(temp.posY) + " " + key + " />" + temp.val + " </ " + key + ">";
         }
         this.stringSheet += "\n\t]";
 
@@ -113,24 +115,65 @@ public class readSheet {
 
     public Map<String, cell> ordenarHash(Map<String, cell> filaHash) {
         Map<String, cell> retorno = new LinkedHashMap<>();
+        boolean columnaObligatorio = true;
+        cell cellTipo = this.hashGet(filaHash, "tipo");
+        if (cellTipo == null) {
+            for (String key : filaHash.keySet()) {
+                cell temp = filaHash.get(key);
+                tablaErrores.insertErrorSyntax(ambito, temp.posY,
+                        temp.posX, "La celda con valor :" + temp.val + " no tiene la columna obligatoria   'tipo'");
+            }
+            columnaObligatorio = false;
+        } else {
+//            String tipo = cellTipo.val.toLowerCase();
+//            if (tipo.contains("final") && tipo.contains("ciclo")) {
+//
+//            } else if (tipo.contains("final") && tipo.contains("agrupacion")) {
+//
+//            } else if (tipo.contains("inici") && tipo.contains("ciclo")) {
+//
+//            } else if (tipo.contains("inici") && tipo.contains("agrupacion")) {
+//
+//            } else {
+//                if (this.hashGet(filaHash, "etiqueta") == null && (true)) {
+//                    for (String key : filaHash.keySet()) {
+//                        cell temp = filaHash.get(key);
+//                        tablaErrores.insertErrorSyntax(ambito, temp.posY,
+//                                temp.posX, "La celda con valor :" + temp.val + " no tiene la columna obligatoria   'etiqueta'");
+//                    }
+//                    columnaObligatorio = false;
+//                }
+//            }
 
-        if (filaHash.get("tipo") != null) {
-            String tipo = filaHash.get("tipo").val.toLowerCase();
+        }
 
-            if (tipo.contains("iniciar") && tipo.contains("agrupacion")) {
+        if (this.hashGet(filaHash, "idpregunta") == null) {
+            for (String key : filaHash.keySet()) {
+                cell temp = filaHash.get(key);
+                tablaErrores.insertErrorSyntax(ambito, temp.posY,
+                        temp.posX, "La celda con valor :" + temp.val + " no tiene la columna obligatoria  'idpregunta'");
+            }
+            columnaObligatorio = false;
+        }
+
+//        (filaHash.get("tipo") != null)&&(filaHash.get("tipo") != null)&&filaHash.get("tipo") != null
+        if (columnaObligatorio) {
+            String tipo = cellTipo.val.toLowerCase();
+
+            if (tipo.contains("inici") && tipo.contains("agrupacion")) {
                 //System.out.println("hay agrupación iniciar");
                 this.stringSheet += "\n<grupo->[";
 //                this.stringSheet+="\n\t->[";
-            } else if (tipo.contains("iniciar") && tipo.contains("ciclo")) {
+            } else if (tipo.contains("inici") && tipo.contains("ciclo")) {
                 //System.out.println("hay agrupación iniciar");
                 this.stringSheet += "\n<ciclo->[";
 //                this.stringSheet+="\n\t->[";
-            } else if (tipo.contains("finalizar") && tipo.contains("ciclo")) {
+            } else if (tipo.contains("final") && tipo.contains("ciclo")) {
                 //System.out.println("hay agrupación iniciar");
                 this.stringSheet += "\n&ciclo->[";
 //                this.stringSheet+="\n\t->[";
 
-            } else if (tipo.contains("finalizar") && tipo.contains("agrupacion")) {
+            } else if (tipo.contains("final") && tipo.contains("agrupacion")) {
                 //System.out.println("hay agrupación finalizar");
                 this.stringSheet += "\n&grupo->[";
 //                this.stringSheet+="\n\t->[";
@@ -142,19 +185,12 @@ public class readSheet {
             while (it.hasNext()) {
                 String key = (String) it.next();
                 cell temp = filaHash.get(key);
-                this.stringSheet += "\n\t\t< posX:" + String.valueOf(temp.posX) + " posY:" + String.valueOf(temp.posY) + " " + key + " />" + temp.val + " </ " + key + ">";
+                this.stringSheet += "\n\t\t< _ambito:" + temp.ambito + " posX:" + String.valueOf(temp.posX) + " posY:" + String.valueOf(temp.posY) + " " + key + " />" + temp.val + " </ " + key + ">";
             }
             this.stringSheet += "\n\t]";
 
-        } else {
-
-            for (String key : filaHash.keySet()) {
-                cell temp = filaHash.get(key);
-                tablaErrores.insertErrorSyntax(temp.posY,
-                        temp.posX, "La celda con valor :" + temp.val + " no tiene celda de 'tipo'");
-            }
-
         }
+        
 
 //        this.stringSheet+="\n\t\t<tipo/> " + filaHash.get("tipo").val+" </tipo>";
 //        this.stringSheet+="\n\t\t<etiqueta/> " + filaHash.get("etiqueta").val+" </etiqueta>";
@@ -166,6 +202,18 @@ public class readSheet {
         return retorno;
     }
 
+    public cell hashGet(Map<String, cell> lstCell, String contenido) {
+        cell retorno = null;
+
+        for (String key : lstCell.keySet()) {
+
+            if (key.contains(contenido)) {
+                return lstCell.get(key);
+            }
+
+        }
+        return retorno;
+    }
 
     /*
 =============================

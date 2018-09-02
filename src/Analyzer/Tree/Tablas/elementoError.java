@@ -14,7 +14,7 @@ public class elementoError {
     public String columna;
     public String tipo;
     public String descripcion;
-    
+    public String ambito;
     public elementoError(){
         
     } 

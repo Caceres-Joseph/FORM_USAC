@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Analyzer.Tree.Tablas;
+package Analyzer.Tree.Columnas;
 
 /**
  *
  * @author joseph
  */
-public class nodeModel {
+public class sugerir {
     
 }

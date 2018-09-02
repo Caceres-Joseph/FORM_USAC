@@ -1,0 +1,6 @@
+Ciclo/Grupo inicio/fin   es obligatorio etiqueta?
+
+opcion multiple es entero
+una opcion es cadena?
+
+selecciona entero

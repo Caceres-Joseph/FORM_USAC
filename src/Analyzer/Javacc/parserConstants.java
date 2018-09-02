@@ -15,41 +15,43 @@ public interface parserConstants {
   /** RegularExpression Id. */
   int tPosY = 2;
   /** RegularExpression Id. */
-  int tOpcion = 3;
+  int tAmbito = 3;
   /** RegularExpression Id. */
-  int tEncuesta = 4;
+  int tOpcion = 4;
   /** RegularExpression Id. */
-  int tConfiguracion = 5;
+  int tEncuesta = 5;
   /** RegularExpression Id. */
-  int tNumero = 6;
+  int tConfiguracion = 6;
   /** RegularExpression Id. */
-  int tIdentificador = 7;
+  int tNumero = 7;
   /** RegularExpression Id. */
-  int tLetra = 8;
+  int tIdentificador = 8;
   /** RegularExpression Id. */
-  int tMayorQue = 9;
+  int tLetra = 9;
   /** RegularExpression Id. */
-  int tMenorQue = 10;
+  int tMayorQue = 10;
   /** RegularExpression Id. */
-  int tDosPuntos = 11;
+  int tMenorQue = 11;
   /** RegularExpression Id. */
-  int tComa = 12;
+  int tDosPuntos = 12;
   /** RegularExpression Id. */
-  int tAmperson = 13;
+  int tComa = 13;
   /** RegularExpression Id. */
-  int tAbreCorchete = 14;
+  int tAmperson = 14;
   /** RegularExpression Id. */
-  int tCierraCorchete = 15;
+  int tAbreCorchete = 15;
   /** RegularExpression Id. */
-  int tGuion = 16;
+  int tCierraCorchete = 16;
   /** RegularExpression Id. */
-  int OTHER = 21;
+  int tGuion = 17;
   /** RegularExpression Id. */
-  int inicio = 22;
+  int OTHER = 22;
   /** RegularExpression Id. */
-  int cual = 23;
+  int inicio = 23;
   /** RegularExpression Id. */
-  int tString = 24;
+  int cual = 24;
+  /** RegularExpression Id. */
+  int tString = 25;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -61,6 +63,7 @@ public interface parserConstants {
     "<EOF>",
     "\"posX\"",
     "\"posY\"",
+    "\"_ambito\"",
     "\"_opcion\"",
     "\"_encuesta\"",
     "\"_configuracion\"",

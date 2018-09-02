@@ -10,12 +10,10 @@ options {
 PARSER_BEGIN(parser) 
 package Analyzer.Javacc; 
 import java.io.InputStream; 
-import Analyzer.Tree.*;
-import Analyzer.Tree.Tablas.tablaSimbolos;
+import Analyzer.Tree.*; 
 import Analyzer.Tree.Nodes.*;
-public class parser {
-    public tablaSimbolos tablaSimbolos=new tablaSimbolos();
-    public tree raiz=new tree();
+public class parser { 
+    public tree arbol=new tree();
     
     public parser(){
     
@@ -26,13 +24,14 @@ public class parser {
                 
                 parser analizador =new parser(stream);
                 
-                analizador.Programa(raiz); 
+                arbol=analizador.Programa(arbol); 
                 
-                System.out.println("Analisis  exitoso! :)");
+                this.println("Analisis  exitoso! :)");
             }
         catch(ParseException e){
-            tablaSimbolos.tablaErrores.insertErrorSemantic(0,0,e.getMessage());
-            tablaSimbolos.tablaErrores.println("Error en el parser");
+            this.error(e, arbol);
+            /* raiz.tablaSimbolos.tablaErrores.insertErrorSemantic("",0,0,e.getMessage());
+            raiz.tablaSimbolos.tablaErrores.println("Error en el parser"); */
             
         }
     }
@@ -47,8 +46,9 @@ public class parser {
         } while (t.kind != kind && t.kind != EOF);  
     }
 
-    public void error(ParseException e){ 
-        tablaSimbolos.tablaErrores.println("Error en el parser, Recuperandose");
+    public void error(ParseException e, tree arbol){
+        
+        arbol.tablaSimbolos.tablaErrores.println("Error en el parser, Recuperandose");
         int maxSize = 0;
         for (int i = 0; i < e.expectedTokenSequences.length; i++) {
             if (maxSize < e.expectedTokenSequences[i].length) {
@@ -56,7 +56,16 @@ public class parser {
             }
             for (int j = 0; j < e.expectedTokenSequences[i].length; j++) {
                 int indice=e.expectedTokenSequences[i][j];
-                System.out.println("Se esperaba:"+e.tokenImage[indice]);
+                if(e.tokenImage[indice].contains("&")){
+                    arbol.tablaSimbolos.tablaErrores.insertErrorSyntax("encuesta",-2,-2,"No se encontró fila de finalizacion"); 
+                }else if(e.tokenImage[indice].contains("_opcion")){
+                    arbol.tablaSimbolos.tablaErrores.insertErrorSyntax("encuesta",-2,-2,"No se encontró fila de inicio de grupo/ciclo"); 
+                }else{
+                    arbol.tablaSimbolos.tablaErrores.insertErrorSyntax("encuesta",-2,-2,e.getMessage()); 
+                    arbol.tablaSimbolos.tablaErrores.println("Se esperaba:"+e.tokenImage[indice]);
+
+                }
+                
  
             } 
         }
@@ -65,10 +74,10 @@ public class parser {
 
 
     public void println(Object mensaje){
-        this.tablaSimbolos.tablaErrores.println(mensaje);
+        arbol.tablaSimbolos.tablaErrores.println(mensaje);
     }
     public void print(Object mensaje){
-        this.tablaSimbolos.tablaErrores.print(mensaje);
+        arbol.tablaSimbolos.tablaErrores.print(mensaje);
     }
 
     public static void imprimirToken(String t){
@@ -96,6 +105,8 @@ TOKEN :
             {parser.imprimirToken("tPosX"+image);}
     |   <tPosY          : "posY">
             {parser.imprimirToken("tPosY"+image);}
+    |   <tAmbito        : "_ambito">
+            {parser.imprimirToken("_ambito"+image);}
 
 
     |   <tOpcion        : "_opcion">
@@ -207,14 +218,14 @@ MORE : {
         |   Programa
         */
 
-tree Programa(tree rama):
-{
-tree retorno;
+tree Programa(tree arbol):
+{ 
+
 }
 {
-    retorno=S(rama) 
+    arbol=S(arbol) 
     < EOF > 
-    {return retorno;}
+    {return arbol;}
 }
 
         /*
@@ -222,56 +233,74 @@ tree retorno;
         |   S
         */
 
-tree S(tree rama):
+tree S(tree arbol):
 {
-tree retorno=rama;
+
+    nodeModel encuesta=new nodeModel();
+    nodeModel opcion=new nodeModel();
+    nodeModel configuracion=new nodeModel();
 }
 {
 
     <tEncuesta>
-    ENCUESTA(rama) 
+    encuesta=ENCUESTA(arbol)
+    {arbol.raiz.insertChildren(encuesta);} 
+     /* {arbol.raiz.imprimir();}   */
     <tOpcion>
-    OPCION(rama) 
+    opcion=OPCION(arbol)
+    /* {arbol.raiz.insertChildren(opcion);}   */
     <tConfiguracion>
-    CONFIGURACION(rama) 
-
-    {return rama;}
+    configuracion=CONFIGURACION(arbol) 
+    /* {arbol.raiz.insertChildren(configuracion);}  */
+    {return arbol;}
      
 }
 
 
-void ENCUESTA(tree rama):
+nodeModel ENCUESTA(tree rama):
 {
-        padreOpcion  nodo=new padreOpcion();
+        padreEncuesta  nodo=new padreEncuesta(rama.tablaSimbolos);
+        nodeModel temp =new nodeModel();
 }
 {
-    {tablaSimbolos.tablaErrores.println("ENCUESTA");}
-    LST_P(rama) 
+    {rama.tablaSimbolos.tablaErrores.println("ENCUESTA");}
+    temp=LST_P(rama,nodo) 
+    /* {nodo.insertChildren(temp);} */
+     /* {nodo.imprimir();}   */
+    
+    {return nodo;}
 }
 
 
-void OPCION(tree rama):
+nodeModel OPCION(tree rama):
 { 
-    padreOpcion  nodo=new padreOpcion();
+    padreOpcion  nodo=new padreOpcion(rama.tablaSimbolos);
+        nodeModel temp =new nodeModel();
 }
 {
-    {tablaSimbolos.tablaErrores.println("OPCION");}
-    LST_P2(nodo) 
-    /* {nodo.imprimir();} */
+    {rama.tablaSimbolos.tablaErrores.println("OPCION");}
+    temp=LST_P(rama,nodo) 
+    /* {nodo.insertChildren(temp);} */
+    //{nodo.imprimir();} 
+    {return nodo;}
 
 }
 
 
-void CONFIGURACION(tree rama):
+nodeModel CONFIGURACION(tree rama):
 {
-        padreOpcion  nodo=new padreOpcion();
+        padreConfiguracion  nodo=new padreConfiguracion(rama.tablaSimbolos);
+        nodeModel temp =new nodeModel();
 }
 {       
-    {tablaSimbolos.tablaErrores.println("CONFIGURACION");}
-    LST_P2(nodo)
-    /* {nodo.imprimir();} */
+    {rama.tablaSimbolos.tablaErrores.println("CONFIGURACION");}
+    temp=LST_P(rama,nodo) 
+    /* {nodo.insertChildren(temp);} */
+    //{nodo.imprimir();}  
+    {return nodo;}
     |
     epsilon() 
+    {return nodo;}
 }
 
         /*
@@ -279,15 +308,15 @@ void CONFIGURACION(tree rama):
         |   LST_P2
         */
 
-nodeModel LST_P2(nodeModel nodo):
+nodeModel LST_P2(nodeModel nodo,tree arbol):
 {
     nodeFila child;
 }
 {
-    child=P2()
+    child=P2(arbol)
     {nodo.insertChildren(child);}
 
-    LST_P2(nodo) 
+    LST_P2(nodo, arbol) 
     
     {return nodo;}
     | 
@@ -297,12 +326,12 @@ nodeModel LST_P2(nodeModel nodo):
 
         /*
         +-------------------------+
-        |   P
+        |   P2
         */
 
-nodeFila P2():
+nodeFila P2(tree arbol):
 {
-    nodeFila nodRetorno=new nodeFila();
+    nodeFila nodRetorno=new nodeFila(arbol.tablaSimbolos);
 }
 {
     try{
@@ -312,12 +341,12 @@ nodeFila P2():
         <tDosPuntos>
         <tAbreCorchete>
 
-        nodRetorno.atrib=LST_ATRIBUTOS(nodRetorno.atrib)
+        LST_ATRIBUTOS(nodRetorno.atrib)
         
         <tCierraCorchete> 
 
     }catch(ParseException e){
-        this.error(e);
+        this.error(e, arbol);
     }
 
     {return nodRetorno;}
@@ -334,15 +363,19 @@ nodeFila P2():
         |   LST_P
         */
 
-void LST_P(tree rama):
+nodeModel LST_P(tree arbol, nodeModel nodo):
 {
-
+    nodeModel child;
 }
 {
-    P(rama)
-    LST_P(rama)
+    child=P(arbol)
+    {nodo.insertChildren(child);} 
+    LST_P(arbol, nodo)
+    
+    {return nodo;}
     |
     epsilon()
+    {return nodo;}
 }
 
         /*
@@ -350,11 +383,17 @@ void LST_P(tree rama):
         |   P
         */
 
-void P(tree rama):
-{
-    atributos atr=new atributos(); 
+nodeModel P(tree arbol):
+{ 
+    nodePregunta ramaPregunta=new nodePregunta(arbol.tablaSimbolos);
+    nodeModelGrupoCiclo rama=new nodeModelGrupoCiclo(); 
+    Token tIdInicio;
+    Token tIdFin;
 
-    
+    atributos firstAtrib=new atributos();
+    atributos secondAtrib=new atributos();
+
+    nodeModel nod=new nodeModel();
 }
 {
     try{
@@ -363,24 +402,38 @@ void P(tree rama):
  
         <tDosPuntos>
         <tAbreCorchete>
-
-        LST_ATRIBUTOS(atr)
+        
+        LST_ATRIBUTOS(ramaPregunta.atrib)
         
         <tCierraCorchete>
+        {return ramaPregunta;}
         |
         <tMenorQue>
-        <tIdentificador>  
-        PQ()
+        tIdInicio=<tIdentificador>
+        {
+            if(tIdInicio.image.equals("grupo")){
+                rama=new nodeGrupo(arbol.tablaSimbolos);
+            }else{
+                rama=new nodeCiclo(arbol.tablaSimbolos);
+            }
+        }  
+        firstAtrib=PQ()
+        {rama.firstAtrib(firstAtrib,tIdInicio.image);}
         
-        LST_P(rama)
+        nod=LST_P(arbol, rama)
         
 
         <tAmperson>
-        <tIdentificador>  
-        PQ()
+        tIdFin=<tIdentificador>  
+        secondAtrib = PQ()
+        {rama.secondAtrib(secondAtrib, tIdFin.image);}
+        {return rama;}
+
     }catch(ParseException e){
-        this.error(e);
+        this.error(e, arbol);
     }
+
+    {return ramaPregunta;}
 
 }
 
@@ -389,7 +442,7 @@ void P(tree rama):
         |   PQ
         */
 
-void PQ():
+atributos PQ():
 {
 
     atributos atr=new atributos();
@@ -400,8 +453,10 @@ void PQ():
     <tAbreCorchete>
 
     LST_ATRIBUTOS( atr)
-    {/* atr.imprimir(); */}
+    
     <tCierraCorchete>
+
+    {return atr;}
 }
 
         /*
@@ -415,11 +470,17 @@ atributos LST_ATRIBUTOS(atributos atr):
     Token posY;
     Token key;
     Token value;
+    Token ambito;
 }
 {
     
         <tMenorQue>
+
         
+        <tAmbito>
+        <tDosPuntos>
+        ambito=<tIdentificador>
+
         <tPosX>
         <tDosPuntos>
         posX=<tNumero>
@@ -435,8 +496,8 @@ atributos LST_ATRIBUTOS(atributos atr):
         <tIdentificador>
         <tMayorQue>
         {
-            atr.insert(key.image,value.image,posX.image, posY.image);
-        }
+            atr.insert(key.image, ambito.image,value.image,posX.image, posY.image);
+        }  
         LST_ATRIBUTOS(atr)
          {return atr;}
         |

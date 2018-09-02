@@ -70,7 +70,12 @@ public class cError {
 //        ObservableList<elementoTabla> data
 //                = FXCollections.observableArrayList(new elementoTabla("hol", "hje", "hlsd", "k", "hk"));
 //        ObservableList<elementoTabla> data = null;
- 
+        
+        TableColumn tcAmbito = new TableColumn("Ambito");
+        tcAmbito.setMinWidth(100);
+        tcAmbito.setCellValueFactory(
+                new PropertyValueFactory<>("Ambito"));
+        
 
         TableColumn tcLinea = new TableColumn("Linea");
         tcLinea.setMinWidth(100);
@@ -92,14 +97,14 @@ public class cError {
         tcDescripcion.setCellValueFactory(
                 new PropertyValueFactory<>("descripcion"));
 
-        table.getColumns().addAll( tcLinea, tcColumna, tcTipo, tcDescripcion);
+        table.getColumns().addAll(tcAmbito, tcLinea, tcColumna, tcTipo, tcDescripcion);
     }
 
     public ObservableList<elementoTabla> cargar() {
         ObservableList<elementoTabla> retorno = FXCollections.observableArrayList();
  
         for (elementoError lstErrore : this.tablaErrores.tablaError) {
-            retorno.add(new elementoTabla( lstErrore.linea, lstErrore.columna, lstErrore.tipo, lstErrore.descripcion));
+            retorno.add(new elementoTabla(lstErrore.ambito, lstErrore.linea, lstErrore.columna, lstErrore.tipo, lstErrore.descripcion));
         }
         return retorno;
     }
@@ -127,7 +132,7 @@ public class cError {
 
     public class elementoTabla {
 
-        public SimpleStringProperty archivo = new SimpleStringProperty();
+        public SimpleStringProperty ambito = new SimpleStringProperty();
         public SimpleStringProperty linea = new SimpleStringProperty();
         public SimpleStringProperty columna = new SimpleStringProperty();
         public SimpleStringProperty tipo = new SimpleStringProperty();
@@ -137,15 +142,16 @@ public class cError {
 
         }
 
-        public elementoTabla( String linea, String columna, String tipo, String descripcion) {
+        public elementoTabla(String ambito,String linea, String columna, String tipo, String descripcion) {
+            this.ambito=new SimpleStringProperty(ambito);
             this.linea = new SimpleStringProperty(linea);
             this.columna = new SimpleStringProperty(columna);
             this.tipo = new SimpleStringProperty(tipo);
             this.descripcion = new SimpleStringProperty(descripcion);
         }
 
-        public String getArchivo() {
-            return archivo.get();
+        public String getAmbito() {
+            return ambito.get();
         }
 
         public String getLinea() {

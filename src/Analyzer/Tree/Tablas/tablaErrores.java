@@ -5,8 +5,7 @@
  */
 package Analyzer.Tree.Tablas;
 
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.ArrayList; 
 import java.util.List;
 
 /**
@@ -24,7 +23,8 @@ public class tablaErrores {
     
     public void println(Object str){
         String mensaje=String.valueOf(str);
-        System.out.println("> "+mensaje);
+        System.out.print(mensaje);
+        System.out.print("\n>");
     }
     
     
@@ -34,30 +34,33 @@ public class tablaErrores {
     }
     
     
-    public void insertErrorSyntax(int linea, int columna, String mensaje){
+    public void insertErrorSyntax(String ambito,int linea, int columna, String mensaje){
         elementoError elem=new elementoError();
-        elem.tipo="Semantico";
+        elem.ambito=ambito;
+        elem.tipo="Sintactico";
         elem.linea=String.valueOf(linea+1);
         elem.columna=String.valueOf(columna+1);
         elem.descripcion=mensaje;
         
         this.tablaError.add(elem);
-        println("[Error]Semantico-> "+mensaje);
+        println("[Error]Sintactico-> "+mensaje);
     }
     
-    public void insertErrorLexical(int linea, int columna,String mensaje){
+    public void insertErrorLexical(String ambito,int linea, int columna,String mensaje){
         elementoError elem=new elementoError();
-        elem.tipo="Semantico";
+        elem.ambito=ambito;
+        elem.tipo="Lexico";
         elem.linea=String.valueOf(linea+1);
         elem.columna=String.valueOf(columna+1);
         elem.descripcion=mensaje;
         this.tablaError.add(elem);
-        println("[Error]Semantico-> "+mensaje);
+        println("[Error]Lexico-> "+mensaje);
     }
     
-    public void insertErrorSemantic(int linea, int columna, String mensaje){
+    public void insertErrorSemantic(String  ambito, int linea, int columna, String mensaje){
         
         elementoError elem=new elementoError();
+        elem.ambito= ambito;
         elem.tipo="Semantico";
         elem.linea=String.valueOf(linea+1);
         elem.columna=String.valueOf(columna+1);
@@ -85,7 +88,9 @@ public class tablaErrores {
     
     public void imprimir() {
         System.out.println("-----cError--------");
-        for (elementoError lstErrore : this.tablaError) {
+        for (elementoError lstErrore : this.tablaError) { 
+            System.out.print("Ambito{");
+            System.out.print(lstErrore.ambito);
             System.out.println("}");
             System.out.print("Linea{");
             System.out.print(lstErrore.linea);

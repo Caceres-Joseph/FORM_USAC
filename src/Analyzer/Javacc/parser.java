@@ -2,11 +2,9 @@
 package Analyzer.Javacc;
 import java.io.InputStream;
 import Analyzer.Tree.*;
-import Analyzer.Tree.Tablas.tablaSimbolos;
 import Analyzer.Tree.Nodes.*;
 public class parser implements parserConstants {
-    public tablaSimbolos tablaSimbolos=new tablaSimbolos();
-    public tree raiz=new tree();
+    public tree arbol=new tree();
 
     public parser(){
 
@@ -17,13 +15,14 @@ public class parser implements parserConstants {
 
                 parser analizador =new parser(stream);
 
-                analizador.Programa(raiz);
+                arbol=analizador.Programa(arbol);
 
-                System.out.println("Analisis  exitoso! :)");
+                this.println("Analisis  exitoso! :)");
             }
         catch(ParseException e){
-            tablaSimbolos.tablaErrores.insertErrorSemantic(0,0,e.getMessage());
-            tablaSimbolos.tablaErrores.println("Error en el parser");
+            this.error(e, arbol);
+            /* raiz.tablaSimbolos.tablaErrores.insertErrorSemantic("",0,0,e.getMessage());
+            raiz.tablaSimbolos.tablaErrores.println("Error en el parser"); */
 
         }
     }
@@ -38,8 +37,9 @@ public class parser implements parserConstants {
         } while (t.kind != kind && t.kind != EOF);
     }
 
-    public void error(ParseException e){
-        tablaSimbolos.tablaErrores.println("Error en el parser, Recuperandose");
+    public void error(ParseException e, tree arbol){
+
+        arbol.tablaSimbolos.tablaErrores.println("Error en el parser, Recuperandose");
         int maxSize = 0;
         for (int i = 0; i < e.expectedTokenSequences.length; i++) {
             if (maxSize < e.expectedTokenSequences[i].length) {
@@ -47,7 +47,16 @@ public class parser implements parserConstants {
             }
             for (int j = 0; j < e.expectedTokenSequences[i].length; j++) {
                 int indice=e.expectedTokenSequences[i][j];
-                System.out.println("Se esperaba:"+e.tokenImage[indice]);
+                if(e.tokenImage[indice].contains("&")){
+                    arbol.tablaSimbolos.tablaErrores.insertErrorSyntax("encuesta",-2,-2,"No se encontr\u00f3 fila de finalizacion");
+                }else if(e.tokenImage[indice].contains("_opcion")){
+                    arbol.tablaSimbolos.tablaErrores.insertErrorSyntax("encuesta",-2,-2,"No se encontr\u00f3 fila de inicio de grupo/ciclo");
+                }else{
+                    arbol.tablaSimbolos.tablaErrores.insertErrorSyntax("encuesta",-2,-2,e.getMessage());
+                    arbol.tablaSimbolos.tablaErrores.println("Se esperaba:"+e.tokenImage[indice]);
+
+                }
+
 
             }
         }
@@ -56,10 +65,10 @@ public class parser implements parserConstants {
 
 
     public void println(Object mensaje){
-        this.tablaSimbolos.tablaErrores.println(mensaje);
+        arbol.tablaSimbolos.tablaErrores.println(mensaje);
     }
     public void print(Object mensaje){
-        this.tablaSimbolos.tablaErrores.print(mensaje);
+        arbol.tablaSimbolos.tablaErrores.print(mensaje);
     }
 
     public static void imprimirToken(String t){
@@ -76,11 +85,10 @@ public class parser implements parserConstants {
         +-------------------------+
         |   Programa
         */
-  final public tree Programa(tree rama) throws ParseException {
-tree retorno;
-    retorno = S(rama);
+  final public tree Programa(tree arbol) throws ParseException {
+    arbol = S(arbol);
     jj_consume_token(0);
-     {if (true) return retorno;}
+     {if (true) return arbol;}
     throw new Error("Missing return statement in function");
   }
 
@@ -88,47 +96,59 @@ tree retorno;
         +-------------------------+
         |   S
         */
-  final public tree S(tree rama) throws ParseException {
-tree retorno=rama;
+  final public tree S(tree arbol) throws ParseException {
+    nodeModel encuesta=new nodeModel();
+    nodeModel opcion=new nodeModel();
+    nodeModel configuracion=new nodeModel();
     jj_consume_token(tEncuesta);
-    ENCUESTA(rama);
+    encuesta = ENCUESTA(arbol);
+     arbol.raiz.insertChildren(encuesta);
     jj_consume_token(tOpcion);
-    OPCION(rama);
+    opcion = OPCION(arbol);
     jj_consume_token(tConfiguracion);
-    CONFIGURACION(rama);
-     {if (true) return rama;}
+    configuracion = CONFIGURACION(arbol);
+     {if (true) return arbol;}
     throw new Error("Missing return statement in function");
   }
 
-  final public void ENCUESTA(tree rama) throws ParseException {
-        padreOpcion  nodo=new padreOpcion();
-     tablaSimbolos.tablaErrores.println("ENCUESTA");
-    LST_P(rama);
+  final public nodeModel ENCUESTA(tree rama) throws ParseException {
+        padreEncuesta  nodo=new padreEncuesta(rama.tablaSimbolos);
+        nodeModel temp =new nodeModel();
+     rama.tablaSimbolos.tablaErrores.println("ENCUESTA");
+    temp = LST_P(rama,nodo);
+     {if (true) return nodo;}
+    throw new Error("Missing return statement in function");
   }
 
-  final public void OPCION(tree rama) throws ParseException {
-    padreOpcion  nodo=new padreOpcion();
-     tablaSimbolos.tablaErrores.println("OPCION");
-    LST_P2(nodo);
+  final public nodeModel OPCION(tree rama) throws ParseException {
+    padreOpcion  nodo=new padreOpcion(rama.tablaSimbolos);
+        nodeModel temp =new nodeModel();
+     rama.tablaSimbolos.tablaErrores.println("OPCION");
+    temp = LST_P(rama,nodo);
+     {if (true) return nodo;}
+    throw new Error("Missing return statement in function");
   }
 
-  final public void CONFIGURACION(tree rama) throws ParseException {
-        padreOpcion  nodo=new padreOpcion();
-     tablaSimbolos.tablaErrores.println("CONFIGURACION");
-    LST_P2(nodo);
+  final public nodeModel CONFIGURACION(tree rama) throws ParseException {
+        padreConfiguracion  nodo=new padreConfiguracion(rama.tablaSimbolos);
+        nodeModel temp =new nodeModel();
+     rama.tablaSimbolos.tablaErrores.println("CONFIGURACION");
+    temp = LST_P(rama,nodo);
+     {if (true) return nodo;}
+    throw new Error("Missing return statement in function");
   }
 
         /*
         +-------------------------+
         |   LST_P2
         */
-  final public nodeModel LST_P2(nodeModel nodo) throws ParseException {
+  final public nodeModel LST_P2(nodeModel nodo,tree arbol) throws ParseException {
     nodeFila child;
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case tIdentificador:
-      child = P2();
+      child = P2(arbol);
      nodo.insertChildren(child);
-      LST_P2(nodo);
+      LST_P2(nodo, arbol);
      {if (true) return nodo;}
       break;
     default:
@@ -141,18 +161,18 @@ tree retorno=rama;
 
         /*
         +-------------------------+
-        |   P
+        |   P2
         */
-  final public nodeFila P2() throws ParseException {
-    nodeFila nodRetorno=new nodeFila();
+  final public nodeFila P2(tree arbol) throws ParseException {
+    nodeFila nodRetorno=new nodeFila(arbol.tablaSimbolos);
     try {
       jj_consume_token(tIdentificador);
       jj_consume_token(tDosPuntos);
       jj_consume_token(tAbreCorchete);
-      nodRetorno.atrib = LST_ATRIBUTOS(nodRetorno.atrib);
+      LST_ATRIBUTOS(nodRetorno.atrib);
       jj_consume_token(tCierraCorchete);
     } catch (ParseException e) {
-        this.error(e);
+        this.error(e, arbol);
     }
      {if (true) return nodRetorno;}
     throw new Error("Missing return statement in function");
@@ -167,42 +187,64 @@ tree retorno=rama;
         +-------------------------+
         |   LST_P
         */
-  final public void LST_P(tree rama) throws ParseException {
+  final public nodeModel LST_P(tree arbol, nodeModel nodo) throws ParseException {
+    nodeModel child;
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case tIdentificador:
     case tMenorQue:
-      P(rama);
-      LST_P(rama);
+      child = P(arbol);
+     nodo.insertChildren(child);
+      LST_P(arbol, nodo);
+     {if (true) return nodo;}
       break;
     default:
       jj_la1[1] = jj_gen;
       epsilon();
+     {if (true) return nodo;}
     }
+    throw new Error("Missing return statement in function");
   }
 
         /*
         +-------------------------+
         |   P
         */
-  final public void P(tree rama) throws ParseException {
-    atributos atr=new atributos();
+  final public nodeModel P(tree arbol) throws ParseException {
+    nodePregunta ramaPregunta=new nodePregunta(arbol.tablaSimbolos);
+    nodeModelGrupoCiclo rama=new nodeModelGrupoCiclo();
+    Token tIdInicio;
+    Token tIdFin;
+
+    atributos firstAtrib=new atributos();
+    atributos secondAtrib=new atributos();
+
+    nodeModel nod=new nodeModel();
     try {
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
       case tIdentificador:
         jj_consume_token(tIdentificador);
         jj_consume_token(tDosPuntos);
         jj_consume_token(tAbreCorchete);
-        LST_ATRIBUTOS(atr);
+        LST_ATRIBUTOS(ramaPregunta.atrib);
         jj_consume_token(tCierraCorchete);
+         {if (true) return ramaPregunta;}
         break;
       case tMenorQue:
         jj_consume_token(tMenorQue);
-        jj_consume_token(tIdentificador);
-        PQ();
-        LST_P(rama);
+        tIdInicio = jj_consume_token(tIdentificador);
+            if(tIdInicio.image.equals("grupo")){
+                rama=new nodeGrupo(arbol.tablaSimbolos);
+            }else{
+                rama=new nodeCiclo(arbol.tablaSimbolos);
+            }
+        firstAtrib = PQ();
+         rama.firstAtrib(firstAtrib,tIdInicio.image);
+        nod = LST_P(arbol, rama);
         jj_consume_token(tAmperson);
-        jj_consume_token(tIdentificador);
-        PQ();
+        tIdFin = jj_consume_token(tIdentificador);
+        secondAtrib = PQ();
+         rama.secondAtrib(secondAtrib, tIdFin.image);
+         {if (true) return rama;}
         break;
       default:
         jj_la1[2] = jj_gen;
@@ -210,22 +252,25 @@ tree retorno=rama;
         throw new ParseException();
       }
     } catch (ParseException e) {
-        this.error(e);
+        this.error(e, arbol);
     }
+     {if (true) return ramaPregunta;}
+    throw new Error("Missing return statement in function");
   }
 
         /*
         +-------------------------+
         |   PQ
         */
-  final public void PQ() throws ParseException {
+  final public atributos PQ() throws ParseException {
     atributos atr=new atributos();
     jj_consume_token(tGuion);
     jj_consume_token(tMayorQue);
     jj_consume_token(tAbreCorchete);
     LST_ATRIBUTOS(atr);
-
     jj_consume_token(tCierraCorchete);
+     {if (true) return atr;}
+    throw new Error("Missing return statement in function");
   }
 
         /*
@@ -237,9 +282,13 @@ tree retorno=rama;
     Token posY;
     Token key;
     Token value;
+    Token ambito;
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case tMenorQue:
       jj_consume_token(tMenorQue);
+      jj_consume_token(tAmbito);
+      jj_consume_token(tDosPuntos);
+      ambito = jj_consume_token(tIdentificador);
       jj_consume_token(tPosX);
       jj_consume_token(tDosPuntos);
       posX = jj_consume_token(tNumero);
@@ -250,7 +299,7 @@ tree retorno=rama;
       value = jj_consume_token(tString);
       jj_consume_token(tIdentificador);
       jj_consume_token(tMayorQue);
-            atr.insert(key.image,value.image,posX.image, posY.image);
+            atr.insert(key.image, ambito.image,value.image,posX.image, posY.image);
       LST_ATRIBUTOS(atr);
           {if (true) return atr;}
       break;
@@ -285,7 +334,7 @@ tree retorno=rama;
       jj_la1_init_0();
    }
    private static void jj_la1_init_0() {
-      jj_la1_0 = new int[] {0x80,0x480,0x480,0x400,};
+      jj_la1_0 = new int[] {0x100,0x900,0x900,0x800,};
    }
 
   /** Constructor with InputStream. */
@@ -402,7 +451,7 @@ tree retorno=rama;
   /** Generate ParseException. */
   public ParseException generateParseException() {
     jj_expentries.clear();
-    boolean[] la1tokens = new boolean[25];
+    boolean[] la1tokens = new boolean[26];
     if (jj_kind >= 0) {
       la1tokens[jj_kind] = true;
       jj_kind = -1;
@@ -416,7 +465,7 @@ tree retorno=rama;
         }
       }
     }
-    for (int i = 0; i < 25; i++) {
+    for (int i = 0; i < 26; i++) {
       if (la1tokens[i]) {
         jj_expentry = new int[1];
         jj_expentry[0] = i;

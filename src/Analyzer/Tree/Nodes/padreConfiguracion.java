@@ -5,6 +5,7 @@
  */
 package Analyzer.Tree.Nodes;
  
+import Analyzer.Tree.Tablas.tablaSimbolos;
 import Analyzer.Tree.nodeModel; 
 
 /**
@@ -13,14 +14,15 @@ import Analyzer.Tree.nodeModel;
  */
 public class padreConfiguracion extends nodeModel {
  
-    public padreConfiguracion() {
+    public padreConfiguracion(tablaSimbolos tabla) {
+        this.tablaSimbolos=tabla;
         this.nombreNodo="padreConfiguracion";
     }
    
     
     @Override
-    public void execute(Object obj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void execute() {
+        this.mensajeDeEjecucion();
     }
  
 }

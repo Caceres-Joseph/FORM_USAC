@@ -1,14 +1,19 @@
 package form_usac;
 
 import Analyzer.Javacc.parser;
+import Analyzer.Javacc_Exp.parser_exp;
+import Analyzer.Tree.Tablas.tablaSimbolos;
 import GUI.Principal;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import readExcel.cell;
 import readExcel.convertXlsToXlsx;
 import readExcel.readExcel;
 
@@ -26,6 +31,7 @@ public class FORM_USAC {
         //pruebaExcel();
         //convertFile_to_InputStream();
         iniciarInterfaz(args);
+//        analizar2();
     }
 
     public static void convertirPrograma() {
@@ -34,43 +40,14 @@ public class FORM_USAC {
         String xlsxFilePath = fileConversionXLSToXLXS.convertXLS2XLSX(xlsFilePath);
     }
 
-    public static void analizar() {
-
-//         al();
-        readExcel re = new readExcel();
-        String cadena = re.leerEncuesta(0);
-        System.out.println(cadena);
-        String cad = ""
-                + "<grupo>\n"
-                + "	grupo:[\n" + "\n"
-                + "		<tipo /> Iniciar Agrupacion </ tipo>\n"
-                + "		<etiqueta />Agrupación 1</ etiqueta>\n"
-                + "		<idpregunta />info1</ idpregunta>"
-                + "	]grupo:[\n" + "\n"
-                + "		<tipo /> Iniciar Agrupacion </ tipo>\n"
-                + "		<etiqueta />Agrupación 1</ etiqueta>\n"
-                + "		<idpregunta />info1</ idpregunta>"
-                + "	]"
-                + "<:grupo>";
-        //al(cadena);
-
-//        System.out.println("==============================================");
-//        re.leer(1);
-//        System.out.println("==============================================");
-//        re.leer(2);
-    }
+ 
 
     public static void pruebaAnalizador() {
         parser par = new parser();
         //par.inicializar(" identificador3 ; 9 # $3+4; 5+6; /> >< *][- \\ // \"\"  > <<<<.poo009(((/%##Iniciar #%&/()=\t \n  \" < Agrupacion </ ");
       //  par.inicializar("$%3+3;/> \\ \"comentario<><< </  /> omentario2</");
     }
-
-    public static void pruebaExcel() {
-        readExcel re = new readExcel();
-        String cadena = re.leerEncuesta(0);
-        System.out.println(cadena);
-    }
+ 
 
     public static void al(String cadena) {
         parser par = new parser();
@@ -105,4 +82,19 @@ public class FORM_USAC {
         pri.correr(args);
     }
 
+    public static void analizar2(){
+        
+        System.out.println("---Analisis expresion----");
+        //String cadena=" !(!#[EDAD] != 10*3 div 8 mod 11 +33-12 >=33 || 33<21 && 32<=32 || identii > 32 && 32=43)";
+        String cadena="° 3+3+luio MOD Posicion(..)+indice";
+        tablaSimbolos tabla=new tablaSimbolos();
+        InputStream stream = new ByteArrayInputStream(cadena.getBytes(StandardCharsets.UTF_8));
+        parser_exp par = new parser_exp(); 
+              cell celda=new cell("id");
+        celda.posX=1;
+        celda.posY=3;
+        celda.ambito="3";
+          
+//        par.inicializar(tabla,stream, celda); 
+    }
 }

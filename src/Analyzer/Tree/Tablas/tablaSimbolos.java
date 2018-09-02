@@ -5,11 +5,21 @@
  */
 package Analyzer.Tree.Tablas;
 
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import readExcel.cell;
+
 /**
  *
  * @author joseph
  */
 public class tablaSimbolos {
    public tablaErrores tablaErrores=new tablaErrores();
-    
+   public HashMap<String,elementoSimbolo>   lstSimbolos = new LinkedHashMap<>();
+ 
+   
+   public void insertSimbol(String idPregunta,elementoSimbolo simbolo){
+       
+   }
+   
 }

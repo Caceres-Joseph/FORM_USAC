@@ -1,140 +1,128 @@
+run:
 
 <grupo->[
-		<tipo/> Iniciar Agrupacion </tipo>
-		<etiqueta/> Agrupación 1 </etiqueta>
-		<idpregunta/> info1 </idpregunta>
+	< posX:0 posY:1 tipo />Iniciar Agrupacion </ tipo>
+	< posX:1 posY:1 idpregunta />info1 </ idpregunta>
+	< posX:2 posY:1 etiqueta />Agrupación 1 </ etiqueta>
+	] pregunta:[
+	< posX:0 posY:2 tipo />texto </ tipo>
+	< posX:1 posY:2 idpregunta />nombre </ idpregunta>
+	< posX:2 posY:2 etiqueta />Cual es tu nombre? "Comentario" </ etiqueta>
+	< posX:3 posY:2 parametro />cad_min=5 cad_fila= 1 </ parametro>
+	< posX:6 posY:2 sugerir />Esta pregunta no se puede omitir </ sugerir>
+	< posX:9 posY:2 requeridomsn />Ingrese un nombre </ requeridomsn>
+	< posX:10 posY:2 requerido />verdadero </ requerido>
+	] pregunta:[
+	< posX:0 posY:3 tipo />fecha </ tipo>
+	< posX:1 posY:3 idpregunta />hoyes </ idpregunta>
+	< posX:2 posY:3 etiqueta />Que fecha es hoy? </ etiqueta>
+	< posX:11 posY:3 predeterminado />hoy() </ predeterminado>
+	] pregunta:[
+	< posX:0 posY:4 tipo />Nota </ tipo>
+	< posX:1 posY:4 idpregunta />nota_dato </ idpregunta>
+	< posX:2 posY:4 etiqueta />Se llenara dos arboles Binarios </ etiqueta>
+	] &grupo->[
+	< posX:0 posY:5 tipo />finalizar Agrupacion </ tipo>
+	< posX:1 posY:5 idpregunta />info1 </ idpregunta>
 	]
-	pregunta:[
-		<tipo/> texto </tipo>
-		<etiqueta/> Cual es tu nombre? "Comentario" </etiqueta>
-		<idpregunta/> nombre </idpregunta>
-		<parametro/>cad_min=5 cad_fila= 1 </parametro>
-		<sugerir/>Esta pregunta no se puede omitir </sugerir>
-		<requeridomsn/>Ingrese un nombre </requeridomsn>
-		<requerido/>verdadero </requerido>
-	]
-	pregunta:[
-		<tipo/> fecha </tipo>
-		<etiqueta/> Que fecha es hoy? </etiqueta>
-		<idpregunta/> hoyes </idpregunta>
-		<predeterminado/>hoy() </predeterminado>
-	]
-	pregunta:[
-		<tipo/> Nota </tipo>
-		<etiqueta/> Se llenara dos arboles Binarios </etiqueta>
-		<idpregunta/> nota_dato </idpregunta>
-	]
-&grupo->[
-		<tipo/> finalizar Agrupacion </tipo>
-		<etiqueta/> null </etiqueta>
-		<idpregunta/> info1 </idpregunta>
-	]
-<grupo->[
-		<tipo/> Iniciar Agrupacion </tipo>
-		<etiqueta/> Agrupación 2 </etiqueta>
-		<idpregunta/> info2 </idpregunta>
-	]
-	pregunta:[
-		<tipo/> Nota </tipo>
-		<etiqueta/> Se incio la instancia del primer Arbol? </etiqueta>
-		<idpregunta/> arbol1 </idpregunta>
-		<codigo_post/>abo1 = nuevo ArbolBinario(); </codigo_post>
-	]
-<ciclo->[
-		<tipo/> Iniciar Ciclo </tipo>
-		<etiqueta/> Ciclo Arbol 1 </etiqueta>
-		<idpregunta/> llenar1 </idpregunta>
-	]
-	pregunta:[
-		<tipo/> entero  </tipo>
-		<etiqueta/> Dame un numero @{color: #FFFF00, tam:15, negrilla }: { Mayor }@ a 1 
-y @{color: #FFFF00, tam:15, negrilla }: { Menor }@ a 20 </etiqueta>
-		<idpregunta/> insertar1 </idpregunta>
-		<restringir/>. >= 1 && . <= 20 </restringir>
-		<requerido/>verdadero </requerido>
-		<codigo_post/>abo1.insertar (@); </codigo_post>
-	]
-&ciclo->[
-		<tipo/> finalizar ciclo </tipo>
-		<etiqueta/> null </etiqueta>
-		<idpregunta/> llenar1 </idpregunta>
-	]
-&grupo->[
-		<tipo/> finalizar Agrupacion </tipo>
-		<etiqueta/> null </etiqueta>
-		<idpregunta/> info2 </idpregunta>
-	]
-<grupo->[
-		<tipo/> iniciar agrupacion </tipo>
-		<etiqueta/> Agrupación 3 </etiqueta>
-		<idpregunta/> info3 </idpregunta>
-	]
-	pregunta:[
-		<tipo/> Nota </tipo>
-		<etiqueta/> Se incio la instancia del segundo arbol </etiqueta>
-		<idpregunta/> arbol2 </idpregunta>
-		<codigo_post/>abo2 = nuevo ArbolBinario(); </codigo_post>
-	]
-<ciclo->[
-		<tipo/> Iniciar Ciclo </tipo>
-		<etiqueta/> null </etiqueta>
-		<idpregunta/> llenar2 </idpregunta>
-	]
-	pregunta:[
-		<tipo/> rango  </tipo>
-		<etiqueta/> Dame un numero @{color: #FFFF00, tam:15, negrilla }: { Mayor }@ a 20
-y @{color: #FFFF00, tam:15, negrilla }: { Menor }@ a 30 </etiqueta>
-		<idpregunta/> insertar2 </idpregunta>
-		<parametro/>iniciar =20 finalizar= 30 </parametro>
-		<requerido/>verdadero </requerido>
-		<codigo_post/>abo2.insertar (@); </codigo_post>
-	]
-&ciclo->[
-		<tipo/> finalizar ciclo </tipo>
-		<etiqueta/> null </etiqueta>
-		<idpregunta/> llenar2 </idpregunta>
-	]
-&grupo->[
-		<tipo/> finalizar Agrupacion </tipo>
-		<etiqueta/> null </etiqueta>
-		<idpregunta/> info3 </idpregunta>
-	]
-<grupo->[
-		<tipo/> Iniciar Agrupacion  </tipo>
-		<etiqueta/> Salida De Resultados </etiqueta>
-		<idpregunta/> impresion </idpregunta>
-	]
-<ciclo->[
-		<tipo/> Iniciar Ciclo </tipo>
-		<etiqueta/> gfsdg </etiqueta>
-		<idpregunta/> llenar3 </idpregunta>
-	]
-	pregunta:[
-		<tipo/> selecciona_uno elegir </tipo>
-		<etiqueta/> Que Arbol desea imprimir: 
-1 - Imprimir el Arbol 1
-2 - Imprimir el Arbol 2 </etiqueta>
-		<idpregunta/> impre_1 </idpregunta>
-	]
-	pregunta:[
-		<tipo/> Nota </tipo>
-		<etiqueta/> Se imprimira el Arbol #[impre_1] </etiqueta>
-		<idpregunta/> impreA </idpregunta>
-		<aplicable/>#[impre_1] = "a1" </aplicable>
-		<codigo_post/>imprimir ("Preorden: Arbol " + #[impre_1]);
-abo1.imprimirPre (); </codigo_post>
-	]
-	pregunta:[
-		<tipo/> Nota </tipo>
-		<etiqueta/> Se imprimira el Arbol #[impre_1] </etiqueta>
-		<idpregunta/> impreB </idpregunta>
-		<aplicable/>#[impre_1] = "a2" </aplicable>
-		<codigo_post/>imprimir ("Preorden: Arbol " + #[impre_1]);
-abo2.imprimirPre (); </codigo_post>
-	]
-	pregunta:[
-		<tipo/> Nota </tipo>
-		<etiqueta/> NO existe la Opcion #[impre_1] </etiqueta>
-		<idpregunta/> error </idpregunta>
-		<aplicable/>#[impre_1] >= "a1" && #[impre_1] <= "a2" </aplicable>
-	]
+	<grupo->[
+		< posX:0 posY:7 tipo />Iniciar Agrupacion </ tipo>
+		< posX:1 posY:7 idpregunta />info2 </ idpregunta>
+		< posX:2 posY:7 etiqueta />Agrupación 2 </ etiqueta>
+		] pregunta:[
+		< posX:0 posY:8 tipo />Nota </ tipo>
+		< posX:1 posY:8 idpregunta />arbol1 </ idpregunta>
+		< posX:2 posY:8 etiqueta />Se incio la instancia del primer Arbol? </ etiqueta>
+		< posX:15 posY:8 codigo_post />abo1 = nuevo ArbolBinario(); </ codigo_post>
+		]
+		<ciclo->[
+			< posX:0 posY:9 tipo />Iniciar Ciclo </ tipo>
+			< posX:1 posY:9 idpregunta />llenar1 </ idpregunta>
+			< posX:2 posY:9 etiqueta />Ciclo Arbol 1 </ etiqueta>
+			] pregunta:[
+			< posX:0 posY:10 tipo />entero </ tipo>
+			< posX:1 posY:10 idpregunta />insertar1 </ idpregunta>
+			< posX:2 posY:10 etiqueta />Dame un numero @{color: #FFFF00, tam:15, negrilla }: { Mayor }@ a 1 y @{color: #FFFF00, tam:15, negrilla }: { Menor }@
+			a 20 </ etiqueta>
+			< posX:7 posY:10 restringir />. >= 1 && .
+			<=2 0 </ restringir>
+				< posX:10 posY:10 requerido />verdadero </ requerido>
+				< posX:15 posY:10 codigo_post />abo1.insertar (@); </ codigo_post>
+				] &ciclo->[
+				< posX:0 posY:11 tipo />finalizar ciclo </ tipo>
+				< posX:1 posY:11 idpregunta />llenar1 </ idpregunta>
+				] &grupo->[
+				< posX:0 posY:12 tipo />finalizar Agrupacion </ tipo>
+				< posX:1 posY:12 idpregunta />info2 </ idpregunta>
+				]
+				<grupo->[
+					< posX:0 posY:14 tipo />iniciar agrupacion </ tipo>
+					< posX:1 posY:14 idpregunta />info3 </ idpregunta>
+					< posX:2 posY:14 etiqueta />Agrupación 3 </ etiqueta>
+					] pregunta:[
+					< posX:0 posY:15 tipo />Nota </ tipo>
+					< posX:1 posY:15 idpregunta />arbol2 </ idpregunta>
+					< posX:2 posY:15 etiqueta />Se incio la instancia del segundo arbol </ etiqueta>
+					< posX:15 posY:15 codigo_post />abo2 = nuevo ArbolBinario(); </ codigo_post>
+					]
+					<ciclo->[
+						< posX:0 posY:16 tipo />Iniciar Ciclo </ tipo>
+						< posX:1 posY:16 idpregunta />llenar2 </ idpregunta>
+						] pregunta:[
+						< posX:0 posY:17 tipo />rango </ tipo>
+						< posX:1 posY:17 idpregunta />insertar2 </ idpregunta>
+						< posX:2 posY:17 etiqueta />Dame un numero @{color: #FFFF00, tam:15, negrilla }: { Mayor }@ a 20 y @{color: #FFFF00, tam:15, negrilla }: { Menor
+						}@ a 30 </ etiqueta>
+						< posX:3 posY:17 parametro />iniciar =20 finalizar= 30 </ parametro>
+						< posX:10 posY:17 requerido />verdadero </ requerido>
+						< posX:15 posY:17 codigo_post />abo2.insertar (@); </ codigo_post>
+						] &ciclo->[
+						< posX:0 posY:18 tipo />finalizar ciclo </ tipo>
+						< posX:1 posY:18 idpregunta />llenar2 </ idpregunta>
+						] &grupo->[
+						< posX:0 posY:19 tipo />finalizar Agrupacion </ tipo>
+						< posX:1 posY:19 idpregunta />info3 </ idpregunta>
+						]
+						<grupo->[
+							< posX:0 posY:21 tipo />Iniciar Agrupacion </ tipo>
+							< posX:1 posY:21 idpregunta />impresion </ idpregunta>
+							< posX:2 posY:21 etiqueta />Salida De Resultados </ etiqueta>
+							]
+							<ciclo->[
+								< posX:0 posY:22 tipo />Iniciar Ciclo </ tipo>
+								< posX:1 posY:22 idpregunta />llenar3 </ idpregunta>
+								< posX:2 posY:22 etiqueta />gfsdg </ etiqueta>
+								] pregunta:[
+								< tipo posX="0" posY="23"  />selecciona_uno elegir </ tipo>
+								< posX:1 posY:23 idpregunta />impre_1 </ idpregunta>
+								< posX:2 posY:23 etiqueta />Que Arbol desea imprimir: 1 - Imprimir el Arbol 1 2 - Imprimir el Arbol 2 </ etiqueta>
+								] pregunta:[
+								< posX:0 posY:24 tipo />Nota </ tipo>
+								< posX:1 posY:24 idpregunta />impreA </ idpregunta>
+								< posX:2 posY:24 etiqueta />Se imprimira el Arbol #[impre_1] </ etiqueta>
+								< posX:5 posY:24 aplicable />#[impre_1] = "a1" </ aplicable>
+								< posX:15 posY:24 codigo_post />imprimir ("Preorden: Arbol " + #[impre_1]); abo1.imprimirPre (); </ codigo_post>
+								] pregunta:[
+								< posX:0 posY:25 tipo />Nota </ tipo>
+								< posX:1 posY:25 idpregunta />impreB </ idpregunta>
+								< posX:2 posY:25 etiqueta />Se imprimira el Arbol #[impre_1] </ etiqueta>
+								< posX:5 posY:25 aplicable />#[impre_1] = "a2" </ aplicable>
+								< posX:15 posY:25 codigo_post />imprimir ("Preorden: Arbol " + #[impre_1]); abo2.imprimirPre (); </ codigo_post>
+								] pregunta:[
+								< posX:0 posY:26 tipo />Nota </ tipo>
+								< posX:1 posY:26 idpregunta />error </ idpregunta>
+								< posX:2 posY:26 etiqueta />NO existe la Opcion #[impre_1] </ etiqueta>
+								< posX:5 posY:26 aplicable />#[impre_1] >= "a1" && #[impre_1]
+								<="a2" </ aplicable>
+									] &ciclo->[
+									< posX:0 posY:27 tipo />finalizar ciclo </ tipo>
+									< posX:1 posY:27 idpregunta />llenar3 </ idpregunta>
+									] &grupo->[
+									< posX:0 posY:28 tipo />finalizar Agrupacion </ tipo>
+									< posX:1 posY:28 idpregunta />impresion </ idpregunta>
+									] pregunta:[
+									< posX:0 posY:29 tipo />Nota </ tipo>
+									< posX:1 posY:29 idpregunta />impreA </ idpregunta>
+									< posX:2 posY:29 etiqueta />Se imprimira el Arbol #[impre_1] </ etiqueta>
+									< posX:5 posY:29 aplicable />#[impre_1] = "a1" </ aplicable>
+									] BUILD SUCCESSFUL (total time: 1 second)
