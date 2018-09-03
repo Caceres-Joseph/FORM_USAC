@@ -6,8 +6,8 @@
 package Analyzer.Tree.Columnas;
 
 import Analyzer.Tree.Tablas.elementoSimbolo;
-import Analyzer.Tree.Tablas.tablaSimbolos; 
-import java.util.HashMap;
+import Analyzer.Tree.Tablas.tablaSimbolos;
+import java.util.ArrayList;
 import readExcel.cell;
 
 /**
@@ -15,93 +15,119 @@ import readExcel.cell;
  * @author joseph
  */
 public class columna {
-    tablaSimbolos tablaSimbolos=new tablaSimbolos();
+
+    tablaSimbolos tablaSimbolos = new tablaSimbolos();
     elementoSimbolo simbolo;
-    public columna(tablaSimbolos tablaSimbolos1, elementoSimbolo simb){
-        this.tablaSimbolos=tablaSimbolos1;
-        this.simbolo=simb;
-        
+
+    public columna(tablaSimbolos tablaSimbolos1, elementoSimbolo simb) {
+        this.tablaSimbolos = tablaSimbolos1;
+        this.simbolo = simb;
     }
-     
-    public String getTipo(){
-        String retorno="";
+
+    public String getTipo() {
+        String retorno = "";
         String tipo;
-        cell celda=simbolo.lstAtributos.get("tipo");
-        if(celda==null){
+        cell celda = simbolo.lstAtributos.get("tipo");
+        if (celda == null) {
             this.tablaSimbolos.tablaErrores.println("No se econtro el tipo");
             return retorno;
         }
         tipo = celda.val;
-         
-        if(tipo.toLowerCase().contains("texto")){
-            simbolo.tipoPregunta="cadena"; 
-            
-        }else if(tipo.toLowerCase().contains("entero")){
-            simbolo.tipoPregunta="entero"; 
-            
-        }else if(tipo.toLowerCase().contains("decimal")){
-            simbolo.tipoPregunta="decimal"; 
-            
-        }else if(tipo.toLowerCase().contains("rango")){
-            simbolo.tipoPregunta="entero"; 
-            
-        }else if(tipo.toLowerCase().contains("condicion")){
-            simbolo.tipoPregunta="booleano"; 
-            
-        }else if(tipo.toLowerCase().contains("fecha")){
-            simbolo.tipoPregunta="fecha"; 
-            
-        }else if(tipo.toLowerCase().contains("hora")){
-            simbolo.tipoPregunta="hora"; 
-            
-        }else if(tipo.toLowerCase().contains("fecha")&&tipo.toLowerCase().contains("hora")){
-            simbolo.tipoPregunta="fechahora"; 
-            
-        }else if(tipo.toLowerCase().contains("selecciona")&&tipo.toLowerCase().contains("uno")){
-            simbolo.tipoPregunta="cadena"; 
-            
-        }else if(tipo.toLowerCase().contains("selecciona")&&tipo.toLowerCase().contains("multiple")){
-            simbolo.tipoPregunta="cadena"; 
-        
-        }else if(tipo.toLowerCase().contains("nota")){
-            simbolo.tipoPregunta="void";
+
+        if (tipo.toLowerCase().contains("texto")) {
+            simbolo.tipoPregunta = "cadena";
+
+        } else if (tipo.toLowerCase().contains("entero")) {
+            simbolo.tipoPregunta = "entero";
+
+        } else if (tipo.toLowerCase().contains("decimal")) {
+            simbolo.tipoPregunta = "decimal";
+
+        } else if (tipo.toLowerCase().contains("rango")) {
+            simbolo.tipoPregunta = "entero";
+
+        } else if (tipo.toLowerCase().contains("condicion")) {
+            simbolo.tipoPregunta = "booleano";
+
+        } else if (tipo.toLowerCase().contains("fecha")) {
+            simbolo.tipoPregunta = "fecha";
+
+        } else if (tipo.toLowerCase().contains("hora")) {
+            simbolo.tipoPregunta = "hora";
+
+        } else if (tipo.toLowerCase().contains("fecha") && tipo.toLowerCase().contains("hora")) {
+            simbolo.tipoPregunta = "fechahora";
+
+        } else if (tipo.toLowerCase().contains("selecciona") && tipo.toLowerCase().contains("uno")) {
+            simbolo.tipoPregunta = "cadena";
+
+        } else if (tipo.toLowerCase().contains("selecciona") && tipo.toLowerCase().contains("multiple")) {
+            simbolo.tipoPregunta = "cadena";
+
+        } else if (tipo.toLowerCase().contains("nota")) {
+            simbolo.tipoPregunta = "void";
             //No tiene respuesta
             //retorno+="\n\tentero Respuesta;";
-        }else if(tipo.toLowerCase().contains("fichero")){
-            simbolo.tipoPregunta="void";
+        } else if (tipo.toLowerCase().contains("fichero")) {
+            simbolo.tipoPregunta = "void";
             //No tiene respuesta
-        }else if(tipo.toLowerCase().contains("calcular")){
-            simbolo.tipoPregunta="entero"; 
-        }else{
-            
-            simbolo.tipoPregunta="void";
-            tablaSimbolos.tablaErrores.insertErrorLexical(celda.ambito, celda.posY, celda.posX, "Tipo de dato no reconocido:"+celda.val);
+        } else if (tipo.toLowerCase().contains("calcular")) {
+            simbolo.tipoPregunta = "entero";
+        } else {
+
+            simbolo.tipoPregunta = "void";
+            tablaSimbolos.tablaErrores.insertErrorLexical(celda.ambito, celda.posY, celda.posX, "Tipo de dato no reconocido:" + celda.val);
         }
-        
-        
-        if(!simbolo.tipoPregunta.equals("void")){//Si no es void
-            retorno+="\n\t\t"+simbolo.tipoPregunta+" Respuesta"+getPredeterminado();
+
+        if (!simbolo.tipoPregunta.equals("void")) {//Si no es void
+            retorno += "\n\t\t" + simbolo.tipoPregunta + " Respuesta" + getPredeterminado();
         }
 //        tablaSimbolos.tablaErrores.println(retorno);
-        
+
         return retorno;
     }
-    
-    public String getPredeterminado(){
-        String retorno=";"; 
-        cell celda=simbolo.lstAtributos.get("predeterminado");
-        if(celda==null){ 
+
+    public String getPredeterminado() {
+        String retorno = ";";
+        cell celda = simbolo.lstAtributos.get("predeterminado");
+        if (celda == null) {
             return retorno;
         }
+
+        expresion exp = new expresion(tablaSimbolos, celda);
+        retorno = exp.getCadena();
+        simbolo.concatTempParam(exp.tempLstParametros);
         
-        expresion exp=new expresion(tablaSimbolos, celda);
-        retorno=exp.getCadena();
-     
+//        insertarParametros(exp.lstParametros, celda);
+
         return retorno;
     }
-    public String getEtiqueta(){
-        String retorno="";
-        
+
+    public String getEtiqueta() {
+        String retorno = "";
+
         return retorno;
+    }
+
+    public void insertarParametros(ArrayList<String> lstParametros, cell celda) {
+        //Buscando en la tabla de simbolos si existe prro
+
+        for (String lstParametro : lstParametros) {
+            //System.out.println("Buscando parametro" + lstParametro);
+            elementoSimbolo temp = tablaSimbolos.getSimbolo(lstParametro);
+            if (temp != null) {
+                simbolo.lstParametros.put(lstParametro.toLowerCase(), temp.tipoPregunta);
+//                System.out.println("Insertando parametro:"+lstParametro+", de tipo:"+temp.tipoPregunta);
+//                cell celda2 = temp.lstAtributos.get("tipo");
+//                if (celda2 != null) {
+//                    
+//                } 
+            } else {
+                //System.out.println("Parametro no encontrado");
+                tablaSimbolos.tablaErrores.insertErrorSemantic(celda.ambito, celda.posY, celda.posX, "No se ha declarado la pregunta:" + lstParametro);
+                //no lo encontro en la tabla de simbolos prro
+            }
+        }
+
     }
 }

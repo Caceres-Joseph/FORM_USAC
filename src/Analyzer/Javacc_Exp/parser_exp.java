@@ -3,25 +3,39 @@ package Analyzer.Javacc_Exp;
 import java.io.InputStream;
 import Analyzer.Tree.Tablas.tablaSimbolos;
 import readExcel.cell;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 public class parser_exp implements parser_expConstants {
     public tablaSimbolos tablaSimbolos;
-    public String cadenaSalida;
-    public cell celda;
+    public String cadenaSalida="";
+    public static cell celda=new cell("");
+    /*
+    |-------------------------
+    | tipo
+    | 0=desconocido
+    | 1=entero
+    | 2=decimal
+    | 3=booleano
+    |-------------------------
+    */
+    public static int tipo=0;
+    public static HashMap<String, cell> tempLstParametros;
     public parser_exp(){
 
     }
 
-    public void inicializar(tablaSimbolos tabla,InputStream stream, cell celda , String cadenaSalida){
+    public void inicializar(tablaSimbolos tabla,InputStream stream, cell celda ){
 
         try{
 
                 parser_exp analizador =new parser_exp(stream);
                 this.tablaSimbolos=tabla;
                 this.celda=celda;
-               String cad=analizador.Programa(tabla);
+                this.tempLstParametros=new LinkedHashMap<String, cell>();
+                cadenaSalida=analizador.Programa(tabla);
 
-                this.println(cad);
-                this.println("[parser_exp]Analisis  exitoso! :)");
+                //this.println("[parser_exp]Analisis  exitoso! :)");
 
             }
         catch(ParseException e){
@@ -167,7 +181,9 @@ public class parser_exp implements parser_expConstants {
       jj_consume_token(tOr);
       tempString2 = AND(tabla);
             retorno+=" || "+tempString2;
-            System.out.println("[OR]"+retorno);
+            parser_exp.tipo=3;
+            /* System.out.println("[OR]"+retorno); */
+
     }
      {if (true) return retorno;}
     throw new Error("Missing return statement in function");
@@ -192,7 +208,9 @@ public class parser_exp implements parser_expConstants {
       jj_consume_token(tAnd);
       tempString2 = IGUALACION(tabla);
             retorno+=" && "+tempString2;
-             System.out.println("[AND]"+retorno);
+            parser_exp.tipo=3;
+             /* System.out.println("[AND]"+retorno); */
+
     }
      {if (true) return retorno;}
     throw new Error("Missing return statement in function");
@@ -217,7 +235,9 @@ public class parser_exp implements parser_expConstants {
       jj_consume_token(tIgual);
       tempString2 = DIFERENCIACION(tabla);
             retorno+=" == "+tempString2;
-            System.out.println("[IGUALACION]"+retorno);
+            parser_exp.tipo=3;
+           /*  System.out.println("[IGUALACION]"+retorno); */
+
     }
      {if (true) return retorno;}
     throw new Error("Missing return statement in function");
@@ -242,7 +262,9 @@ public class parser_exp implements parser_expConstants {
       jj_consume_token(tDiferente);
       tempString2 = MENOR_QUE(tabla);
             retorno+=" != "+tempString2;
-            System.out.println("[DIFERENCIACION]"+retorno);
+            parser_exp.tipo=3;
+            /* System.out.println("[DIFERENCIACION]"+retorno); */
+
     }
      {if (true) return retorno;}
     throw new Error("Missing return statement in function");
@@ -267,7 +289,9 @@ public class parser_exp implements parser_expConstants {
       jj_consume_token(tMenorQue);
       tempString2 = MENOR_IGUALQUE(tabla);
             retorno+=" < "+tempString2;
-            System.out.println("[MENOR_QUE]"+retorno);
+            parser_exp.tipo=3;
+            /* System.out.println("[MENOR_QUE]"+retorno); */
+
     }
      {if (true) return retorno;}
     throw new Error("Missing return statement in function");
@@ -292,7 +316,9 @@ public class parser_exp implements parser_expConstants {
       jj_consume_token(tMenorIgualQue);
       tempString2 = MAYOR_QUE(tabla);
             retorno+=" <= "+tempString2;
-            System.out.println("[MENOR_IGUALQUE]"+retorno);
+            parser_exp.tipo=3;
+           /*  System.out.println("[MENOR_IGUALQUE]"+retorno); */
+
     }
      {if (true) return retorno;}
     throw new Error("Missing return statement in function");
@@ -317,7 +343,9 @@ public class parser_exp implements parser_expConstants {
       jj_consume_token(tMayorQue);
       tempString2 = MAYOR_IGUALQUE(tabla);
             retorno+=" > "+tempString2;
-            System.out.println("[MAYOR_QUE]"+retorno);
+            parser_exp.tipo=3;
+            /* System.out.println("[MAYOR_QUE]"+retorno); */
+
     }
      {if (true) return retorno;}
     throw new Error("Missing return statement in function");
@@ -342,7 +370,9 @@ public class parser_exp implements parser_expConstants {
       jj_consume_token(tMayorIgualQue);
       tempString2 = RES(tabla);
             retorno+=" >= "+tempString2;
-            System.out.println("[MAYOR_IGUALQUE]"+retorno);
+            parser_exp.tipo=3;
+            /* System.out.println("[MAYOR_IGUALQUE]"+retorno); */
+
     }
      {if (true) return retorno;}
     throw new Error("Missing return statement in function");
@@ -393,7 +423,9 @@ public class parser_exp implements parser_expConstants {
       jj_consume_token(tResta);
       tempString2 = SUM(tabla);
             retorno+=" - "+tempString2;
-            System.out.println("[RES]"+retorno);
+            parser_exp.tipo=1;
+            /* System.out.println("[RES]"+retorno); */
+
     }
      {if (true) return retorno;}
     throw new Error("Missing return statement in function");
@@ -418,7 +450,9 @@ public class parser_exp implements parser_expConstants {
       jj_consume_token(tSuma);
       tempString2 = MODULO(tabla);
             retorno+=" + "+tempString2;
-            System.out.println("[SUM]"+retorno);
+            parser_exp.tipo=1;
+            /* System.out.println("[SUM]"+retorno); */
+
     }
      {if (true) return retorno;}
     throw new Error("Missing return statement in function");
@@ -443,7 +477,9 @@ public class parser_exp implements parser_expConstants {
       jj_consume_token(tModulo);
       tempString2 = DIV(tabla);
             retorno+=" % "+tempString2;
-            System.out.println("[MODULO]"+retorno);
+            parser_exp.tipo=1;
+            /* System.out.println("[MODULO]"+retorno); */
+
     }
      {if (true) return retorno;}
     throw new Error("Missing return statement in function");
@@ -468,7 +504,9 @@ public class parser_exp implements parser_expConstants {
       jj_consume_token(tDivision);
       tempString2 = POR(tabla);
             retorno+=" / "+tempString2;
-            System.out.println("[DIV]"+retorno);
+            parser_exp.tipo=2;
+            /* System.out.println("[DIV]"+retorno); */
+
     }
      {if (true) return retorno;}
     throw new Error("Missing return statement in function");
@@ -493,7 +531,9 @@ public class parser_exp implements parser_expConstants {
       jj_consume_token(tMultiplicacion);
       tempString2 = NOT(tabla);
             retorno+=" * "+tempString2;
-            System.out.println("[POR]"+retorno);
+            parser_exp.tipo=1;
+            /* System.out.println("[POR]"+retorno); */
+
     }
      {if (true) return retorno;}
     throw new Error("Missing return statement in function");
@@ -509,7 +549,9 @@ public class parser_exp implements parser_expConstants {
         jj_consume_token(tNot);
         tempString1 = F(tabla);
             retorno+="!"+tempString1;
-            System.out.println("[NOT]"+retorno);
+            parser_exp.tipo=3;
+            /* System.out.println("[NOT]"+retorno); */
+
         switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
         case tNot:
           ;
@@ -522,8 +564,11 @@ public class parser_exp implements parser_expConstants {
          {if (true) return retorno;}
       break;
     case tPosicion:
+    case tBoolean:
     case tNumero:
     case tIdentificador:
+    case tFecha:
+    case tHora:
     case tResta:
     case tPunto:
     case tAbreParent:
@@ -543,20 +588,34 @@ public class parser_exp implements parser_expConstants {
     throw new Error("Missing return statement in function");
   }
 
-  final public String parentesis() throws ParseException {
+  final public String parentesis(tablaSimbolos tabla) throws ParseException {
     String retorno="";
-    label_15:
-    while (true) {
-      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-      case tAbreParent:
-        ;
-        break;
-      default:
-        jj_la1[15] = jj_gen;
-        break label_15;
-      }
+    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+    case tAbreParent:
       jj_consume_token(tAbreParent);
       jj_consume_token(tCierraParent);
+     {if (true) return retorno;}
+      break;
+    default:
+      jj_la1[15] = jj_gen;
+      epsilon();
+        tabla.tablaErrores.insertErrorLexical(parser_exp.celda.ambito,parser_exp.celda.posY,parser_exp.celda.posX,"Para hacer referencia a una variable tiene que usar #[var]");
+        {if (true) return retorno;}
+    }
+    throw new Error("Missing return statement in function");
+  }
+
+  final public String fechaHora(tablaSimbolos tabla) throws ParseException {
+    String retorno="";
+    Token temp;
+    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+    case tHora:
+      temp = jj_consume_token(tHora);
+         retorno=" "+temp.image;
+      break;
+    default:
+      jj_la1[16] = jj_gen;
+      ;
     }
      {if (true) return retorno;}
     throw new Error("Missing return statement in function");
@@ -587,6 +646,11 @@ public class parser_exp implements parser_expConstants {
             cadenaSalida="posicion(..)";
             {if (true) return cadenaSalida;}
       break;
+    case tBoolean:
+      tnumero = jj_consume_token(tBoolean);
+            cadenaSalida=tnumero.image;
+            {if (true) return cadenaSalida;}
+      break;
     case tString:
       tnumero = jj_consume_token(tString);
             cadenaSalida=tnumero.image;
@@ -602,14 +666,25 @@ public class parser_exp implements parser_expConstants {
             cadenaSalida=tnumero.image;
             {if (true) return cadenaSalida;}
       break;
+    case tFecha:
+      tnumero = jj_consume_token(tFecha);
+      tempString = fechaHora(tabla);
+            cadenaSalida=tnumero.image+tempString;
+            {if (true) return cadenaSalida;}
+      break;
+    case tHora:
+      tnumero = jj_consume_token(tHora);
+            cadenaSalida=tnumero.image;
+            {if (true) return cadenaSalida;}
+      break;
     case tPunto:
       jj_consume_token(tPunto);
-            cadenaSalida=".";
+            cadenaSalida="param_1";
             {if (true) return cadenaSalida;}
       break;
     case tIdentificador:
       tnumero = jj_consume_token(tIdentificador);
-      tempString = parentesis();
+      tempString = parentesis(tabla);
             cadenaSalida=tnumero.image+tempString;
             {if (true) return cadenaSalida;}
       break;
@@ -619,7 +694,8 @@ public class parser_exp implements parser_expConstants {
       tnumero = jj_consume_token(tIdentificador);
       jj_consume_token(tCierraCorchete);
             cadenaSalida=tnumero.image;
-            tabla.tablaErrores.insertErrorSyntax("asdf",0,0,"Numeral");
+            parser_exp.tempLstParametros.put(cadenaSalida, parser_exp.celda);
+
             {if (true) return cadenaSalida;}
       break;
     case tAbreParent:
@@ -630,7 +706,7 @@ public class parser_exp implements parser_expConstants {
             {if (true) return cadenaSalida;}
       break;
     default:
-      jj_la1[16] = jj_gen;
+      jj_la1[17] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
@@ -654,7 +730,7 @@ public class parser_exp implements parser_expConstants {
   public Token jj_nt;
   private int jj_ntk;
   private int jj_gen;
-  final private int[] jj_la1 = new int[17];
+  final private int[] jj_la1 = new int[18];
   static private int[] jj_la1_0;
   static private int[] jj_la1_1;
   static {
@@ -662,10 +738,10 @@ public class parser_exp implements parser_expConstants {
       jj_la1_init_1();
    }
    private static void jj_la1_init_0() {
-      jj_la1_0 = new int[] {0x20000,0x10000,0x400,0x800,0x4000,0x8000,0x1000,0x2000,0x100,0x80,0x4,0x2,0x200,0x40000,0x3d0c0138,0x1000000,0x3d080138,};
+      jj_la1_0 = new int[] {0x100000,0x80000,0x2000,0x4000,0x20000,0x40000,0x8000,0x10000,0x800,0x400,0x4,0x2,0x1000,0x200000,0xe8600b78,0x8000000,0x200,0xe8400b78,};
    }
    private static void jj_la1_init_1() {
-      jj_la1_1 = new int[] {0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,};
+      jj_la1_1 = new int[] {0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x1,0x0,0x0,0x1,};
    }
 
   /** Constructor with InputStream. */
@@ -679,7 +755,7 @@ public class parser_exp implements parser_expConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 17; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 18; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -693,7 +769,7 @@ public class parser_exp implements parser_expConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 17; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 18; i++) jj_la1[i] = -1;
   }
 
   /** Constructor. */
@@ -703,7 +779,7 @@ public class parser_exp implements parser_expConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 17; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 18; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -713,7 +789,7 @@ public class parser_exp implements parser_expConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 17; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 18; i++) jj_la1[i] = -1;
   }
 
   /** Constructor with generated Token Manager. */
@@ -722,7 +798,7 @@ public class parser_exp implements parser_expConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 17; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 18; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -731,7 +807,7 @@ public class parser_exp implements parser_expConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 17; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 18; i++) jj_la1[i] = -1;
   }
 
   private Token jj_consume_token(int kind) throws ParseException {
@@ -782,12 +858,12 @@ public class parser_exp implements parser_expConstants {
   /** Generate ParseException. */
   public ParseException generateParseException() {
     jj_expentries.clear();
-    boolean[] la1tokens = new boolean[35];
+    boolean[] la1tokens = new boolean[38];
     if (jj_kind >= 0) {
       la1tokens[jj_kind] = true;
       jj_kind = -1;
     }
-    for (int i = 0; i < 17; i++) {
+    for (int i = 0; i < 18; i++) {
       if (jj_la1[i] == jj_gen) {
         for (int j = 0; j < 32; j++) {
           if ((jj_la1_0[i] & (1<<j)) != 0) {
@@ -799,7 +875,7 @@ public class parser_exp implements parser_expConstants {
         }
       }
     }
-    for (int i = 0; i < 35; i++) {
+    for (int i = 0; i < 38; i++) {
       if (la1tokens[i]) {
         jj_expentry = new int[1];
         jj_expentry[0] = i;

@@ -11,26 +11,40 @@ PARSER_BEGIN(parser_exp)
 package Analyzer.Javacc_Exp; 
 import java.io.InputStream; 
 import Analyzer.Tree.Tablas.tablaSimbolos;
-import readExcel.cell;
+import readExcel.cell; 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 public class parser_exp { 
     public tablaSimbolos tablaSimbolos; 
-    public String cadenaSalida; 
-    public cell celda; 
+    public String cadenaSalida=""; 
+    public static cell celda=new cell(""); 
+    /*
+    |-------------------------
+    | tipo
+    | 0=desconocido
+    | 1=entero
+    | 2=decimal
+    | 3=booleano
+    |-------------------------
+    */
+    public static int tipo=0; 
+    public static HashMap<String, cell> tempLstParametros;
     public parser_exp(){
     
     }
 
-    public void inicializar(tablaSimbolos tabla,InputStream stream, cell celda , String cadenaSalida){
+    public void inicializar(tablaSimbolos tabla,InputStream stream, cell celda ){
     
         try{
                  
                 parser_exp analizador =new parser_exp(stream);
                 this.tablaSimbolos=tabla;
-                this.celda=celda; 
-               String cad=analizador.Programa(tabla); 
-                
-                this.println(cad);
-                this.println("[parser_exp]Analisis  exitoso! :)");
+                this.celda=celda;
+                this.tempLstParametros=new LinkedHashMap<String, cell>();  
+                cadenaSalida=analizador.Programa(tabla); 
+                 
+                //this.println("[parser_exp]Analisis  exitoso! :)");
                 
             }
         catch(ParseException e){
@@ -120,6 +134,11 @@ TOKEN [IGNORE_CASE] :
             {parser_exp.imprimirToken("tModulo->"+image);}
     |    <tPosicion : "posicion" >
             {parser_exp.imprimirToken("tPosicion->"+image);}
+
+    |    <tBoolean : "true"|"false"|"verdadero"|"falso" >
+            {parser_exp.imprimirToken("tBoolean->"+image);} 
+
+    
 }
         /*
         +-------------------------+
@@ -144,6 +163,12 @@ TOKEN : {
     |   <#tLetra: (["a"-"z","A"-"Z"])> 
 }
 
+TOKEN:{
+    <tFecha: (<tNumero>"/"<tNumero>"/"<tNumero>) >
+        {parser_exp.imprimirToken("tFecha->"+image);}
+    |<tHora: (<tNumero>":"<tNumero>(":"<tNumero>)?) >
+        {parser_exp.imprimirToken("tFecha->"+image);}
+}
 
         /*
         +-------------------------+
@@ -321,7 +346,8 @@ String OR(tablaSimbolos tabla):
         {
             
             retorno+=" || "+tempString2;
-            System.out.println("[OR]"+retorno);
+            parser_exp.tipo=3;
+            /* System.out.println("[OR]"+retorno); */
         }
     )*
  
@@ -344,7 +370,8 @@ String AND(tablaSimbolos tabla):
         tempString2=IGUALACION(tabla)
         {
             retorno+=" && "+tempString2;
-             System.out.println("[AND]"+retorno);
+            parser_exp.tipo=3;
+             /* System.out.println("[AND]"+retorno); */
         }
 
     )* 
@@ -369,7 +396,8 @@ String IGUALACION(tablaSimbolos tabla):
         {
             
             retorno+=" == "+tempString2;
-            System.out.println("[IGUALACION]"+retorno);
+            parser_exp.tipo=3;
+           /*  System.out.println("[IGUALACION]"+retorno); */
         }
     )* 
     {return retorno;}
@@ -392,7 +420,8 @@ String DIFERENCIACION(tablaSimbolos tabla):
         tempString2=MENOR_QUE(tabla)
         { 
             retorno+=" != "+tempString2;
-            System.out.println("[DIFERENCIACION]"+retorno);
+            parser_exp.tipo=3;
+            /* System.out.println("[DIFERENCIACION]"+retorno); */
         }
     )* 
     {return retorno;}
@@ -415,7 +444,8 @@ String MENOR_QUE(tablaSimbolos tabla):
         tempString2=MENOR_IGUALQUE(tabla)
         { 
             retorno+=" < "+tempString2;
-            System.out.println("[MENOR_QUE]"+retorno);
+            parser_exp.tipo=3;
+            /* System.out.println("[MENOR_QUE]"+retorno); */
         }
     )* 
     {return retorno;}
@@ -439,7 +469,8 @@ String MENOR_IGUALQUE(tablaSimbolos tabla):
         tempString2=MAYOR_QUE(tabla)
         { 
             retorno+=" <= "+tempString2;
-            System.out.println("[MENOR_IGUALQUE]"+retorno);
+            parser_exp.tipo=3;
+           /*  System.out.println("[MENOR_IGUALQUE]"+retorno); */
         }
     )* 
     {return retorno;}
@@ -462,7 +493,8 @@ String MAYOR_QUE(tablaSimbolos tabla):
        tempString2= MAYOR_IGUALQUE(tabla)
         { 
             retorno+=" > "+tempString2;
-            System.out.println("[MAYOR_QUE]"+retorno);
+            parser_exp.tipo=3;
+            /* System.out.println("[MAYOR_QUE]"+retorno); */
         }
     )*     
     {return retorno;}
@@ -485,7 +517,8 @@ String MAYOR_IGUALQUE(tablaSimbolos tabla):
         tempString2=RES(tabla)
         { 
             retorno+=" >= "+tempString2;
-            System.out.println("[MAYOR_IGUALQUE]"+retorno);
+            parser_exp.tipo=3;
+            /* System.out.println("[MAYOR_IGUALQUE]"+retorno); */
         }
     )* 
     {return retorno;}
@@ -535,7 +568,8 @@ String RES(tablaSimbolos tabla):
         tempString2=SUM(tabla)
         { 
             retorno+=" - "+tempString2;
-            System.out.println("[RES]"+retorno);
+            parser_exp.tipo=1;
+            /* System.out.println("[RES]"+retorno); */
         }
     )* 
 
@@ -560,7 +594,8 @@ String SUM(tablaSimbolos tabla):
 
         {
             retorno+=" + "+tempString2;
-            System.out.println("[SUM]"+retorno);
+            parser_exp.tipo=1;
+            /* System.out.println("[SUM]"+retorno); */
         }
     )* 
     {return retorno;}
@@ -583,7 +618,8 @@ String MODULO(tablaSimbolos tabla):
         tempString2=DIV(tabla)
         {
             retorno+=" % "+tempString2;
-            System.out.println("[MODULO]"+retorno);
+            parser_exp.tipo=1;
+            /* System.out.println("[MODULO]"+retorno); */
         }
     )* 
     {return retorno;}
@@ -605,7 +641,8 @@ String DIV(tablaSimbolos tabla):
         tempString2=POR(tabla)
         {
             retorno+=" / "+tempString2;
-            System.out.println("[DIV]"+retorno);
+            parser_exp.tipo=2;
+            /* System.out.println("[DIV]"+retorno); */
         }
     )* 
 
@@ -629,7 +666,8 @@ String POR(tablaSimbolos tabla):
        tempString2= NOT(tabla)
         {
             retorno+=" * "+tempString2;
-            System.out.println("[POR]"+retorno);
+            parser_exp.tipo=1;
+            /* System.out.println("[POR]"+retorno); */
         }
     )*
     {return retorno;}
@@ -646,7 +684,8 @@ String NOT(tablaSimbolos tabla) :
         tempString1=F(tabla) 
         {
             retorno+="!"+tempString1;
-            System.out.println("[NOT]"+retorno);
+            parser_exp.tipo=3;
+            /* System.out.println("[NOT]"+retorno); */
         }
     )+
         {return retorno;}
@@ -662,12 +701,31 @@ String NOT(tablaSimbolos tabla) :
 }
 
 
-String parentesis():
+String parentesis(tablaSimbolos tabla):
 {
     String retorno="";
 }
 {
-    (<tAbreParent>  <tCierraParent>)*    
+    (<tAbreParent>  <tCierraParent>)   
+    {return retorno;}
+    |
+    epsilon()
+    {
+        tabla.tablaErrores.insertErrorLexical(parser_exp.celda.ambito,parser_exp.celda.posY,parser_exp.celda.posX,"Para hacer referencia a una variable tiene que usar #[var]");
+        return retorno;
+    }
+}
+
+String fechaHora(tablaSimbolos tabla):
+{
+    String retorno="";
+    Token temp;
+}
+{
+    (
+        temp=<tHora>
+        {retorno=" "+temp.image;}
+    )?
     {return retorno;}
 }
  
@@ -686,7 +744,7 @@ String F(tablaSimbolos tabla):
             return cadenaSalida;
         }
         
-      |<tResta> tnumero =<tNumero>
+    |<tResta> tnumero =<tNumero>
         {
             cadenaSalida="-"+tnumero.image;
             return cadenaSalida;
@@ -694,6 +752,12 @@ String F(tablaSimbolos tabla):
     |<tPosicion><tAbreParent><tDosPuntosSeguidos><tCierraParent>
         {
             cadenaSalida="posicion(..)";
+            return cadenaSalida;
+        }
+    
+    |tnumero=<tBoolean>
+        {
+            cadenaSalida=tnumero.image;
             return cadenaSalida;
         }
     |tnumero=<tString>
@@ -711,12 +775,24 @@ String F(tablaSimbolos tabla):
             cadenaSalida=tnumero.image;
             return cadenaSalida;
         }
-    |<tPunto>
+    | tnumero=<tFecha> tempString=fechaHora(tabla)
         {
-            cadenaSalida=".";
+            cadenaSalida=tnumero.image+tempString;
             return cadenaSalida;
         }
-    |tnumero=<tIdentificador> tempString= parentesis()
+    | tnumero=<tHora>
+        {
+            cadenaSalida=tnumero.image;
+            return cadenaSalida;
+        }
+
+
+    |<tPunto>
+        {
+            cadenaSalida="param_1";
+            return cadenaSalida;
+        }
+    |tnumero=<tIdentificador> tempString= parentesis(tabla)
         {
             cadenaSalida=tnumero.image+tempString;
             return cadenaSalida;
@@ -725,7 +801,8 @@ String F(tablaSimbolos tabla):
     |<tNumeral><tAbreCorchete>tnumero= <tIdentificador> <tCierraCorchete>
         { 
             cadenaSalida=tnumero.image;
-            tabla.tablaErrores.insertErrorSyntax("asdf",0,0,"Numeral");
+            parser_exp.tempLstParametros.put(cadenaSalida, parser_exp.celda);
+            
             return cadenaSalida; 
         }
         
@@ -734,6 +811,7 @@ String F(tablaSimbolos tabla):
             cadenaSalida="("+tempString+")";
             return cadenaSalida;
         }
+        
 /*     |<tNot> tempString =E(tabla)
         {
             cadenaSalida="!"+tempString;

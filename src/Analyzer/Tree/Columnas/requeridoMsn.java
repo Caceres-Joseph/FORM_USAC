@@ -4,18 +4,16 @@
  * and open the template in the editor.
  */
 package Analyzer.Tree.Columnas;
-
 import Analyzer.Tree.Tablas.elementoSimbolo;
 import Analyzer.Tree.Tablas.tablaSimbolos;
 import readExcel.cell;
-
 /**
  *
  * @author joseph
  */
-public class sugerir extends etiqueta {
-
-    public sugerir(tablaSimbolos tablaSimbolos, elementoSimbolo simbolo) {
+public class requeridoMsn extends etiqueta {
+    
+    public requeridoMsn(tablaSimbolos tablaSimbolos, elementoSimbolo simbolo) {
         super(tablaSimbolos, simbolo);
     }
 
@@ -27,12 +25,15 @@ public class sugerir extends etiqueta {
     public String getCadena() {
         String retorno = "";
         String etiqueta;
-        cell celda = simbolo.lstAtributos.get("sugerir");
+        cell celda = simbolo.lstAtributos.get("requeridomsn");
         if (celda == null) {
             return retorno;
         } 
         etiqueta = celda.val; 
-        retorno += "\n\t\tcadena Sugerir = \"" + analizar(etiqueta, celda) + "\";"; 
+        retorno += "\n\t\tcadena RequeridoMsn = \"" + analizar(etiqueta, celda) + "\";"; 
         return retorno;
     }
+    
+    
+    
 }

@@ -51,10 +51,9 @@ public class atributos {
         
         for (String key : lstCell.keySet()) {
             
-            if(key.toLowerCase().contains(contenido)){
+            if(key.toLowerCase().contains(contenido.toLowerCase())){
                 return lstCell.get(key); 
-            }
-            
+            } 
         }
         return retorno;
     }

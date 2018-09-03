@@ -17,59 +17,65 @@ public interface parser_expConstants {
   /** RegularExpression Id. */
   int tPosicion = 3;
   /** RegularExpression Id. */
-  int tNumero = 4;
+  int tBoolean = 4;
   /** RegularExpression Id. */
-  int tIdentificador = 5;
+  int tNumero = 5;
   /** RegularExpression Id. */
-  int tLetra = 6;
+  int tIdentificador = 6;
   /** RegularExpression Id. */
-  int tSuma = 7;
+  int tLetra = 7;
   /** RegularExpression Id. */
-  int tResta = 8;
+  int tFecha = 8;
   /** RegularExpression Id. */
-  int tMultiplicacion = 9;
+  int tHora = 9;
   /** RegularExpression Id. */
-  int tIgual = 10;
+  int tSuma = 10;
   /** RegularExpression Id. */
-  int tDiferente = 11;
+  int tResta = 11;
   /** RegularExpression Id. */
-  int tMayorQue = 12;
+  int tMultiplicacion = 12;
   /** RegularExpression Id. */
-  int tMayorIgualQue = 13;
+  int tIgual = 13;
   /** RegularExpression Id. */
-  int tMenorQue = 14;
+  int tDiferente = 14;
   /** RegularExpression Id. */
-  int tMenorIgualQue = 15;
+  int tMayorQue = 15;
   /** RegularExpression Id. */
-  int tAnd = 16;
+  int tMayorIgualQue = 16;
   /** RegularExpression Id. */
-  int tOr = 17;
+  int tMenorQue = 17;
   /** RegularExpression Id. */
-  int tNot = 18;
+  int tMenorIgualQue = 18;
   /** RegularExpression Id. */
-  int tPunto = 19;
+  int tAnd = 19;
   /** RegularExpression Id. */
-  int tDosPuntosSeguidos = 20;
+  int tOr = 20;
   /** RegularExpression Id. */
-  int tArroba = 21;
+  int tNot = 21;
   /** RegularExpression Id. */
-  int tAbreCorchete = 22;
+  int tPunto = 22;
   /** RegularExpression Id. */
-  int tCierraCorchete = 23;
+  int tDosPuntosSeguidos = 23;
   /** RegularExpression Id. */
-  int tAbreParent = 24;
+  int tArroba = 24;
   /** RegularExpression Id. */
-  int tCierraParent = 25;
+  int tAbreCorchete = 25;
   /** RegularExpression Id. */
-  int tNumeral = 26;
+  int tCierraCorchete = 26;
   /** RegularExpression Id. */
-  int tString = 27;
+  int tAbreParent = 27;
   /** RegularExpression Id. */
-  int tString2 = 28;
+  int tCierraParent = 28;
   /** RegularExpression Id. */
-  int tString3 = 29;
+  int tNumeral = 29;
   /** RegularExpression Id. */
-  int OTHER = 34;
+  int tString = 30;
+  /** RegularExpression Id. */
+  int tString2 = 31;
+  /** RegularExpression Id. */
+  int tString3 = 32;
+  /** RegularExpression Id. */
+  int OTHER = 37;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -80,9 +86,12 @@ public interface parser_expConstants {
     "\"div\"",
     "\"mod\"",
     "\"posicion\"",
+    "<tBoolean>",
     "<tNumero>",
     "<tIdentificador>",
     "<tLetra>",
+    "<tFecha>",
+    "<tHora>",
     "\"+\"",
     "\"-\"",
     "\"*\"",

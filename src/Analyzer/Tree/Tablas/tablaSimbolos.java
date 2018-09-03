@@ -14,12 +14,24 @@ import readExcel.cell;
  * @author joseph
  */
 public class tablaSimbolos {
-   public tablaErrores tablaErrores=new tablaErrores();
-   public HashMap<String,elementoSimbolo>   lstSimbolos = new LinkedHashMap<>();
- 
-   
-   public void insertSimbol(String idPregunta,elementoSimbolo simbolo){
-       
-   }
-   
+
+    public tablaErrores tablaErrores = new tablaErrores();
+    public HashMap<String, elementoSimbolo> lstSimbolos = new LinkedHashMap<>();
+
+    public void insertSimbol(String idPregunta, elementoSimbolo simbolo) {
+        lstSimbolos.put(idPregunta, simbolo);
+
+    }
+
+    public elementoSimbolo getSimbolo(String nombre) {
+        elementoSimbolo elem = null;
+        for (String key : lstSimbolos.keySet()) {
+
+            if (key.toLowerCase().contains(nombre.toLowerCase())) {
+                return lstSimbolos.get(key);
+            } 
+        } 
+        return elem;
+    }
+
 }
