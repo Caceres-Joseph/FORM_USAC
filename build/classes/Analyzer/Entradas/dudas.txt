@@ -4,3 +4,27 @@ opcion multiple es entero
 una opcion es cadena?
 
 selecciona entero
+
+el parametro debe ir indicado ej publico Respuesta(entero param_2, Double parmetroextra)
+en requerido puede venir una expresion?
+
+
+puden venir varias funcions? respuesta() mostrar() calcular()
+
+SE SUPONE QUE ESTO NO SE PUEDE
+D ( ). respuesta(res.esCadena). apariencia (“C1”). cadena ();
+ESTE ES CORRECTO
+D ( ). respuesta(res.esCadena). apariencia (“C1”);
+
+
+
+
+FALTA XLS
+
+TIPO Grupo
+TIPO Ciclo
+TIPO Seleccionar_multi/uno 
+TIPO fichero
+
+
+en apariencia debería de ser cadena

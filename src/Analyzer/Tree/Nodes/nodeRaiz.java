@@ -23,6 +23,18 @@ public class nodeRaiz extends nodeModel {
     public void execute() {
         this.mensajeDeEjecucion();
         this.ejectuarHijos();
+//        ejecutarPrueba();
+    }
+    
+    
+    public void ejecutarPrueba(){
+        if (tablaSimbolos!=null) {
+            tablaSimbolos.tablaErrores.println("[nodeModel]"+this.nombreNodo+"_ejectuarHijos()");
+        }
+        for (nodeModel model : children) {
+            System.out.println(model.nombreNodo);
+//            model.execute();
+        }
     }
     
     

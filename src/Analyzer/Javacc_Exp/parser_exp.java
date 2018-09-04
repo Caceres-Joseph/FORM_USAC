@@ -49,6 +49,26 @@ public class parser_exp implements parser_expConstants {
 
     }
 
+    public HashMap<String, String> initParametro(tablaSimbolos tabla,InputStream stream, cell celda){
+        HashMap<String, String> retorno=new LinkedHashMap<String, String>();
+        try{
+
+                parser_exp analizador =new parser_exp(stream);
+                this.tablaSimbolos=tabla;
+                this.celda=celda;
+                this.tempLstParametros=new LinkedHashMap<String, cell>();
+                retorno=analizador._Parametro(tabla);
+                cadenaSalida="param";
+                this.println("[parser_exp_multim]Analisis  exitoso! :)");
+
+            }
+        catch(ParseException e){
+            this.error(e, tablaSimbolos);
+
+        }
+        return retorno;
+    }
+
     public void error_skipto(int kind) {
         ParseException e = generateParseException();  // generate the exception object.
         System.out.println(e.toString());  // print the error message
@@ -98,7 +118,7 @@ public class parser_exp implements parser_expConstants {
     }
 
     public static void imprimirToken(String t){
-       // System.out.println(t);
+        //System.out.println(t);
         //tablaSimbolos.tablaErrores.println(t);
     }
 
@@ -721,6 +741,67 @@ public class parser_exp implements parser_expConstants {
         this.imprimirToken("epsilon");
   }
 
+    /*
+    |--------------------------------------------------------------------------
+    | GRAMATICA
+    |-------------------------------------------------------------------------- 
+    */
+  final public HashMap<String, String> _Parametro(tablaSimbolos tabla) throws ParseException {
+    HashMap<String, String> temp=new LinkedHashMap<String, String>();
+    CAD_MAX(tabla,temp);
+     {if (true) return temp;}
+    throw new Error("Missing return statement in function");
+  }
+
+  final public void CAD_MAX(tablaSimbolos tabla,HashMap<String, String> temp) throws ParseException {
+    String exp="";
+    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+    case tCadMax:
+      jj_consume_token(tCadMax);
+      jj_consume_token(tIgual);
+      exp = E(tabla);
+      CAD_MAX(tabla,temp);
+                temp.put("cad_max",exp);
+                System.out.println("tcadMax:"+exp);
+      break;
+    case tCadMin:
+      jj_consume_token(tCadMin);
+      jj_consume_token(tIgual);
+      exp = E(tabla);
+      CAD_MAX(tabla,temp);
+                temp.put("cad_min",exp);
+                System.out.println("tCadMin:"+exp);
+      break;
+    case tCadFila:
+      jj_consume_token(tCadFila);
+      jj_consume_token(tIgual);
+      exp = E(tabla);
+      CAD_MAX(tabla,temp);
+                temp.put("cad_fila",exp);
+                System.out.println("tCadFila:"+exp);
+      break;
+    case tFinalizar:
+      jj_consume_token(tFinalizar);
+      jj_consume_token(tIgual);
+      exp = E(tabla);
+      CAD_MAX(tabla,temp);
+                temp.put("finalizar",exp);
+                System.out.println("tFinalizar:"+exp);
+      break;
+    case tOpcion:
+      jj_consume_token(tOpcion);
+      jj_consume_token(tIgual);
+      jj_consume_token(tSiNO);
+      CAD_MAX(tabla,temp);
+                temp.put("opcion","si_no");
+                System.out.println("tOpcion:si_no");
+      break;
+    default:
+      jj_la1[18] = jj_gen;
+      epsilon();
+    }
+  }
+
   /** Generated Token Manager. */
   public parser_expTokenManager token_source;
   SimpleCharStream jj_input_stream;
@@ -730,7 +811,7 @@ public class parser_exp implements parser_expConstants {
   public Token jj_nt;
   private int jj_ntk;
   private int jj_gen;
-  final private int[] jj_la1 = new int[18];
+  final private int[] jj_la1 = new int[19];
   static private int[] jj_la1_0;
   static private int[] jj_la1_1;
   static {
@@ -738,10 +819,10 @@ public class parser_exp implements parser_expConstants {
       jj_la1_init_1();
    }
    private static void jj_la1_init_0() {
-      jj_la1_0 = new int[] {0x100000,0x80000,0x2000,0x4000,0x20000,0x40000,0x8000,0x10000,0x800,0x400,0x4,0x2,0x1000,0x200000,0xe8600b78,0x8000000,0x200,0xe8400b78,};
+      jj_la1_0 = new int[] {0x4000000,0x2000000,0x80000,0x100000,0x800000,0x1000000,0x200000,0x400000,0x20000,0x10000,0x4,0x2,0x40000,0x8000000,0x1802d818,0x0,0x8000,0x1002d818,0x3e0,};
    }
    private static void jj_la1_init_1() {
-      jj_la1_1 = new int[] {0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x1,0x0,0x0,0x1,};
+      jj_la1_1 = new int[] {0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x7a,0x2,0x0,0x7a,0x0,};
    }
 
   /** Constructor with InputStream. */
@@ -755,7 +836,7 @@ public class parser_exp implements parser_expConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 18; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 19; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -769,7 +850,7 @@ public class parser_exp implements parser_expConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 18; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 19; i++) jj_la1[i] = -1;
   }
 
   /** Constructor. */
@@ -779,7 +860,7 @@ public class parser_exp implements parser_expConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 18; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 19; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -789,7 +870,7 @@ public class parser_exp implements parser_expConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 18; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 19; i++) jj_la1[i] = -1;
   }
 
   /** Constructor with generated Token Manager. */
@@ -798,7 +879,7 @@ public class parser_exp implements parser_expConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 18; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 19; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -807,7 +888,7 @@ public class parser_exp implements parser_expConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 18; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 19; i++) jj_la1[i] = -1;
   }
 
   private Token jj_consume_token(int kind) throws ParseException {
@@ -858,12 +939,12 @@ public class parser_exp implements parser_expConstants {
   /** Generate ParseException. */
   public ParseException generateParseException() {
     jj_expentries.clear();
-    boolean[] la1tokens = new boolean[38];
+    boolean[] la1tokens = new boolean[44];
     if (jj_kind >= 0) {
       la1tokens[jj_kind] = true;
       jj_kind = -1;
     }
-    for (int i = 0; i < 18; i++) {
+    for (int i = 0; i < 19; i++) {
       if (jj_la1[i] == jj_gen) {
         for (int j = 0; j < 32; j++) {
           if ((jj_la1_0[i] & (1<<j)) != 0) {
@@ -875,7 +956,7 @@ public class parser_exp implements parser_expConstants {
         }
       }
     }
-    for (int i = 0; i < 38; i++) {
+    for (int i = 0; i < 44; i++) {
       if (la1tokens[i]) {
         jj_expentry = new int[1];
         jj_expentry[0] = i;

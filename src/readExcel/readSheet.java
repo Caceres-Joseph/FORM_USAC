@@ -185,7 +185,7 @@ public class readSheet {
             while (it.hasNext()) {
                 String key = (String) it.next();
                 cell temp = filaHash.get(key);
-                this.stringSheet += "\n\t\t< _ambito:" + temp.ambito + " posX:" + String.valueOf(temp.posX) + " posY:" + String.valueOf(temp.posY) + " " + key + " />" + temp.val + " </ " + key + ">";
+                this.stringSheet += "\n\t\t< _ambito:" + temp.ambito + " posX:" + String.valueOf(temp.posX) + " posY:" + String.valueOf(temp.posY) + " " + key + " />" + temp.val + "</ " + key + ">";
             }
             this.stringSheet += "\n\t]";
 

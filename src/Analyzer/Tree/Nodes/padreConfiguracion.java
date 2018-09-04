@@ -22,7 +22,11 @@ public class padreConfiguracion extends nodeModel {
     
     @Override
     public void execute() {
-        this.mensajeDeEjecucion();
+//        this.mensajeDeEjecucion();
+//       System.out.println("Ejecutando el nodo Opcion");
+//        this.mensajeDeEjecucion();
+//        this.ejectuarHijos();
     }
+    
  
 }

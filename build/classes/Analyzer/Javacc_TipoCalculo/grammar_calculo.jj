@@ -1,0 +1,848 @@
+options {
+    STATIC = false ;
+}
+    /*
+    |--------------------------------------------------------------------------
+    | METODOS
+    |-------------------------------------------------------------------------- 
+    */
+
+PARSER_BEGIN(parser_calculo) 
+package Analyzer.Javacc_TipoCalculo; 
+import java.io.InputStream; 
+import Analyzer.Tree.Tablas.tablaSimbolos;
+import readExcel.cell; 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+public class parser_calculo { 
+    public tablaSimbolos tablaSimbolos; 
+    public String cadenaSalida=""; 
+    public static cell celda=new cell(""); 
+    /*
+    |-------------------------
+    | tipo
+    | 0=desconocido
+    | 1=entero
+    | 2=decimal
+    | 3=booleano
+    | 4=cadena
+    | 5=fecha
+    | 6=fechahora
+    | 7=hora
+    |-------------------------
+    */
+    public static int tipo=0;  
+    public parser_calculo(){
+    
+    }
+
+    public void inicializar(tablaSimbolos tabla,InputStream stream, cell celda ){
+    
+        try{
+                 
+                parser_calculo analizador =new parser_calculo(stream);
+                this.tablaSimbolos=tabla;
+                this.celda=celda;  
+                cadenaSalida=analizador.Programa(tabla); 
+                 
+                //this.println("[parser_calculo]Analisis  exitoso! :)");
+                
+            }
+        catch(ParseException e){
+            this.error(e, tablaSimbolos);
+            //tablaSimbolos.tablaErrores.println(e);
+            /* raiz.tablaSimbolos.tablaErrores.insertErrorSemantic("",0,0,e.getMessage());
+            raiz.tablaSimbolos.tablaErrores.println("Error en el parser_calculo"); */
+            
+        }  
+    } 
+
+    public void error_skipto(int kind) { 
+        ParseException e = generateParseException();  // generate the exception object.
+        System.out.println(e.toString());  // print the error message
+        Token t;
+        int cont=0;
+        do {
+            t = getNextToken();   
+        } while (t.kind != kind && t.kind != EOF);  
+    }
+
+    public void error(ParseException e, tablaSimbolos tabla){
+        
+        //tabla.tablaErrores.println("Error en el parser_calculo, Recuperandose");
+        int maxSize = 0;
+        String cadenaEsperaba="";
+        for (int i = 0; i < e.expectedTokenSequences.length; i++) {
+            if (maxSize < e.expectedTokenSequences[i].length) {
+                maxSize = e.expectedTokenSequences[i].length;
+            }
+            for (int j = 0; j < e.expectedTokenSequences[i].length; j++) {
+                int indice=e.expectedTokenSequences[i][j];
+               
+                    
+                if(e.tokenImage[indice].contains("EOF")){
+                    //tabla.tablaErrores.insertErrorSyntax("encuesta",-2,-2,"No se encontró fila de finalizacion"); 
+                }else{
+                    cadenaEsperaba+=","+e.tokenImage[indice];
+                   // tabla.tablaErrores.insertErrorSyntax("encuesta",-2,-2,e.getMessage()); 
+                    //tabla.tablaErrores.println("Se esperaba:"+e.tokenImage[indice]);
+                    
+                }
+                
+            } 
+        }
+        tabla.tablaErrores.insertErrorSyntax(celda.ambito,celda.posY,celda.posX,"Se esperaba alguno de los siguientes tokens->"+cadenaEsperaba); 
+
+
+        //System.out.println(e);
+    }
+
+
+    public void println(Object mensaje){
+        tablaSimbolos.tablaErrores.println(mensaje);
+    }
+    public void print(Object mensaje){
+        tablaSimbolos.tablaErrores.print(mensaje);
+    }
+
+    public static void imprimirToken(String t){
+        //System.out.println(t);
+        //tablaSimbolos.tablaErrores.println(t);
+    }
+} 
+
+PARSER_END(parser_calculo)
+
+    /*
+    |--------------------------------------------------------------------------
+    | TOKENS
+    |-------------------------------------------------------------------------- 
+    */
+
+ 
+        /*
+        +-------------------------+
+        |   Palabra Reservada
+        */
+
+TOKEN [IGNORE_CASE] :
+{ 
+         <tDivision : "div" >
+            {parser_calculo.imprimirToken("tDivision->"+image);}
+    |    <tModulo : "mod" >
+            {parser_calculo.imprimirToken("tModulo->"+image);}
+    |    <tPosicion : "posicion" >
+            {parser_calculo.imprimirToken("tPosicion->"+image);}
+
+    |    <tBoolean : "true"|"false"|"verdadero"|"falso" >
+            {parser_calculo.imprimirToken("tBoolean->"+image);} 
+
+    |    <tCadMax : "cad_max" >
+            {parser_calculo.imprimirToken("cad_max->"+image);} 
+    |    <tCadMin : "cad_min" >
+            {parser_calculo.imprimirToken("tCadMin->"+image);} 
+    |    <tCadFila : "cad_fila" >
+            {parser_calculo.imprimirToken("tCadFila->"+image);} 
+    
+    |    <tFinalizar : "_finalizar" >
+            {parser_calculo.imprimirToken("tFinalizar->"+image);} 
+
+    |    <tOpcion : "_opcion" >
+            {parser_calculo.imprimirToken("tOpcion->"+image);} 
+    |    <tSiNO : "si_no" >
+            {parser_calculo.imprimirToken("tSiNO->"+image);} 
+
+    
+}
+        /*
+        +-------------------------+
+        |   Identificadores
+        */
+
+TOKEN : 
+{
+        <tNumero: (["0"-"9"])+ >
+            {parser_calculo.imprimirToken("tNumero->"+image);}
+}  
+
+TOKEN :
+{
+        <tDecimal: <tNumero>"."<tNumero> >
+            {parser_calculo.imprimirToken("tDecimal->"+image);}
+}
+
+TOKEN : {
+        <tIdentificador: <tLetra>(<tLetra>|<tNumero>|"_")*>
+            {parser_calculo.imprimirToken("Identificador->"+image);}
+    |   <#tLetra: (["a"-"z","A"-"Z"])> 
+}
+
+TOKEN:{
+    <tFecha: (<tNumero>"/"<tNumero>"/"<tNumero>) >
+        {parser_calculo.imprimirToken("tFecha->"+image);}
+    |<tHora: (<tNumero>":"<tNumero>(":"<tNumero>)?) >
+        {parser_calculo.imprimirToken("tFecha->"+image);}
+}
+
+        /*
+        +-------------------------+
+        |   Simbolos
+        */
+
+TOKEN :
+{
+    
+         <tSuma   : "+" >
+            {parser_calculo.imprimirToken("tSuma->"+image);}
+    |    <tResta : "-" >
+            {parser_calculo.imprimirToken("tResta->"+image);}
+    |    <tMultiplicacion : "*" >
+            {parser_calculo.imprimirToken("tMultiplicacion->"+image);}
+    
+
+
+
+    |     <tIgual   : "=" >
+            {parser_calculo.imprimirToken("tSuma->"+image);}
+    |    <tDiferente : "!=" >
+            {parser_calculo.imprimirToken("tDiferente->"+image);}
+    |    <tMayorQue : ">" >
+            {parser_calculo.imprimirToken("tMayorQue->"+image);}
+    |    <tMayorIgualQue : ">=" >
+            {parser_calculo.imprimirToken("tMayorIgualQue->"+image);}
+    |    <tMenorQue : "<" >
+            {parser_calculo.imprimirToken("tMenorQue->"+image);}
+    |    <tMenorIgualQue : "<=" >
+            {parser_calculo.imprimirToken("tMenorIgualQue->"+image);}
+
+
+    |    <tAnd   : "&&" >
+            {parser_calculo.imprimirToken("tAnd->"+image);}
+    |    <tOr : "||" >
+            {parser_calculo.imprimirToken("tOr->"+image);}
+    |    <tNot : "!" >
+            {parser_calculo.imprimirToken("tNot->"+image);}
+
+
+    |    <tPunto : "." >
+            {parser_calculo.imprimirToken("tPunto"+image);}
+    |    <tDosPuntosSeguidos : ".." >
+            {parser_calculo.imprimirToken("tDosPuntosSeguidos->"+image);}
+    |    <tArroba : "@" >
+            {parser_calculo.imprimirToken("tArroba->"+image);}
+
+
+    |    <tAbreCorchete   : "[" >
+            {parser_calculo.imprimirToken("tAbreCorchete->"+image);}
+    |    <tCierraCorchete : "]" >
+            {parser_calculo.imprimirToken("tCierraCorchete->"+image);}
+    
+    |    <tAbreParent   : "(" >
+            {parser_calculo.imprimirToken("tAbreParent->"+image);}
+    |    <tCierraParent : ")" >
+            {parser_calculo.imprimirToken("tCierraParent->"+image);}
+
+    |    <tNumeral : "#" >
+            {parser_calculo.imprimirToken("tNumeral->"+image);}
+    
+/*     |    <tComillas : "\"" >
+            {parser_calculo.imprimirToken("tComillas->"+image);} */
+    |   <tString: "\"" ( (~["\"","\\"]) | ("\\" ( ["n","t","b","r","f","\\","\""] ) ) )* "\"">
+            {parser_calculo.imprimirToken("tString->"+image);}
+    |   <tString2: "\'" ( (~["\'","\\"]) | ("\\" ( ["n","t","b","r","f","\\","\'"] ) ) )* "\'">
+            {parser_calculo.imprimirToken("tString2->"+image);}
+    |   <tString3: "”" ( (~["\'","\\"]) | ("\\" ( ["n","t","b","r","f","\\","\'"] ) ) )* "”">
+        {parser_calculo.imprimirToken("tString2->"+image);}
+}
+
+
+
+
+
+        /*
+        +-------------------------+
+        |   SKIP
+        */
+
+
+SKIP    : { " " }
+SKIP    : { "\n" | "\r" | "\r\n" }
+SKIP   : { 
+    <OTHER:   ~[]>{ System.out.println("Token Desconocido:"+image);}
+}
+
+    /*
+    |--------------------------------------------------------------------------
+    | GRAMATICA
+    |-------------------------------------------------------------------------- 
+    */
+
+        /*
+        +-------------------------+
+        |   Programa
+        */
+
+String Programa(tablaSimbolos tabla):
+{
+    String retorno=""; 
+
+}
+{
+    retorno=S(tabla) 
+    < EOF > 
+        {return retorno;} 
+}
+
+        /*
+        +-------------------------+
+        |   S
+        */
+
+String S(tablaSimbolos tabla):
+{
+    String retorno=""; 
+
+}
+{
+    retorno=E(tabla) 
+        {return retorno;}
+}
+
+String E(tablaSimbolos tabla) :
+{
+    String retorno=""; 
+
+}
+{
+    retorno=OR(tabla)
+    {return retorno;}
+}
+
+String OR(tablaSimbolos tabla):
+{
+    String retorno="";
+    String tempString1;
+    String tempString2;
+}
+{
+    tempString1=AND(tabla) 
+        {
+            retorno+=tempString1;
+        }
+    (
+        <tOr>
+        tempString2= AND(tabla)
+        {
+            
+            retorno+=" || "+tempString2;
+            parser_calculo.tipo=3;
+            /* System.out.println("[OR]"+retorno); */
+        }
+    )*
+ 
+    {return retorno;}
+
+}
+String AND(tablaSimbolos tabla):
+{
+    String retorno="";
+    String tempString1;
+    String tempString2;
+}
+{
+    tempString1=IGUALACION(tabla) 
+        {
+            retorno+=tempString1;
+        }
+    (
+        <tAnd>
+        tempString2=IGUALACION(tabla)
+        {
+            retorno+=" && "+tempString2;
+            parser_calculo.tipo=3;
+             /* System.out.println("[AND]"+retorno); */
+        }
+
+    )* 
+    {return retorno;}
+}
+ 
+
+String IGUALACION(tablaSimbolos tabla):
+{
+    String retorno="";
+    String tempString1;
+    String tempString2;
+}
+{
+    tempString1=DIFERENCIACION(tabla)
+        {
+            retorno+=tempString1;
+        }
+    (
+        <tIgual>
+        tempString2=DIFERENCIACION(tabla)
+        {
+            
+            retorno+=" == "+tempString2;
+            parser_calculo.tipo=3;
+           /*  System.out.println("[IGUALACION]"+retorno); */
+        }
+    )* 
+    {return retorno;}
+}
+
+String DIFERENCIACION(tablaSimbolos tabla):
+{
+    String retorno="";
+    String tempString1;
+    String tempString2;
+    
+}
+{
+    tempString1=MENOR_QUE(tabla)
+        {
+            retorno+=tempString1;
+        }
+    (
+        <tDiferente>
+        tempString2=MENOR_QUE(tabla)
+        { 
+            retorno+=" != "+tempString2;
+            parser_calculo.tipo=3;
+            /* System.out.println("[DIFERENCIACION]"+retorno); */
+        }
+    )* 
+    {return retorno;}
+}
+
+String MENOR_QUE(tablaSimbolos tabla):
+{
+    String retorno="";
+    String tempString1;
+    String tempString2;
+    
+}
+{
+    tempString1=MENOR_IGUALQUE(tabla)
+        {
+            retorno+=tempString1;
+        }
+    (
+        <tMenorQue>
+        tempString2=MENOR_IGUALQUE(tabla)
+        { 
+            retorno+=" < "+tempString2;
+            parser_calculo.tipo=3;
+            /* System.out.println("[MENOR_QUE]"+retorno); */
+        }
+    )* 
+    {return retorno;}
+}
+
+
+String MENOR_IGUALQUE(tablaSimbolos tabla):
+{
+    String retorno="";
+    String tempString1;
+    String tempString2;
+    
+}
+{
+    tempString1=MAYOR_QUE(tabla)
+        {
+            retorno+=tempString1;
+        }
+    (
+        <tMenorIgualQue>
+        tempString2=MAYOR_QUE(tabla)
+        { 
+            retorno+=" <= "+tempString2;
+            parser_calculo.tipo=3;
+           /*  System.out.println("[MENOR_IGUALQUE]"+retorno); */
+        }
+    )* 
+    {return retorno;}
+}
+
+String MAYOR_QUE(tablaSimbolos tabla):
+{
+    String retorno="";
+    String tempString1;
+    String tempString2;
+    
+}
+{
+    tempString1=MAYOR_IGUALQUE(tabla)
+        {
+            retorno+=tempString1;
+        }
+    (
+        <tMayorQue>
+       tempString2= MAYOR_IGUALQUE(tabla)
+        { 
+            retorno+=" > "+tempString2;
+            parser_calculo.tipo=3;
+            /* System.out.println("[MAYOR_QUE]"+retorno); */
+        }
+    )*     
+    {return retorno;}
+}
+
+String MAYOR_IGUALQUE(tablaSimbolos tabla):
+{
+    String retorno="";
+    String tempString1;
+    String tempString2;
+    
+}
+{
+    tempString1=RES(tabla)
+        {
+            retorno+=tempString1;
+        }
+    (
+        <tMayorIgualQue>
+        tempString2=RES(tabla)
+        { 
+            retorno+=" >= "+tempString2;
+            parser_calculo.tipo=3;
+            /* System.out.println("[MAYOR_IGUALQUE]"+retorno); */
+        }
+    )* 
+    {return retorno;}
+}
+
+String RES(tablaSimbolos tabla):
+{
+    String retorno="";
+    String tempString1;
+    String tempString2;
+    
+}
+{
+    tempString1=SUM(tabla)
+        {
+            retorno+=tempString1;
+        }
+    (
+        <tResta>
+        tempString2=SUM(tabla)
+        { 
+            retorno+=" - "+tempString2;
+            if(parser_calculo.tipo==2){
+
+            }else{
+                parser_calculo.tipo=1;
+            }
+            /* System.out.println("[RES]"+retorno); */
+        }
+    )* 
+
+    {return retorno;}
+}
+
+String SUM(tablaSimbolos tabla):
+{
+    String retorno="";
+    String tempString1;
+    String tempString2;
+    
+}
+{
+    tempString1=MODULO(tabla)
+        {
+            retorno+=tempString1;
+        }
+    (
+        <tSuma>
+        tempString2=MODULO(tabla)
+
+        {
+            retorno+=" + "+tempString2;
+            if(parser_calculo.tipo==2){
+
+            }else{
+                parser_calculo.tipo=1;
+            }
+            /* System.out.println("[SUM]"+retorno); */
+        }
+    )* 
+    {return retorno;}
+}
+
+String MODULO(tablaSimbolos tabla):
+{
+    String retorno="";
+    String tempString1;
+    String tempString2;
+    
+}
+{
+    tempString1=DIV(tabla)
+        {
+            retorno+=tempString1;
+        }
+    (
+        <tModulo>
+        tempString2=DIV(tabla)
+        {
+            retorno+=" % "+tempString2;
+            if(parser_calculo.tipo==2){
+
+            }else{
+                parser_calculo.tipo=1;
+            }
+            /* System.out.println("[MODULO]"+retorno); */
+        }
+    )* 
+    {return retorno;}
+}
+String DIV(tablaSimbolos tabla):
+{
+    String retorno="";
+    String tempString1;
+    String tempString2;
+    
+}
+{
+    tempString1=POR(tabla)
+        {
+            retorno+=tempString1;
+        }
+    (
+        <tDivision>
+        tempString2=POR(tabla)
+        {
+            retorno+=" / "+tempString2;
+            parser_calculo.tipo=2;
+            
+            /* System.out.println("[DIV]"+retorno); */
+        }
+    )* 
+
+    {return retorno;}
+}
+
+String POR(tablaSimbolos tabla):
+{
+    String retorno="";
+    String tempString1;
+    String tempString2;
+    
+}
+{
+    tempString1=NOT(tabla)
+        {
+            retorno+=tempString1;
+        }
+    (
+        <tMultiplicacion>
+       tempString2= NOT(tabla)
+        {
+            retorno+=" * "+tempString2;
+            if(parser_calculo.tipo==2){
+
+            }else{
+                parser_calculo.tipo=1;
+            }
+            
+            /* System.out.println("[POR]"+retorno); */
+        }
+    )*
+    {return retorno;}
+}
+
+String NOT(tablaSimbolos tabla) :
+{
+    String retorno="";
+    String tempString1; 
+}
+{
+    (
+        <tNot>
+        tempString1=F(tabla) 
+        {
+            retorno+="!"+tempString1;
+            parser_calculo.tipo=3;
+            /* System.out.println("[NOT]"+retorno); */
+        }
+    )+
+        {return retorno;}
+    |
+
+    tempString1=F(tabla) 
+        {
+            retorno+=tempString1;
+        } 
+ 
+
+    {return retorno;}
+}
+
+
+String parentesis(tablaSimbolos tabla):
+{
+    String retorno="";
+}
+{
+    (<tAbreParent>  <tCierraParent>)   
+    {return retorno;}
+    |
+    epsilon()
+    {
+        tabla.tablaErrores.insertErrorLexical(parser_calculo.celda.ambito,parser_calculo.celda.posY,parser_calculo.celda.posX,"Para hacer referencia a una variable tiene que usar #[var]");
+        return retorno;
+    }
+}
+
+String fechaHora(tablaSimbolos tabla):
+{
+    String retorno="";
+    Token temp;
+}
+{
+    (
+         {parser_calculo.tipo=6;}
+        temp=<tHora>
+        {retorno=" "+temp.image;}
+    )?
+    {return retorno;}
+}
+
+void entero_decimal():
+{
+
+}
+{
+    <tNumero>
+    |
+    <tDecimal>
+}
+ 
+String F(tablaSimbolos tabla):
+{
+
+    String cadenaSalida="";
+    Token tnumero;
+    Token identificador;
+    String tempString="";
+}
+{
+    tnumero=<tNumero>
+        {
+            parser_calculo.tipo=2;
+            cadenaSalida=tnumero.image; 
+            return cadenaSalida;
+        }
+    |tnumero=<tDecimal>
+        {
+            parser_calculo.tipo=2;
+            cadenaSalida=tnumero.image; 
+            return cadenaSalida;
+        }
+        
+    |<tResta> entero_decimal()
+        {
+            //cadenaSalida="-"+tnumero.image;
+            
+            return cadenaSalida;
+        }  
+    |<tPosicion><tAbreParent><tDosPuntosSeguidos><tCierraParent>
+        {
+            cadenaSalida="posicion(..)";
+            return cadenaSalida;
+        }
+    
+    |tnumero=<tBoolean>
+        {
+            parser_calculo.tipo=3;
+            cadenaSalida=tnumero.image;
+            return cadenaSalida;
+        }
+    |tnumero=<tString>
+        {
+            parser_calculo.tipo=4;
+            cadenaSalida=tnumero.image;
+            return cadenaSalida;
+        }
+    |tnumero=<tString2>
+        {
+            parser_calculo.tipo=4;
+            cadenaSalida=tnumero.image;
+            return cadenaSalida;
+        }
+    |tnumero=<tString3>
+        {
+            parser_calculo.tipo=4;
+            cadenaSalida=tnumero.image;
+            return cadenaSalida;
+        }
+    | tnumero=<tFecha> tempString=fechaHora(tabla)
+        {
+             parser_calculo.tipo=5;           
+            cadenaSalida=tnumero.image+tempString;
+            return cadenaSalida;
+        }
+    | tnumero=<tHora>
+        {
+            parser_calculo.tipo=7;
+            cadenaSalida=tnumero.image;
+            return cadenaSalida;
+        }
+
+
+    |<tPunto>
+        {
+            cadenaSalida="param_1";
+            return cadenaSalida;
+        }
+    |tnumero=<tIdentificador> tempString= parentesis(tabla)
+        {
+            cadenaSalida=tnumero.image+tempString;
+            return cadenaSalida;
+        }
+    //|<tIdentificador> (<tAbreParent> <tCierraParent>)*(<tPunto><tIdentificador><tAbreParent> <tCierraParent>)*
+    |<tNumeral><tAbreCorchete>tnumero= <tIdentificador> <tCierraCorchete>
+        { 
+            cadenaSalida=tnumero.image; 
+            return cadenaSalida; 
+        }
+        
+    |<tAbreParent> tempString= E(tabla) <tCierraParent>
+        {
+            cadenaSalida="("+tempString+")";
+            return cadenaSalida;
+        }
+        
+/*     |<tNot> tempString =E(tabla)
+        {
+            cadenaSalida="!"+tempString;
+            return cadenaSalida;
+        } */
+    
+
+}
+
+
+
+
+
+        /*
+        +-------------------------+
+        |   epsilon
+        */
+
+void epsilon () : 
+{
+
+} 
+{  
+    {
+        this.imprimirToken("epsilon");
+    } 
+}
+
+
+

@@ -248,10 +248,10 @@ tree S(tree arbol):
      /* {arbol.raiz.imprimir();}   */
     <tOpcion>
     opcion=OPCION(arbol)
-    /* {arbol.raiz.insertChildren(opcion);}   */
+    {arbol.raiz.insertChildren(opcion);}  
     <tConfiguracion>
     configuracion=CONFIGURACION(arbol) 
-    /* {arbol.raiz.insertChildren(configuracion);}  */
+    {arbol.raiz.insertChildren(configuracion);} 
     {return arbol;}
      
 }
@@ -279,7 +279,7 @@ nodeModel OPCION(tree rama):
 }
 {
     {rama.tablaSimbolos.tablaErrores.println("OPCION");}
-    temp=LST_P(rama,nodo) 
+    temp=LST_P2(nodo,rama) 
     /* {nodo.insertChildren(temp);} */
     //{nodo.imprimir();} 
     {return nodo;}
@@ -294,7 +294,7 @@ nodeModel CONFIGURACION(tree rama):
 }
 {       
     {rama.tablaSimbolos.tablaErrores.println("CONFIGURACION");}
-    temp=LST_P(rama,nodo) 
+    temp=LST_P2(nodo,rama) 
     /* {nodo.insertChildren(temp);} */
     //{nodo.imprimir();}  
     {return nodo;}

@@ -21,7 +21,13 @@ public class nodeFila extends nodeModel{
     }
     @Override
     public void execute() {
-       this.mensajeDeEjecucion();
+       //this.mensajeDeEjecucion();
+       generandoCodigo();
+    }
+    
+    public void generandoCodigo(){
+        System.out.println("-------------------------------------------------------");
+        this.atrib.imprimir();
     }
  
 }

@@ -105,8 +105,10 @@ public class parser implements parserConstants {
      arbol.raiz.insertChildren(encuesta);
     jj_consume_token(tOpcion);
     opcion = OPCION(arbol);
+     arbol.raiz.insertChildren(opcion);
     jj_consume_token(tConfiguracion);
     configuracion = CONFIGURACION(arbol);
+     arbol.raiz.insertChildren(configuracion);
      {if (true) return arbol;}
     throw new Error("Missing return statement in function");
   }
@@ -124,7 +126,7 @@ public class parser implements parserConstants {
     padreOpcion  nodo=new padreOpcion(rama.tablaSimbolos);
         nodeModel temp =new nodeModel();
      rama.tablaSimbolos.tablaErrores.println("OPCION");
-    temp = LST_P(rama,nodo);
+    temp = LST_P2(nodo,rama);
      {if (true) return nodo;}
     throw new Error("Missing return statement in function");
   }
@@ -133,7 +135,7 @@ public class parser implements parserConstants {
         padreConfiguracion  nodo=new padreConfiguracion(rama.tablaSimbolos);
         nodeModel temp =new nodeModel();
      rama.tablaSimbolos.tablaErrores.println("CONFIGURACION");
-    temp = LST_P(rama,nodo);
+    temp = LST_P2(nodo,rama);
      {if (true) return nodo;}
     throw new Error("Missing return statement in function");
   }

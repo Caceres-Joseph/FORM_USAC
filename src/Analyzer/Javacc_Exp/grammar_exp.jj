@@ -58,6 +58,26 @@ public class parser_exp {
         
     }
 
+    public HashMap<String, String> initParametro(tablaSimbolos tabla,InputStream stream, cell celda){
+        HashMap<String, String> retorno=new LinkedHashMap<String, String>(); 
+        try{
+                 
+                parser_exp analizador =new parser_exp(stream);
+                this.tablaSimbolos=tabla;
+                this.celda=celda;
+                this.tempLstParametros=new LinkedHashMap<String, cell>();  
+                retorno=analizador._Parametro(tabla); 
+                cadenaSalida="param";
+                this.println("[parser_exp_multim]Analisis  exitoso! :)");
+                
+            }
+        catch(ParseException e){
+            this.error(e, tablaSimbolos);
+           
+        }
+        return retorno;
+    }
+
     public void error_skipto(int kind) { 
         ParseException e = generateParseException();  // generate the exception object.
         System.out.println(e.toString());  // print the error message
@@ -107,7 +127,7 @@ public class parser_exp {
     }
 
     public static void imprimirToken(String t){
-       // System.out.println(t);
+        //System.out.println(t);
         //tablaSimbolos.tablaErrores.println(t);
     }
 } 
@@ -137,6 +157,21 @@ TOKEN [IGNORE_CASE] :
 
     |    <tBoolean : "true"|"false"|"verdadero"|"falso" >
             {parser_exp.imprimirToken("tBoolean->"+image);} 
+
+    |    <tCadMax : "cad_max" >
+            {parser_exp.imprimirToken("cad_max->"+image);} 
+    |    <tCadMin : "cad_min" >
+            {parser_exp.imprimirToken("tCadMin->"+image);} 
+    |    <tCadFila : "cad_fila" >
+            {parser_exp.imprimirToken("tCadFila->"+image);} 
+    
+    |    <tFinalizar : "_finalizar" >
+            {parser_exp.imprimirToken("tFinalizar->"+image);} 
+
+    |    <tOpcion : "_opcion" >
+            {parser_exp.imprimirToken("tOpcion->"+image);} 
+    |    <tSiNO : "si_no" >
+            {parser_exp.imprimirToken("tSiNO->"+image);} 
 
     
 }
@@ -839,3 +874,112 @@ void epsilon () :
         this.imprimirToken("epsilon");
     } 
 }
+
+
+
+
+
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | GRAMATICA
+    |-------------------------------------------------------------------------- 
+    */
+
+
+HashMap<String, String> _Parametro(tablaSimbolos tabla) :
+{
+    HashMap<String, String> temp=new LinkedHashMap<String, String>(); 
+}
+{
+    CAD_MAX(tabla,temp)   
+    {return temp;  }
+}
+
+
+void CAD_MAX(tablaSimbolos tabla,HashMap<String, String> temp) :
+{
+    String exp=""; 
+}
+{
+        <tCadMax>   <tIgual> exp=E(tabla) CAD_MAX(tabla,temp)
+            {
+                temp.put("cad_max",exp);
+                System.out.println("tcadMax:"+exp);
+            }
+    |   <tCadMin>   <tIgual> exp=E(tabla) CAD_MAX(tabla,temp)
+            {
+                temp.put("cad_min",exp);
+                System.out.println("tCadMin:"+exp);
+            }
+    |   <tCadFila>  <tIgual> exp=E(tabla) CAD_MAX(tabla,temp)
+            {
+                temp.put("cad_fila",exp);
+                System.out.println("tCadFila:"+exp);
+            }
+    |   <tFinalizar>  <tIgual> exp=E(tabla) CAD_MAX(tabla,temp)
+            {
+                temp.put("finalizar",exp);
+                System.out.println("tFinalizar:"+exp);
+            }
+    |   <tOpcion>  <tIgual> <tSiNO> CAD_MAX(tabla,temp)
+            {
+                temp.put("opcion","si_no");
+                System.out.println("tOpcion:si_no");
+            }
+    |   epsilon()
+}
+
+/* 
+void CAD_MIN(tablaSimbolos tabla):
+{
+    String exp="";
+}
+{
+    <tCadMax>
+     <tIgual>
+     E(tabla)
+     |
+     epsilon()
+}
+void CAD_FILA(tablaSimbolos tabla):
+{
+
+}
+{
+    <tCadFila>
+     <tIgual>
+     E(tabla)
+     |
+     epsilon()
+}
+
+void CAD_FINALIZAR(tablaSimbolos tabla):
+{
+
+}
+{
+    <tFinalizar>
+     <tIgual>
+     E(tabla)
+     |
+     epsilon()
+}
+
+
+void CAD_OPCION(tablaSimbolos tabla):
+{
+
+}
+{
+    <tOpcion>
+     <tIgual>
+     E(tabla)
+     |
+     epsilon()
+}
+
+
+
+ */

@@ -9,7 +9,6 @@ import Analyzer.Tree.atributos;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.List;
 import readExcel.cell;
 
 /**
@@ -18,29 +17,39 @@ import readExcel.cell;
  */
 public class elementoSimbolo {
 //    String idPregunta="";  
-    public HashMap<String, String>   lstParametros = new LinkedHashMap<>();
+
+    public HashMap<String, String> lstParametros = new LinkedHashMap<>();
     public HashMap<String, cell> tempLstParametros;
-    public String tipoPregunta="";
-    public atributos lstAtributos=new atributos();
+    public String tipoPregunta = "";
+    public atributos lstAtributos = new atributos();
     public cell celda;
-    public elementoSimbolo(cell celda,atributos lstAtributos){ 
-        this.celda=celda;
-        this.lstAtributos=lstAtributos;
-        this.tempLstParametros=new LinkedHashMap<>();
-        
+    public String codigoEjecucion = "";
+    public String idPregunta;
+    public HashMap<String, String> lstFunciones;
+
+    public String cadenaPost = "";
+    public String cadenaPre = "";
+
+    public String tipoPreguntaApariencia = "";
+    
+    public String cadenaFinal="";
+    public String cadenaContenido="";
+
+    public elementoSimbolo(cell celda, atributos lstAtributos, String idPregunta) {
+        this.idPregunta = idPregunta.replace(" ", "");
+        this.celda = celda;
+        this.lstAtributos = lstAtributos;
+        this.tempLstParametros = new LinkedHashMap<>();
+        lstFunciones = new LinkedHashMap<>();
+
     }
-    
-    
-    public void concatTempParam(HashMap<String,cell> lstTem){
-        HashMap<String,cell> temp=new LinkedHashMap<>(); 
-        
+
+    public void concatTempParam(HashMap<String, cell> lstTem) {
+        HashMap<String, cell> temp = new LinkedHashMap<>();
+
         temp.putAll(lstTem);
         temp.putAll(tempLstParametros);
-        tempLstParametros=temp;
+        tempLstParametros = temp;
     }
-    
-         
 
-    
-     
 }

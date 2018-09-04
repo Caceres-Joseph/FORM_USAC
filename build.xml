@@ -10,11 +10,6 @@
 <project name="FORM_USAC" default="default" basedir=".">
     <description>Builds, tests, and runs the project FORM_USAC.</description>
     <import file="nbproject/build-impl.xml"/>
-	<dependency>
-	    <groupId>org.apache.poi</groupId>
-	    <artifactId>poi-ooxml</artifactId>
-	    <version>3.17</version>
-	</dependency>
     <!--
 
     There exist several targets which are by default empty and which can be 

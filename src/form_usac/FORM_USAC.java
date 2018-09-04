@@ -35,6 +35,7 @@ public class FORM_USAC {
         iniciarInterfaz(args);
 //        analizar2();
 //        regex();
+//        prueba2Regex();
     }
 
     public static void convertirPrograma() {
@@ -112,17 +113,11 @@ public class FORM_USAC {
             System.out.println("start(): " + m.start());
             System.out.println("end(): " + m.end());
         }
-        String entrada="#[ idPregunta2 ] hola prro #asd #[juegos]";
-       String pattern = "#\\[(.+?)]";
-        String updated = entrada.replaceAll(pattern, "$1");
-        
-        System.out.println(updated);
+
         System.out.println("-------------------");
         String REGEX2 = "#\\[(.+?)]";
         String INPUT2 = "Este aes una pregunta de decinal #[Pregunta2]#[123-jo]";
 
-        
-        
         Pattern p2 = Pattern.compile(REGEX2);
         Matcher m2 = p2.matcher(INPUT2);   // get a matcher object
         int count2 = 0;
@@ -130,13 +125,35 @@ public class FORM_USAC {
         while (m2.find()) {
             count++;
 //            System.out.println("Match number " + count2);
-            
-            String encontrado=m2.group(1).replace(" ", "").toLowerCase();
-            System.out.println("Cadena:"+encontrado); 
+
+            String encontrado = m2.group(1).replace(" ", "").toLowerCase();
+            System.out.println("Cadena:" + encontrado);
 //            System.out.println("start(): " + m2.start());
 //            System.out.println("end(): " + m2.end()); 
         }
         String updated2 = INPUT2.replaceAll(REGEX2, "\"+ $1 +\"");
-        System.out.println("CadenaFinal:"+"\""+updated2+"\"");
+        System.out.println("CadenaFinal:" + "\"" + updated2 + "\"");
+    }
+
+    public static void prueba2Regex() {
+
+        String entrada = " reproduccion = true Media_video  \" /ruta/video.png\" ";
+        entrada=entrada.toLowerCase();
+        String pattern = "= (.+?)(?:media_video|media_audio|media_imagen|$)"; 
+
+        Pattern p2 = Pattern.compile(pattern);
+        Matcher m2 = p2.matcher(entrada);   // get a matcher object 
+
+        while (m2.find()) {
+//            System.out.println("Match number " + count2);
+
+            String encontrado = m2.group(1).replace(" ", "").toLowerCase();
+            System.out.println("Cadena:" + encontrado);
+//            System.out.println("start(): " + m2.start());
+//            System.out.println("end(): " + m2.end()); 
+        } 
+
+//        String encontrado = m2.group(1).replace(" ", "").toLowerCase();
+//        System.out.println(updated);
     }
 }

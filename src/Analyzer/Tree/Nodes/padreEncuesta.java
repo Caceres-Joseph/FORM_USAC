@@ -5,6 +5,7 @@
  */
 package Analyzer.Tree.Nodes;
  
+import Analyzer.Tree.Tablas.elementoSimbolo;
 import Analyzer.Tree.Tablas.tablaSimbolos;
 import Analyzer.Tree.nodeModel; 
 
@@ -22,9 +23,52 @@ public class padreEncuesta extends nodeModel{
     
     @Override
     public void execute() {
-        this.mensajeDeEjecucion();
+//        this.mensajeDeEjecucion();
         this.ejectuarHijos();
+        System.out.println(getCadenaClass());
         
+    }
+    
+    public String getCadenaClass(){
+        String retorno="";
+        
+        retorno="Clase prueba{";
+        retorno+="\n\tPrincipal(){";
+        retorno+="\n\t\tNuevo prueba();";
+        retorno+="\n\t}";
+        
+        retorno+=getCadenaMetodos();
+        
+        retorno+="\n\tFormulario prueba(){";
+        retorno+="\n\t\tRespuestas resp;";
+        retorno+=getLlamadoFunciones();
+        retorno+="\n\t}";
+        
+        retorno+="\n}";
+        
+        return retorno;
+    }
+    
+    public String getCadenaMetodos(){
+        String retorno="";
+        for (String key : tablaSimbolos.lstSimbolos.keySet()) {
+            
+            elementoSimbolo tempSimbolo=tablaSimbolos.lstSimbolos.get(key);
+            retorno+=tempSimbolo.cadenaContenido;
+            
+        }
+        return retorno;
+    }
+    
+    public String getLlamadoFunciones(){
+        String retorno="";
+        for (String key : tablaSimbolos.lstSimbolos.keySet()) {
+            
+            elementoSimbolo tempSimbolo=tablaSimbolos.lstSimbolos.get(key);
+            retorno+=tempSimbolo.cadenaFinal;
+            
+        }
+        return retorno; 
     }
 
      
