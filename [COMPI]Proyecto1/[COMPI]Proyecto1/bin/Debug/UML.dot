@@ -1,0 +1,10 @@
+digraph hierarchy { 
+ node[shape = record, style = filled, fillcolor = ivory]
+  edge[dir = back, arrowtail = empty]
+Alumno[label="{Alumno|+ int punteo\n+ Alumno siguiente\n+ Aplicacion aplicacion\n+ EnunciadoProyecto1 copiaEnunciado\n|+  Alumno(String nombre, int edad, double estatura, char sexo2, int carnet, int creditos, String correo)\n+ void meto()\n+ void otroMetodo()\n}"]
+Estudiante->Alumno[label= "is"]
+Alumno->Alumno[constraint=false, arrowtail=odiamond, label = "siguiente"]
+Alumno->Aplicacion[constraint=false, arrowtail=odiamond, label = "aplicacion"]
+Alumno->EnunciadoProyecto1[constraint=false, arrowtail=odiamond, label = "copiaEnunciado"]
+
+}

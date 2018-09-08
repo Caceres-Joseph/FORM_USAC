@@ -1,0 +1,443 @@
+
+
+#Gramatica 
+
+#comentarios 
+    $$este es un comentario de una linea
+
+#comentario multiliea
+    $#Comentario mulilinea#$
+
+S			->LST_IMPORT LST_CLASE
+			|LST_CLASE
+			
+
+			
+IMPORT      -> importar(nombrearchivo.xform);
+LST_IMPORT  -> LST_IMPORT IMPORT
+            | IMPORT
+
+LST_CLASE   -> LST_CLASES CLASE 
+            | CLASE
+
+CLASE       ->clase id VISIBILIDAD EXTENDER {  CP_CLASE }
+
+TIPO		-> 	int
+				|String
+				|boolean
+				|double
+				#|char
+				|hora
+				|fecha
+				|fechahora
+				|id 	<<Esto es para los objetos>> 
+				
+				|pregunta
+				|formulario
+				|respuesta
+
+EXTENDER	->	padre id
+				| ε
+
+VISIBILIDAD -> 	  publico
+				| privado
+				| protegido
+				| ε
+ 
+
+#------------------+
+#   Parametros
+
+LST_PARAMETROS	->	LST_PARAMETROS , PARAMETRO
+				|PARAMETRO
+				|ε 		<<Si no vienen parámetros>>
+
+PARAMETRO		->	TIPO  VAR_ARREGLO 
+
+#3,24,valor()
+LST_VAL			-> LST_VAL , VALOR
+				|  VALOR 
+
+
+#------------------+
+#   Cuerpo de la clase
+
+CP_CLASE 	-> 	  CP_CLASE CUERPO_CLASE
+				| CUERPO_CLASE
+				#| ε #si esta vacía la clase
+
+
+CUERPO_CLASE->	   CONTRUCTOR
+				|  DECLARAR_VARIABLE_GLOBAL
+				|  METODO
+				|  SOBRESCRITURA
+				|  MAIN
+
+#------------------+
+#   Funciones/Metodos
+
+				
+METODO			->	VISIBILIDAD void id (LST_PARAMETROS){ LST_CUERPO }
+			  	|   VISIBILIDAD TIPO id	(LST_PARAMETROS){ LST_CUERPO }
+
+SOBRESCRITURA	->	@ Override METODO
+
+MAIN			-> Principal () { LST_CUERPO } 
+
+CONTRUCTOR	    -> VISIBILIDAD id ( LST_PARAMETROS ){ LST_CUERPO }
+				#| ε    <<Si no tiene contructor>>
+'''
+FORMULARIO		->Formulario id { CUERPO }
+No estoy seguro
+'''
+
+PROCEDIMIENTOS_FORMULARIO	->VISIBILIDAD mostrar(LST_PARAMETROS){CUERPO}
+							|VISIBILIDAD respuesta(LST_PARAMETROS){CUERPO}
+							|VISIBILIDAD calcular(LST_PARAMETROS){CUERPO}	
+#------------------+
+#   Declarar variable
+
+DECLARAR_VARIABLE_GLOBAL   ->TIPO VISIBILIDAD VAR_ARREGLO VAL ;
+
+DECLARAR_VARIABLE   ->TIPO VAR_ARREGLO VAL #hay que revisar los atributos de pregunta prro
+
+VAL 				->   "=" VALOR
+					|    "=" nuevo id(LST_VAL)
+					|     "=" nuevo id()
+					|    "=" LST_LLAVES_VAL
+					|    "=" nuevo id LST_CORCHETES_VAL
+					|    "=" nuevo opciones()
+					|    "=" Nulo
+					#| ++
+					#| --
+					|ε    <<Si viene sin valor>>
+#llaves
+
+LST_LLAVES_VAL		->LST_LLAVES_VAL , LLAVES_VAL_P 
+					|LLAVES_VAL_P 
+
+LLAVES_VAL_P 		-> {LST_LLAVES_VAL}
+					| {LST_VAL}
+ 
+#Arreglos
+
+VAR_ARREGLO			->id 
+					| id  LST_CORCHETES
+
+LST_CORCHETES       -> LST_CORCHETES tAbreCorchete tCierraCorchete
+					 | tAbreCorchete  tCierraCorchete
+	
+LST_CORCHETES_VAL    -> LST_CORCHETES_VAL tAbreCorchete VALOR tCierraCorchete
+					 | tAbreCorchete VALOR tCierraCorchete
+ 
+#------------------+
+#   Asignar valor
+
+
+ ASIGNAR_VALOR->  USAR_VARIABLE = VALOR
+				| USAR_VARIABLE ++
+				| USAR_VARIABLE --
+ 
+#Usar variable
+
+USAR_VARIABLE 	-> this. USAR_VARIABLEP
+				| USAR_VARIABLEP
+
+USAR_VARIABLEP -> id  . USAR_VARIABLEP
+				| id LST_CORCHETES_VAL . USAR_VARIABLEP  #matrices
+				| id (LST_VAL) . USAR_VARIABLEP
+				| id () . USAR_VARIABLEP
+				| id
+				| id LST_CORCHETES_VAL			 #matrices
+
+
+#------------------+
+#   USAR  METODO
+
+USAR_METODO 	-> this. USAR_METODOP ;
+				| USAR_METODOP;
+
+USAR_METODOP -> id  . USAR_METODOP
+		| id LST_CORCHETES_VAL . USAR_METODOP  #matrices
+		| id (LST_VAL) . USAR_METODOP
+		| id () . USAR_METODOP
+		| id (LST_VAL)
+		| id () 
+		#| id.insertar(LST_VAL)  #para la lista
+
+LLAMADA_FORMULARIO  ->nuevo USAR_VARIABLEP;
+ 
+
+#identificador
+
+LST_ID-> id . LST_ID
+		|id() . LST_ID
+		|id  #esto es identificador
+		|id()  #esto es valor 
+
+ 
+#------------------+
+#   Cuerpo
+ 
+LST_CUERPO		->  CUERPO LST_CUERPO #Recursiva por la derecha
+				| CUERPO			  #para dejar de ultimo el retorna
+				| RETORNA
+
+CUERPO			->DECLARAR_VARIABLE ;
+				| ASIGNAR_VALOR ;
+				| FUNCIONES_NATIVAS
+				| SENTENCIAS
+				| USAR_METODO
+				| ROMPER # puede venir en cualquier parte 
+				| CONTINUAR 
+				#| RESPUESTA #solo en formulario puede venir
+				| ATRIBUTOS_FORMULARIO #solo puede venir en pregunta
+				| PROCEDIMIENTOS_FORMULARIO #solo en pregunta
+				| FUNC_MULTIMEDIA
+				| #USAR_VARIABLE ; ##no estoy seguro si no retorna ndada .-.
+
+RETORNA 		->retorno ;
+				| retorno VALOR ;
+
+ROMPER 		    ->romper ;
+
+CONTINUAR    	->continuar ;
+
+ 
+#RESPUESTA 		->respuesta id;
+
+#------------------+
+#   SEntencias de control
+SENTENCIAS 		-> IF 
+				| SI_SIMPLIFICADO
+				| FOR
+				| CASE
+				| REPETIR
+				| WHILE
+				| DOWHILE
+
+#IF
+
+IF              -> si ( VALOR ) { CUERPO } 
+                |si ( VALOR ) { CUERPO } SINO_SI
+				|si ( VALOR ) { CUERPO } SINO
+ 
+SINO_SI         -> sino si ( VALOR ) { CUERPO }  SINO_SI
+				|  sino si ( VALOR ) { CUERPO }  
+                |  sino si ( VALOR ) { CUERPO } SINO
+
+SINO            ->sino ( VALOR ) { CUERPO } 
+ 
+#SI SIMPLIFICADO
+
+SI_SIMPLIFICADO ->VALOR ? CUERPO : CUERPO ;
+
+#CASE
+
+CASE 			->caso (VALOR) de { CUERPO_CASE } 
+
+CUERPO_CASE		->VALOR : {CUERPO } CUERPO_CASE
+				| VALOR : {CUERPO } 
+				| defecto:{CUERPO}
+#BUCLES
+
+WHILE           ->mientras ( VALOR ){ CUERPO }
+
+
+DOWHILE         ->hacer { CUERPO } mientras ( VALOR ) ;
+ 
+REPETIR 		->repetir { CUERPO } hasta ( VALOR)
+ 
+FOR             :para (DECLARAR_VARIABLE ; VALOR ; ASIGNAR_VALOR ) { CUERPO }
+ 
+ 
+
+#------------------+
+#   Nativas
+
+
+FUNCIONES_NATIVAS -> IMPRIMIR
+					|MENSAJE
+					|CADENA
+
+
+
+
+IMPRIMIR 			->  imprimir( VALOR);
+
+MENSAJE				-> mensaje(VALOR);
+
+
+OPE_TIPO 				->TO_CADENA
+					| SUB_CAD
+					| POS_CAD
+					|TO_BOOLEAN
+					|TO_ENTERO
+					|HOY
+					|AHORA
+					|TO_FECHA
+					|TO_HORA
+					|TO_FECHAHORA
+					|TAM
+					|RANDOM
+					|MIN
+					|MAX
+
+
+OPE_ARITME			->POTENCIA
+					|LOGARITMO
+					|LOGARITMO10
+					|ABSOLUTO
+					|SENO
+					|COSENO
+					|TANGENTE
+					|RAIZ
+					|PI
+
+#cadena cadena
+TO_CADENA			->cadena(VALOR)
+
+SUB_CAD 			->subcad(VALOR'tipo cad', VALOR 'int', VALOR 'int')
+
+POS_CAD				->poscad(VALOR 'tipo cad', VALOR 'int')
+#booleano bol
+
+TO_BOOLEAN			->booleano(VALOR 'int, string')
+
+#numerico entero
+TO_ENTERO			->entero(VALOR 'fecha, bool, decimal')
+
+
+#fecha fecha
+
+HOY 				->hoy()
+
+#ahora fechahora
+AHORA 				->ahora()
+
+#TO_FECHA  fecha  
+TO_FECHA 			->fecha(VALOR 'cadena');
+
+#TO_HORA hora
+TO_HORA 			->hora(VALOR 'cadena');
+
+#TO_FECHAHORA fecha/hora
+TO_FECHAHORA 		->fechahora(VALOR 'cadena');
+
+
+#objeto entero
+TAM 				->tam(VALOR)
+
+#random entero/decimal/cadena
+RANDOM 				->random(LST_VAL)
+					| random()
+
+#minima	entero/decimal			
+MIN 				->min(LST_VAL)
+
+#maxima	entero/decimal			
+MAX 				->max(LST_VAL)				
+
+
+#------------------+
+#   Operaciones matemáticas
+
+#potenia decimal
+POTENCIA			->pow(VALOR, VALOR)
+
+#log decimal
+LOGARITMO			->log(VALOR)
+
+#log10 decimal
+LOGARITMO10			->log10(VALOR)
+
+#absoluto entero/decimal
+ABSOLUTO 			->abs(VALOR)
+
+#seno decimal
+SENO 				->sin(VALOR)
+COSENO 				->cos(VALOR)
+TANGENTE 			->tang(VALOR)
+RAIZ				->sqrt(VAL)
+
+#pi decimal
+PI 					->pi()
+
+#------------------+
+#   MULTIMEDIA
+
+
+FUNC_MULTIMEDIA		->IMAGEN
+					|VIDEO
+					|AUDIO
+
+IMAGEN 				->imagen("ruta", VALOR'bolean');
+
+AUDIO 				->audio("ruta", VALOR'boolean');
+
+VIDEO 				->video("ruta", VALOR'boolean');
+
+
+#------------------+
+#   LISTA DE OPCIONES
+
+#voy hace una clase y la voy a importar prro.
+
+#------------------+
+#   FORMULARIO
+
+VALOR 		->E
+
+
+#E 
+E               ->E "^" E 
+                | E "/" E
+                | E "*" E
+                | E "+" E
+                | E "-" E
+                | E "%" E
+
+                #realcional
+
+                | E "==" E
+                | E "!=" E
+                | E "<" E
+                | E "<=" E 
+                | E ">=" E 
+
+                #logicas
+
+                | E "&&" E
+                | E "||" E
+                | "!" E 
+
+                | "(" E ")"
+                #| E "++"
+                #| E "--"
+
+                | numeroValor   
+				| decimalValor  
+                | tCadena #date datatime Texto
+                #| charValor    #será con string
+                | boolValor
+                
+				| OPE_TIPO
+				| OPE_ARITME
+
+                | USAR_METODO #que no sea void
+                | USAR_VARIABLE
+
+                | tIdentificador "{" E "}"  #probablemente me de erro por reducción 
+
+
+
+
+
+F   -> , id F
+	  |epsilon 
+
+#Ascendente			#Descendente 
+E  ->  E,id 		E 	-> id F 
+    | id 			
+					F   -> , id F
+						 |epsilon 

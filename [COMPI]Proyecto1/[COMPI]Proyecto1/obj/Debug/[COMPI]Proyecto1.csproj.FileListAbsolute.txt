@@ -1,0 +1,34 @@
+c:\users\joseph\documents\visual studio 2017\Projects\[COMPI]Proyecto1\[COMPI]Proyecto1\bin\Debug\[COMPI]Proyecto1.exe.config
+c:\users\joseph\documents\visual studio 2017\Projects\[COMPI]Proyecto1\[COMPI]Proyecto1\bin\Debug\[COMPI]Proyecto1.exe
+c:\users\joseph\documents\visual studio 2017\Projects\[COMPI]Proyecto1\[COMPI]Proyecto1\bin\Debug\[COMPI]Proyecto1.pdb
+c:\users\joseph\documents\visual studio 2017\Projects\[COMPI]Proyecto1\[COMPI]Proyecto1\bin\Debug\MetroFramework.Design.dll
+c:\users\joseph\documents\visual studio 2017\Projects\[COMPI]Proyecto1\[COMPI]Proyecto1\bin\Debug\MetroFramework.dll
+c:\users\joseph\documents\visual studio 2017\Projects\[COMPI]Proyecto1\[COMPI]Proyecto1\bin\Debug\MetroFramework.Fonts.dll
+c:\users\joseph\documents\visual studio 2017\Projects\[COMPI]Proyecto1\[COMPI]Proyecto1\obj\Debug\[COMPI]Proyecto1.csprojResolveAssemblyReference.cache
+c:\users\joseph\documents\visual studio 2017\Projects\[COMPI]Proyecto1\[COMPI]Proyecto1\obj\Debug\_COMPI_Proyecto1.Form1.resources
+c:\users\joseph\documents\visual studio 2017\Projects\[COMPI]Proyecto1\[COMPI]Proyecto1\obj\Debug\_COMPI_Proyecto1.Properties.Resources.resources
+c:\users\joseph\documents\visual studio 2017\Projects\[COMPI]Proyecto1\[COMPI]Proyecto1\obj\Debug\[COMPI]Proyecto1.csproj.GenerateResource.Cache
+c:\users\joseph\documents\visual studio 2017\Projects\[COMPI]Proyecto1\[COMPI]Proyecto1\obj\Debug\[COMPI]Proyecto1.exe
+c:\users\joseph\documents\visual studio 2017\Projects\[COMPI]Proyecto1\[COMPI]Proyecto1\obj\Debug\[COMPI]Proyecto1.pdb
+c:\users\joseph\documents\visual studio 2017\Projects\[COMPI]Proyecto1\[COMPI]Proyecto1\bin\Debug\Irony.dll
+c:\users\joseph\documents\visual studio 2017\Projects\[COMPI]Proyecto1\[COMPI]Proyecto1\bin\Debug\Irony.Interpreter.dll
+C:\Users\Joseph\Documents\Compi2\[COMPI]Proyecto1\[COMPI]Proyecto1\bin\Debug\[COMPI]Proyecto1.exe.config
+C:\Users\Joseph\Documents\Compi2\[COMPI]Proyecto1\[COMPI]Proyecto1\bin\Debug\[COMPI]Proyecto1.exe
+C:\Users\Joseph\Documents\Compi2\[COMPI]Proyecto1\[COMPI]Proyecto1\bin\Debug\[COMPI]Proyecto1.pdb
+C:\Users\Joseph\Documents\Compi2\[COMPI]Proyecto1\[COMPI]Proyecto1\obj\Debug\[COMPI]Proyecto1.csprojResolveAssemblyReference.cache
+C:\Users\Joseph\Documents\Compi2\[COMPI]Proyecto1\[COMPI]Proyecto1\obj\Debug\_COMPI_Proyecto1.Form1.resources
+C:\Users\Joseph\Documents\Compi2\[COMPI]Proyecto1\[COMPI]Proyecto1\obj\Debug\_COMPI_Proyecto1.Properties.Resources.resources
+C:\Users\Joseph\Documents\Compi2\[COMPI]Proyecto1\[COMPI]Proyecto1\obj\Debug\[COMPI]Proyecto1.csproj.GenerateResource.Cache
+C:\Users\Joseph\Documents\Compi2\[COMPI]Proyecto1\[COMPI]Proyecto1\obj\Debug\[COMPI]Proyecto1.csproj.CoreCompileInputs.cache
+C:\Users\Joseph\Documents\Compi2\[COMPI]Proyecto1\[COMPI]Proyecto1\obj\Debug\[COMPI]Proyecto1.exe
+C:\Users\Joseph\Documents\Compi2\[COMPI]Proyecto1\[COMPI]Proyecto1\obj\Debug\[COMPI]Proyecto1.pdb
+C:\Users\Joseph\Documents\Compi2\GITHUB\[COMPI]Proyecto1\[COMPI]Proyecto1\bin\Debug\[COMPI]Proyecto1.exe.config
+C:\Users\Joseph\Documents\Compi2\GITHUB\[COMPI]Proyecto1\[COMPI]Proyecto1\bin\Debug\[COMPI]Proyecto1.exe
+C:\Users\Joseph\Documents\Compi2\GITHUB\[COMPI]Proyecto1\[COMPI]Proyecto1\bin\Debug\[COMPI]Proyecto1.pdb
+C:\Users\Joseph\Documents\Compi2\GITHUB\[COMPI]Proyecto1\[COMPI]Proyecto1\obj\Debug\[COMPI]Proyecto1.csprojResolveAssemblyReference.cache
+C:\Users\Joseph\Documents\Compi2\GITHUB\[COMPI]Proyecto1\[COMPI]Proyecto1\obj\Debug\_COMPI_Proyecto1.Form1.resources
+C:\Users\Joseph\Documents\Compi2\GITHUB\[COMPI]Proyecto1\[COMPI]Proyecto1\obj\Debug\_COMPI_Proyecto1.Properties.Resources.resources
+C:\Users\Joseph\Documents\Compi2\GITHUB\[COMPI]Proyecto1\[COMPI]Proyecto1\obj\Debug\[COMPI]Proyecto1.csproj.GenerateResource.Cache
+C:\Users\Joseph\Documents\Compi2\GITHUB\[COMPI]Proyecto1\[COMPI]Proyecto1\obj\Debug\[COMPI]Proyecto1.csproj.CoreCompileInputs.cache
+C:\Users\Joseph\Documents\Compi2\GITHUB\[COMPI]Proyecto1\[COMPI]Proyecto1\obj\Debug\[COMPI]Proyecto1.exe
+C:\Users\Joseph\Documents\Compi2\GITHUB\[COMPI]Proyecto1\[COMPI]Proyecto1\obj\Debug\[COMPI]Proyecto1.pdb
