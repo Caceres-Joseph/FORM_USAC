@@ -65,11 +65,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Analizador\Arbol\arbol.cs" />
-    <Compile Include="Analizador\Gramatica.cs" />
     <Compile Include="Analizador\Gramatica\generarArbol.cs" />
     <Compile Include="Analizador\Gramatica\gramatica.cs" />
-    <Compile Include="Analizador\Gramatica\recorrerAST.cs" />
-    <Compile Include="Analizador\grammar.cs" />
     <Compile Include="Analizador\Nodos\AsginarValor_UsarMetodo\_LLAMADA_FORMULARIO.cs" />
     <Compile Include="Analizador\Nodos\AsginarValor_UsarMetodo\_USAR_METODO.cs" />
     <Compile Include="Analizador\Nodos\AsginarValor_UsarMetodo\_USAR_METO_VAR.cs" />
@@ -105,15 +102,12 @@
     <Compile Include="Analizador\Nodos\Inicio\_TIPO.cs" />
     <Compile Include="Analizador\Nodos\Inicio\_VISIBILIDAD.cs" />
     <Compile Include="Analizador\Nodos\_VALOR.cs" />
-    <Compile Include="Analizador\semantic.cs" />
-    <Compile Include="Analizador\Semantico.cs" />
-    <Compile Include="Analizador\Sintactico.cs" />
-    <Compile Include="Analizador\syntactic.cs" />
     <Compile Include="Analizador\Tablas\Items\elementoError.cs" />
     <Compile Include="Analizador\Tablas\Items\elmentoSimbolo.cs" />
     <Compile Include="Analizador\Tablas\tablaErrores.cs" />
     <Compile Include="Analizador\Tablas\tablaSimbolos.cs" />
     <Compile Include="AST\ControlDot.cs" />
+    <Compile Include="AST\grafo.cs" />
     <Compile Include="AST\imagen.cs" />
     <Compile Include="Diagrama\atributo.cs" />
     <Compile Include="Diagrama\Clase.cs" />
@@ -125,6 +119,8 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="GeneradorAst\generarRecorrido.cs" />
+    <Compile Include="GUI\proyecto.cs" />
+    <Compile Include="GUI\tab.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reporte\ErrorEjecucion.cs" />

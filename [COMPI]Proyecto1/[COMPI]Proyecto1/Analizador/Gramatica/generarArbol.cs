@@ -11,10 +11,7 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
 {
     class generarArbol
     {
-
-
-
-
+         
         public nodoModelo generar(nodoModelo raiz, ParseTreeNode AST, tablaSimbolos tabla)
         {
             crearArbol(raiz, AST, tabla);
@@ -23,8 +20,7 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
         }
         private void crearArbol(nodoModelo padre, ParseTreeNode nodoIrony, tablaSimbolos tabla)
         {
-
-            Boolean hayHijo = false;
+             
             nodoModelo hijoNodo=null;
             if (nodoIrony.ChildNodes.Count == 0)
             {
@@ -42,8 +38,7 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
                 }
             }
             else
-            {
-                hayHijo = true;
+            { 
                 hijoNodo = getNodo(nodoIrony.ToString(), tabla);
                 //Console.WriteLine("insertando| " + padre.nombre + "->" + hijoNodo.nombre);
                 padre.insertar(hijoNodo);
@@ -63,8 +58,7 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
 
             return;
         }
-
-          
+         
 
         public nodoModelo getNodo(String nombreNoTerminal, tablaSimbolos tabla)
         {

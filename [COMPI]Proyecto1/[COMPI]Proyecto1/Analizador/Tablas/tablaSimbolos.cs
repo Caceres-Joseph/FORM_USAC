@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace _COMPI_Proyecto1.Analizador.Tablas
 {
-    class tablaSimbolos
+      class tablaSimbolos
     {
 
-        tablaErrores tablaErroes = new tablaErrores();
-
+        public tablaErrores tablaErrores = new tablaErrores();
+        public String rutaProyecto = "";
     }
 }

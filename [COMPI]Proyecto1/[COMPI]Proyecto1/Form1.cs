@@ -12,12 +12,14 @@ using _COMPI_Proyecto1.Analizador;
 using _COMPI_Proyecto1.AST;
 using FastColoredTextBoxNS;
 using System.Text.RegularExpressions;
+using _COMPI_Proyecto1.GUI;
 
 namespace _COMPI_Proyecto1
 {
     public partial class Form1 : MetroForm
     {
-        public List<List<FastColoredTextBox>> ListaDeProyectos = new List<List<FastColoredTextBox>>();
+         List<proyecto> ListaDeProyectos = new List<proyecto>();
+        //public List<List<FastColoredTextBox>> ListaDeProyectos = new List<List<FastColoredTextBox>>();
         public  List<MetroFramework.Controls.MetroTabControl> listaDeTabs=new List<MetroFramework.Controls.MetroTabControl>();
      
 
@@ -37,7 +39,15 @@ namespace _COMPI_Proyecto1
         }
 
         private void ejecutarToolStripMenuItem_Click(object sender, EventArgs e)
+
+
+
         {
+
+
+
+            ListaDeProyectos[metroTabControl1.SelectedIndex].ejecutarTab();
+            /*
 
             String cadena = "";
 
@@ -67,7 +77,7 @@ namespace _COMPI_Proyecto1
              {
                  txtConsola.Text = ">>Cadena incorrecta, no se pudo recuperar del error :(";
                  // Console.WriteLine("cadena incorrecta");
-             }
+             }*/
         }
 
         private void otroToolStripMenuItem_Click(object sender, EventArgs e)
@@ -78,116 +88,28 @@ namespace _COMPI_Proyecto1
         }
         public void crearTab()
         {
-            //FastColoredTextBox cuadro = new FastColoredTextBox();
-            FastColoredTextBox cuadro = new FastColoredTextBox();
-
-            cuadro.TextChanged += textChangedEventHandler;
-
-
-
-
-            MetroFramework.Controls.MetroTabPage page = new MetroFramework.Controls.MetroTabPage();
-            //string entrada = Microsoft.VisualBasic.Interaction.InputBox("Ingresa un Dato");
-            page.Controls.Add(cuadro);
-
-            cuadro.SetBounds(10, 10, 800, 400);
-            cuadro.BackColor = SystemColors.Menu;
-            cuadro.BorderStyle = System.Windows.Forms.BorderStyle.None;
-
-            //aqui tengo que enviarle los estilos
-
-            //cuadro.CollapseBlock
-
-            //cuadro.TextChanged;
-
-            // textChangedEventHandler(cuadro.TextChanged());
-            //cuadro.TextChanged
-
-
-            cuadro.Text = "hola";
-           /* MetroFramework.Controls.MetroButton boton = new MetroFramework.Controls.MetroButton();
-            boton.Text = "x";
-            boton.SetBounds(0, 0, 20, 20);
-            boton.Click += (sender, args) =>
-            {
-
-                //aquí va el codigo para eliminar 
-            };
-           
-            page.Controls.Add(boton);
-            */
-            string texto = Microsoft.VisualBasic.Interaction.InputBox(
-        "Nombre de la clase",
-        "Nombre de la clase",
-        "clase.java");
-
-            page.Text = texto;
+            tab ta = new tab();
 
            // metroTabControl2.Controls.Add(page);
-            listaDeTabs[metroTabControl1.SelectedIndex].Controls.Add(page);
+           // listaDeTabs[metroTabControl1.SelectedIndex].Controls.Add(ta.page);
 
-            ListaDeProyectos[metroTabControl1.SelectedIndex].Add(cuadro);
+            ListaDeProyectos[metroTabControl1.SelectedIndex].insertarTab(ta);
             //ListaEntradas.Add(cuadro);
-            treeView1.Nodes[metroTabControl1.SelectedIndex].Nodes.Add(texto);
+            treeView1.Nodes[metroTabControl1.SelectedIndex].Nodes.Add(ta.texto);
 
-        }
-
-        Style OrangeStyle = new TextStyle(Brushes.Orange, null, FontStyle.Bold);
-        Style BlueStyle = new TextStyle(Brushes.Blue, null, FontStyle.Bold);
-        Style GrayStyle = new TextStyle(Brushes.LightGray, null, FontStyle.Regular);
-
-        private void textChangedEventHandler(object sender, TextChangedEventArgs e)
-        {
-
-            Regex r = new Regex(
-                @"clase|importar|extender|padre|principal|sobrescribir|nuevo|nada|este"
-                , RegexOptions.IgnoreCase
-            );
-
-            e.ChangedRange.SetStyle(BlueStyle,r);
-
-
-            Regex r2 = new Regex(
-               // "\"(\\w)*\""
-               @"""""|''|"".*?[^\\]""|'.*?[^\\]'"
-               , RegexOptions.IgnoreCase
-            );
-
-            e.ChangedRange.SetStyle(OrangeStyle, r2);
-
-
-            Regex JScriptCommentRegex1 = new Regex(@"\$\#(.)*\#\$", RegexOptions.Multiline );
-            Regex JScriptCommentRegex2 = new Regex(@"(/\*.*?\*/)|(/\*.*)", RegexOptions.Singleline );
-            Regex JScriptCommentRegex3 = new Regex(@"(/\*.*?\*/)|(.*\*/)",
-                 RegexOptions.Singleline | RegexOptions.RightToLeft );
-
-
-            e.ChangedRange.SetStyle(OrangeStyle, JScriptCommentRegex1);
-
-            //e.ChangedRange.SetStyle(BlueStyle, @"clase");
-
-
-
-        }
+        } 
 
         public void crearTab(String nombre, String contenido)
         {
-            FastColoredTextBox cuadro = new FastColoredTextBox();
-            cuadro.Text = contenido;
-            MetroFramework.Controls.MetroTabPage page = new MetroFramework.Controls.MetroTabPage();
-            //string entrada = Microsoft.VisualBasic.Interaction.InputBox("Ingresa un Dato");
-            page.Controls.Add(cuadro);
-            cuadro.SetBounds(10, 10, 800, 400);
-            cuadro.BackColor = SystemColors.Menu;
-            cuadro.BorderStyle = System.Windows.Forms.BorderStyle.None;
-          
 
-            page.Text = nombre;
-           // metroTabControl2.Controls.Add(page);
-            listaDeTabs[metroTabControl1.SelectedIndex].Controls.Add(page);
 
-            //ListaEntradas.Add(cuadro);
-            ListaDeProyectos[metroTabControl1.SelectedIndex].Add(cuadro);
+
+            tab ta = new tab(nombre, contenido);
+
+            //listaDeTabs[metroTabControl1.SelectedIndex].Controls.Add(ta.page);
+
+            //ListaDeProyectos[metroTabControl1.SelectedIndex].Add(ta.cuadro);
+            ListaDeProyectos[metroTabControl1.SelectedIndex].insertarTab(ta);
             treeView1.Nodes[metroTabControl1.SelectedIndex].Nodes.Add(nombre);
         }
 
@@ -225,10 +147,12 @@ namespace _COMPI_Proyecto1
 
         private void abrirToolStripMenuItem_Click(object sender, EventArgs e)
         {
+
+
             System.IO.Stream myStream = null;
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
 
-            openFileDialog1.InitialDirectory = "c:\\";
+            openFileDialog1.InitialDirectory = ListaDeProyectos[metroTabControl1.SelectedIndex].arbol.tablaDeSimbolos.rutaProyecto;
             openFileDialog1.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
             openFileDialog1.FilterIndex = 2;
             openFileDialog1.RestoreDirectory = true;
@@ -283,17 +207,12 @@ namespace _COMPI_Proyecto1
         }
 
         private void diagramaDeClasesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Sintactico.generarUML();
-
-            System.Diagnostics.Process proc = new System.Diagnostics.Process();
-            proc.EnableRaisingEvents = false;
-            proc.StartInfo.FileName = "UML.png";
-            proc.Start();
+        { 
         }
 
         private void aSTToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            /*
             String cadena = "";
 
             foreach (FastColoredTextBox entrada in ListaDeProyectos[metroTabControl1.SelectedIndex])
@@ -307,7 +226,7 @@ namespace _COMPI_Proyecto1
             proc.EnableRaisingEvents = false;
             proc.StartInfo.FileName = "arbolAST.png";
             proc.Start();
-
+            */
 
         }
 
@@ -318,67 +237,26 @@ namespace _COMPI_Proyecto1
 
         public void nuevoProyecto()
         {
-            List<FastColoredTextBox> ListaEntradas = new List<FastColoredTextBox>();//Lista de errores
 
+            proyecto proyect = new proyecto();
 
-            MetroFramework.Controls.MetroTabPage page = new MetroFramework.Controls.MetroTabPage();
-            //MetroFramework.Controls.MetroTabPage page2 = new MetroFramework.Controls.MetroTabPage();
+            metroTabControl1.Controls.Add(proyect.page);
+             
+            listaDeTabs.Add(proyect.tab);
 
-            MetroFramework.Controls.MetroTabControl tab = new MetroFramework.Controls.MetroTabControl();
-            tab.Style = MetroFramework.MetroColorStyle.Orange;
-
-            tab.SetBounds(5, 5, 900, 500);
-            tab.Font = new Font("Microsoft Sans Serif", 11, FontStyle.Regular);
-            //page2.Text = "hola";
-
-            //tab.Controls.Add(page2);
-            page.Controls.Add(tab);
-            //FastColoredTextBox cuadro = new FastColoredTextBox();
-            // cuadro.Font  = new Font("Microsoft Sans Serif", 14, FontStyle.Regular);
-            //string entrada = Microsoft.VisualBasic.Interaction.InputBox("Ingresa un Dato");
-
-            //cuadro.SetBounds(10, 10, 900, 400);
-            //cuadro.BackColor = SystemColors.Menu;
-            //cuadro.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            //page2.Controls.Add(cuadro);
-            string texto = Microsoft.VisualBasic.Interaction.InputBox(
-        "Nombre del proyecto",
-        "Nombre del proyecto",
-        "Proyecto");
-
-            page.Text = texto;
-            metroTabControl1.Controls.Add(page);
-
-            listaDeTabs.Add(tab);
-            ListaDeProyectos.Add(ListaEntradas);
-
-
-            //para la vista arbol
-
-
+            ListaDeProyectos.Add(proyect);
+             
             treeView1.BeginUpdate();
-            treeView1.Nodes.Add(texto);
-
-            //treeView1.Nodes[0].Nodes.Add("Child 1");
-            //treeView1.Nodes[0].Nodes.Add("Child 2");
-            //treeView1.Nodes[0].Nodes[1].Nodes.Add("Grandchild");
-            //treeView1.Nodes[0].Nodes[1].Nodes[0].Nodes.Add("Great Grandchild");
+            treeView1.Nodes.Add(proyect.texto); 
             treeView1.EndUpdate();
-
-
-
-            //  ListaEntradas.Add(cuadro);
-
+             
         }
 
 
 
         private void erroresToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process proc = new System.Diagnostics.Process();
-            proc.EnableRaisingEvents = false;
-            proc.StartInfo.FileName = "TablaErrores.html";
-            proc.Start();
+            ListaDeProyectos[metroTabControl1.SelectedIndex].arbol.tablaDeSimbolos.tablaErrores.mostrarHTLM();
         }
 
         private void eliminarClaseToolStripMenuItem_Click(object sender, EventArgs e)
@@ -396,7 +274,7 @@ namespace _COMPI_Proyecto1
             treeView1.Nodes[metroTabControl1.SelectedIndex].Nodes[indice].Remove();
 
             listaDeTabs[metroTabControl1.SelectedIndex].Controls.RemoveAt(indice);
-            ListaDeProyectos[metroTabControl1.SelectedIndex].RemoveAt(indice);
+           // ListaDeProyectos[metroTabControl1.SelectedIndex].RemoveAt(indice);
 
 
             //treeView1.Nodes[metroTabControl1.SelectedIndex].Nodes.RemoveAt(listaDeTabs[metroTabControl1.SelectedIndex].SelectedIndex); //para elimiar la clase de la vista árbol

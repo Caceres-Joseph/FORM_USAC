@@ -12,5 +12,18 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
         public _IMPORT(string nombre, tablaSimbolos tabla) : base(nombre, tabla)
         {
         }
+
+
+        public override void ejecutar()
+        {
+            if (hayErrores())
+                return;
+
+            tablaSimbolos.tablaErrores.println("Bucando el import en " + tablaSimbolos.rutaProyecto);
+            
+
+
+
+        }
     }
 }

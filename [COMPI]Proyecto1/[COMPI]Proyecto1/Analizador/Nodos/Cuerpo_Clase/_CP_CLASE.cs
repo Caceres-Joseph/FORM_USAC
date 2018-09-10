@@ -11,6 +11,12 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
     {
         public _CP_CLASE(string nombre, tablaSimbolos tabla) : base(nombre, tabla)
         {
+
+        }
+
+       public override  void ejecutar()
+        { 
+
         }
     }
 }

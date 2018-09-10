@@ -25,16 +25,58 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
             hijos.Add(hijo);
         }
 
-        public void ejecutar()
+        public virtual void ejecutar()
         {
 
             //Console.WriteLine("Nodo:" + nombre );
+            ejecutarHijos();
+            
+        }
+
+        public void imprimirNodos()
+        {
+            foreach (nodoModelo temp in hijos)
+            {
+                Console.WriteLine("padre:" + nombre + "->hijo:" + temp.nombre);
+                temp.ejecutar();
+            }
+        }
+
+        public void ejecutarHijos()
+        {
+
+            if (hayErrores())
+            {
+                return;
+            }
 
             foreach (nodoModelo temp in hijos)
             {
-                Console.WriteLine("padre:" + nombre + "->hijo:"+temp.nombre);
+                Console.WriteLine("[nodoModelo]EjecutarHijos_padre:" + nombre + "->hijo:" + temp.nombre);
                 temp.ejecutar();
             }
+        }
+
+        public Boolean hayErrores()
+        {
+
+
+            Boolean retorno = true;
+
+            if (tablaSimbolos.tablaErrores.listaErrores.Count==0)
+            {
+                retorno = false;
+
+            }
+            else
+            {
+                tablaSimbolos.tablaErrores.println("No se puede ejecutar el nodo" + nombre + " porque hay errores en la tabla");
+            }
+
+
+            return retorno;
+
+
         }
     }
 }

@@ -8,11 +8,12 @@ using System.Threading.Tasks;
 
 namespace _COMPI_Proyecto1.Analizador.Gramatica
 {
-    public class gramatica : Grammar
+      class gramatica : Grammar
     {
-        tablaErrores tablaErrores = new tablaErrores();
-        public gramatica() : base(caseSensitive: false)//Diferencia entre mayusculas y minusculas
+        tablaErrores tablaErrores ;
+        public gramatica(tablaErrores tabla) : base(caseSensitive: false)//Diferencia entre mayusculas y minusculas
         {
+            this.tablaErrores = tabla;
 
             #region ER
             //////////////////////////////////////////
@@ -208,8 +209,10 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
 
 
             LST_IMPORT.Rule = MakeStarRule(LST_IMPORT, IMPORT);
+               
 
-            IMPORT.Rule = tImport + sAbreParent + valId + sPunto + valId + sCierraParent + sPuntoComa;
+            IMPORT.Rule = tImport + sAbreParent + valId + sPunto + valId + sCierraParent + sPuntoComa
+                 | SyntaxError; 
 
             LST_CLASE.Rule = MakeStarRule(LST_CLASE, CLASE);
 

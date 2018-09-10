@@ -7,10 +7,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using _COMPI_Proyecto1.AST;
 
 namespace _COMPI_Proyecto1.Analizador.Arbol
 {
-   public  class arbol
+    class arbol
     {
 
         //aqui tengo que definir la tabla de simbolos, 
@@ -19,8 +20,10 @@ namespace _COMPI_Proyecto1.Analizador.Arbol
         //y la raíz
 
 
-        tablaSimbolos tablaDeSimbolos = new tablaSimbolos();
-        nodoModelo raizArbol;
+        public tablaSimbolos tablaDeSimbolos = new tablaSimbolos();
+        public nodoModelo raizArbol;
+       // public String rutaDeLaCarpeta = "";
+
 
         public arbol()
         {
@@ -29,12 +32,12 @@ namespace _COMPI_Proyecto1.Analizador.Arbol
 
         public Boolean iniciarAnalisis(String cadena)
         {
+            Boolean retorno = false;
 
             //GENERANDO EL AST DE IRONY
 
-            gramatica gramatica = new gramatica();
-            Boolean retorno = false;
-            gramatica = new gramatica();
+            gramatica gramatica = new gramatica(tablaDeSimbolos.tablaErrores);
+            
             LanguageData lenguaje = new LanguageData(gramatica);
             Parser parser = new Parser(lenguaje);
             ParseTree arbol = parser.Parse(cadena);
@@ -56,9 +59,11 @@ namespace _COMPI_Proyecto1.Analizador.Arbol
             {
                
                 // seman.S(raiz);
-                Sintactico.generarImagen(raiz);
+                grafo.generarImagen(raiz);
+                Console.WriteLine("rutaProyecto->"+tablaDeSimbolos.rutaProyecto);
                 raizArbol = generar.generar(raizArbol, raiz, tablaDeSimbolos);
                 raizArbol.ejecutar();
+                 
                 //generarImagen(raiz);//aquí se genera el AST
                 retorno = true;
             }

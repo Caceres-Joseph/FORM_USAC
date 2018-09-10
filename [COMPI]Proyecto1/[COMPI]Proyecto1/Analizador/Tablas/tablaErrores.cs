@@ -9,7 +9,7 @@ namespace _COMPI_Proyecto1.Analizador.Tablas
 {
     class tablaErrores
     {
-        private List<elementoError> listaErrores = new List<elementoError>();//Lista de errores
+        public List<elementoError> listaErrores = new List<elementoError>();//Lista de errores
 
 
         public void insertar(elementoError nodo)
