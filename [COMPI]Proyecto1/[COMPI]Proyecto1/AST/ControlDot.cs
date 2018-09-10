@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using _COMPI_Proyecto1.Analizador.Nodos;
 
 namespace _COMPI_Proyecto1.AST
 {
@@ -14,11 +15,13 @@ namespace _COMPI_Proyecto1.AST
 
         public static String getDot(ParseTreeNode raiz)
         {
-            grafo = "digraph G{";
-            grafo += "nodo0[label=\"" + escapar(raiz.ToString()) + "\"];\n";
+            grafo = "digraph G{\n";
+            //grafo += "nodo0[label=\"" + escapar(raiz.ToString()) + "\"];\n";
             //  grafo += "nodo0[label=\"etiqueta\"];\n";
+
             contador = 1;
-            recorrerAST("nodo0", raiz);
+            concatenar( raiz);
+           
             grafo += "}";
             return grafo;
         }
@@ -28,6 +31,7 @@ namespace _COMPI_Proyecto1.AST
             {
                 String nombreHijo = "nodo" + contador.ToString();
                 grafo += nombreHijo + "[label=\"" + escapar(hijo.ToString()) + "\"];\n";
+                
                 grafo += padre + "->" + nombreHijo + "\n";
                 contador++;
                 recorrerAST(nombreHijo, hijo);
@@ -35,6 +39,44 @@ namespace _COMPI_Proyecto1.AST
 
             }
         }
+
+        private static void concatenar(ParseTreeNode nodoIrony)
+        {
+            if (nodoIrony.ChildNodes.Count == 0)
+            {
+                if (nodoIrony.Token == null)
+                {
+                    //no terminal sin hijos
+                   /// Console.WriteLine("NoTerminal->" + nodoIrony.ToString());
+                    grafo += nodoIrony.GetHashCode() + "[label=\"" + nodoIrony.ToString() + "\"];\n";
+                }
+                else
+                {
+                    String terminal = escapar(nodoIrony.Token.Value.ToString());
+                    //Console.WriteLine("terminal->"+terminal);
+                    grafo += nodoIrony.GetHashCode() + "[label=\"" + terminal + "\"];\n";
+                }
+            }
+            else
+            {
+               // Console.WriteLine("NoTerminal2->" + nodoIrony.ToString());
+                grafo += nodoIrony.GetHashCode() + "[label=\"" + nodoIrony + "\"];\n";
+            }
+            foreach (ParseTreeNode hijo in nodoIrony.ChildNodes)
+            {
+                grafo += nodoIrony.GetHashCode() + "->" + hijo.GetHashCode() + ";\n";
+                concatenar(hijo);
+            }
+
+
+
+
+
+        }
+
+
+
+
         private static String escapar(String cadena)
         {
             cadena = cadena.Replace("\\", "\\\\");

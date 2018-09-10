@@ -10,11 +10,11 @@ namespace _COMPI_Proyecto1.Analizador
    public class syntactic
     {
 
-        public  grammar gramatica = new grammar();
+        public  grammar67 gramatica = new grammar67();
         public  bool analizar(String cadena)
         {
             Boolean retorno = false;
-            gramatica = new grammar();
+            gramatica = new grammar67();
             LanguageData lenguaje = new LanguageData(gramatica);
             Parser parser = new Parser(lenguaje);
             ParseTree arbol = parser.Parse(cadena);

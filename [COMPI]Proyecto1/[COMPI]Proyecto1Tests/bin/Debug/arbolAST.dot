@@ -1,54 +1,95 @@
-digraph G{nodo0[label="S"];
-nodo1[label="LST_IMPORT"];
-nodo0->nodo1
-nodo2[label="IMPORT"];
-nodo1->nodo2
-nodo3[label="importar (Keyword)"];
-nodo2->nodo3
-nodo4[label="( (Key symbol)"];
-nodo2->nodo4
-nodo5[label="analizar (id)"];
-nodo2->nodo5
-nodo6[label=". (Key symbol)"];
-nodo2->nodo6
-nodo7[label="xform (id)"];
-nodo2->nodo7
-nodo8[label=") (Key symbol)"];
-nodo2->nodo8
-nodo9[label="; (Key symbol)"];
-nodo2->nodo9
-nodo10[label="IMPORT"];
-nodo1->nodo10
-nodo11[label="importar (Keyword)"];
-nodo10->nodo11
-nodo12[label="( (Key symbol)"];
-nodo10->nodo12
-nodo13[label="analizar (id)"];
-nodo10->nodo13
-nodo14[label=". (Key symbol)"];
-nodo10->nodo14
-nodo15[label="xform (id)"];
-nodo10->nodo15
-nodo16[label=") (Key symbol)"];
-nodo10->nodo16
-nodo17[label="; (Key symbol)"];
-nodo10->nodo17
-nodo18[label="IMPORT"];
-nodo1->nodo18
-nodo19[label="importar (Keyword)"];
-nodo18->nodo19
-nodo20[label="( (Key symbol)"];
-nodo18->nodo20
-nodo21[label="analizar (id)"];
-nodo18->nodo21
-nodo22[label=". (Key symbol)"];
-nodo18->nodo22
-nodo23[label="xform (id)"];
-nodo18->nodo23
-nodo24[label=") (Key symbol)"];
-nodo18->nodo24
-nodo25[label="; (Key symbol)"];
-nodo18->nodo25
-nodo26[label="LST_CLASE"];
-nodo0->nodo26
+digraph G{
+61704988[label="S"];
+61704988->49138909;
+49138909[label="LST_IMPORT"];
+49138909->54225366;
+54225366[label="IMPORT"];
+54225366->55372139;
+55372139[label="importar"];
+54225366->49042215;
+49042215[label="("];
+54225366->49100563;
+49100563[label="arbo"];
+54225366->52193051;
+52193051[label="."];
+54225366->14768317;
+14768317[label="xls"];
+54225366->44523346;
+44523346[label=")"];
+54225366->10927135;
+10927135[label=";"];
+49138909->42267257;
+42267257[label="IMPORT"];
+42267257->25572157;
+25572157[label="importar"];
+42267257->13147087;
+13147087[label="("];
+42267257->25706991;
+25706991[label="import"];
+42267257->20293281;
+20293281[label="."];
+42267257->1802074;
+1802074[label="ls"];
+42267257->28401101;
+28401101[label=")"];
+42267257->28863349;
+28863349[label=";"];
+61704988->53362497;
+53362497[label="LST_CLASE"];
+53362497->9640068;
+9640068[label="CLASE"];
+9640068->41161595;
+41161595[label="clase"];
+9640068->34080927;
+34080927[label="hola"];
+9640068->61458698;
+61458698[label="EXTENDER"];
+9640068->36085547;
+36085547[label="{"];
+9640068->33485835;
+33485835[label="CP_CLASE"];
+9640068->29918815;
+29918815[label="}"];
+53362497->42193324;
+42193324[label="CLASE"];
+42193324->21653695;
+21653695[label="clase"];
+42193324->6795180;
+6795180[label="pedro"];
+42193324->24600227;
+24600227[label="VISIBILIDAD"];
+24600227->28743639;
+28743639[label="publico"];
+42193324->47017904;
+47017904[label="EXTENDER"];
+42193324->8920973;
+8920973[label="{"];
+42193324->3049564;
+3049564[label="CP_CLASE"];
+3049564->27409212;
+27409212[label="CUERPO_CLASE"];
+27409212->43402094;
+43402094[label="DECLARAR_VARIABLE_GLOBAL"];
+43402094->18609632;
+18609632[label="DECLARAR_VARIABLE_SINVISIBI"];
+18609632->46786427;
+46786427[label="TIPO"];
+46786427->63761545;
+63761545[label="cadena"];
+18609632->23918697;
+23918697[label="VAR_ARREGLO"];
+23918697->59731412;
+59731412[label="cad"];
+18609632->11648238;
+11648238[label="VAL"];
+11648238->13376879;
+13376879[label="="];
+11648238->37885969;
+37885969[label="VALOR"];
+37885969->61799320;
+61799320[label="hola"];
+27409212->54138535;
+54138535[label=";"];
+42193324->50770078;
+50770078[label="}"];
 }

@@ -14,11 +14,11 @@ namespace _COMPI_Proyecto1.Analizador
     class Sintactico
     {
         static Semantico seman = new Semantico();
-        public static Gramatica gramatica = new Gramatica();
+        public static gammar2 gramatica = new gammar2();
         public static bool analizar(String cadena)
         {
             Boolean retorno = true;
-            gramatica = new Gramatica();
+            gramatica = new gammar2();
             LanguageData lenguaje = new LanguageData(gramatica);
             Parser parser = new Parser(lenguaje);
             ParseTree arbol = parser.Parse(cadena);
@@ -54,7 +54,7 @@ namespace _COMPI_Proyecto1.Analizador
         public static void graficarAST(String cadena)
         {
             Boolean retorno = true;
-            Gramatica gramatica = new Gramatica();
+            gammar2 gramatica = new gammar2();
             LanguageData lenguaje = new LanguageData(gramatica);
             Parser parser = new Parser(lenguaje);
             ParseTree arbol = parser.Parse(cadena);
@@ -62,7 +62,6 @@ namespace _COMPI_Proyecto1.Analizador
             if (raiz == null)
             {
                 retorno = false;
-
             }
             else
             {                

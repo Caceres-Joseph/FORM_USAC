@@ -9,10 +9,11 @@ using _COMPI_Proyecto1.Reporte;
 
 namespace _COMPI_Proyecto1.Analizador
 {
-    class Gramatica: Grammar
+
+    class gammar2: Grammar
     {
         public List<ErrorEjecucion> lista = new List<ErrorEjecucion>();//Lista de errores
-        public Gramatica() : base(caseSensitive: false)//Diferencia entre mayusculas y minusculas
+        public gammar2() : base(caseSensitive: false)//Diferencia entre mayusculas y minusculas
         {
             #region ER
             //////////////////////////////////////////
@@ -154,7 +155,7 @@ namespace _COMPI_Proyecto1.Analizador
 
             #endregion
 
-            #region Gramatica
+            #region gammar2
 
             //S.Rule = VISIBILIDAD + t_class + id + EXTENDER + abreLlave + CONSTRUCTOR + CP_CLASE + cierraLlave;
             S.Rule = CLASES;
@@ -256,7 +257,7 @@ namespace _COMPI_Proyecto1.Analizador
                 | E
                 | RELACIONAL
                 | LOGICO
-                ;/**/
+                ; 
 
             USAR_METODO.Rule = t_this + punto + USAR_METODOP
                 | USAR_METODOP;
@@ -436,5 +437,6 @@ namespace _COMPI_Proyecto1.Analizador
             Console.WriteLine("fila:" + fila);
             base.ReportParseError(context);
         }
-    }
+       
+    }  
 }

@@ -10,12 +10,14 @@ using System.Windows.Forms;
 using MetroFramework.Forms;
 using _COMPI_Proyecto1.Analizador;
 using _COMPI_Proyecto1.AST;
+using FastColoredTextBoxNS;
+using System.Text.RegularExpressions;
 
 namespace _COMPI_Proyecto1
 {
     public partial class Form1 : MetroForm
     {
-        public List<List<RichTextBox>> ListaDeProyectos = new List<List<RichTextBox>>();
+        public List<List<FastColoredTextBox>> ListaDeProyectos = new List<List<FastColoredTextBox>>();
         public  List<MetroFramework.Controls.MetroTabControl> listaDeTabs=new List<MetroFramework.Controls.MetroTabControl>();
      
 
@@ -39,7 +41,7 @@ namespace _COMPI_Proyecto1
 
             String cadena = "";
 
-            foreach (RichTextBox entrada in ListaDeProyectos[metroTabControl1.SelectedIndex])
+            foreach (FastColoredTextBox entrada in ListaDeProyectos[metroTabControl1.SelectedIndex])
             {
 
                 cadena = cadena + "\n" + entrada.Text;
@@ -76,8 +78,14 @@ namespace _COMPI_Proyecto1
         }
         public void crearTab()
         {
-            RichTextBox cuadro = new RichTextBox();
-            
+            //FastColoredTextBox cuadro = new FastColoredTextBox();
+            FastColoredTextBox cuadro = new FastColoredTextBox();
+
+            cuadro.TextChanged += textChangedEventHandler;
+
+
+
+
             MetroFramework.Controls.MetroTabPage page = new MetroFramework.Controls.MetroTabPage();
             //string entrada = Microsoft.VisualBasic.Interaction.InputBox("Ingresa un Dato");
             page.Controls.Add(cuadro);
@@ -86,6 +94,17 @@ namespace _COMPI_Proyecto1
             cuadro.BackColor = SystemColors.Menu;
             cuadro.BorderStyle = System.Windows.Forms.BorderStyle.None;
 
+            //aqui tengo que enviarle los estilos
+
+            //cuadro.CollapseBlock
+
+            //cuadro.TextChanged;
+
+            // textChangedEventHandler(cuadro.TextChanged());
+            //cuadro.TextChanged
+
+
+            cuadro.Text = "hola";
            /* MetroFramework.Controls.MetroButton boton = new MetroFramework.Controls.MetroButton();
             boton.Text = "x";
             boton.SetBounds(0, 0, 20, 20);
@@ -112,11 +131,48 @@ namespace _COMPI_Proyecto1
             treeView1.Nodes[metroTabControl1.SelectedIndex].Nodes.Add(texto);
 
         }
-      
+
+        Style OrangeStyle = new TextStyle(Brushes.Orange, null, FontStyle.Bold);
+        Style BlueStyle = new TextStyle(Brushes.Blue, null, FontStyle.Bold);
+        Style GrayStyle = new TextStyle(Brushes.LightGray, null, FontStyle.Regular);
+
+        private void textChangedEventHandler(object sender, TextChangedEventArgs e)
+        {
+
+            Regex r = new Regex(
+                @"clase|importar|extender|padre|principal|sobrescribir|nuevo|nada|este"
+                , RegexOptions.IgnoreCase
+            );
+
+            e.ChangedRange.SetStyle(BlueStyle,r);
+
+
+            Regex r2 = new Regex(
+               // "\"(\\w)*\""
+               @"""""|''|"".*?[^\\]""|'.*?[^\\]'"
+               , RegexOptions.IgnoreCase
+            );
+
+            e.ChangedRange.SetStyle(OrangeStyle, r2);
+
+
+            Regex JScriptCommentRegex1 = new Regex(@"\$\#(.)*\#\$", RegexOptions.Multiline );
+            Regex JScriptCommentRegex2 = new Regex(@"(/\*.*?\*/)|(/\*.*)", RegexOptions.Singleline );
+            Regex JScriptCommentRegex3 = new Regex(@"(/\*.*?\*/)|(.*\*/)",
+                 RegexOptions.Singleline | RegexOptions.RightToLeft );
+
+
+            e.ChangedRange.SetStyle(OrangeStyle, JScriptCommentRegex1);
+
+            //e.ChangedRange.SetStyle(BlueStyle, @"clase");
+
+
+
+        }
 
         public void crearTab(String nombre, String contenido)
         {
-            RichTextBox cuadro = new RichTextBox();
+            FastColoredTextBox cuadro = new FastColoredTextBox();
             cuadro.Text = contenido;
             MetroFramework.Controls.MetroTabPage page = new MetroFramework.Controls.MetroTabPage();
             //string entrada = Microsoft.VisualBasic.Interaction.InputBox("Ingresa un Dato");
@@ -142,14 +198,15 @@ namespace _COMPI_Proyecto1
 
         private void Form1_Load(object sender, EventArgs e)
         {
-           // crearTab();
+            // crearTab();
+            nuevoProyecto();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             /*
             String cadena = "";
-            foreach (RichTextBox entrada in ListaEntradas)
+            foreach (FastColoredTextBox entrada in ListaEntradas)
             {
 
                 cadena = cadena +"\n"+ entrada.Text;
@@ -239,7 +296,7 @@ namespace _COMPI_Proyecto1
         {
             String cadena = "";
 
-            foreach (RichTextBox entrada in ListaDeProyectos[metroTabControl1.SelectedIndex])
+            foreach (FastColoredTextBox entrada in ListaDeProyectos[metroTabControl1.SelectedIndex])
             {
 
                 cadena = cadena + "\n" + entrada.Text;
@@ -256,7 +313,12 @@ namespace _COMPI_Proyecto1
 
         private void nuevoProyectoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            List<RichTextBox> ListaEntradas = new List<RichTextBox>();//Lista de errores
+            nuevoProyecto();
+        }
+
+        public void nuevoProyecto()
+        {
+            List<FastColoredTextBox> ListaEntradas = new List<FastColoredTextBox>();//Lista de errores
 
 
             MetroFramework.Controls.MetroTabPage page = new MetroFramework.Controls.MetroTabPage();
@@ -266,13 +328,13 @@ namespace _COMPI_Proyecto1
             tab.Style = MetroFramework.MetroColorStyle.Orange;
 
             tab.SetBounds(5, 5, 900, 500);
-            tab.Font= new Font("Microsoft Sans Serif", 11, FontStyle.Regular);
+            tab.Font = new Font("Microsoft Sans Serif", 11, FontStyle.Regular);
             //page2.Text = "hola";
-           
+
             //tab.Controls.Add(page2);
             page.Controls.Add(tab);
-            //RichTextBox cuadro = new RichTextBox();
-           // cuadro.Font  = new Font("Microsoft Sans Serif", 14, FontStyle.Regular);
+            //FastColoredTextBox cuadro = new FastColoredTextBox();
+            // cuadro.Font  = new Font("Microsoft Sans Serif", 14, FontStyle.Regular);
             //string entrada = Microsoft.VisualBasic.Interaction.InputBox("Ingresa un Dato");
 
             //cuadro.SetBounds(10, 10, 900, 400);
@@ -306,7 +368,10 @@ namespace _COMPI_Proyecto1
 
 
             //  ListaEntradas.Add(cuadro);
+
         }
+
+
 
         private void erroresToolStripMenuItem_Click(object sender, EventArgs e)
         {

@@ -17,7 +17,7 @@ namespace _COMPI_Proyecto1.Analizador.Tests
             Assert.Fail();
         }*/
 
-        [TestMethod()]
+       // [TestMethod()]
         public void testAnalizar()
         {
             syntactic sin = new syntactic();
@@ -26,7 +26,7 @@ namespace _COMPI_Proyecto1.Analizador.Tests
         }
 
 
-        [TestMethod()]
+        //[TestMethod()]
         public void testAnalizar2()
         {
             syntactic sin = new syntactic();
@@ -35,7 +35,7 @@ namespace _COMPI_Proyecto1.Analizador.Tests
             Assert.AreEqual(true, da);
         }
         
-        [TestMethod()]
+       // [TestMethod()]
         public void testAnalizar3()
         {
             syntactic sin = new syntactic();

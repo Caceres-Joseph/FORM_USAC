@@ -32,3 +32,15 @@ C:\Users\Joseph\Documents\Compi2\GITHUB\[COMPI]Proyecto1\[COMPI]Proyecto1\obj\De
 C:\Users\Joseph\Documents\Compi2\GITHUB\[COMPI]Proyecto1\[COMPI]Proyecto1\obj\Debug\[COMPI]Proyecto1.csproj.CoreCompileInputs.cache
 C:\Users\Joseph\Documents\Compi2\GITHUB\[COMPI]Proyecto1\[COMPI]Proyecto1\obj\Debug\[COMPI]Proyecto1.exe
 C:\Users\Joseph\Documents\Compi2\GITHUB\[COMPI]Proyecto1\[COMPI]Proyecto1\obj\Debug\[COMPI]Proyecto1.pdb
+C:\Users\Joseph\Documents\Compi2\GITHUB\FORM_USAC\[COMPI]Proyecto1\[COMPI]Proyecto1\bin\Debug\[COMPI]Proyecto1.exe.config
+C:\Users\Joseph\Documents\Compi2\GITHUB\FORM_USAC\[COMPI]Proyecto1\[COMPI]Proyecto1\bin\Debug\[COMPI]Proyecto1.exe
+C:\Users\Joseph\Documents\Compi2\GITHUB\FORM_USAC\[COMPI]Proyecto1\[COMPI]Proyecto1\bin\Debug\[COMPI]Proyecto1.pdb
+C:\Users\Joseph\Documents\Compi2\GITHUB\FORM_USAC\[COMPI]Proyecto1\[COMPI]Proyecto1\obj\Debug\[COMPI]Proyecto1.csprojResolveAssemblyReference.cache
+C:\Users\Joseph\Documents\Compi2\GITHUB\FORM_USAC\[COMPI]Proyecto1\[COMPI]Proyecto1\obj\Debug\_COMPI_Proyecto1.Form1.resources
+C:\Users\Joseph\Documents\Compi2\GITHUB\FORM_USAC\[COMPI]Proyecto1\[COMPI]Proyecto1\obj\Debug\_COMPI_Proyecto1.Properties.Resources.resources
+C:\Users\Joseph\Documents\Compi2\GITHUB\FORM_USAC\[COMPI]Proyecto1\[COMPI]Proyecto1\obj\Debug\[COMPI]Proyecto1.csproj.GenerateResource.Cache
+C:\Users\Joseph\Documents\Compi2\GITHUB\FORM_USAC\[COMPI]Proyecto1\[COMPI]Proyecto1\obj\Debug\[COMPI]Proyecto1.csproj.CoreCompileInputs.cache
+C:\Users\Joseph\Documents\Compi2\GITHUB\FORM_USAC\[COMPI]Proyecto1\[COMPI]Proyecto1\obj\Debug\[COMPI]Proyecto1.exe
+C:\Users\Joseph\Documents\Compi2\GITHUB\FORM_USAC\[COMPI]Proyecto1\[COMPI]Proyecto1\obj\Debug\[COMPI]Proyecto1.pdb
+C:\Users\Joseph\Documents\Compi2\GITHUB\FORM_USAC\[COMPI]Proyecto1\[COMPI]Proyecto1\bin\Debug\FastColoredTextBox.dll
+C:\Users\Joseph\Documents\Compi2\GITHUB\FORM_USAC\[COMPI]Proyecto1\[COMPI]Proyecto1\bin\Debug\FastColoredTextBox.xml

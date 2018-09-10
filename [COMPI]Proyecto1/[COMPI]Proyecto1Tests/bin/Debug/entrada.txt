@@ -1,20 +1,10 @@
-
-$$este es un ejemplo de un lenguaje de una sola línea 
-
-$# este es un ejemplo de un lenguaje de 
-múltiples líneas. #$ 
-
-imPORtar (analizar.xform);
-clasE form publico {
   
+importar (arbo.xls);
+importar (import.ls);
+clase hola{
+
 }
-@@
-CLASE form  {
-  form(){
-  }
-  
-  publico form(entero cade){
-	
-  }
 
+clase pedro publico{
+cadena cad="hola";
 }

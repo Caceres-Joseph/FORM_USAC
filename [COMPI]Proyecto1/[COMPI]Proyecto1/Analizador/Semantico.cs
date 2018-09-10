@@ -137,6 +137,7 @@ namespace _COMPI_Proyecto1.Analizador
                 validacionSemantica();
             }
         }
+
         public void CLASES(ParseTreeNode arbol)//aquí esta la lista de clases.
         {
             if (arbol.ChildNodes.Count != 0)//por si no trae nodos

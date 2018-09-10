@@ -3,49 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/joseph/NetBeansProjects/FORM_USAC/src/Analyzer/Tree/Nodes/nodeFila.java</file>
-            <file>file:/home/joseph/NetBeansProjects/FORM_USAC/src/Analyzer/Javacc/grammar2.jj</file>
-            <file>file:/home/joseph/NetBeansProjects/FORM_USAC/src/Analyzer/Tree/Nodes/nodeCiclo.java</file>
-            <file>file:/home/joseph/NetBeansProjects/FORM_USAC/src/GUI/Estilos/Estilos.css</file>
-            <file>file:/home/joseph/NetBeansProjects/FORM_USAC/src/Analyzer/Tree/Tablas/tablaSimbolos.java</file>
-            <file>file:/home/joseph/NetBeansProjects/FORM_USAC/src/Analyzer/Tree/Tablas/tablaErrores.java</file>
-            <file>file:/home/joseph/NetBeansProjects/FORM_USAC/src/Analyzer/Tree/Nodes/padreOpcion.java</file>
-            <file>file:/home/joseph/NetBeansProjects/FORM_USAC/src/Analyzer/Tree/Nodes/nodePregunta.java</file>
-            <file>file:/home/joseph/NetBeansProjects/FORM_USAC/src/GUI/Principal.java</file>
-            <file>file:/home/joseph/NetBeansProjects/FORM_USAC/src/Analyzer/Tree/nodeModelGrupoCiclo.java</file>
-            <file>file:/home/joseph/NetBeansProjects/FORM_USAC/src/Analyzer/Tree/atributos.java</file>
-            <file>file:/home/joseph/NetBeansProjects/FORM_USAC/src/Analyzer/Tree/Tablas/tablas.java</file>
-            <file>file:/home/joseph/NetBeansProjects/FORM_USAC/src/Analyzer/Tree/atributo.java</file>
-            <file>file:/home/joseph/NetBeansProjects/FORM_USAC/src/Analyzer/Tree/Columnas/etiqueta.java</file>
-            <file>file:/home/joseph/NetBeansProjects/FORM_USAC/src/Analyzer/Tree/nodeModel.java</file>
-            <file>file:/home/joseph/NetBeansProjects/FORM_USAC/src/Analyzer/Tree/Columnas/sugerir.java</file>
-            <file>file:/home/joseph/NetBeansProjects/FORM_USAC/src/Analyzer/Tree/Tablas/elementoSimbolo.java</file>
-            <file>file:/home/joseph/NetBeansProjects/FORM_USAC/src/Analyzer/Tree/tree.java</file>
-            <file>file:/home/joseph/NetBeansProjects/FORM_USAC/src/GUI/Elements/newTab.java</file>
-            <file>file:/home/joseph/NetBeansProjects/FORM_USAC/src/GUI/Elements/cError.java</file>
-            <file>file:/home/joseph/NetBeansProjects/FORM_USAC/src/Analyzer/Tree/Columnas/idPregunta.java</file>
-            <file>file:/home/joseph/NetBeansProjects/FORM_USAC/src/readExcel/readExcel.java</file>
-            <file>file:/home/joseph/NetBeansProjects/FORM_USAC/src/readExcel/readRow.java</file>
-            <file>file:/home/joseph/NetBeansProjects/FORM_USAC/src/Analyzer/Javacc/grammar.jj</file>
-            <file>file:/home/joseph/NetBeansProjects/FORM_USAC/src/GUI/Elements/xForm.java</file>
-            <file>file:/home/joseph/NetBeansProjects/FORM_USAC/src/Analyzer/Tree/Columnas/columna.java</file>
-            <file>file:/home/joseph/NetBeansProjects/FORM_USAC/src/Analyzer/Tree/Nodes/padreConfiguracion.java</file>
-            <file>file:/home/joseph/NetBeansProjects/FORM_USAC/src/Analyzer/Tree/Nodes/padreEncuesta.java</file>
-            <file>file:/home/joseph/NetBeansProjects/FORM_USAC/src/readExcel/readCell.java</file>
-            <file>file:/home/joseph/NetBeansProjects/FORM_USAC/src/GUI/Elements/crearTab.java</file>
-            <file>file:/home/joseph/NetBeansProjects/FORM_USAC/src/readExcel/cell.java</file>
-            <file>file:/home/joseph/NetBeansProjects/FORM_USAC/src/Analyzer/Tree/Columnas/Tipos/texto.java</file>
-            <file>file:/home/joseph/NetBeansProjects/FORM_USAC/src/GUI/Navegador.java</file>
-            <file>file:/home/joseph/NetBeansProjects/FORM_USAC/src/Analyzer/Javacc_Exp/parser.java</file>
-            <file>file:/home/joseph/NetBeansProjects/FORM_USAC/src/Analyzer/Tree/Columnas/tipo.java</file>
-            <file>file:/home/joseph/NetBeansProjects/FORM_USAC/src/Analyzer/Tree/Nodes/nodeGrupo.java</file>
-            <file>file:/home/joseph/NetBeansProjects/FORM_USAC/src/Analyzer/Tree/Columnas/expresion.java</file>
-            <file>file:/home/joseph/NetBeansProjects/FORM_USAC/src/readExcel/readSheet.java</file>
-            <file>file:/home/joseph/NetBeansProjects/FORM_USAC/src/form_usac/FORM_USAC.java</file>
-            <file>file:/home/joseph/NetBeansProjects/FORM_USAC/src/Analyzer/Tree/Tablas/elementoError.java</file>
-            <file>file:/home/joseph/NetBeansProjects/FORM_USAC/src/Analyzer/Tree/Nodes/nodeRaiz.java</file>
-            <file>file:/home/joseph/NetBeansProjects/FORM_USAC/src/Analyzer/Tree/Columnas/calcular.java</file>
-            <file>file:/home/joseph/NetBeansProjects/FORM_USAC/src/Analyzer/Javacc/parser.java</file>
+            <file>file:/C:/Users/Joseph/Documents/Compi2/GITHUB/FORM_USAC/FORM_USAC/src/form_usac/FORM_USAC.java</file>
         </group>
     </open-files>
 </project-private>
