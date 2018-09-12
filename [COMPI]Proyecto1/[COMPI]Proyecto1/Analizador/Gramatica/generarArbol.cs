@@ -11,6 +11,11 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
 {
     class generarArbol
     {
+        public String nombreArchivo;
+        public generarArbol(String archivo)
+        {
+            this.nombreArchivo = archivo;
+        }
          
         public nodoModelo generar(nodoModelo raiz, ParseTreeNode AST, tablaSimbolos tabla)
         {
@@ -33,6 +38,11 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
                 else
                 {
                     String terminal = escapar(nodoIrony.Token.Value.ToString());
+                    token tok = new token(terminal,nodoIrony.Token.Location.Line, nodoIrony.Token.Location.Column, nombreArchivo);
+
+                    //Console.WriteLine("[generarArbol]crearArbol:"+nodoIrony.Term.ToString());
+                    padre.lstAtributos.insertar(tok);
+
                     //Console.WriteLine("terminal->" + terminal);
                     //grafo += nodoIrony.GetHashCode() + "[label=\"" + terminal + "\"];\n";
                 }

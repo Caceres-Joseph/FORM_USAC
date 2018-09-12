@@ -65,6 +65,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Analizador\Arbol\arbol.cs" />
+    <Compile Include="Analizador\Clase\Cuerpo\cuerpoClase.cs" />
+    <Compile Include="Analizador\Clase\Item\ambito_Clase.cs" />
+    <Compile Include="Analizador\Clase\Item\objetoClase.cs" />
+    <Compile Include="Analizador\Clase\lstObjetoClase.cs" />
     <Compile Include="Analizador\Gramatica\generarArbol.cs" />
     <Compile Include="Analizador\Gramatica\gramatica.cs" />
     <Compile Include="Analizador\Nodos\AsginarValor_UsarMetodo\_LLAMADA_FORMULARIO.cs" />
@@ -102,10 +106,22 @@
     <Compile Include="Analizador\Nodos\Inicio\_TIPO.cs" />
     <Compile Include="Analizador\Nodos\Inicio\_VISIBILIDAD.cs" />
     <Compile Include="Analizador\Nodos\_VALOR.cs" />
-    <Compile Include="Analizador\Tablas\Items\elementoError.cs" />
-    <Compile Include="Analizador\Tablas\Items\elmentoSimbolo.cs" />
+    <Compile Include="Analizador\Objeto_Clase\objetoClase.cs" />
+    <Compile Include="Analizador\Tablas\Elementos\elementoClase.cs" />
+    <Compile Include="Analizador\Tablas\Elementos\elementoEntorno.cs" />
+    <Compile Include="Analizador\Tablas\Elementos\elementoError.cs" />
+    <Compile Include="Analizador\Tablas\Elementos\elementoParametro.cs" />
+    <Compile Include="Analizador\Tablas\Elementos\elementoPolimorfo.cs" />
+    <Compile Include="Analizador\Tablas\Elementos\elementoSimbolo.cs" />
+    <Compile Include="Analizador\Tablas\Items\itemEntorno.cs" />
+    <Compile Include="Analizador\Tablas\Items\itemObjeto.cs" />
+    <Compile Include="Analizador\Tablas\Listas\lstAtributos.cs" />
+    <Compile Include="Analizador\Tablas\Listas\lstPolimorfismo.cs" />
+    <Compile Include="Analizador\Tablas\Llaves\llaveParametro.cs" />
+    <Compile Include="Analizador\Tablas\tablaEntornos.cs" />
     <Compile Include="Analizador\Tablas\tablaErrores.cs" />
     <Compile Include="Analizador\Tablas\tablaSimbolos.cs" />
+    <Compile Include="Analizador\token.cs" />
     <Compile Include="AST\ControlDot.cs" />
     <Compile Include="AST\grafo.cs" />
     <Compile Include="AST\imagen.cs" />
@@ -149,6 +165,8 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Analizador\Clase\TablaDeSimbolos\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

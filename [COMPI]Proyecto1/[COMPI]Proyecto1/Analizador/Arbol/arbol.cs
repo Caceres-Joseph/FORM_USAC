@@ -20,23 +20,34 @@ namespace _COMPI_Proyecto1.Analizador.Arbol
         //y la raíz
 
 
-        public tablaSimbolos tablaDeSimbolos = new tablaSimbolos();
+        public tablaSimbolos tablaDeSimbolos ;
         public nodoModelo raizArbol;
        // public String rutaDeLaCarpeta = "";
 
 
         public arbol()
         {
+            
+
+            tablaDeSimbolos = new tablaSimbolos();
+            //tablaDeSimbolos.setRutaProyecto("ruta prueba prro");
             raizArbol = new nodoModelo("raiz", tablaDeSimbolos);
         }
 
-        public Boolean iniciarAnalisis(String cadena)
+        public void setRutaProyecto(String ruta)
         {
+            tablaDeSimbolos.setRutaProyecto(ruta);
+        }
+
+        public Boolean iniciarAnalisis(String cadena, String nombreArchivo)
+        {
+
+            //Console.WriteLine("[arbol]rutaProyecto->" + tablaDeSimbolos.getRutaProyecto());
             Boolean retorno = false;
 
             //GENERANDO EL AST DE IRONY
 
-            gramatica gramatica = new gramatica(tablaDeSimbolos.tablaErrores);
+            gramatica gramatica = new gramatica(tablaDeSimbolos.tablaErrores, nombreArchivo);
             
             LanguageData lenguaje = new LanguageData(gramatica);
             Parser parser = new Parser(lenguaje);
@@ -46,7 +57,7 @@ namespace _COMPI_Proyecto1.Analizador.Arbol
 
             //GENERANDO EL ARBOL
 
-            generarArbol generar = new generarArbol();
+            generarArbol generar = new generarArbol(gramatica.nombreArchivo);
             
             
             if (raiz == null)
@@ -60,15 +71,23 @@ namespace _COMPI_Proyecto1.Analizador.Arbol
                
                 // seman.S(raiz);
                 grafo.generarImagen(raiz);
-                Console.WriteLine("rutaProyecto->"+tablaDeSimbolos.rutaProyecto);
+               
                 raizArbol = generar.generar(raizArbol, raiz, tablaDeSimbolos);
+                //tablaDeSimbolos.lstAst.Add(raizArbol);
+                
+                //para cargar los imports
                 raizArbol.ejecutar();
-                 
-                //generarImagen(raiz);//aquí se genera el AST
+                  
                 retorno = true;
             }
 
             return retorno;
+        }
+
+
+        public tablaSimbolos getTablaSimblos()
+        {
+            return tablaDeSimbolos;
         }
     }
 }

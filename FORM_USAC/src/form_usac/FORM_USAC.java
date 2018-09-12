@@ -33,9 +33,16 @@ public class FORM_USAC {
         //pruebaExcel();
         //convertFile_to_InputStream();
         iniciarInterfaz(args);
+        
+        FORM_USAC nel=new FORM_USAC("asdf");
+        
 //        analizar2();
 //        regex();
 //        prueba2Regex();
+    }
+    
+    public FORM_USAC(String hola){
+        
     }
 
     public static void convertirPrograma() {

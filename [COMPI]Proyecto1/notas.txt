@@ -1,0 +1,2 @@
+Para ignorar
+git add -f [COMPI]Proyecto1/[COMPI]Proyecto1Tests/bin

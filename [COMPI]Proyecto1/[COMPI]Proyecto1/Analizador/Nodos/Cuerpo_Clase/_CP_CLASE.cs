@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using _COMPI_Proyecto1.Analizador.Tablas;
+using _COMPI_Proyecto1.Analizador.Tablas.Items;
 
 namespace _COMPI_Proyecto1.Analizador.Nodos
 {
@@ -13,10 +14,21 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
         {
 
         }
-
-       public override  void ejecutar()
-        { 
+          
+         
+        public Boolean getPrincipal()
+        {
+            Boolean retorno = false;
+             
+            foreach (nodoModelo hijo in hijos)
+            {
+                _CUERPO_CLASE cuerpo = (_CUERPO_CLASE)hijo;
+                if (cuerpo.getPrincipal())
+                    return true;
+            }
+            return retorno;
 
         }
+
     }
 }

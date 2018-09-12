@@ -38,6 +38,7 @@ namespace _COMPI_Proyecto1.GUI
         public tab(String nombre, String contenido)
         {
             cuadro.TextChanged += textChangedEventHandler;
+            cuadro.TextChanged += textChangedEventHandler2;
             page.Controls.Add(cuadro);
 
             cuadro.SetBounds(10, 10, 800, 400);
@@ -53,9 +54,8 @@ namespace _COMPI_Proyecto1.GUI
         Style BlueStyle = new TextStyle(Brushes.Blue, null, FontStyle.Bold);
         Style GrayStyle = new TextStyle(Brushes.LightGray, null, FontStyle.Regular);
 
-        private void textChangedEventHandler(object sender, TextChangedEventArgs e)
+        private void textChangedEventHandler2(object sender, TextChangedEventArgs e)
         {
-
             Regex r = new Regex(
                 @"clase|importar|extender|padre|principal|sobrescribir|nuevo|nada|este"
                 , RegexOptions.IgnoreCase
@@ -63,6 +63,16 @@ namespace _COMPI_Proyecto1.GUI
 
             e.ChangedRange.SetStyle(BlueStyle, r);
 
+        }
+            private void textChangedEventHandler(object sender, TextChangedEventArgs e)
+        {
+
+
+            Regex JScriptCommentRegex1 = new Regex(@"(\$\$.*)", RegexOptions.Singleline |
+                RegexOptions.RightToLeft);
+           // e.ChangedRange.SetStyle(GrayStyle, JScriptCommentRegex1);
+
+            
 
             Regex r2 = new Regex(
                // "\"(\\w)*\""
@@ -73,13 +83,15 @@ namespace _COMPI_Proyecto1.GUI
             e.ChangedRange.SetStyle(OrangeStyle, r2);
 
 
-            Regex JScriptCommentRegex1 = new Regex(@"\$\#(.)*\#\$", RegexOptions.Multiline);
-            Regex JScriptCommentRegex2 = new Regex(@"(/\*.*?\*/)|(/\*.*)", RegexOptions.Singleline);
-            Regex JScriptCommentRegex3 = new Regex(@"(/\*.*?\*/)|(.*\*/)",
-                 RegexOptions.Singleline | RegexOptions.RightToLeft);
+            
 
 
-            e.ChangedRange.SetStyle(OrangeStyle, JScriptCommentRegex1);
+            // Regex JScriptCommentRegex2 = new Regex(@"(/\*.*?\*/)|(/\*.*)", RegexOptions.Singleline);
+            // Regex JScriptCommentRegex3 = new Regex(@"(/\*.*?\*/)|(.*\*/)",
+            //      RegexOptions.Singleline | RegexOptions.RightToLeft);
+
+
+
 
             //e.ChangedRange.SetStyle(BlueStyle, @"clase");
 

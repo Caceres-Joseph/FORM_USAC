@@ -14,5 +14,19 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
 
         }
 
+        public override void ejecutar()
+        {
+            if (hayErrores())
+                return;
+            
+            //ejecutando al contrario, primero el cuerpo de la clase luego el import
+
+            for (int i =hijos.Count; i>0; i--)
+            {
+                hijos[i-1].ejecutar();
+            }
+            
+        }
+
     }
 }

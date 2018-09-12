@@ -152,7 +152,7 @@ namespace _COMPI_Proyecto1
             System.IO.Stream myStream = null;
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
 
-            openFileDialog1.InitialDirectory = ListaDeProyectos[metroTabControl1.SelectedIndex].arbol.tablaDeSimbolos.rutaProyecto;
+            openFileDialog1.InitialDirectory = ListaDeProyectos[metroTabControl1.SelectedIndex].arbol.getTablaSimblos().getRutaProyecto();
             openFileDialog1.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
             openFileDialog1.FilterIndex = 2;
             openFileDialog1.RestoreDirectory = true;
@@ -237,19 +237,24 @@ namespace _COMPI_Proyecto1
 
         public void nuevoProyecto()
         {
+            String texto = Microsoft.VisualBasic.Interaction.InputBox(
+              "Nombre del proyecto",
+              "Nombre del proyecto",
+              "Proyecto");
+            if (texto.Length>0)
+            {
+                proyecto proyect = new proyecto(texto);
 
-            proyecto proyect = new proyecto();
+                metroTabControl1.Controls.Add(proyect.page);
 
-            metroTabControl1.Controls.Add(proyect.page);
-             
-            listaDeTabs.Add(proyect.tab);
+                listaDeTabs.Add(proyect.tab);
 
-            ListaDeProyectos.Add(proyect);
-             
-            treeView1.BeginUpdate();
-            treeView1.Nodes.Add(proyect.texto); 
-            treeView1.EndUpdate();
-             
+                ListaDeProyectos.Add(proyect);
+
+                treeView1.BeginUpdate();
+                treeView1.Nodes.Add(proyect.texto);
+                treeView1.EndUpdate();
+            }
         }
 
 

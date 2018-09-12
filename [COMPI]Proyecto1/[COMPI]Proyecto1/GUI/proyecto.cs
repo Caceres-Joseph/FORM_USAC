@@ -20,21 +20,18 @@ namespace _COMPI_Proyecto1.GUI
 
         public MetroFramework.Controls.MetroTabControl tab = new MetroFramework.Controls.MetroTabControl();
         public string texto = "";
-        public arbol arbol = new arbol();
+        public arbol arbol ;
 
-        public proyecto()
+        public proyecto(String texto)
         {
+            arbol = new arbol();
             tab.Style = MetroFramework.MetroColorStyle.Orange;
             tab.SetBounds(5, 5, 900, 500);
             tab.Font = new Font("Microsoft Sans Serif", 11, FontStyle.Regular);
             page.Controls.Add(tab);
 
-
-            texto = Microsoft.VisualBasic.Interaction.InputBox(
-                "Nombre del proyecto",
-                "Nombre del proyecto",
-                "Proyecto");
-
+            this.texto = texto;
+          
             seleccionarRutaProyecto();
 
             page.Text = texto; 
@@ -43,13 +40,20 @@ namespace _COMPI_Proyecto1.GUI
 
         public void ejecutarTab()
         {
+
+            Console.WriteLine("=========================================================================");
             //Console.WriteLine("ejectuando el proyecto_>" + page.Text);
             //Console.WriteLine(tab.SelectedIndex);
+            //arbol = new arbol();
+           // arbol.tablaDeSimbolos.inicializarTablas(arbol.tablaDeSimbolos.getRutaProyecto());
+            String rutaProyecto = arbol.tablaDeSimbolos.getRutaProyecto();
             arbol = new arbol();
+            arbol.tablaDeSimbolos.setRutaProyecto(rutaProyecto);
+
             String contenido= lstTabs[tab.SelectedIndex].cuadro.Text;
-            arbol.iniciarAnalisis(contenido);
-
-
+            arbol.iniciarAnalisis(contenido,lstTabs[tab.SelectedIndex].page.Text);
+            arbol.tablaDeSimbolos.imprimirClases();
+            arbol.tablaDeSimbolos.iniciarEjecucion();
         }
         public void insertarTab(tab tabInsertar)
         {
@@ -71,13 +75,13 @@ namespace _COMPI_Proyecto1.GUI
             if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
             {
                 string ruta = fbd.SelectedPath;
-                arbol.tablaDeSimbolos.rutaProyecto = ruta;
-                Console.WriteLine(ruta);
-
+                arbol.setRutaProyecto(ruta);
+                //arbol.getTablaSimblos().setRutaProyecto (ruta);
+                //Console.WriteLine("[proyecto]"+ruta);
                 
             }
-            
 
+            return;
         }
     }
 }

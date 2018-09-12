@@ -11,9 +11,11 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
       class gramatica : Grammar
     {
         tablaErrores tablaErrores ;
-        public gramatica(tablaErrores tabla) : base(caseSensitive: false)//Diferencia entre mayusculas y minusculas
+        public String nombreArchivo;
+        public gramatica(tablaErrores tabla,String archivo) : base(caseSensitive: false)//Diferencia entre mayusculas y minusculas
         {
             this.tablaErrores = tabla;
+            this.nombreArchivo = archivo;
 
             #region ER
             //////////////////////////////////////////
@@ -243,7 +245,7 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
             // Parametros
             LST_PARAMETROS.Rule = MakeStarRule(LST_PARAMETROS, sComa, PARAMETRO);
 
-            PARAMETRO.Rule = TIPO + VALOR;
+            PARAMETRO.Rule = TIPO + VAR_ARREGLO;
 
             LST_VAL.Rule = MakeStarRule(LST_VAL, sComa, VALOR);
             //------------------+
@@ -419,14 +421,14 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
                 string[] division = error.Split(delimiter, 2);
                 division = division[1].Split('.');
                 error = "Caracter Invalido " + division[0];
-                tablaErrores.insertErrorLexical("clase", fila, columna, "Caractero no reconocido:" + division[0]);
+                tablaErrores.insertErrorLexical(nombreArchivo, fila, columna, "Caractero no reconocido:" + division[0]);
             }
             else
             {
 
                 fila = context.Source.Location.Line;
                 columna = context.Source.Location.Column;
-                tablaErrores.insertErrorSyntax("clase", fila, columna, "No se esperaba token:" + error);
+                tablaErrores.insertErrorSyntax(nombreArchivo, fila, columna, "No se esperaba token:" + error);
             }
 
             base.ReportParseError(context);

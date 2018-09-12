@@ -21,15 +21,15 @@ namespace _COMPI_Proyecto1.Analizador.Tablas
         public void println(Object str)
         {
             String mensaje = str.ToString();
-            Console.WriteLine(mensaje);
-            Console.WriteLine("\n>");
+            Console.WriteLine("$"+mensaje);
+            //Console.WriteLine("\n>");
         }
 
 
         public void print(Object str)
         {
             String mensaje = str.ToString();
-            Console.Write(mensaje);
+            Console.Write("$"+mensaje);
         }
         
         public void insertErrorSyntax(String ambito, int linea, int columna, String mensaje)
@@ -39,6 +39,19 @@ namespace _COMPI_Proyecto1.Analizador.Tablas
             elem.tipo = "Sintactico";
             elem.linea = (linea + 1).ToString();
             elem.columna = (columna + 1).ToString();
+            elem.descripcion = mensaje;
+
+            this.listaErrores.Add(elem);
+            println("[Error]Sintactico-> " + mensaje);
+        }
+
+        public void insertErrorSyntax(String mensaje, token tok)
+        {
+            elementoError elem = new elementoError();
+            elem.ambito = tok.archivo;
+            elem.tipo = "Sintactico";
+            elem.linea = (tok.linea + 1).ToString();
+            elem.columna = (tok.columna + 1).ToString();
             elem.descripcion = mensaje;
 
             this.listaErrores.Add(elem);
@@ -56,6 +69,19 @@ namespace _COMPI_Proyecto1.Analizador.Tablas
             this.listaErrores.Add(elem);
             println("[Error]Lexico-> " + mensaje);
         }
+        public void insertErrorLexical(String mensaje, token tok)
+        {
+            elementoError elem = new elementoError();
+            elem.ambito = tok.archivo;
+            elem.tipo = "Lexico";
+            elem.linea = (tok.linea + 1).ToString();
+            elem.columna = (tok.columna + 1).ToString();
+            elem.descripcion = mensaje;
+
+            this.listaErrores.Add(elem);
+            println("[Error]Lexico-> " + mensaje);
+        }
+
 
         public void insertErrorSemantic(String ambito, int linea, int columna, String mensaje)
         {
@@ -66,6 +92,19 @@ namespace _COMPI_Proyecto1.Analizador.Tablas
             elem.linea = (linea + 1).ToString();
             elem.columna = (columna + 1).ToString();
             elem.descripcion = mensaje;
+            this.listaErrores.Add(elem);
+            println("[Error]Semantico-> " + mensaje);
+        }
+
+        public void insertErrorSemantic(String mensaje, token tok)
+        {
+            elementoError elem = new elementoError();
+            elem.ambito = tok.archivo;
+            elem.tipo = "Semantico";
+            elem.linea = (tok.linea + 1).ToString();
+            elem.columna = (tok.columna + 1).ToString();
+            elem.descripcion = mensaje;
+
             this.listaErrores.Add(elem);
             println("[Error]Semantico-> " + mensaje);
         }

@@ -12,5 +12,20 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
         public _TIPO(string nombre, tablaSimbolos tabla) : base(nombre, tabla)
         {
         }
+
+
+
+        public token getTipo()
+        {
+            token retorno = new token();
+
+            if (lstAtributos.listaAtributos.Count > 0)
+            {
+                retorno = lstAtributos.getToken(0);
+            }
+
+            return retorno;
+
+        }
     }
 }

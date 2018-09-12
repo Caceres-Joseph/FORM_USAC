@@ -12,5 +12,22 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
         public _CUERPO_CLASE(string nombre, tablaSimbolos tabla) : base(nombre, tabla)
         {
         }
+
+
+
+        public Boolean getPrincipal()
+        {
+            Boolean retorno = false;
+
+            //tengo que revisar si dentro de los hijos se encuentra el metodo principa jejeje
+
+            nodoModelo temp = getNodo("MAIN");
+            if (temp!=null) 
+                return true; 
+
+            return retorno;
+
+        }
+
     }
 }
