@@ -26,7 +26,7 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
 
         public  token getVisibilidad()
         {
-            token retorno = new token();
+            token retorno = new token("privado");
 
             if (lstAtributos.listaAtributos.Count>0)
             {

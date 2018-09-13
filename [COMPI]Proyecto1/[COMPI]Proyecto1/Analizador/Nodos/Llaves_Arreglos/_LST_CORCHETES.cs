@@ -12,5 +12,13 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
         public _LST_CORCHETES(string nombre, tablaSimbolos tabla) : base(nombre, tabla)
         {
         }
+
+
+        public int getDimension()
+        {
+            return hijos.Count;
+        }
+
+
     }
 }

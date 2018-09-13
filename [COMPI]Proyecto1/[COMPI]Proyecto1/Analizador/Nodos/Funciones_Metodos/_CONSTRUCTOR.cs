@@ -17,13 +17,15 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
 
         public override void ejecutar(elementoClase simbolo)
         {
-            // println("llego al contructor");
+
+            if (hayErrores())
+                return;
 
             token tipo = new token("vacio");
-            token nombre = getIdentificador();
+            token nombre = getIdentificador(simbolo.nombreClase);
             nodoModelo LST_CUERPO= getLST_CUERPO();
 
-            elementoPolimorfo element = new elementoPolimorfo(tablaSimbolos, tipo, nombre, LST_CUERPO);
+            elementoPolimorfo element = new elementoPolimorfo(new token("publico"),tablaSimbolos, tipo, nombre, LST_CUERPO,0);
 
             cargarPolimorfismoHijos(element);
             simbolo.lstConstructores.insertarElemento(element);
@@ -31,13 +33,31 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
 
 
 
-        public token getIdentificador()
+        public token getIdentificador(token nombreClase)
         {
+            //hay que validar si tiene el mismo nombre que la clase;
             token retorno = new token();
 
-            if (lstAtributos.listaAtributos.Count > 0) 
-                retorno = lstAtributos.getToken(0);
+            if (lstAtributos.listaAtributos.Count > 0)
+            {
 
+                token temp = lstAtributos.getToken(0);
+                if (temp.valLower.Equals(nombreClase.valLower))
+                {
+
+                    return temp;
+                }
+                else
+                {
+                    tablaSimbolos.tablaErrores.insertErrorSemantic("El constructor no tiene el mismo nombre que la clase:"+temp.val, temp);
+                }
+
+                
+            }
+            else
+            {
+                tablaSimbolos.println("No se encontró el identificador");
+            }
             return retorno;
         }
 
@@ -49,8 +69,7 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
                 return tempNodo;
             else
                 return new nodoModelo("---", tablaSimbolos);
-
-             
+ 
         }
 
 

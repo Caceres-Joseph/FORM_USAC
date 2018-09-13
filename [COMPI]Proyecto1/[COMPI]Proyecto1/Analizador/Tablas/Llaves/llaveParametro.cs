@@ -9,13 +9,15 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Llaves
     class llaveParametro
     {
 
-        String nombre;
-        String tipo;
+       public  String nombre;
+       public  String tipo;
+       public int dimension;
 
-        public llaveParametro(String nombre, String tipo)
+        public llaveParametro(String nombre, String tipo, int dimension)
         {
             this.nombre = nombre;
             this.tipo = tipo;
+            this.dimension = dimension;
         }
     }
 }

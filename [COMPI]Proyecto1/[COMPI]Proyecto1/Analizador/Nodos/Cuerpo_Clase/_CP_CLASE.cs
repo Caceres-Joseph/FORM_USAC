@@ -14,21 +14,7 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
         {
 
         }
-          
-         
-        public Boolean getPrincipal()
-        {
-            Boolean retorno = false;
-             
-            foreach (nodoModelo hijo in hijos)
-            {
-                _CUERPO_CLASE cuerpo = (_CUERPO_CLASE)hijo;
-                if (cuerpo.getPrincipal())
-                    return true;
-            }
-            return retorno;
-
-        }
+           
 
     }
 }

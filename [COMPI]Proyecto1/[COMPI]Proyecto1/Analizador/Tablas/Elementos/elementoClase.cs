@@ -13,7 +13,7 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
         public lstPolimorfismo lstPrincipal;
         public lstPolimorfismo lstMetodo_funcion;
         public lstPolimorfismo lstConstructores;
-        public lstPolimorfismo lstSobrescritura;
+        //public lstPolimorfismo lstSobrescritura;
         public lstPolimorfismo lstVariablesGlobales;
 
         //extend saber de donde extendio 
@@ -29,7 +29,9 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
         public token nombreClase;
         public token visibilidad;
         public token extender;
-        public Boolean hayMain;
+        
+        //public Boolean hayMain;
+
         public List<nodoModelo> lstHijos;
         public tablaSimbolos tablaErrores;
         /*public elementoClase(token nombre)
@@ -38,20 +40,20 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
 
          }*/
 
-        public elementoClase(token nombre, token visibilidad, token extender, Boolean hayMain, List<nodoModelo> lstHijos, tablaSimbolos tabla)
+        public elementoClase(token nombre, token visibilidad, token extender, List<nodoModelo> lstHijos, tablaSimbolos tabla)
         {
             this.tablaErrores = tabla;
             this.lstHijos = lstHijos;
             this.nombreClase = nombre;
             this.visibilidad = visibilidad;
             this.extender = extender;
-            this.hayMain = hayMain;
+
 
 
             this.lstPrincipal = new lstPolimorfismo(this.tablaErrores, "principales");
             this.lstMetodo_funcion = new lstPolimorfismo(this.tablaErrores, "metodos_funciones");
             this.lstConstructores = new lstPolimorfismo(this.tablaErrores, "constructores");
-            this.lstSobrescritura = new lstPolimorfismo(this.tablaErrores, "sobrescritura");
+            //this.lstSobrescritura = new lstPolimorfismo(this.tablaErrores, "sobrescritura");
             this.lstVariablesGlobales = new lstPolimorfismo(this.tablaErrores, "var_globales");
         }
 
@@ -62,9 +64,7 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
             println("\tVisibilidad:" + visibilidad.valLower);
             println("\tExtender:" + extender.valLower);
 
-            imprimirListas();
-            if (this.hayMain)
-                println("\tTiene Principal");
+            imprimirListas(); 
             println("}");
         }
 
@@ -78,7 +78,7 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
             lstPrincipal.imprimir();
             lstMetodo_funcion.imprimir();
             lstConstructores.imprimir();
-            lstSobrescritura.imprimir();
+            //lstSobrescritura.imprimir();
             lstVariablesGlobales.imprimir();
 
         }

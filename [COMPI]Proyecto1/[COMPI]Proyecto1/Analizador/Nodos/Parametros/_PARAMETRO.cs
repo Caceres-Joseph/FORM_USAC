@@ -17,7 +17,11 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
 
         public override void cargarPolimorfismo(elementoPolimorfo elem)
         {
-            
+
+
+            if (hayErrores())
+                return;
+
             nodoModelo tempNodo = getNodo("TIPO");
             if (tempNodo != null)
             {

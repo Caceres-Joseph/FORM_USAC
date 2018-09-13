@@ -57,9 +57,20 @@ namespace _COMPI_Proyecto1.GUI
         private void textChangedEventHandler2(object sender, TextChangedEventArgs e)
         {
             Regex r = new Regex(
-                @"clase|importar|extender|padre|principal|sobrescribir|nuevo|nada|este"
+                @"clase|importar|extender|padre|principal|sobrescribir|nuevo|nada|este|privado|publico|protegido"
                 , RegexOptions.IgnoreCase
             );
+
+            e.ChangedRange.SetStyle(BlueStyle, r);
+
+
+
+            Regex r2 = new Regex(
+               @"entero|cadena|booleano|decimal|hora|fecha|fechaHora|pregunta|formulario|respuesta|vacio"
+               , RegexOptions.IgnoreCase);
+
+                e.ChangedRange.SetStyle(BlueStyle, r2);
+  
 
             e.ChangedRange.SetStyle(BlueStyle, r);
 

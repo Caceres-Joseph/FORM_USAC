@@ -17,7 +17,8 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
         public Object retorno;
         public tablaSimbolos tablaSimbolos;
         public nodoModelo LST_CUERPO;
-        public int dimensiones = 0;
+        public token visibilidad;
+        public int dimension = 0;
 
         public void elementoPolimorfo3(tablaSimbolos tabla)
         {
@@ -27,51 +28,104 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
             this.retorno = new object();
             this.LST_CUERPO = new nodoModelo("", tabla);
             this.nombre = new token();
+            this.visibilidad = new token("publico");
         }
 
-        public elementoPolimorfo(tablaSimbolos tabla,token tipo, token nombre, nodoModelo LST_CUERPO)
+        public elementoPolimorfo(token visibilidad, tablaSimbolos tabla, token tipo, token nombre, nodoModelo LST_CUERPO, int dimension)
         {
+            this.dimension = dimension;
             this.tablaSimbolos = tabla;
             this.tipo = tipo;
             this.nombre = nombre;
             this.lstParametros = new Dictionary<llaveParametro, elementoParametro>();
             this.retorno = new object();
             this.LST_CUERPO = LST_CUERPO;
+            this.visibilidad = visibilidad;
         }
 
 
         public void insertarParametro(token idParametro, token tipoParametro, int dimensiones)
         {
-            llaveParametro key = new llaveParametro(idParametro.valLower, tipoParametro.valLower);
-            if (lstParametros.ContainsKey(key))
+            llaveParametro key = new llaveParametro(idParametro.valLower, tipoParametro.valLower, dimensiones);
+
+
+            foreach (var temp in lstParametros)
             {
-                tablaSimbolos.tablaErrores.insertErrorSemantic("El parametro:" + idParametro.val + " ya se encuentra declarado.", idParametro);
+                if (key.nombre.Equals(temp.Key.nombre))
+                {
+                    tablaSimbolos.tablaErrores.insertErrorSemantic("El parametro:" + idParametro.val + " ya se encuentra declarado.", idParametro);
+                    return;
+                }
             }
-            else
-            {
-                elementoParametro param = new elementoParametro(tipoParametro, dimensiones);
-                lstParametros.Add(key, param);
-            } 
+
+
+            elementoParametro param = new elementoParametro(tipoParametro, dimensiones);
+            lstParametros.Add(key, param);
+
             //tengo que validar si ya existe 
         }
 
         public void imprimir()
         {
-            println("\t\t\tnombre:"+this.nombre.valLower+"  tipo:"+this.tipo.valLower);
+            println("\t\t\tnombre:" + this.nombre.valLower + "  tipo:" + this.tipo.valLower + "  visibilidad:" + this.visibilidad.valLower + "  dimension:" + this.dimension);
             imprimirParametros();
         }
 
         public void imprimirParametros()
         {
-            if (lstParametros.Count>0)
+            if (lstParametros.Count > 0)
             {
                 println("\t\t\t\tParametros:");
             }
             foreach (var item in lstParametros)
             {
                 elementoParametro temp = item.Value;
-                println("\t\t\t\t\tNombre:" + item.Key+"  Dimension:"+temp.dimensiones+"  Tipo:"+temp.tipo.valLower);
-            } 
+                println("\t\t\t\t\tNombre:" + item.Key.nombre + "  Dimension:" + item.Key.dimension + "  Tipo:" + temp.tipo.valLower);
+            }
+        }
+
+        public List<llaveParametro> getListaLlaves()
+        {
+            List<llaveParametro> retorno = new List<llaveParametro>();
+            foreach (var a in lstParametros)
+            {
+                retorno.Add(a.Key);
+            }
+            return retorno;
+        }
+
+        public Boolean compararParametros(List<llaveParametro> lsParametros2)
+        {
+            Boolean retorno = false;
+            if (lstParametros.Count == lsParametros2.Count)
+            {
+                retorno = true;
+
+
+                for (int i = 0; i < lstParametros.Count; i++)
+                {
+
+                    llaveParametro lst1 = getListaLlaves()[i];
+                    llaveParametro lst2 = lsParametros2[i];
+
+                    if (lst1.tipo.Equals(lst2.tipo))
+                    {
+                        if (lst1.dimension != lst2.dimension)
+                            return false;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+
+                return retorno;
+            }
+            else
+            {
+                return false;
+            }
+
         }
 
         public void println(String mensaje)

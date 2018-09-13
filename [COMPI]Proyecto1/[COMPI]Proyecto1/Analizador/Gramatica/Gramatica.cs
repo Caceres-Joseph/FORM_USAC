@@ -77,10 +77,10 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
             var tExtender = ToTerm("extender");
             var tPadre = ToTerm("padre");
             var tPrincipal = ToTerm("principal");
-            var tOverride = ToTerm("override");
+            var tOverride = ToTerm("sobrescribir");
             var tNuevo = ToTerm("nuevo");
             var tNulo = ToTerm("nulo");
-            var tNada = ToTerm("nada");
+            var tVacio = ToTerm("vacio");
             var tEste = ToTerm("este");
 
             //tipos
@@ -197,7 +197,7 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
             NonTerminal E = new NonTerminal("E");
             NonTerminal F = new NonTerminal("F");
 
-
+            NonTerminal PAR_CORCHETES_VACIOS = new NonTerminal("PAR_CORCHETES_VACIOS"); 
 
 
 
@@ -232,7 +232,9 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
                 | valId
                 | tPregunta
                 | tFormulario
-                | tRespuesta;
+                | tRespuesta
+                | tVacio //Para el metodo void, tengo que validar que no lo acepten las variables
+                ;
 
             EXTENDER.Rule = tPadre + valId
                 | Empty;
@@ -255,7 +257,7 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
             CUERPO_CLASE.Rule = CONSTRUCTOR
                 | DECLARAR_VARIABLE_GLOBAL + sPuntoComa
                 | METODO
-                | SOBRESCRITURA
+                //| SOBRESCRITURA
                 | MAIN
                 | SyntaxError;
             ;
@@ -263,12 +265,10 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
             //-----------------+
             // Funciones/Metodos
 
-            METODO.Rule = VISIBILIDAD + TIPO + valId + sAbreParent + LST_PARAMETROS + sCierraParent + sAbreLlave + LST_CUERPO + sCierraLlave
-                | TIPO + valId + sAbreParent + LST_PARAMETROS + sCierraParent + sAbreLlave + LST_CUERPO + sCierraLlave
-                | VISIBILIDAD + tNada + valId + sAbreParent + LST_PARAMETROS + sCierraParent + sAbreLlave + LST_CUERPO + sCierraLlave //metodo void
-                | tNada + valId + sAbreParent + LST_PARAMETROS + sCierraParent + sAbreLlave + LST_CUERPO + sCierraLlave; //metodo void
+            METODO.Rule = VISIBILIDAD + TIPO + VAR_ARREGLO + sAbreParent + LST_PARAMETROS + sCierraParent + sAbreLlave + LST_CUERPO + sCierraLlave
+                | TIPO + VAR_ARREGLO + sAbreParent + LST_PARAMETROS + sCierraParent + sAbreLlave + LST_CUERPO + sCierraLlave; //metodo void
 
-            SOBRESCRITURA.Rule = sArroba + tOverride + METODO;
+            //SOBRESCRITURA.Rule = sArroba + tOverride + METODO;
 
             MAIN.Rule = tPrincipal + sAbreParent + sCierraParent + sAbreLlave + LST_CUERPO + sCierraLlave;
 
@@ -311,7 +311,10 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
             VAR_ARREGLO.Rule = valId
                 | valId + LST_CORCHETES;
 
-            LST_CORCHETES.Rule = MakePlusRule(LST_CORCHETES, sAbreCorchete + sCierraCorchete);
+            LST_CORCHETES.Rule = MakePlusRule(LST_CORCHETES, PAR_CORCHETES_VACIOS);
+
+            PAR_CORCHETES_VACIOS.Rule = sAbreCorchete + sCierraCorchete;
+
 
             LST_CORCHETES_VAL.Rule = MakePlusRule(LST_CORCHETES_VAL, sAbreCorchete + VALOR + sCierraCorchete);
 

@@ -17,12 +17,17 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
 
         public token getTipo()
         {
-            token retorno = new token();
+            token retorno = new token("vacio");
 
             if (lstAtributos.listaAtributos.Count > 0)
             {
                 retorno = lstAtributos.getToken(0);
             }
+            else
+            {
+                println("getTipo no tiene hijos");
+            }
+
 
             return retorno;
 

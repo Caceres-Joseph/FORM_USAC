@@ -111,10 +111,10 @@ namespace _COMPI_Proyecto1.Analizador.Tablas
 
             foreach (elementoClase temp in lstClases)
             {
-                if (temp.hayMain)
+                if (temp.lstPrincipal.getCount()>0)
                 {
                     ejecutandoClase(temp);
-                    //println("Ejecutando el main de " + temp.nombreClase.valLower);
+                   
                     return;
                 }
             }
@@ -124,7 +124,7 @@ namespace _COMPI_Proyecto1.Analizador.Tablas
         public void ejecutandoClase(elementoClase clase)
         {
             ///hay que crear una instancia al objeto
-
+            println("Ejecutando el main de " + clase.nombreClase.valLower);
             objetoClase objectoClase = new objetoClase();
 
 

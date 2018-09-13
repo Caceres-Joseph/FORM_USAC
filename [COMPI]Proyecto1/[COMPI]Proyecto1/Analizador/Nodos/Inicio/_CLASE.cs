@@ -29,10 +29,9 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
 
             token nombreClase = getNombre();
             token extender = getExtender();
-            token visibilidad = getVisibilidad();
-            Boolean hayPrincipal = hayMain();
+            token visibilidad = getVisibilidad(); 
              
-            elementoClase nuevaClase = new elementoClase(nombreClase,visibilidad,extender, hayPrincipal, hijos,tablaSimbolos);
+            elementoClase nuevaClase = new elementoClase(nombreClase,visibilidad,extender, hijos,tablaSimbolos);
             ejecutarHijos(nuevaClase); //aqui cargo ele elmento clase 
             //ahora lo ingreso a la tabla de simbolos
             tablaSimbolos.lstClases.Add(nuevaClase);
@@ -61,17 +60,7 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
             return retorno;
         }
 
-        public Boolean hayMain()
-        {
-            Boolean retorno = false;
-            nodoModelo tempNodo = getNodo("CP_CLASE");
-            if (tempNodo != null)
-            {
-                _CP_CLASE temp = (_CP_CLASE)tempNodo;
-                return  temp.getPrincipal();
-            } 
-            return retorno;
-        }
+       
 
         public token getExtender()
         {

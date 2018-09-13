@@ -27,11 +27,18 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Listas
         public void insertarElemento(elementoPolimorfo elem)
         {
             //tengo que verificar si ya existe validando los parametros
+             
+            if (siExiste(elem))//Si existe
+            {
+                tablaSimbolos.tablaErrores.insertErrorSyntax("El metodo/funcion  :"+ elem.nombre.val+" ya está declarada con los mismos parámetros.",elem.nombre);
+            }
+            else
+            {
+                listaPolimorfa.Add(elem);
+            } 
 
-
-
-            listaPolimorfa.Add(elem);
         }
+
 
 
         public Boolean siExiste(elementoPolimorfo elem)
@@ -42,22 +49,25 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Listas
             {
                 if (elem.nombre.valLower.Equals(temp.nombre.valLower))
                 {
-
+                    if (elem.compararParametros(temp.getListaLlaves()))
+                    {
+                        return true;
+                    }
+                    //ahora hay que comprobar las llaves de los atributos
                 }
             }
 
-
-
-
-            //Ver si es mismo nombre, 
-            //ver los parametros
-
-
-
-          //  llaveParametro key = new llaveParametro(nombre, valor);
-
             return retorno;
         }
+
+        public void prueba(int a)
+        {
+
+        }
+
+
+
+
 
         public int getCount()
         {

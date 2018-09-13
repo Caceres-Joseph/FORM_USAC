@@ -5,14 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using _COMPI_Proyecto1.Analizador.Tablas;
 
-namespace _COMPI_Proyecto1.Analizador.Nodos
+namespace _COMPI_Proyecto1.Analizador.Nodos.Llaves_Arreglos
 {
-    class _LST_CORCHETES_VAL : nodoModelo
+    class _PAR_CORCHETES_VACIOS : nodoModelo
     {
-        public _LST_CORCHETES_VAL(string nombre, tablaSimbolos tabla) : base(nombre, tabla)
+        public _PAR_CORCHETES_VACIOS(string nombre, tablaSimbolos tabla) : base(nombre, tabla)
         {
         }
-
-
     }
 }

@@ -1,4 +1,5 @@
 ﻿using _COMPI_Proyecto1.Analizador.Nodos;
+using _COMPI_Proyecto1.Analizador.Nodos.Llaves_Arreglos;
 using _COMPI_Proyecto1.Analizador.Tablas;
 using Irony.Parsing;
 using System;
@@ -211,11 +212,14 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
                 case "VALOR":
                     retorno = new _VALOR(nombreNoTerminal, tabla);
 
-                    break; 
-                     
+                    break;
+                case "PAR_CORCHETES_VACIOS":
+                    retorno = new _PAR_CORCHETES_VACIOS(nombreNoTerminal, tabla); 
+                    break;
+
                 default:
                     retorno= new nodoModelo("Desc_"+nombreNoTerminal, tabla);
-                    Console.WriteLine("[generarArbol]No se encontró el nodo");
+                    Console.WriteLine("[generarArbol]No se encontró el nodo:"+nombreNoTerminal);
                     break;
             }
             

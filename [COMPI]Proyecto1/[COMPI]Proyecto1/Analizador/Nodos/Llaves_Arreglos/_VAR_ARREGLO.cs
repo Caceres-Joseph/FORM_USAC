@@ -31,6 +31,13 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
         public int getDimensiones()
         {
             int retorno = 0;
+            nodoModelo tempNodo = getNodo("LST_CORCHETES");
+            if (tempNodo != null)
+            {
+                _LST_CORCHETES temp = (_LST_CORCHETES)tempNodo;
+                return temp.getDimension();
+            }
+            
             return retorno;
         }
 

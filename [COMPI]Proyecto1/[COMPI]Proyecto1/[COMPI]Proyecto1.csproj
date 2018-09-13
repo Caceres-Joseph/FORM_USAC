@@ -91,6 +91,7 @@
     <Compile Include="Analizador\Nodos\Llaves_Arreglos\_LST_CORCHETES.cs" />
     <Compile Include="Analizador\Nodos\Llaves_Arreglos\_LST_CORCHETES_VAL.cs" />
     <Compile Include="Analizador\Nodos\Llaves_Arreglos\_LST_LLAVES_VAL.cs" />
+    <Compile Include="Analizador\Nodos\Llaves_Arreglos\_PAR_CORCHETES_VACIOS.cs" />
     <Compile Include="Analizador\Nodos\Llaves_Arreglos\_VAR_ARREGLO.cs" />
     <Compile Include="Analizador\Nodos\nodoModelo.cs" />
     <Compile Include="Analizador\Nodos\Parametros\_LST_PARAMETROS.cs" />
