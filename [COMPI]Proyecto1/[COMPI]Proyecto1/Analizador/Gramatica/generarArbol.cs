@@ -216,6 +216,9 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
                 case "PAR_CORCHETES_VACIOS":
                     retorno = new _PAR_CORCHETES_VACIOS(nombreNoTerminal, tabla); 
                     break;
+                case "E":
+                    retorno = new _E(nombreNoTerminal, tabla);
+                    break;
 
                 default:
                     retorno= new nodoModelo("Desc_"+nombreNoTerminal, tabla);
@@ -225,6 +228,9 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
             
             return retorno;
         }
+
+
+
 
 
         private static String escapar(String cadena)

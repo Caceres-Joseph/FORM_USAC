@@ -50,7 +50,10 @@ namespace _COMPI_Proyecto1.Analizador.Arbol.Tests
         }
 
         public int a = 0;
-         
+         void operar()
+        {
+            var tal1 = Math.Pow(23, 2) * 34 - 34 + 23 > 434 || false != !true || 23 < 23 && 23 == 21 || 34 != 35 || 34 >= 34 && 34 <= 34 % 32 * 34 + 34;
+        }
 
     }
 

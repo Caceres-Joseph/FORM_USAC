@@ -33,6 +33,56 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
 
         /*
         |--------------------------------------------------------------------------
+        | La ejecución FINAL con ITem entorno
+        |--------------------------------------------------------------------------
+        |
+        */
+
+        public virtual void ejecutar(elementoEntorno elem, itemEntorno item)
+        {
+            ejecutarHijos(elem, item);
+        }
+
+        public void ejecutarHijos(elementoEntorno elem, itemEntorno item)
+        {
+
+            if (hayErrores())
+                return;
+
+            foreach (nodoModelo temp in hijos)
+            {
+                temp.ejecutar(elem, item);
+            }
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | La ejecución FINAL
+        |--------------------------------------------------------------------------
+        |
+        */
+
+        public virtual void ejecutar(elementoEntorno elem)
+        {
+            ejecutarHijos(elem);
+        }
+
+        public void ejecutarHijos(elementoEntorno elem)
+        {
+
+            if (hayErrores())
+                return;
+
+            foreach (nodoModelo temp in hijos)
+            {
+                    temp.ejecutar(elem);
+            }
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
         | Para construir el arbol
         |--------------------------------------------------------------------------
         |
@@ -104,12 +154,15 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
             }
         }
 
-       /*
-       |--------------------------------------------------------------------------
-       | Imprimir NOdos
-       |--------------------------------------------------------------------------
-       |
-       */
+
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Imprimir NOdos
+        |--------------------------------------------------------------------------
+        |
+        */
 
         public void imprimirNodos()
         {

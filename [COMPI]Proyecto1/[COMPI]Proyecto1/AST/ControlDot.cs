@@ -54,7 +54,7 @@ namespace _COMPI_Proyecto1.AST
                 {
                     String terminal = escapar(nodoIrony.Token.Value.ToString());
                     //Console.WriteLine("terminal->"+terminal);
-                    grafo += nodoIrony.GetHashCode() + "[label=\"" + terminal + "\"];\n";
+                    grafo += nodoIrony.GetHashCode() + "[label=\"" + nodoIrony.ToString() + "\"];\n";
                 }
             }
             else

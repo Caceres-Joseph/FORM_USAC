@@ -12,7 +12,7 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
     {
         tablaErrores tablaErrores ;
         public String nombreArchivo;
-        public gramatica(tablaErrores tabla,String archivo) : base(caseSensitive: false)//Diferencia entre mayusculas y minusculas
+        public gramatica(tablaErrores tabla, String archivo) : base(caseSensitive: false)//Diferencia entre mayusculas y minusculas
         {
             this.tablaErrores = tabla;
             this.nombreArchivo = archivo;
@@ -29,12 +29,13 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
 
             //////////////////////////////////////////
             //------------OTROS-----------------
-            RegexBasedTerminal valBoolean = new RegexBasedTerminal("booleanDato", "(True|true|False|false)");
+            RegexBasedTerminal valBoolean = new RegexBasedTerminal("booleanDato", "(false|false|verdadero|falso|verdaderos|falsos)");
 
             StringLiteral valCaracter = new StringLiteral("caracter", "\'");
             StringLiteral valCadena = new StringLiteral("cadena", "\"");
-            RegexBasedTerminal valNumero = new RegexBasedTerminal("numeroValor", "[0-9]+");
-            RegexBasedTerminal valDecimal = new RegexBasedTerminal("decimalValor", "[0-9]+(.)[0-9]+");
+            //RegexBasedTerminal valNumero = new RegexBasedTerminal("numeroValor", "[0-9]+");
+            NumberLiteral valNumero = new NumberLiteral("valNumero");
+            var valDecimal = new RegexBasedTerminal("decimalValor", "[0-9]+\\.[0-9]+");
 
             IdentifierTerminal valId = new IdentifierTerminal("id");
 
@@ -52,6 +53,19 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
             var sMenos = ToTerm("-");
             var sPor = ToTerm("*");
             var sDiv = ToTerm("/");
+            var sPot = ToTerm("^");
+            var sMod = ToTerm("%");
+
+            var sIgualacion = ToTerm("==");
+            var sDiferenciacion = ToTerm("!=");
+            var sMenorQue = ToTerm("<");
+            var sMayorQue = ToTerm(">");
+            var sMenorIgualQue = ToTerm("<=");
+            var sMayorIgualQue = ToTerm(">=");
+            var sAnd = ToTerm("&&");
+            var sOr = ToTerm("||");
+            var sNot = ToTerm("!");
+
 
             //
             var sAbreParent = ToTerm("(");
@@ -82,6 +96,7 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
             var tNulo = ToTerm("nulo");
             var tVacio = ToTerm("vacio");
             var tEste = ToTerm("este");
+ 
 
             //tipos
             var tEntero = ToTerm("entero");
@@ -116,7 +131,7 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
             NonTerminal VISIBILIDAD = new NonTerminal("VISIBILIDAD");
             NonTerminal LST_PARAMETROS = new NonTerminal("LST_PARAMETROS");
             NonTerminal PARAMETRO = new NonTerminal("PARAMETRO");
-            NonTerminal LST_VAL = new NonTerminal("CP_CLASE");
+            NonTerminal LST_VAL = new NonTerminal("LST_VAL");
             NonTerminal CP_CLASE = new NonTerminal("CP_CLASE");
             NonTerminal CUERPO_CLASE = new NonTerminal("CUERPO_CLASE");
             NonTerminal METODO = new NonTerminal("METODO");
@@ -289,16 +304,15 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
 
 
             VAL.Rule = sIgual + VALOR
-                | sIgual + tNuevo + valId + sAbreParent + LST_VAL + sCierraParent //aqui tengo que reconocer el-> nuevo opciones()
-                | sIgual + tNuevo + valId + LST_CORCHETES_VAL
+               /* | sIgual + tNuevo + valId + sAbreParent + LST_VAL + sCierraParent //aqui tengo que reconocer el-> nuevo opciones()
+                | sIgual + tNuevo + TIPO + LST_CORCHETES_VAL
                 | sIgual + LST_LLAVES_VAL
-                | sIgual + tNulo
+                | sIgual + tNulo*/
                 ;
 
 
             //llaves
             LST_LLAVES_VAL.Rule = MakePlusRule(LST_LLAVES_VAL, sComa, LLAVES_VAL_P);
-
 
 
 
@@ -393,7 +407,48 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
                 //| FUNC_MULTIMEDIA
                 ;
 
-            VALOR.Rule = valId
+
+            
+
+            VALOR.Rule = tNuevo + valId + sAbreParent + LST_VAL + sCierraParent //aqui tengo que reconocer el-> nuevo opciones()
+                | tNuevo + TIPO + LST_CORCHETES_VAL
+                | LST_LLAVES_VAL
+                | tNulo
+                | E;
+
+
+
+
+            E.Rule =
+                sMenos + E
+                  //Aritemeticas
+                |  E + sPot + E
+                | E + sDiv + E
+                | E + sPor + E
+                | E + sMas + E
+                | E + sMenos + E
+                | E + sMod + E
+
+                //Relacional
+
+                | E + sIgualacion + E
+                | E + sDiferenciacion + E
+                | E + sMenorQue + E
+                | E + sMenorIgualQue + E
+                | E + sMayorQue + E
+                | E + sMayorIgualQue + E
+
+                //logicos
+
+                | E + sAnd + E
+                | E + sOr + E
+                | sNot + E
+                
+                
+                
+                | sAbreParent + E + sCierraParent
+
+                | valId
                 | valBoolean
                 | valCadena
                 | valDecimal
@@ -401,7 +456,13 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
 
 
 
-
+            RegisterOperators(1, Associativity.Left, sOr);
+            RegisterOperators(2, Associativity.Left, sAnd);
+            RegisterOperators(3, Associativity.Left, sNot);
+            RegisterOperators(4, Associativity.Left, sMayorQue, sMenorQue, sMayorIgualQue, sMenorIgualQue, sIgualacion, sDiferenciacion);
+            RegisterOperators(5, Associativity.Left, sMas, sMenos);
+            RegisterOperators(6, Associativity.Left, sPor, sDiv,sMod);
+            RegisterOperators(7, Associativity.Left, sPot);
 
 
             this.Root = S;

@@ -7,8 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using _COMPI_Proyecto1.Analizador.Gramatica;
-using _COMPI_Proyecto1.AST;
-using _COMPI_Proyecto1.Analizador.Clase.Item;
+using _COMPI_Proyecto1.AST; 
+using _COMPI_Proyecto1.Analizador.Tablas.Objetos;
 
 namespace _COMPI_Proyecto1.Analizador.Tablas
 {
@@ -125,10 +125,9 @@ namespace _COMPI_Proyecto1.Analizador.Tablas
         {
             ///hay que crear una instancia al objeto
             println("Ejecutando el main de " + clase.nombreClase.valLower);
-            objetoClase objectoClase = new objetoClase();
-
-
-
+            objetoClase ObjClase = new objetoClase(clase, this);
+            ObjClase.ejecutarGlobales();
+             
         }
         
         public void println(String mensaje)

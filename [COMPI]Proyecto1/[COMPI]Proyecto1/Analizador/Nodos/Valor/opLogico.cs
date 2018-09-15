@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace _COMPI_Proyecto1.Analizador.Objeto_Clase
+namespace _COMPI_Proyecto1.Analizador.Nodos.Valor
 {
-    class objetoClase
+    class opLogico
     {
-
     }
 }

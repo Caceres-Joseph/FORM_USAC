@@ -13,9 +13,9 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Listas
      */
     class lstPolimorfismo
     {
-        List<elementoPolimorfo> listaPolimorfa;
-        tablaSimbolos tablaSimbolos;
-        String nombre;
+        public List<elementoPolimorfo> listaPolimorfa;
+        public tablaSimbolos tablaSimbolos;
+        public String nombre;
 
         public lstPolimorfismo(tablaSimbolos tabla, String nombre)
         {
@@ -27,19 +27,17 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Listas
         public void insertarElemento(elementoPolimorfo elem)
         {
             //tengo que verificar si ya existe validando los parametros
-             
+
             if (siExiste(elem))//Si existe
             {
-                tablaSimbolos.tablaErrores.insertErrorSyntax("El metodo/funcion  :"+ elem.nombre.val+" ya está declarada con los mismos parámetros.",elem.nombre);
+                tablaSimbolos.tablaErrores.insertErrorSyntax("El metodo/funcion  :" + elem.nombre.val + " ya está declarada con los mismos parámetros.", elem.nombre);
             }
             else
             {
                 listaPolimorfa.Add(elem);
-            } 
+            }
 
         }
-
-
 
         public Boolean siExiste(elementoPolimorfo elem)
         {
@@ -66,6 +64,12 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Listas
         }
 
 
+        public virtual void ejecutar(elementoEntorno elem)
+        {
+
+
+        }
+
 
 
 
@@ -73,6 +77,7 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Listas
         {
             return listaPolimorfa.Count();
         }
+
         public void imprimir()
         {
 
@@ -87,6 +92,9 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Listas
                 }
             }
         }
+
+
+
 
     }
 }

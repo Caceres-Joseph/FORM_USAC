@@ -10,11 +10,12 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
 {
     class elementoClase
     {
-        public lstPolimorfismo lstPrincipal;
-        public lstPolimorfismo lstMetodo_funcion;
-        public lstPolimorfismo lstConstructores;
+        public lstPrincipal lstPrincipal;
+        public lstMetodo_funcion lstMetodo_funcion;
+        public lstConstructores lstConstructores;
         //public lstPolimorfismo lstSobrescritura;
-        public lstPolimorfismo lstVariablesGlobales;
+        public lstVariablesGlobales lstVariablesGlobales;
+
 
         //extend saber de donde extendio 
         //nombre de la clase
@@ -29,16 +30,16 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
         public token nombreClase;
         public token visibilidad;
         public token extender;
-        
-        //public Boolean hayMain;
-
         public List<nodoModelo> lstHijos;
         public tablaSimbolos tablaErrores;
-        /*public elementoClase(token nombre)
-         {
-             this.nombreClase = nombre;
 
-         }*/
+
+        /*
+        |--------------------------------------------------------------------------
+        | Constructor
+        |--------------------------------------------------------------------------
+        |
+        */
 
         public elementoClase(token nombre, token visibilidad, token extender, List<nodoModelo> lstHijos, tablaSimbolos tabla)
         {
@@ -50,12 +51,20 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
 
 
 
-            this.lstPrincipal = new lstPolimorfismo(this.tablaErrores, "principales");
-            this.lstMetodo_funcion = new lstPolimorfismo(this.tablaErrores, "metodos_funciones");
-            this.lstConstructores = new lstPolimorfismo(this.tablaErrores, "constructores");
+            this.lstPrincipal = new lstPrincipal(this.tablaErrores, "principales");
+            this.lstMetodo_funcion = new lstMetodo_funcion(this.tablaErrores, "metodos_funciones");
+            this.lstConstructores = new lstConstructores(this.tablaErrores, "constructores");
             //this.lstSobrescritura = new lstPolimorfismo(this.tablaErrores, "sobrescritura");
-            this.lstVariablesGlobales = new lstPolimorfismo(this.tablaErrores, "var_globales");
+            this.lstVariablesGlobales = new lstVariablesGlobales(this.tablaErrores, "var_globales");
         }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Métodos para imprimir
+        |--------------------------------------------------------------------------
+        |
+        */
 
 
         public void imprimir()
@@ -85,21 +94,22 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
 
 
 
-
-        public void ejecutar()///me tiene que retornar una tabla de funciones/constructores
-        {
-
-        }
-
         /*
-         * Siempre tengo que recibir una tabla de simbolos
-         */
-
-        public void ejecutarMetodoFuncion()
+        |--------------------------------------------------------------------------
+        | Cargando ya la tabla de entornos
+        |--------------------------------------------------------------------------
+        |
+        */
+         
+        public void ejecutarPrincipal()
         {
 
         }
 
+        public void ejecutarConstructor()
+        {
+
+        }
 
 
     }
