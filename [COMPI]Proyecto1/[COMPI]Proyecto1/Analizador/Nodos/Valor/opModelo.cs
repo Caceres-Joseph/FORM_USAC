@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace _COMPI_Proyecto1.Analizador.Nodos.Valor
 {
+
     class opModelo
     {
         public _E hijo1;
