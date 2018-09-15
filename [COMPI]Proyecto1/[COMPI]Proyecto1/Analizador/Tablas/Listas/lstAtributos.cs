@@ -9,18 +9,19 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
     class lstAtributos
     {
 
-        public List<token> listaAtributos;
+        public List<itemAtributo> listaAtributos;
+
         public tablaSimbolos tabla;
         public lstAtributos(tablaSimbolos tabla)
         {
             this.tabla = tabla;
-            listaAtributos = new List<token>();
+            listaAtributos = new List<itemAtributo>();
         }
 
-        public void insertar(token tok)
+        public void insertar(String nombre, token tok)
         {
-
-            listaAtributos.Add(tok);
+            itemAtributo elem = new itemAtributo(tok, nombre);
+            listaAtributos.Add(elem);
 
             
         }
@@ -34,7 +35,7 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
             }
             else
             {
-                retorno = listaAtributos[indice].val;
+                retorno = listaAtributos[indice].tok.val;
             }
 
             return retorno;
@@ -50,7 +51,7 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
             }
             else
             {
-                retorno = listaAtributos[indice];
+                retorno = listaAtributos[indice].tok;
             }
 
             return retorno;
@@ -96,8 +97,9 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
         {
 
             int i = 0;
-            foreach (token temp in listaAtributos)
+            foreach (itemAtributo item in listaAtributos)
             {
+                token temp = item.tok;
                 println("\t[" + i + "] val:" + temp.val + "\tlinea:" + temp.linea + "\ttcol:" + temp.columna+"\tamb:"+temp.archivo);
                 i++;
             }

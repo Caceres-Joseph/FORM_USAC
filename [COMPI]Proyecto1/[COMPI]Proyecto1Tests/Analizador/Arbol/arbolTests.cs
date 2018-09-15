@@ -28,6 +28,8 @@ namespace _COMPI_Proyecto1.Analizador.Arbol.Tests
             llenando(hola);
             Console.WriteLine(hola);
             Assert.AreEqual("honda", hola.nombre);
+
+            int a = 0; 
         }
 
          

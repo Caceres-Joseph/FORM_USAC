@@ -22,7 +22,7 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Listas
 
 
 
-                itemEntorno it = new itemEntorno(temp.nombre, temp.tipo, null, temp.visibilidad, temp.dimension);
+                itemEntorno it = new itemEntorno(temp.nombre, temp.tipo, new itemValor(), temp.visibilidad, temp.dimension);
                 if (temp.LST_CUERPO.nombre.Equals("VAL"))
                     //Si es una variable con valor
                     temp.LST_CUERPO.ejecutar(elem, it); 

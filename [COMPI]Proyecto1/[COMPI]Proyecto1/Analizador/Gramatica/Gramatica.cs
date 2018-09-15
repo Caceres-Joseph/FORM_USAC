@@ -29,15 +29,18 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
 
             //////////////////////////////////////////
             //------------OTROS-----------------
-            RegexBasedTerminal valBoolean = new RegexBasedTerminal("booleanDato", "(false|false|verdadero|falso|verdaderos|falsos)");
+            RegexBasedTerminal valBoolean = new RegexBasedTerminal("valBoolean", "(false|true|verdadero|falso)");
 
-            StringLiteral valCaracter = new StringLiteral("caracter", "\'");
-            StringLiteral valCadena = new StringLiteral("cadena", "\"");
+            StringLiteral valCaracter = new StringLiteral("valCaracter", "\'");
+            StringLiteral valCadena = new StringLiteral("valCadena", "\"");
+            var valCadena2 = new StringLiteral("valCadena2", "‘(.)*’");
+
+
             //RegexBasedTerminal valNumero = new RegexBasedTerminal("numeroValor", "[0-9]+");
             NumberLiteral valNumero = new NumberLiteral("valNumero");
-            var valDecimal = new RegexBasedTerminal("decimalValor", "[0-9]+\\.[0-9]+");
+            var valDecimal = new RegexBasedTerminal("valDecimal", "[0-9]+\\.[0-9]+");
 
-            IdentifierTerminal valId = new IdentifierTerminal("id");
+            IdentifierTerminal valId = new IdentifierTerminal("valId");
 
             #endregion
 
@@ -448,9 +451,11 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
                 
                 | sAbreParent + E + sCierraParent
 
-                | valId
+                //| valId tiene que ser el metodo usar variable jejejeje
                 | valBoolean
                 | valCadena
+                | valCadena2
+                | valCaracter
                 | valDecimal
                 | valNumero;
 

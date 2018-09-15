@@ -66,10 +66,19 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
                     case "E":
                         //me tiene que retornar un valor jejeje
 
-                        println(itEntorno.nombre.valLower + "->E");
+                       // println(itEntorno.nombre.valLower + "->E");
                         _E ope =(_E)hijo;
+                        itemValor te= ope.getValor();
+                        itEntorno.valor = te;
 
-                        ejecutarHijos(elemEntorno, itEntorno);
+                        println(itEntorno.nombre.valLower+"->"+itEntorno.tipo.valLower);
+                        te.imprimirVariable();
+                        ///aquí ya trea nombre la variable
+                        ///
+
+
+                       // println("\tResultado:"+te.getTipo());
+                        //ejecutarHijos(elemEntorno, itEntorno);
                         break;
 
 

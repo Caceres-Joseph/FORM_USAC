@@ -18,7 +18,8 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
         {
             this.tipo = new token("vacio");
             this.nombre = new token("--");
-            this.valor = null;
+            this.valor = new itemValor();
+            valor.setTypeNulo();
             this.visibilidad = new token("privado");
             this.dimension = 0;
         }
@@ -26,7 +27,7 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
         public itemEntorno(token nombre, token tipo, itemValor valor, token visibilidad, int dimension)
         {
 
-            if (validandoTipo(tipo.valLower,valor.tipo))
+            if (validandoTipo(tipo.valLower,valor.getTipo()))
             {
 
                 this.tipo = tipo;

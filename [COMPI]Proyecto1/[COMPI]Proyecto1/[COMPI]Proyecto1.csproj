@@ -103,7 +103,14 @@
     <Compile Include="Analizador\Nodos\Inicio\_TIPO.cs" />
     <Compile Include="Analizador\Nodos\Inicio\_VISIBILIDAD.cs" />
     <Compile Include="Analizador\Nodos\Valor\opAritmetica.cs" />
+    <Compile Include="Analizador\Nodos\Valor\OpeAritmetica\division.cs" />
+    <Compile Include="Analizador\Nodos\Valor\OpeAritmetica\modulo.cs" />
+    <Compile Include="Analizador\Nodos\Valor\OpeAritmetica\multiplicacion.cs" />
+    <Compile Include="Analizador\Nodos\Valor\OpeAritmetica\potencia.cs" />
+    <Compile Include="Analizador\Nodos\Valor\OpeAritmetica\resta.cs" />
+    <Compile Include="Analizador\Nodos\Valor\OpeAritmetica\suma.cs" />
     <Compile Include="Analizador\Nodos\Valor\opLogico.cs" />
+    <Compile Include="Analizador\Nodos\Valor\opModelo.cs" />
     <Compile Include="Analizador\Nodos\Valor\opRelacional.cs" />
     <Compile Include="Analizador\Nodos\Valor\_E.cs" />
     <Compile Include="Analizador\Nodos\Valor\_VALOR.cs" />
@@ -113,6 +120,7 @@
     <Compile Include="Analizador\Tablas\Elementos\elementoParametro.cs" />
     <Compile Include="Analizador\Tablas\Elementos\elementoPolimorfo.cs" />
     <Compile Include="Analizador\Tablas\Elementos\elementoSimbolo.cs" />
+    <Compile Include="Analizador\Tablas\Items\itemAtributo.cs" />
     <Compile Include="Analizador\Tablas\Items\itemEntorno.cs" />
     <Compile Include="Analizador\Tablas\Items\itemObjeto.cs" />
     <Compile Include="Analizador\Tablas\Items\itemValor.cs" />

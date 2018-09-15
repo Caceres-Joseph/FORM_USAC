@@ -24,6 +24,7 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
 
             return raiz;
         }
+
         private void crearArbol(nodoModelo padre, ParseTreeNode nodoIrony, tablaSimbolos tabla)
         {
              
@@ -39,10 +40,11 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
                 else
                 {
                     String terminal = escapar(nodoIrony.Token.Value.ToString());
+                    String nombreTerminal = nodoIrony.Term.Name;
                     token tok = new token(terminal,nodoIrony.Token.Location.Line, nodoIrony.Token.Location.Column, nombreArchivo);
 
                     //Console.WriteLine("[generarArbol]crearArbol:"+nodoIrony.Term.ToString());
-                    padre.lstAtributos.insertar(tok);
+                    padre.lstAtributos.insertar(nombreTerminal,tok);
 
                     //Console.WriteLine("terminal->" + terminal);
                     //grafo += nodoIrony.GetHashCode() + "[label=\"" + terminal + "\"];\n";
@@ -59,8 +61,7 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
 
             foreach (ParseTreeNode hijo in nodoIrony.ChildNodes)
             {
-                 
-                    
+                  
                     crearArbol(hijoNodo, hijo, tabla);
  
                 //grafo += nodoIrony.GetHashCode() + "->" + hijo.GetHashCode() + ";\n";
@@ -228,11 +229,8 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
             
             return retorno;
         }
-
-
-
-
-
+         
+         
         private static String escapar(String cadena)
         {
             cadena = cadena.Replace("\\", "\\\\");
