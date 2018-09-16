@@ -127,12 +127,56 @@ namespace _COMPI_Proyecto1.Analizador.Tablas
             println("Ejecutando el main de " + clase.nombreClase.valLower);
             objetoClase ObjClase = new objetoClase(clase, this);
             ObjClase.ejecutarGlobales();
-             
+            ObjClase.ejecutarPrincipal();
+            //ObjClase.imprimirTablaEntornos();
         }
         
         public void println(String mensaje)
         {
             tablaErrores.println("[tablaSimbolos]"+mensaje);
         }
+
+        public elementoClase getClase(token nombre)
+        {
+
+            foreach (elementoClase temp in lstClases)
+            {
+                if (temp.nombreClase.valLower.Equals(nombre.valLower))
+                {
+                    return temp;
+
+                }
+            }
+
+            //no encontro la clase 
+            tablaErrores.insertErrorSemantic("No se puede crear una instancia al objeto: "+nombre.val+" debido a que no existe esa clase en este ambito", nombre);
+            return null;
+
+        }
+
+
+
+        public Boolean hayErrores(String ambito)
+        {
+
+
+            Boolean retorno = true;
+
+            if (tablaErrores.listaErrores.Count == 0)
+            {
+                retorno = false;
+
+            }
+            else
+            {
+                tablaErrores.println("No se puede ejecutar [" + ambito + "] porque hay errores en la tabla");
+            }
+
+
+            return retorno;
+
+
+        }
+
     }
 }

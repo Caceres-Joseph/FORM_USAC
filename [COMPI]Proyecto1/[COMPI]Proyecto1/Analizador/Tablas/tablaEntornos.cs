@@ -10,12 +10,27 @@ namespace _COMPI_Proyecto1.Analizador.Tablas
     class tablaEntornos
     {
         public elementoEntorno raiz;
-
-        public tablaEntornos()
+        public tablaSimbolos tabla;
+        public tablaEntornos(tablaSimbolos tabla)
         {
-            raiz = new elementoEntorno(null);
+            raiz = new elementoEntorno(null, tabla,"global");
         }
 
-         
+
+        public void imprimir()
+        {
+
+            raiz.imprimir();
+            return;
+            elementoEntorno actual = raiz;
+
+            do
+            {
+
+                actual.imprimir();
+                actual = actual.anterior;
+            } while (actual.anterior != null);
+        }
+
     }
 }

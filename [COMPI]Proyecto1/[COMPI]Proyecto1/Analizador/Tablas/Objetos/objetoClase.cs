@@ -1,4 +1,5 @@
 ﻿using _COMPI_Proyecto1.Analizador.Tablas.Items;
+using _COMPI_Proyecto1.Analizador.Tablas.Listas;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,15 +20,32 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Objetos
         {
             this.tablaSimbolos = tabla;
             this.cuerpoClase = cuerpoClase;
-            this.tablaEntorno = new tablaEntornos();
+            this.tablaEntorno = new tablaEntornos(tabla);
         }
-
 
         public void ejecutarGlobales()
         {
-            cuerpoClase.lstVariablesGlobales.ejecutar(tablaEntorno.raiz); 
+            cuerpoClase.lstVariablesGlobales.ejecutar(tablaEntorno.raiz);
+        }
+
+        public void ejecutarConstructor(token nombre, int dimension, lstValores lstValores2, elementoEntorno tablaEntorno)
+        {
+            cuerpoClase.lstConstructores.ejecutarMetodo(nombre, dimension, lstValores2, tablaEntorno);
+
+        }
+
+        public void imprimirTablaEntornos()
+        {
+            Console.WriteLine("---------------------- Tabla de entornos ----------------------");
+            tablaEntorno.imprimir();
         }
 
 
+        public void ejecutarPrincipal()
+        {
+            //hay que enviarle un nuevo enterno
+            elementoEntorno hijo1 = new elementoEntorno(tablaEntorno.raiz, tablaSimbolos, "main");
+            cuerpoClase.lstPrincipal.ejecutar(hijo1);
+        }
     }
 }

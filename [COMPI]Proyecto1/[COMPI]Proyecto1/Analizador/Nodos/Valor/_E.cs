@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using _COMPI_Proyecto1.Analizador.Nodos.Valor;
 using _COMPI_Proyecto1.Analizador.Nodos.Valor.OpeAritmetica;
+using _COMPI_Proyecto1.Analizador.Nodos.Valor.OpeLogico;
+using _COMPI_Proyecto1.Analizador.Nodos.Valor.Operelacional;
 using _COMPI_Proyecto1.Analizador.Tablas;
 using _COMPI_Proyecto1.Analizador.Tablas.Items;
 
@@ -17,25 +19,7 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
         }
 
 
-        public override void ejecutar(elementoEntorno elem, itemEntorno item)
-        {
-
-            switch (hijos.Count)
-            {
-                case 1:
-
-                    break;
-
-                case 2:
-                    if (lstAtributos.listaAtributos.Count > 0)
-                    {
-                        String signo = lstAtributos.getValItem(0);
-                        println(signo);
-                    }
-                    break;
-
-            }
-        }
+ 
 
         public itemValor getValor()
         {
@@ -63,9 +47,36 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
 
                 case 1:
                     //operador unario
+                    if (lstAtributos.listaAtributos.Count > 0)
+                    {
+                        String signo = lstAtributos.getValItem(0);
+                        switch (signo)
+                        {
+                            //Logico
+                            case "-":
+                                negativo opNeg=new negativo(hijos[0], tablaSimbolos, lstAtributos.getToken(0));
+                                return opNeg.opNot(" Asignando valor Negativo");
 
+                            case "!":
+                                Not opeNot = new Not(hijos[0], tablaSimbolos, lstAtributos.getToken(0));
+                                return opeNot.opNot("Not");
 
-                    return ob;
+                            case "(":
+                                _E ope = (_E)hijos[0];
+                                itemValor te = ope.getValor();
+                                return te;
+
+                            default:
+                                tablaSimbolos.tablaErrores.insertErrorSyntax("[E]No se reconoció el signo", lstAtributos.getToken(0));
+                                return ob;
+                        }
+                    }
+                    else
+                    {
+                        tablaSimbolos.tablaErrores.insertErrorSyntax("[E]Se esperaba un signo para operación unaria", new token());
+                        return ob;
+                    }
+                    
                 case 2:
                     //operador binario
                     if (lstAtributos.listaAtributos.Count > 0)
@@ -73,6 +84,7 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
                         String signo = lstAtributos.getValItem(0);
                         switch (signo)
                         {
+                            //Aritmetica
                             case "+":
                                 suma ope = new suma(hijos[0], hijos[1], tablaSimbolos, lstAtributos.getToken(0));
                                 return ope.opSuma();
@@ -83,7 +95,7 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
                                 multiplicacion opeMul = new multiplicacion(hijos[0], hijos[1], tablaSimbolos, lstAtributos.getToken(0));
                                 return opeMul.opMultiplicacion();
                             case "/":
-                                division opeDiv= new division(hijos[0], hijos[1], tablaSimbolos, lstAtributos.getToken(0));
+                                division opeDiv = new division(hijos[0], hijos[1], tablaSimbolos, lstAtributos.getToken(0));
                                 return opeDiv.opDivision();
                             case "^":
                                 potencia opePot = new potencia(hijos[0], hijos[1], tablaSimbolos, lstAtributos.getToken(0));
@@ -91,6 +103,37 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
                             case "%":
                                 modulo opeModulo = new modulo(hijos[0], hijos[1], tablaSimbolos, lstAtributos.getToken(0));
                                 return opeModulo.opModulo();
+
+
+                            //Relacional
+                            case "==":
+                                IgualQue opeIgualacion = new IgualQue(hijos[0], hijos[1], tablaSimbolos, lstAtributos.getToken(0));
+                                return opeIgualacion.opIgualacion("Igualación");
+                            case "!=":
+                                DiferenteQue opeDiferenciacion = new DiferenteQue(hijos[0], hijos[1], tablaSimbolos, lstAtributos.getToken(0));
+                                return opeDiferenciacion.opDiferenciacion("Diferenciación");
+                            case ">":
+                                MayorQue opeMayor = new MayorQue(hijos[0], hijos[1], tablaSimbolos, lstAtributos.getToken(0));
+                                return opeMayor.opMayorQue("Mayor Que");
+                            case ">=":
+                                MayorIgualQue opeMayorIgual = new MayorIgualQue(hijos[0], hijos[1], tablaSimbolos, lstAtributos.getToken(0));
+                                return opeMayorIgual.opMayorIgualQue("Mayor o Igual Que");
+                            case "<":
+                                MenorQue opeMenor = new MenorQue(hijos[0], hijos[1], tablaSimbolos, lstAtributos.getToken(0));
+                                return opeMenor.opMenorQue("Menor Que");
+                            case "<=":
+                                MenorIgualQue opeMenorIgual = new MenorIgualQue(hijos[0], hijos[1], tablaSimbolos, lstAtributos.getToken(0));
+                                return opeMenorIgual.opMenorIgualQue("Menor o Igual Que");
+
+                            //logicas
+
+                            case "&&":
+                                And opeAnd = new And(hijos[0], hijos[1], tablaSimbolos, lstAtributos.getToken(0));
+                                return opeAnd.opAnd("And");
+                            case "||":
+                                Or opeOr = new Or(hijos[0], hijos[1], tablaSimbolos, lstAtributos.getToken(0));
+                                return opeOr.opOr("Or");
+
                             default:
                                 tablaSimbolos.tablaErrores.insertErrorSyntax("[E]No se reconoció el sigono", lstAtributos.getToken(0));
                                 return ob;

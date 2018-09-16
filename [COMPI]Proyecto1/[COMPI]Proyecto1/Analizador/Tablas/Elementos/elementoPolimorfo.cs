@@ -1,5 +1,6 @@
 ﻿using _COMPI_Proyecto1.Analizador.Nodos;
 using _COMPI_Proyecto1.Analizador.Tablas.Elementos;
+using _COMPI_Proyecto1.Analizador.Tablas.Listas;
 using _COMPI_Proyecto1.Analizador.Tablas.Llaves;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,11 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
         public nodoModelo LST_CUERPO;
         public token visibilidad;
         public int dimension = 0;
+
+
+
+
+
 
         public void elementoPolimorfo3(tablaSimbolos tabla)
         {
@@ -127,6 +133,44 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
             }
 
         }
+
+
+
+        public Boolean compararParametros(lstValores lsParametros)
+        {
+            Boolean retorno = false;
+            if (lstParametros.Count == lsParametros.listaValores.Count)
+            {
+                retorno = true;
+
+                for (int i = 0; i < lstParametros.Count; i++)
+                {
+
+                    llaveParametro lst1 = getListaLlaves()[i];
+                    itemValor lst2 = lsParametros.getItemValor(i);
+
+                    //El priemro es para comprobar los tipos
+                    //el segundo es para comparar objetos
+                    if (lst1.tipo.Equals(lst2.getTipo()) || lst1.tipo.Equals(lst2.nombreObjeto))
+                    {
+                        if (lst1.dimension != lst2.dimension)
+                            return false;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+
+                return retorno;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
 
         public void println(String mensaje)
         {

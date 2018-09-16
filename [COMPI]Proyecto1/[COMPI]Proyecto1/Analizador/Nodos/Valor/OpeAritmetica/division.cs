@@ -102,8 +102,7 @@ namespace _COMPI_Proyecto1.Analizador.Nodos.Valor.OpeAritmetica
                 /*
                  *Booleano / Cadena = Cadena
                  */
-
-
+                  
 
                 /*
                 |--------------------------------------------------------------------------

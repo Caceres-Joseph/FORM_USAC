@@ -14,12 +14,12 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Listas
     class lstPolimorfismo
     {
         public List<elementoPolimorfo> listaPolimorfa;
-        public tablaSimbolos tablaSimbolos;
+        public tablaSimbolos tabla;
         public String nombre;
 
         public lstPolimorfismo(tablaSimbolos tabla, String nombre)
         {
-            this.tablaSimbolos = tabla;
+            this.tabla = tabla;
             listaPolimorfa = new List<elementoPolimorfo>();
             this.nombre = nombre;
         }
@@ -30,7 +30,7 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Listas
 
             if (siExiste(elem))//Si existe
             {
-                tablaSimbolos.tablaErrores.insertErrorSyntax("El metodo/funcion  :" + elem.nombre.val + " ya está declarada con los mismos parámetros.", elem.nombre);
+                tabla.tablaErrores.insertErrorSyntax("El metodo/funcion  :" + elem.nombre.val + " ya está declarada con los mismos parámetros.", elem.nombre);
             }
             else
             {
@@ -71,6 +71,52 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Listas
         }
 
 
+        public virtual  void ejecutarMetodo(token nombre, int diemension, lstValores lista2, elementoEntorno tablaEntorno)
+        {
+            //aqui es donde tengo que buscar si existe 
+            elementoPolimorfo temp = getElementoPolimorfo(nombre, lista2);
+            if (temp!=null)
+            {
+                //tengo que crear un nuevo entorno
+
+                elementoEntorno hijo1 = new elementoEntorno(tablaEntorno, tabla, "main");
+
+                
+
+                Console.WriteLine("ejecutando el metodo " + nombre.val + "(" + lista2.getCadenaParam() + ")");
+            }
+        }
+
+
+        public elementoPolimorfo getElementoPolimorfo(token nombre,  lstValores listaValores)
+        {
+             
+
+            foreach (elementoPolimorfo temp in listaPolimorfa)
+            {
+                if (nombre.valLower.Equals(temp.nombre.valLower))
+                {
+                    //ahora hay que validar los parametros
+
+
+                    if (temp.compararParametros(listaValores))
+                    {
+                        return temp;
+                    }
+                    //ahora hay que comprobar las llaves de los atributos
+                }
+            }
+
+            tabla.tablaErrores.insertErrorSemantic("No se encuentra "+nombre.val+"("+listaValores.getCadenaParam()+")", nombre);
+            return null;
+        }
+        public String convertirlstValores_toString(List<itemValor> lstValores)
+        {
+            String retorno = "";
+
+
+            return retorno;
+        }
 
 
         public int getCount()

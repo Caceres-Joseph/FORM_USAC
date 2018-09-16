@@ -25,7 +25,7 @@ namespace _COMPI_Proyecto1.Analizador
 
         public token(String val)
         {
-            this.val = "--";
+            this.val = val;
             this.linea = 0;
             this.columna = 0;
             this.archivo = "---";

@@ -356,7 +356,7 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
             //    | USAR_VARIABLEP;
 
             USAR_VARIABLEP.Rule = valId + sPunto
-                | valId + LST_CORCHETES_VAL + sPunto
+               // | valId + LST_CORCHETES_VAL + sPunto
                 | valId + sAbreParent + LST_VAL + sCierraParent + sPunto
                 ;
 

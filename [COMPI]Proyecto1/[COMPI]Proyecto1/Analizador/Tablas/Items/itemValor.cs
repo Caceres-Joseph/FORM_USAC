@@ -25,16 +25,21 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
         */
 
 
-          string tipo;
+        string tipo;
         public string tipo2 = "";
         public Object valor;
+        public int dimension = 0;
+        public String nombreObjeto="";
 
         public itemValor()
         {
             this.tipo = "nulo";
             setTypeNulo();
+            dimension = 0;
             this.valor = new object();
         }
+
+
 
 
         public void convertirCadena(String cadena)
@@ -48,13 +53,13 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
                 this.tipo = "fechahora";
                 //DateTime oDate = DateTime.ParseExact(cadena, "dd/MM/yyyy hh:mm:ss ", System.Globalization.CultureInfo.InvariantCulture);
 
-                DateTime  oDate = DateTime.ParseExact(cadena, "dd/MM/yyyy hh:mm:ss", enUS, DateTimeStyles.None);
- 
+                DateTime oDate = DateTime.ParseExact(cadena, "dd/MM/yyyy hh:mm:ss", enUS, DateTimeStyles.None);
+
                 this.valor = oDate;
             }
             catch (FormatException e)
             {
-              //  Console.WriteLine("[itemValor]No es fechaHora"+e);
+                //  Console.WriteLine("[itemValor]No es fechaHora"+e);
                 try
                 {
                     this.tipo = "fecha";
@@ -64,7 +69,7 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
                 }
                 catch (FormatException e2)
                 {
-                  //  Console.WriteLine("[itemValor]No es fecha" + e2);
+                    //  Console.WriteLine("[itemValor]No es fecha" + e2);
                     try
                     {
                         this.tipo = "hora";
@@ -74,11 +79,11 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
                     }
                     catch (FormatException e3)
                     {
-                       // Console.WriteLine("[itemValor]No es hora" + e3);
+                        // Console.WriteLine("[itemValor]No es hora" + e3);
                         this.tipo = "cadena";
                         this.valor = cadena;
                     }
-                } 
+                }
                 //de ultimo es un string alv 
             }
         }
@@ -113,7 +118,8 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
             try
             {
                 return (Boolean)valor;
-            }catch(FormatException e)
+            }
+            catch (FormatException e)
             {
                 Console.WriteLine("[itemValor]getBooleano_No se puede parser el booleano");
                 return false;
@@ -136,7 +142,7 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
         }
 
         public double getDecimal()
-        { 
+        {
             try
             {
                 return (Double)valor;
@@ -160,7 +166,7 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
                 return new DateTime();
             }
         }
-         
+
         public String getCadena()
         {
 
@@ -182,7 +188,7 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
         |--------------------------------------------------------------------------
         */
 
-          public void imprimirVariable()
+        public void imprimirVariable()
         {
             if (isTypeCadena())
             {
@@ -208,13 +214,16 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
             else if (isTypeFechaHora())
             {
                 println(getFechaHora());
-            }else if (isTypeHora())
+            }
+            else if (isTypeHora())
             {
                 println(getFechaHora());
-            }else if (isTypeNulo())
+            }
+            else if (isTypeNulo())
             {
                 println("nulo");
-            }else if (isTypeObjeto())
+            }
+            else if (isTypeObjeto())
             {
                 println("objeto");
             }
@@ -266,6 +275,57 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
         {
             this.tipo = "objeto";
         }
+        /*
+      |--------------------------------------------------------------------------
+      | Set Value
+      |--------------------------------------------------------------------------
+      */
+        public void setValue(String cadena)
+        {
+            this.tipo = "cadena";
+            this.valor = cadena;
+        }
+        public void setValue(Boolean valor)
+        {
+            this.tipo = "booleano";
+            this.valor = valor;
+        }
+        public void setValue(int entrada)
+        {
+            this.tipo = "entero";
+            this.valor = entrada;
+        }
+        public void setValue(double entrada)
+        {
+            this.tipo = "decimal";
+            this.valor = entrada;
+        }
+        public void setValueFecha(DateTime fecha)
+        {
+            this.tipo = "fecha";
+            this.valor = fecha;
+        }
+        public void setValueFechaHora(DateTime fecha)
+        {
+            this.tipo = "fechahora";
+            this.valor = fecha;
+        }
+        public void setValueHora(DateTime hora)
+        {
+            this.tipo = "hora";
+            this.valor = hora;
+        }
+        public void setValueNulo()
+        {
+            this.tipo = "nulo";
+        }
+        public void setValue(Object o, String nombreObjeto)
+        {
+            this.tipo = "objeto";
+            this.nombreObjeto = nombreObjeto;
+            this.valor = o;
+        }
+
 
 
 
@@ -287,56 +347,56 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
             if (this.tipo.Equals("booleano"))
                 return true;
             else
-                return false; 
+                return false;
         }
         public Boolean isTypeEntero()
         {
             if (this.tipo.Equals("entero"))
                 return true;
             else
-                return false; 
+                return false;
         }
         public Boolean isTypeDecimal()
         {
             if (this.tipo.Equals("decimal"))
                 return true;
             else
-                return false; 
+                return false;
         }
         public Boolean isTypeFecha()
         {
             if (this.tipo.Equals("fecha"))
                 return true;
             else
-                return false; 
+                return false;
         }
         public Boolean isTypeFechaHora()
         {
             if (this.tipo.Equals("fechahora"))
                 return true;
             else
-                return false; 
+                return false;
         }
         public Boolean isTypeHora()
         {
             if (this.tipo.Equals("hora"))
                 return true;
             else
-                return false; 
+                return false;
         }
         public Boolean isTypeNulo()
         {
             if (this.tipo.Equals("nulo"))
                 return true;
             else
-                return false; 
+                return false;
         }
         public Boolean isTypeObjeto()
         {
             if (this.tipo.Equals("objeto"))
                 return true;
             else
-                return false; 
+                return false;
         }
 
 
@@ -355,8 +415,8 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
 
         public void println(Object ob)
         {
-            Console.WriteLine("[itemValor]"+tipo+"->"+ob.ToString());
-            Console.WriteLine("");
+            Console.WriteLine("\t\t[itemValor]" + tipo + "->" + ob.ToString());
+
         }
     }
 }

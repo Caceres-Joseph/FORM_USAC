@@ -10,7 +10,7 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
 {
     class _VAL : nodoModelo
     {
-         
+
         public _VAL(string nombre, tablaSimbolos tabla) : base(nombre, tabla)
         {
 
@@ -23,27 +23,28 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
         }
 
 
-        public override void ejecutar(elementoEntorno elem, itemEntorno item)
+     
+
+        public itemValor getValor()
         {
 
 
+            itemValor retorno = new itemValor();
+            retorno.setTypeNulo();
 
-            ejecutarHijos(elem, item);
 
-            //this.elemEntorno = elem;
-            //this.itEntorno = item;
-            //elem es la tabla de simbolos
-            //item es donde tengo que guardar el valor prro
+            if (hayErrores())
+                return retorno;
 
-            //reconocerProduccion();
+            if (hijos.Count > 0)
+            {
+                nodoModelo hijo = hijos[0];
+                _VALOR ope = (_VALOR)hijo;
+                return ope.getValor();
+            }
 
+            return retorno;
         }
-
-
-
-
-
-
 
     }
 }

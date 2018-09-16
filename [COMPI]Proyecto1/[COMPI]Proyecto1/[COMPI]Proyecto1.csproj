@@ -106,9 +106,19 @@
     <Compile Include="Analizador\Nodos\Valor\OpeAritmetica\division.cs" />
     <Compile Include="Analizador\Nodos\Valor\OpeAritmetica\modulo.cs" />
     <Compile Include="Analizador\Nodos\Valor\OpeAritmetica\multiplicacion.cs" />
+    <Compile Include="Analizador\Nodos\Valor\OpeAritmetica\negativo.cs" />
     <Compile Include="Analizador\Nodos\Valor\OpeAritmetica\potencia.cs" />
     <Compile Include="Analizador\Nodos\Valor\OpeAritmetica\resta.cs" />
     <Compile Include="Analizador\Nodos\Valor\OpeAritmetica\suma.cs" />
+    <Compile Include="Analizador\Nodos\Valor\OpeLogico\And.cs" />
+    <Compile Include="Analizador\Nodos\Valor\OpeLogico\Not.cs" />
+    <Compile Include="Analizador\Nodos\Valor\OpeLogico\Or.cs" />
+    <Compile Include="Analizador\Nodos\Valor\Operelacional\DiferenteQue.cs" />
+    <Compile Include="Analizador\Nodos\Valor\Operelacional\IgualQue.cs" />
+    <Compile Include="Analizador\Nodos\Valor\Operelacional\MayorIgualQue.cs" />
+    <Compile Include="Analizador\Nodos\Valor\Operelacional\MayorQue.cs" />
+    <Compile Include="Analizador\Nodos\Valor\Operelacional\MenorIgualQue.cs" />
+    <Compile Include="Analizador\Nodos\Valor\Operelacional\MenorQue.cs" />
     <Compile Include="Analizador\Nodos\Valor\opLogico.cs" />
     <Compile Include="Analizador\Nodos\Valor\opModelo.cs" />
     <Compile Include="Analizador\Nodos\Valor\opRelacional.cs" />
@@ -129,6 +139,7 @@
     <Compile Include="Analizador\Tablas\Listas\lstMetodo_funcion.cs" />
     <Compile Include="Analizador\Tablas\Listas\lstPolimorfismo.cs" />
     <Compile Include="Analizador\Tablas\Listas\lstPrincipal.cs" />
+    <Compile Include="Analizador\Tablas\Listas\lstValores.cs" />
     <Compile Include="Analizador\Tablas\Listas\lstVariablesGlobales.cs" />
     <Compile Include="Analizador\Tablas\Llaves\llaveParametro.cs" />
     <Compile Include="Analizador\Tablas\Objetos\objetoClase.cs" />

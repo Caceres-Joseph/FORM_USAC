@@ -36,7 +36,7 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
         | La ejecución FINAL con ITem entorno
         |--------------------------------------------------------------------------
         |
-        */
+        
 
         public virtual void ejecutar(elementoEntorno elem, itemEntorno item)
         {
@@ -53,7 +53,7 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
             {
                 temp.ejecutar(elem, item);
             }
-        }
+        }*/
 
 
         /*
@@ -63,9 +63,9 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
         |
         */
 
-        public virtual void ejecutar(elementoEntorno elem)
+        public virtual void ejecutar(elementoEntorno tablaEntornos)
         {
-            ejecutarHijos(elem);
+            ejecutarHijos(tablaEntornos);
         }
 
         public void ejecutarHijos(elementoEntorno elem)

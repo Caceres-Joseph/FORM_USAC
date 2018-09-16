@@ -14,16 +14,14 @@ namespace _COMPI_Proyecto1.Analizador.Nodos.Valor
         public _E hijo1;
         public _E hijo2;
         public token signo;
-        public tablaSimbolos tabla;
-        private nodoModelo hijo11;
-        private nodoModelo hijo21;
+        public tablaSimbolos tabla; 
 
-        public opModelo(nodoModelo hijo11, nodoModelo hijo21, tablaSimbolos tabla)
+        /*public opModelo(nodoModelo hijo11, nodoModelo hijo21, tablaSimbolos tabla)
         {
             this.hijo11 = hijo11;
             this.hijo21 = hijo21;
             this.tabla = tabla;
-        }
+        }*/
 
         public opModelo(nodoModelo hijo1, nodoModelo hijo2, tablaSimbolos tabla, token signo)
         {
@@ -33,9 +31,15 @@ namespace _COMPI_Proyecto1.Analizador.Nodos.Valor
             this.signo = signo;
         }
 
-         
 
-         
+        public opModelo(nodoModelo hijo1, tablaSimbolos tabla, token signo)
+        {
+            this.hijo1 = (_E)hijo1;
+            this.tabla = tabla;
+            this.signo = signo;
+        }
+
+
 
     }
 }

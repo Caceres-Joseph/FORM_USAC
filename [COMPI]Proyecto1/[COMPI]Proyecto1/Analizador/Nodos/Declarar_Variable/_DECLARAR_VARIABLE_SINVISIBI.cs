@@ -14,13 +14,64 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
         {
         }
 
+        /*
+        |-------------------------------------------------------------------------------------------------------------------
+        | EJECUCIÓN FINAL
+        |-------------------------------------------------------------------------------------------------------------------
+        |
+        */
 
+        public override void ejecutar(elementoEntorno tablaEntornos)
+        {
 
+            //ya estoy recibiendo la tabla donde debo trabajar prro
+            if (hayErrores())
+                return;
+
+            token tipo = getTipo();
+            token nombre = getIdentificador();
+            //nodoModelo LST_CUERPO = getLST_CUERPO();
+
+            token visbilidad = new token("privado");
+            int dimension = getDimensiones();
+
+            _VAL val = getNodoVAL();
+            if (val!=null)
+            {
+                //se estan guardando valores en la variable
+
+                itemEntorno it = new itemEntorno(nombre, tipo, val.getValor(), visbilidad, dimension, tablaSimbolos);
+                tablaEntornos.insertarEntorno(it);
+              
+            }
+            else
+            {
+                //Se declaro la variable pero el valor es nulo 
+                itemEntorno it = new itemEntorno(nombre, tipo, new itemValor(), visbilidad, dimension, tablaSimbolos);
+                tablaEntornos.insertarEntorno(it);
+            }
+             
+        }
+
+        public _VAL getNodoVAL()
+        {
+            nodoModelo temp = getNodo("VAL");
+            if (temp!=null)
+            {
+                return (_VAL)temp;
+            }
+            else
+            {
+                return null;
+            } 
+
+        }
+         
 
         /*
-        |--------------------------------------------------------------------------
+        |-------------------------------------------------------------------------------------------------------------------
         | Para cargar las variables globales prro
-        |--------------------------------------------------------------------------
+        |-------------------------------------------------------------------------------------------------------------------
         |
         */
         public void cargarVariableGlobal(elementoClase simbolo)
