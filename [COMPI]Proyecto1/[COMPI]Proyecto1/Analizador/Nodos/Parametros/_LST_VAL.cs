@@ -17,14 +17,14 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
 
 
 
-        public lstValores getLstValores()
+        public lstValores getLstValores(elementoEntorno elemento)
         {
             lstValores retorno = new lstValores();
 
             foreach (nodoModelo hijo in hijos)
             {
                 _VALOR temp = (_VALOR)hijo;
-                retorno.insertar(temp.getValor());
+                retorno.insertar(temp.getValor(elemento));
             } 
             return retorno;
 

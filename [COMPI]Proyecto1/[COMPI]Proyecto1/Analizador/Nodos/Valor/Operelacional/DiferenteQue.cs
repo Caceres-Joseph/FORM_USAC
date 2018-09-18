@@ -14,11 +14,11 @@ namespace _COMPI_Proyecto1.Analizador.Nodos.Valor.Operelacional
         {
         }
 
-        public itemValor opDiferenciacion(String ambito)
+        public itemValor opDiferenciacion(String ambito, elementoEntorno elem)
         {
             IgualQue dif = new IgualQue(hijo1, hijo2, tabla, signo);
 
-            itemValor retorno = dif.opIgualacion(ambito);
+            itemValor retorno = dif.opIgualacion(ambito, elem);
             if (retorno.isTypeBooleano())
             {
                 if (retorno.getBooleano())

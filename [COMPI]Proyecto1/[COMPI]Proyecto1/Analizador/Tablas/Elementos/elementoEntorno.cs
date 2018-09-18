@@ -55,5 +55,30 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
             }
         }
 
+         public itemEntorno getItemValor(String idVariable)
+        {
+            itemEntorno retorno = null;
+
+
+
+
+            if (lstEntorno.ContainsKey(idVariable))
+            {
+                itemEntorno el = lstEntorno[idVariable];
+                return el;
+            }
+            else
+            {
+
+                if (anterior != null)
+                {
+                    return  anterior.getItemValor(idVariable);
+                }
+            }
+
+
+            return retorno;
+        }
+
     }
 }

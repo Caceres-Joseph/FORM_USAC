@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace _COMPI_Proyecto1.Analizador.Gramatica
 {
-      class gramatica : Grammar
+    class gramatica : Grammar
     {
-        tablaErrores tablaErrores ;
+        tablaErrores tablaErrores;
         public String nombreArchivo;
         public gramatica(tablaErrores tabla, String archivo) : base(caseSensitive: false)//Diferencia entre mayusculas y minusculas
         {
@@ -99,7 +99,7 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
             var tNulo = ToTerm("nulo");
             var tVacio = ToTerm("vacio");
             var tEste = ToTerm("este");
- 
+            var tImprimir = ToTerm("imprimir");
 
             //tipos
             var tEntero = ToTerm("entero");
@@ -215,9 +215,12 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
             NonTerminal E = new NonTerminal("E");
             NonTerminal F = new NonTerminal("F");
 
-            NonTerminal PAR_CORCHETES_VACIOS = new NonTerminal("PAR_CORCHETES_VACIOS"); 
+            NonTerminal PAR_CORCHETES_VACIOS = new NonTerminal("PAR_CORCHETES_VACIOS");
 
+            NonTerminal ID_VAR_FUNC = new NonTerminal("ID_VAR_FUNC");
+            NonTerminal LST_PUNTOSP = new NonTerminal("LST_PUNTOSP");
 
+            NonTerminal ASIG_VALOR = new NonTerminal("ASIG_VALOR");
 
             #endregion
 
@@ -229,10 +232,10 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
 
 
             LST_IMPORT.Rule = MakeStarRule(LST_IMPORT, IMPORT);
-               
+
 
             IMPORT.Rule = tImport + sAbreParent + valId + sPunto + valId + sCierraParent + sPuntoComa
-                 | SyntaxError; 
+                 | SyntaxError;
 
             LST_CLASE.Rule = MakeStarRule(LST_CLASE, CLASE);
 
@@ -261,15 +264,30 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
                 | tPrivado
                 | tProtegido;
 
-            //------------------+
-            // Parametros
+
+
+            /*
+            |-------------------------------------------------------------------------------------------------------------------
+            | Parametros
+            |-------------------------------------------------------------------------------------------------------------------
+            |  
+            */
             LST_PARAMETROS.Rule = MakeStarRule(LST_PARAMETROS, sComa, PARAMETRO);
 
             PARAMETRO.Rule = TIPO + VAR_ARREGLO;
 
             LST_VAL.Rule = MakeStarRule(LST_VAL, sComa, VALOR);
-            //------------------+
-            //   Cuerpo de la clase
+
+
+
+            /*
+            |-------------------------------------------------------------------------------------------------------------------
+            | Cuerpo de la clase
+            |-------------------------------------------------------------------------------------------------------------------
+            |  
+            */
+
+
             CP_CLASE.Rule = MakeStarRule(CP_CLASE, CUERPO_CLASE);
 
             CUERPO_CLASE.Rule = CONSTRUCTOR
@@ -280,8 +298,12 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
                 | SyntaxError;
             ;
 
-            //-----------------+
-            // Funciones/Metodos
+            /*
+            |-------------------------------------------------------------------------------------------------------------------
+            | Funciones/Metodos
+            |-------------------------------------------------------------------------------------------------------------------
+            |  
+            */
 
             METODO.Rule = VISIBILIDAD + TIPO + VAR_ARREGLO + sAbreParent + LST_PARAMETROS + sCierraParent + sAbreLlave + LST_CUERPO + sCierraLlave
                 | TIPO + VAR_ARREGLO + sAbreParent + LST_PARAMETROS + sCierraParent + sAbreLlave + LST_CUERPO + sCierraLlave; //metodo void
@@ -292,8 +314,12 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
 
             CONSTRUCTOR.Rule = valId + sAbreParent + LST_PARAMETROS + sCierraParent + sAbreLlave + LST_CUERPO + sCierraLlave;
 
-            //------------------+
-            // Declarar variable
+            /*
+            |-------------------------------------------------------------------------------------------------------------------
+            | Declarar variable
+            |-------------------------------------------------------------------------------------------------------------------
+            |  
+            */
 
             DECLARAR_VARIABLE_GLOBAL.Rule = TIPO + VISIBILIDAD + VAR_ARREGLO + VAL
                 | TIPO + VISIBILIDAD + VAR_ARREGLO  //solo se declaro
@@ -307,14 +333,25 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
 
 
             VAL.Rule = sIgual + VALOR
-               /* | sIgual + tNuevo + valId + sAbreParent + LST_VAL + sCierraParent //aqui tengo que reconocer el-> nuevo opciones()
-                | sIgual + tNuevo + TIPO + LST_CORCHETES_VAL
-                | sIgual + LST_LLAVES_VAL
-                | sIgual + tNulo*/
+                /* | sIgual + tNuevo + valId + sAbreParent + LST_VAL + sCierraParent //aqui tengo que reconocer el-> nuevo opciones()
+                 | sIgual + tNuevo + TIPO + LST_CORCHETES_VAL
+                 | sIgual + LST_LLAVES_VAL
+                 | sIgual + tNulo*/
                 ;
 
 
-            //llaves
+            /*
+            |-------------------------------------------------------------------------------------------------------------------
+            | Arreglos
+            |-------------------------------------------------------------------------------------------------------------------
+            |  
+            */
+
+            /*
+            |----------------------------------------------
+            | Llaves
+            */
+
             LST_LLAVES_VAL.Rule = MakePlusRule(LST_LLAVES_VAL, sComa, LLAVES_VAL_P);
 
 
@@ -323,7 +360,11 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
                 | sAbreLlave + LST_VAL + sCierraLlave;
 
 
-            //Arreglos
+            /*
+            |----------------------------------------------
+            | Corchetes
+            */
+
 
             VAR_ARREGLO.Rule = valId
                 | valId + LST_CORCHETES;
@@ -335,38 +376,75 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
 
             LST_CORCHETES_VAL.Rule = MakePlusRule(LST_CORCHETES_VAL, sAbreCorchete + VALOR + sCierraCorchete);
 
-            //------------------+
-            // Asignar valor
+
+
+            /*
+            |-------------------------------------------------------------------------------------------------------------------
+            | Para poder acceder a los metodos o variables
+            |-------------------------------------------------------------------------------------------------------------------
+            | Me va devolver un metodo () al final
+            | Me va devolver un Id al final
+            */
+
+
+            ID_VAR_FUNC.Rule = ID_VAR_FUNC + LST_PUNTOSP
+                // | LST_PUNTOSP
+                | tEste + sPunto + valId
+                | valId
+                | tEste + sPunto + valId + sAbreParent + LST_VAL + sCierraParent
+                | valId + sAbreParent + LST_VAL + sCierraParent;
+
+
+            LST_PUNTOSP.Rule = sPunto + valId
+                // | valId + LST_CORCHETES_VAL + sPunto
+                | sPunto + valId + sAbreParent + LST_VAL + sCierraParent
+                ;
 
 
 
+            /*
+            |-------------------------------------------------------------------------------------------------------------------
+            | Asignar valor
+            |-------------------------------------------------------------------------------------------------------------------
+            | Hay que validar que reciba un id, y no un idFUNC
+            */
+
+
+
+            ASIG_VALOR.Rule = ID_VAR_FUNC + VAL
+                | ID_VAR_FUNC + sMas + sMas
+                | ID_VAR_FUNC + sMenos + sMenos
+                | ID_VAR_FUNC + LST_CORCHETES_VAL + VAL
+                ;
+
+            #region asgi
+            /*
 
             USAR_METO_VAR.Rule = USAR_VARIABLEP + USAR_METO_VAR
                 | USAR_VARIABLE
                 | USAR_METODO;
 
+                //ASIGNAR_VALOR.Rule = VAL
+                //    | 
+                ///    |  ;
 
-            //ASIGNAR_VALOR.Rule = VAL
-            //    | 
-            ///    |  ;
 
+                //#Usar variable
+                //USAR_VARIABLE.Rule = tEste + sPunto + USAR_VARIABLEP
+                //    | USAR_VARIABLEP;
 
-            //#Usar variable
-            //USAR_VARIABLE.Rule = tEste + sPunto + USAR_VARIABLEP
-            //    | USAR_VARIABLEP;
+                USAR_VARIABLEP.Rule = valId + sPunto
+                    // | valId + LST_CORCHETES_VAL + sPunto
+                    | valId + sAbreParent + LST_VAL + sCierraParent + sPunto
+                    ;
 
-            USAR_VARIABLEP.Rule = valId + sPunto
-               // | valId + LST_CORCHETES_VAL + sPunto
-                | valId + sAbreParent + LST_VAL + sCierraParent + sPunto
-                ;
+                USAR_VARIABLE.Rule = valId + VAL
+                    | valId + sMas + sMas
+                    | valId + sMenos + sMenos
+                    | valId + LST_CORCHETES_VAL + VAL;
 
-            USAR_VARIABLE.Rule = valId + VAL
-                | valId + sMas + sMas
-                | valId + sMenos + sMenos
-                | valId + LST_CORCHETES_VAL + VAL;
-
-            USAR_METODO.Rule = valId + sAbreParent + LST_VAL + sCierraParent;
-
+                USAR_METODO.Rule = valId + sAbreParent + LST_VAL + sCierraParent;
+            */
             //#------------------+
             //# USAR  METODO
 
@@ -380,28 +458,32 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
                 | valId
                 | valId + LST_CORCHETES_VAL;
             */
+            #endregion
 
             LLAMADA_FORMULARIO.Rule = tNuevo + USAR_VARIABLEP; //aqui hay duda we
 
             //identificador
 
 
-            //#------------------+
-            //# Cuerpo
 
-
+            /*
+            |-------------------------------------------------------------------------------------------------------------------
+            | Cuerpo
+            |-------------------------------------------------------------------------------------------------------------------
+            |  
+            */
 
             LST_CUERPO.Rule = MakeStarRule(LST_CUERPO, CUERPO);
             //| RETORNA
             ;
 
 
-
             CUERPO.Rule = DECLARAR_VARIABLE_SINVISIBI + sPuntoComa
-                | USAR_METO_VAR + sPuntoComa
+                | ID_VAR_FUNC + sPuntoComa //hay que validar que sea un metodo y no una variables
+                | ASIG_VALOR + sPuntoComa
                 | Empty
                 | SyntaxError
-                //| FUNCIONES_NATIVAS
+                | FUNCIONES_NATIVAS + sPuntoComa
                 //| SENTENCIAS
                 //| USAR_METODO
                 //| ROMPERra
@@ -411,7 +493,34 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
                 ;
 
 
-            
+
+            /*
+            |-------------------------------------------------------------------------------------------------------------------
+            | Funciones Nativas
+            |-------------------------------------------------------------------------------------------------------------------
+            |  
+            */
+
+
+            FUNCIONES_NATIVAS.Rule = IMPRIMIR
+                //| MENSAJE
+                ;
+
+            IMPRIMIR.Rule = tImprimir + sAbreParent + VALOR + sCierraParent
+                | tImprimir + sAbreParent + sCierraParent;
+
+
+
+
+
+            /*
+            |-------------------------------------------------------------------------------------------------------------------
+            | Valor
+            |-------------------------------------------------------------------------------------------------------------------
+            |  
+            */
+
+
 
             VALOR.Rule = tNuevo + valId + sAbreParent + LST_VAL + sCierraParent //aqui tengo que reconocer el-> nuevo opciones()
                 | tNuevo + TIPO + LST_CORCHETES_VAL
@@ -424,8 +533,8 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
 
             E.Rule =
                 sMenos + E
-                  //Aritemeticas
-                |  E + sPot + E
+                //Aritemeticas
+                | E + sPot + E
                 | E + sDiv + E
                 | E + sPor + E
                 | E + sMas + E
@@ -446,12 +555,12 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
                 | E + sAnd + E
                 | E + sOr + E
                 | sNot + E
-                
-                
-                
+
+
+
                 | sAbreParent + E + sCierraParent
 
-                //| valId tiene que ser el metodo usar variable jejejeje
+                | ID_VAR_FUNC  //validar que si viene func() tiene que retornar algo obligatoriamente prro
                 | valBoolean
                 | valCadena
                 | valCadena2
@@ -466,7 +575,7 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
             RegisterOperators(3, Associativity.Left, sNot);
             RegisterOperators(4, Associativity.Left, sMayorQue, sMenorQue, sMayorIgualQue, sMenorIgualQue, sIgualacion, sDiferenciacion);
             RegisterOperators(5, Associativity.Left, sMas, sMenos);
-            RegisterOperators(6, Associativity.Left, sPor, sDiv,sMod);
+            RegisterOperators(6, Associativity.Left, sPor, sDiv, sMod);
             RegisterOperators(7, Associativity.Left, sPot);
 
 

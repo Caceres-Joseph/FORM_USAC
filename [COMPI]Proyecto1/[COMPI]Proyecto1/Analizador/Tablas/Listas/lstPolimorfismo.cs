@@ -1,4 +1,5 @@
-﻿using _COMPI_Proyecto1.Analizador.Tablas.Items;
+﻿using _COMPI_Proyecto1.Analizador.Nodos;
+using _COMPI_Proyecto1.Analizador.Tablas.Items;
 using _COMPI_Proyecto1.Analizador.Tablas.Llaves;
 using System;
 using System.Collections.Generic;
@@ -81,9 +82,15 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Listas
 
                 elementoEntorno hijo1 = new elementoEntorno(tablaEntorno, tabla, "main");
 
-                
+                if (temp.LST_CUERPO.nombre.Equals("LST_CUERPO"))
+                {
+                    _LST_CUERPO val = (_LST_CUERPO)temp.LST_CUERPO;
+                    val.ejecutar(hijo1);
+                    //imprimir();
 
-                Console.WriteLine("ejecutando el metodo " + nombre.val + "(" + lista2.getCadenaParam() + ")");
+                }
+
+                //Console.WriteLine("ejecutando el metodo " + nombre.val + "(" + lista2.getCadenaParam() + ")");
             }
         }
 

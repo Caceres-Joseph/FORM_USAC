@@ -123,9 +123,7 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
 
 
         }
-
-
-
+         
         public void imprimir()
         {
             Console.WriteLine("\tnombre->" + nombre.valLower);

@@ -15,10 +15,10 @@ namespace _COMPI_Proyecto1.Analizador.Nodos.Valor.OpeAritmetica
         }
 
 
-        public itemValor opNot(String ambito)
+        public itemValor opNot(String ambito, elementoEntorno elem)
         {
             itemValor retorno = new itemValor();
-            itemValor val1 = hijo1.getValor();
+            itemValor val1 = hijo1.getValor(elem);
 
 
             if (val1 == null)

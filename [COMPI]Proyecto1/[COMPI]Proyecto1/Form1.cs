@@ -289,5 +289,10 @@ namespace _COMPI_Proyecto1
           
 
         }
+
+        private void txtConsola_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

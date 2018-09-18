@@ -49,6 +49,7 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
             this.visibilidad = visibilidad;
             this.extender = extender;
 
+            
 
 
             this.lstPrincipal = new lstPrincipal(this.tablaErrores, "principales");

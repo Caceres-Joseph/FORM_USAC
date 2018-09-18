@@ -7,23 +7,37 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using _COMPI_Proyecto1.Analizador.Gramatica;
-using _COMPI_Proyecto1.AST; 
+using _COMPI_Proyecto1.AST;
 using _COMPI_Proyecto1.Analizador.Tablas.Objetos;
+using _COMPI_Proyecto1.Analizador.Tablas.Elementos;
+using FastColoredTextBoxNS;
 
 namespace _COMPI_Proyecto1.Analizador.Tablas
 {
-      class tablaSimbolos
+    class tablaSimbolos
     {
 
         public tablaErrores tablaErrores = new tablaErrores();
         public String rutaProyect = "";
         public List<elementoClase> lstClases;
+        public elementoConsola consola; 
+        
+
+
+
+        public void setConsola(FastColoredTextBox cuadro)
+        {
+          //  println("tablaSImbo_setConsola");
+              
+        }
+
 
         //public List<nodoModelo> lstAst;
 
 
-        public tablaSimbolos()
+        public tablaSimbolos(FastColoredTextBox cuadro)
         {
+            this.consola = new elementoConsola(cuadro);
             //lstAst = new List<nodoModelo>();
             lstClases = new List<elementoClase>();
 
@@ -80,7 +94,7 @@ namespace _COMPI_Proyecto1.Analizador.Tablas
 
                 // seman.S(raiz);
                 // grafo.generarImagen(raiz);
-                nodoModelo  raizArbol = new nodoModelo("raiz", this);
+                nodoModelo raizArbol = new nodoModelo("raiz", this);
                 raizArbol = generar.generar(raizArbol, raiz, this);
 
 
@@ -100,9 +114,9 @@ namespace _COMPI_Proyecto1.Analizador.Tablas
         public void imprimirClases()
         {
 
-            foreach(elementoClase temp in lstClases)
+            foreach (elementoClase temp in lstClases)
             {
-               temp.imprimir();
+                temp.imprimir();
             }
         }
 
@@ -111,10 +125,10 @@ namespace _COMPI_Proyecto1.Analizador.Tablas
 
             foreach (elementoClase temp in lstClases)
             {
-                if (temp.lstPrincipal.getCount()>0)
+                if (temp.lstPrincipal.getCount() > 0)
                 {
                     ejecutandoClase(temp);
-                   
+
                     return;
                 }
             }
@@ -130,10 +144,10 @@ namespace _COMPI_Proyecto1.Analizador.Tablas
             ObjClase.ejecutarPrincipal();
             //ObjClase.imprimirTablaEntornos();
         }
-        
+
         public void println(String mensaje)
         {
-            tablaErrores.println("[tablaSimbolos]"+mensaje);
+            tablaErrores.println("[tablaSimbolos]" + mensaje);
         }
 
         public elementoClase getClase(token nombre)
@@ -149,7 +163,7 @@ namespace _COMPI_Proyecto1.Analizador.Tablas
             }
 
             //no encontro la clase 
-            tablaErrores.insertErrorSemantic("No se puede crear una instancia al objeto: "+nombre.val+" debido a que no existe esa clase en este ambito", nombre);
+            tablaErrores.insertErrorSemantic("No se puede crear una instancia al objeto: " + nombre.val + " debido a que no existe esa clase en este ambito", nombre);
             return null;
 
         }

@@ -13,11 +13,11 @@ namespace _COMPI_Proyecto1.Analizador.Nodos.Valor.Operelacional
         public IgualQue(nodoModelo hijo1, nodoModelo hijo2, tablaSimbolos tabla, token signo) : base(hijo1, hijo2, tabla, signo)
         {
         }
-        public itemValor opIgualacion(String ambito)
+        public itemValor opIgualacion(String ambito, elementoEntorno elem)
         {
             itemValor retorno = new itemValor();
-            itemValor val1 = hijo1.getValor();
-            itemValor val2 = hijo2.getValor();
+            itemValor val1 = hijo1.getValor(elem);
+            itemValor val2 = hijo2.getValor(elem);
 
 
             if (val1 == null)
@@ -385,11 +385,11 @@ namespace _COMPI_Proyecto1.Analizador.Nodos.Valor.Operelacional
             return retorno;
         }
 
-        public itemValor opIgualacion2(String ambito)
+        public itemValor opIgualacion2(String ambito, elementoEntorno elem)
         {
             itemValor retorno = new itemValor();
-            itemValor val1 = hijo1.getValor();
-            itemValor val2 = hijo2.getValor();
+            itemValor val1 = hijo1.getValor(elem);
+            itemValor val2 = hijo2.getValor(elem);
 
              
             if (val1 == null)

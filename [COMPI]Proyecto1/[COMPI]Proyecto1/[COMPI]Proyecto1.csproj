@@ -72,6 +72,7 @@
     <Compile Include="Analizador\Nodos\AsginarValor_UsarMetodo\_USAR_METO_VAR.cs" />
     <Compile Include="Analizador\Nodos\AsginarValor_UsarMetodo\_USAR_VARIABLE.cs" />
     <Compile Include="Analizador\Nodos\AsginarValor_UsarMetodo\_USAR_VARIABLEP.cs" />
+    <Compile Include="Analizador\Nodos\Asignar_Valor\_ASIG_VALOR.cs" />
     <Compile Include="Analizador\Nodos\Cuerpo\_CUERPO.cs" />
     <Compile Include="Analizador\Nodos\Cuerpo\_LST_CUERPO.cs" />
     <Compile Include="Analizador\Nodos\Cuerpo_Clase\_CP_CLASE.cs" />
@@ -79,10 +80,14 @@
     <Compile Include="Analizador\Nodos\Declarar_Variable\_DECLARAR_VARIABLE_GLOBAL.cs" />
     <Compile Include="Analizador\Nodos\Declarar_Variable\_DECLARAR_VARIABLE_SINVISIBI.cs" />
     <Compile Include="Analizador\Nodos\Declarar_Variable\_VAL.cs" />
+    <Compile Include="Analizador\Nodos\FuncionesNativas\_FUNCIONES_NATIVAS.cs" />
+    <Compile Include="Analizador\Nodos\FuncionesNativas\_IMPRIMIR.cs" />
     <Compile Include="Analizador\Nodos\Funciones_Metodos\_CONSTRUCTOR.cs" />
     <Compile Include="Analizador\Nodos\Funciones_Metodos\_MAIN.cs" />
     <Compile Include="Analizador\Nodos\Funciones_Metodos\_METODO.cs" />
     <Compile Include="Analizador\Nodos\Funciones_Metodos\_SOBRESCRITURA.cs" />
+    <Compile Include="Analizador\Nodos\IdVar_func\_ID_VAR_FUNC.cs" />
+    <Compile Include="Analizador\Nodos\IdVar_func\_LST_PUNTOSP.cs" />
     <Compile Include="Analizador\Nodos\Llaves_Arreglos\_LLAVES_VAL_P.cs" />
     <Compile Include="Analizador\Nodos\Llaves_Arreglos\_LST_CORCHETES.cs" />
     <Compile Include="Analizador\Nodos\Llaves_Arreglos\_LST_CORCHETES_VAL.cs" />
@@ -125,6 +130,7 @@
     <Compile Include="Analizador\Nodos\Valor\_E.cs" />
     <Compile Include="Analizador\Nodos\Valor\_VALOR.cs" />
     <Compile Include="Analizador\Tablas\Elementos\elementoClase.cs" />
+    <Compile Include="Analizador\Tablas\Elementos\elementoConsola.cs" />
     <Compile Include="Analizador\Tablas\Elementos\elementoEntorno.cs" />
     <Compile Include="Analizador\Tablas\Elementos\elementoError.cs" />
     <Compile Include="Analizador\Tablas\Elementos\elementoParametro.cs" />

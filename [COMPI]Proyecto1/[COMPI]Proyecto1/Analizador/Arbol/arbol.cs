@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using _COMPI_Proyecto1.AST;
+using FastColoredTextBoxNS;
 
 namespace _COMPI_Proyecto1.Analizador.Arbol
 {
@@ -25,11 +26,11 @@ namespace _COMPI_Proyecto1.Analizador.Arbol
        // public String rutaDeLaCarpeta = "";
 
 
-        public arbol()
+        public arbol(FastColoredTextBox cuadro)
         {
             
 
-            tablaDeSimbolos = new tablaSimbolos();
+            tablaDeSimbolos = new tablaSimbolos(cuadro);
             //tablaDeSimbolos.setRutaProyecto("ruta prueba prro");
             raizArbol = new nodoModelo("raiz", tablaDeSimbolos);
         }

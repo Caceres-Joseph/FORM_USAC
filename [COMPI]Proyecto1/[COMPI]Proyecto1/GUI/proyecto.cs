@@ -21,12 +21,12 @@ namespace _COMPI_Proyecto1.GUI
         public MetroFramework.Controls.MetroTabControl tab = new MetroFramework.Controls.MetroTabControl();
         public string texto = "";
         public arbol arbol ;
-
+        FastColoredTextBox consola = new FastColoredTextBox();
         public proyecto(String texto)
         {
-            arbol = new arbol();
+            arbol = new arbol(consola);
             tab.Style = MetroFramework.MetroColorStyle.Orange;
-            tab.SetBounds(5, 5, 900, 500);
+            tab.SetBounds(5, 5, 900, 495);
             tab.Font = new Font("Microsoft Sans Serif", 11, FontStyle.Regular);
             page.Controls.Add(tab);
 
@@ -34,8 +34,23 @@ namespace _COMPI_Proyecto1.GUI
           
             seleccionarRutaProyecto();
 
-            page.Text = texto; 
+            page.Text = texto;
 
+            crearConsola();
+            
+
+
+        }
+
+        public void crearConsola()
+        {
+           
+            arbol.tablaDeSimbolos.setConsola(consola);
+            page.Controls.Add(consola);
+            consola.SetBounds(0,500,950,100);
+            consola.BackColor = Color.Black;
+            consola.ForeColor = Color.White;
+            consola.BorderStyle = System.Windows.Forms.BorderStyle.None;
         }
 
         public void ejecutarTab()
@@ -45,9 +60,15 @@ namespace _COMPI_Proyecto1.GUI
             //Console.WriteLine("ejectuando el proyecto_>" + page.Text);
             //Console.WriteLine(tab.SelectedIndex);
             //arbol = new arbol();
-           // arbol.tablaDeSimbolos.inicializarTablas(arbol.tablaDeSimbolos.getRutaProyecto());
+            // arbol.tablaDeSimbolos.inicializarTablas(arbol.tablaDeSimbolos.getRutaProyecto());
+
+
             String rutaProyecto = arbol.tablaDeSimbolos.getRutaProyecto();
-            arbol = new arbol();
+            FastColoredTextBox temp = arbol.tablaDeSimbolos.consola.consola;
+            temp.Text = "";
+
+
+            arbol = new arbol(temp);
             arbol.tablaDeSimbolos.setRutaProyecto(rutaProyecto);
 
             String contenido= lstTabs[tab.SelectedIndex].cuadro.Text;

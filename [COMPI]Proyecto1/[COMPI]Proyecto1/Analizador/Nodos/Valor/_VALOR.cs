@@ -22,20 +22,15 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
 
 
 
-        public itemValor getValor()
-        {
-
-
-
+        public itemValor getValor(elementoEntorno elementoEntor)
+        { 
             itemValor retorno = new itemValor();
             retorno.setTypeNulo();
 
 
             if (hayErrores())
                 return retorno;
-
-
-
+             
             if (lstAtributos.listaAtributos.Count > 1)
             {
 
@@ -67,7 +62,7 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
                         {
                             nodoModelo hijo = hijos[0];
                             _LST_VAL lstval = (_LST_VAL)hijo;
-                            lstValores2 = lstval.getLstValores();
+                            lstValores2 = lstval.getLstValores(elementoEntor);
                             //me tiene que devolver una lista de valores,
 
                         }
@@ -89,8 +84,7 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
                 }
 
             }
-
-
+             
             if (hijos.Count > 0)
             {
                 nodoModelo hijo = hijos[0];
@@ -131,7 +125,7 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
                         |--------------------------------------------------------------------------
                         */
                         _E ope = (_E)hijo;
-                        return ope.getValor();
+                        return ope.getValor(elementoEntor);
 
                     default:
                         println(hijo.nombre + "->No se reconoció la producción :(");

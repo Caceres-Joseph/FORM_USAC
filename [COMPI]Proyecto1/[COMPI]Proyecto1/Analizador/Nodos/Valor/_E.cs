@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using _COMPI_Proyecto1.Analizador.Nodos.IdVar_func;
 using _COMPI_Proyecto1.Analizador.Nodos.Valor;
 using _COMPI_Proyecto1.Analizador.Nodos.Valor.OpeAritmetica;
 using _COMPI_Proyecto1.Analizador.Nodos.Valor.OpeLogico;
@@ -21,7 +22,7 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
 
  
 
-        public itemValor getValor()
+        public itemValor getValor(elementoEntorno elmen)
         {
             itemValor ob = new itemValor();
             ob.setTypeNulo();
@@ -55,15 +56,15 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
                             //Logico
                             case "-":
                                 negativo opNeg=new negativo(hijos[0], tablaSimbolos, lstAtributos.getToken(0));
-                                return opNeg.opNot(" Asignando valor Negativo");
+                                return opNeg.opNot(" Asignando valor Negativo", elmen);
 
                             case "!":
                                 Not opeNot = new Not(hijos[0], tablaSimbolos, lstAtributos.getToken(0));
-                                return opeNot.opNot("Not");
+                                return opeNot.opNot("Not", elmen);
 
                             case "(":
                                 _E ope = (_E)hijos[0];
-                                itemValor te = ope.getValor();
+                                itemValor te = ope.getValor(elmen);
                                 return te;
 
                             default:
@@ -72,7 +73,15 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
                         }
                     }
                     else
+                    //ID_VAR_FUNC
                     {
+                        nodoModelo busq = getNodo("ID_VAR_FUNC");
+                        if (busq!=null)
+                        {
+                            _ID_VAR_FUNC idFunc = (_ID_VAR_FUNC)busq;
+                            return idFunc.getValor(elmen);
+                        }
+                       
                         tablaSimbolos.tablaErrores.insertErrorSyntax("[E]Se esperaba un signo para operación unaria", new token());
                         return ob;
                     }
@@ -87,52 +96,52 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
                             //Aritmetica
                             case "+":
                                 suma ope = new suma(hijos[0], hijos[1], tablaSimbolos, lstAtributos.getToken(0));
-                                return ope.opSuma();
+                                return ope.opSuma(elmen);
                             case "-":
                                 resta opeRes = new resta(hijos[0], hijos[1], tablaSimbolos, lstAtributos.getToken(0));
-                                return opeRes.opResta();
+                                return opeRes.opResta(elmen);
                             case "*":
                                 multiplicacion opeMul = new multiplicacion(hijos[0], hijos[1], tablaSimbolos, lstAtributos.getToken(0));
-                                return opeMul.opMultiplicacion();
+                                return opeMul.opMultiplicacion(elmen);
                             case "/":
                                 division opeDiv = new division(hijos[0], hijos[1], tablaSimbolos, lstAtributos.getToken(0));
-                                return opeDiv.opDivision();
+                                return opeDiv.opDivision(elmen);
                             case "^":
                                 potencia opePot = new potencia(hijos[0], hijos[1], tablaSimbolos, lstAtributos.getToken(0));
-                                return opePot.opPotencia();
+                                return opePot.opPotencia(elmen);
                             case "%":
                                 modulo opeModulo = new modulo(hijos[0], hijos[1], tablaSimbolos, lstAtributos.getToken(0));
-                                return opeModulo.opModulo();
+                                return opeModulo.opModulo(elmen);
 
 
                             //Relacional
                             case "==":
                                 IgualQue opeIgualacion = new IgualQue(hijos[0], hijos[1], tablaSimbolos, lstAtributos.getToken(0));
-                                return opeIgualacion.opIgualacion("Igualación");
+                                return opeIgualacion.opIgualacion("Igualación", elmen);
                             case "!=":
                                 DiferenteQue opeDiferenciacion = new DiferenteQue(hijos[0], hijos[1], tablaSimbolos, lstAtributos.getToken(0));
-                                return opeDiferenciacion.opDiferenciacion("Diferenciación");
+                                return opeDiferenciacion.opDiferenciacion("Diferenciación", elmen);
                             case ">":
                                 MayorQue opeMayor = new MayorQue(hijos[0], hijos[1], tablaSimbolos, lstAtributos.getToken(0));
-                                return opeMayor.opMayorQue("Mayor Que");
+                                return opeMayor.opMayorQue("Mayor Que", elmen);
                             case ">=":
                                 MayorIgualQue opeMayorIgual = new MayorIgualQue(hijos[0], hijos[1], tablaSimbolos, lstAtributos.getToken(0));
-                                return opeMayorIgual.opMayorIgualQue("Mayor o Igual Que");
+                                return opeMayorIgual.opMayorIgualQue("Mayor o Igual Que", elmen);
                             case "<":
                                 MenorQue opeMenor = new MenorQue(hijos[0], hijos[1], tablaSimbolos, lstAtributos.getToken(0));
-                                return opeMenor.opMenorQue("Menor Que");
+                                return opeMenor.opMenorQue("Menor Que", elmen);
                             case "<=":
                                 MenorIgualQue opeMenorIgual = new MenorIgualQue(hijos[0], hijos[1], tablaSimbolos, lstAtributos.getToken(0));
-                                return opeMenorIgual.opMenorIgualQue("Menor o Igual Que");
+                                return opeMenorIgual.opMenorIgualQue("Menor o Igual Que", elmen);
 
                             //logicas
 
                             case "&&":
                                 And opeAnd = new And(hijos[0], hijos[1], tablaSimbolos, lstAtributos.getToken(0));
-                                return opeAnd.opAnd("And");
+                                return opeAnd.opAnd("And", elmen);
                             case "||":
                                 Or opeOr = new Or(hijos[0], hijos[1], tablaSimbolos, lstAtributos.getToken(0));
-                                return opeOr.opOr("Or");
+                                return opeOr.opOr("Or", elmen);
 
                             default:
                                 tablaSimbolos.tablaErrores.insertErrorSyntax("[E]No se reconoció el sigono", lstAtributos.getToken(0));

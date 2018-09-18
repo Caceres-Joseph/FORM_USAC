@@ -22,7 +22,7 @@ namespace _COMPI_Proyecto1.GUI
             cuadro.TextChanged += textChangedEventHandler;
             page.Controls.Add(cuadro);
 
-            cuadro.SetBounds(10, 10, 800, 400);
+            cuadro.SetBounds(10, 10, 950, 480);
             cuadro.BackColor = SystemColors.Menu;
             cuadro.BorderStyle = System.Windows.Forms.BorderStyle.None;
 

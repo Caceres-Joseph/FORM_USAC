@@ -15,11 +15,11 @@ namespace _COMPI_Proyecto1.Analizador.Nodos.Valor.Operelacional
         }
 
 
-        public itemValor opMenorIgualQue(String ambito)
+        public itemValor opMenorIgualQue(String ambito, elementoEntorno elem)
         {
             IgualQue igualQue = new IgualQue(hijo1, hijo2, tabla, signo);
 
-            itemValor retorno = igualQue.opIgualacion(ambito);
+            itemValor retorno = igualQue.opIgualacion(ambito, elem);
 
             if (retorno.isTypeBooleano())
             {
@@ -32,7 +32,7 @@ namespace _COMPI_Proyecto1.Analizador.Nodos.Valor.Operelacional
                 {
 
                     MenorQue menorQue = new MenorQue(hijo1, hijo2, tabla, signo);
-                    itemValor temp1 = menorQue.opMenorQue(ambito);
+                    itemValor temp1 = menorQue.opMenorQue(ambito, elem);
                     if (temp1.isTypeBooleano())
                     {
                         if (temp1.getBooleano())

@@ -11,6 +11,7 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
     class _VAL : nodoModelo
     {
 
+        
         public _VAL(string nombre, tablaSimbolos tabla) : base(nombre, tabla)
         {
 
@@ -19,13 +20,12 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
 
         public override void ejecutar(elementoEntorno elem)
         {
+
             base.ejecutar(elem);
         }
+         
 
-
-     
-
-        public itemValor getValor()
+        public itemValor getValor(elementoEntorno elemento)
         {
 
 
@@ -40,7 +40,7 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
             {
                 nodoModelo hijo = hijos[0];
                 _VALOR ope = (_VALOR)hijo;
-                return ope.getValor();
+                return ope.getValor(elemento);
             }
 
             return retorno;

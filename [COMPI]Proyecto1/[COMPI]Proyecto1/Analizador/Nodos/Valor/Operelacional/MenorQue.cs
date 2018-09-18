@@ -15,11 +15,11 @@ namespace _COMPI_Proyecto1.Analizador.Nodos.Valor.Operelacional
         }
 
 
-        public itemValor opMenorQue(String ambito)
+        public itemValor opMenorQue(String ambito, elementoEntorno elem)
         {
             MayorIgualQue mayorIgualQue = new MayorIgualQue(hijo1, hijo2, tabla, signo);
 
-            itemValor retorno = mayorIgualQue.opMayorIgualQue(ambito);
+            itemValor retorno = mayorIgualQue.opMayorIgualQue(ambito, elem);
             if (retorno.isTypeBooleano())
             {
                 if (retorno.getBooleano())

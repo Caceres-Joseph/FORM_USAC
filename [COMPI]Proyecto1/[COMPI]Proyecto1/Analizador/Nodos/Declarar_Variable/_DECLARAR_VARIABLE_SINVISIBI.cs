@@ -36,13 +36,13 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
             int dimension = getDimensiones();
 
             _VAL val = getNodoVAL();
-            if (val!=null)
+            if (val != null)
             {
                 //se estan guardando valores en la variable
 
-                itemEntorno it = new itemEntorno(nombre, tipo, val.getValor(), visbilidad, dimension, tablaSimbolos);
+                itemEntorno it = new itemEntorno(nombre, tipo, val.getValor(tablaEntornos), visbilidad, dimension, tablaSimbolos);
                 tablaEntornos.insertarEntorno(it);
-              
+
             }
             else
             {
@@ -50,23 +50,23 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
                 itemEntorno it = new itemEntorno(nombre, tipo, new itemValor(), visbilidad, dimension, tablaSimbolos);
                 tablaEntornos.insertarEntorno(it);
             }
-             
+
         }
 
         public _VAL getNodoVAL()
         {
             nodoModelo temp = getNodo("VAL");
-            if (temp!=null)
+            if (temp != null)
             {
                 return (_VAL)temp;
             }
             else
             {
                 return null;
-            } 
+            }
 
         }
-         
+
 
         /*
         |-------------------------------------------------------------------------------------------------------------------
@@ -74,6 +74,8 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
         |-------------------------------------------------------------------------------------------------------------------
         |
         */
+
+
         public void cargarVariableGlobal(elementoClase simbolo)
         {
             if (hayErrores())
@@ -93,7 +95,7 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
             simbolo.lstVariablesGlobales.insertarElemento(element);
         }
 
-         
+
 
         public token getTipo()
         {
@@ -103,29 +105,29 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
             {
                 _TIPO tipo = (_TIPO)tempNodo;
 
-                token retorno= tipo.getTipo();
+                token retorno = tipo.getTipo();
 
                 if (retorno.valLower.Equals("vacio"))
                 {
-                    tablaSimbolos.tablaErrores.insertErrorSemantic("No se puede declarar una variable de tipo vacio:"+retorno.val, retorno);
+                    tablaSimbolos.tablaErrores.insertErrorSemantic("No se puede declarar una variable de tipo vacio:" + retorno.val, retorno);
                 }
                 return retorno;
             }
             else
             {
-                tablaSimbolos.tablaErrores.insertErrorSemantic("No se puede declarar una variable de tipo vacio:" , new token("vacio"));
+                tablaSimbolos.tablaErrores.insertErrorSemantic("No se puede declarar una variable de tipo vacio:", new token("vacio"));
                 return new token("vacio");
             }
 
-            
+
         }
 
 
         public token getVisibilidad(elementoClase elem)
         {
-             
-                //Si no tiene visibilidad retorno la visibilidad de la clase, jake mate ateo! 
-                return elem.visibilidad;
+
+            //Si no tiene visibilidad retorno la visibilidad de la clase, jake mate ateo! 
+            return elem.visibilidad;
 
         }
 

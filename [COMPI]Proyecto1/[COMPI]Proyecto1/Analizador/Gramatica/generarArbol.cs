@@ -1,4 +1,7 @@
 ﻿using _COMPI_Proyecto1.Analizador.Nodos;
+using _COMPI_Proyecto1.Analizador.Nodos.Asignar_Valor;
+using _COMPI_Proyecto1.Analizador.Nodos.FuncionesNativas;
+using _COMPI_Proyecto1.Analizador.Nodos.IdVar_func;
 using _COMPI_Proyecto1.Analizador.Nodos.Llaves_Arreglos;
 using _COMPI_Proyecto1.Analizador.Tablas;
 using Irony.Parsing;
@@ -220,6 +223,26 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
                 case "E":
                     retorno = new _E(nombreNoTerminal, tabla);
                     break;
+                case "FUNCIONES_NATIVAS":
+                    retorno = new _FUNCIONES_NATIVAS(nombreNoTerminal, tabla);
+                    break;
+                case "IMPRIMIR":
+                    retorno = new _IMPRIMIR(nombreNoTerminal, tabla);
+                    break;
+
+
+                case "ID_VAR_FUNC":
+                    retorno = new _ID_VAR_FUNC(nombreNoTerminal, tabla);
+                    break;
+
+                case "LST_PUNTOSP":
+                    retorno = new _LST_PUNTOSP(nombreNoTerminal, tabla);
+                    break;
+
+                case "ASIG_VALOR":
+                    retorno = new _ASIG_VALOR(nombreNoTerminal, tabla);
+                    break;
+
 
                 default:
                     retorno= new nodoModelo("Desc_"+nombreNoTerminal, tabla);

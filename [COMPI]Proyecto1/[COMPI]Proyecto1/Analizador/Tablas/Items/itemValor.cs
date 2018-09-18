@@ -22,6 +22,7 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
         | hora
         | nulo
         | objeto
+        | vacio
         */
 
 
@@ -29,7 +30,7 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
         public string tipo2 = "";
         public Object valor;
         public int dimension = 0;
-        public String nombreObjeto="";
+        public String nombreObjeto = "";
 
         public itemValor()
         {
@@ -112,6 +113,7 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
         | hora
         | nulo
         | objeto
+        | vacio
         */
         public Boolean getBooleano()
         {
@@ -188,6 +190,8 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
         |--------------------------------------------------------------------------
         */
 
+
+
         public void imprimirVariable()
         {
             if (isTypeCadena())
@@ -226,6 +230,10 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
             else if (isTypeObjeto())
             {
                 println("objeto");
+            }
+            else if (isTypeVacio())
+            {
+                println("vacio");
             }
             else
             {
@@ -274,6 +282,11 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
         public void setTypeObjeto()
         {
             this.tipo = "objeto";
+        }
+
+        public void setTypeVacio()
+        {
+            this.tipo = "vacio";
         }
         /*
       |--------------------------------------------------------------------------
@@ -394,6 +407,13 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
         public Boolean isTypeObjeto()
         {
             if (this.tipo.Equals("objeto"))
+                return true;
+            else
+                return false;
+        }
+        public Boolean isTypeVacio()
+        {
+            if (this.tipo.Equals("vacio"))
                 return true;
             else
                 return false;

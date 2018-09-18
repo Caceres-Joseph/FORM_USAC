@@ -15,11 +15,11 @@ namespace _COMPI_Proyecto1.Analizador.Nodos.Valor.OpeLogico
         }
 
 
-        public itemValor opAnd(String ambito)
+        public itemValor opAnd(String ambito, elementoEntorno elem)
         {
             itemValor retorno = new itemValor();
-            itemValor val1 = hijo1.getValor();
-            itemValor val2 = hijo2.getValor();
+            itemValor val1 = hijo1.getValor(elem);
+            itemValor val2 = hijo2.getValor(elem);
 
 
             if (val1 == null)

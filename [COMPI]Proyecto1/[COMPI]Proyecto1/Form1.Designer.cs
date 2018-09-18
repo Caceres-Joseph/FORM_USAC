@@ -34,6 +34,7 @@
             this.abrirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nuevoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nuevoProyectoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.eliminarClaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.herramientasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ejecutarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.erroresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -46,7 +47,6 @@
             this.treeView1 = new System.Windows.Forms.TreeView();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.metroTile2 = new MetroFramework.Controls.MetroTile();
-            this.eliminarClaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -75,7 +75,7 @@
             this.graficarToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(219, 17);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(413, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(278, 24);
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -110,6 +110,13 @@
             this.nuevoProyectoToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
             this.nuevoProyectoToolStripMenuItem.Text = "Nuevo Proyecto";
             this.nuevoProyectoToolStripMenuItem.Click += new System.EventHandler(this.nuevoProyectoToolStripMenuItem_Click);
+            // 
+            // eliminarClaseToolStripMenuItem
+            // 
+            this.eliminarClaseToolStripMenuItem.Name = "eliminarClaseToolStripMenuItem";
+            this.eliminarClaseToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.eliminarClaseToolStripMenuItem.Text = "Eliminar Clase";
+            this.eliminarClaseToolStripMenuItem.Click += new System.EventHandler(this.eliminarClaseToolStripMenuItem_Click);
             // 
             // herramientasToolStripMenuItem
             // 
@@ -170,7 +177,7 @@
             this.metroTabControl1.Location = new System.Drawing.Point(280, 54);
             this.metroTabControl1.Multiline = true;
             this.metroTabControl1.Name = "metroTabControl1";
-            this.metroTabControl1.Size = new System.Drawing.Size(900, 532);
+            this.metroTabControl1.Size = new System.Drawing.Size(1017, 660);
             this.metroTabControl1.Style = MetroFramework.MetroColorStyle.Silver;
             this.metroTabControl1.TabIndex = 6;
             this.metroTabControl1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -182,18 +189,20 @@
             this.txtConsola.BackColor = System.Drawing.SystemColors.WindowFrame;
             this.txtConsola.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtConsola.ForeColor = System.Drawing.Color.White;
-            this.txtConsola.Location = new System.Drawing.Point(300, 588);
+            this.txtConsola.Location = new System.Drawing.Point(293, 680);
             this.txtConsola.Name = "txtConsola";
             this.txtConsola.Size = new System.Drawing.Size(800, 60);
             this.txtConsola.TabIndex = 4;
             this.txtConsola.Text = "";
+            this.txtConsola.Visible = false;
+            this.txtConsola.TextChanged += new System.EventHandler(this.txtConsola_TextChanged);
             // 
             // treeView1
             // 
             this.treeView1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.treeView1.Location = new System.Drawing.Point(23, 74);
             this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(233, 568);
+            this.treeView1.Size = new System.Drawing.Size(233, 640);
             this.treeView1.TabIndex = 9;
             // 
             // openFileDialog1
@@ -205,25 +214,18 @@
             this.metroTile2.ActiveControl = null;
             this.metroTile2.Location = new System.Drawing.Point(0, 41);
             this.metroTile2.Name = "metroTile2";
-            this.metroTile2.Size = new System.Drawing.Size(216, 600);
+            this.metroTile2.Size = new System.Drawing.Size(216, 987);
             this.metroTile2.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroTile2.TabIndex = 10;
             this.metroTile2.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             this.metroTile2.TileTextFontSize = MetroFramework.MetroTileTextSize.Tall;
             this.metroTile2.UseSelectable = true;
             // 
-            // eliminarClaseToolStripMenuItem
-            // 
-            this.eliminarClaseToolStripMenuItem.Name = "eliminarClaseToolStripMenuItem";
-            this.eliminarClaseToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
-            this.eliminarClaseToolStripMenuItem.Text = "Eliminar Clase";
-            this.eliminarClaseToolStripMenuItem.Click += new System.EventHandler(this.eliminarClaseToolStripMenuItem_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1250, 670);
+            this.ClientSize = new System.Drawing.Size(1320, 737);
             this.Controls.Add(this.treeView1);
             this.Controls.Add(this.metroTabControl1);
             this.Controls.Add(this.txtConsola);
