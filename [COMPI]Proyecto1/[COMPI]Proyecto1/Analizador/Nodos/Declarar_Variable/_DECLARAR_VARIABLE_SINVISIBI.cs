@@ -33,14 +33,14 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
             //nodoModelo LST_CUERPO = getLST_CUERPO();
 
             token visbilidad = new token("privado");
-            int dimension = getDimensiones();
+            List<int> dimension = getDimensiones();
 
             _VAL val = getNodoVAL();
             if (val != null)
             {
                 //se estan guardando valores en la variable
 
-                itemEntorno it = new itemEntorno(nombre, tipo, val.getValor(tablaEntornos), visbilidad, dimension, tablaSimbolos);
+                itemEntorno it = new itemEntorno(nombre, tipo, val.getValor(tablaEntornos, tipo), visbilidad, dimension, tablaSimbolos);
                 tablaEntornos.insertarEntorno(it);
 
             }
@@ -88,8 +88,8 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
 
             token visbilidad = getVisibilidad(simbolo);
 
-            int dimension = getDimensiones();
-            elementoPolimorfo element = new elementoPolimorfo(visbilidad, tablaSimbolos, tipo, nombre, getVAL(), dimension);
+            List<int> dimension = getDimensiones();
+            elementoPolimorfo element = new elementoPolimorfo(visbilidad, tablaSimbolos, tipo, nombre, getVAL(), dimension.Count);
 
             cargarPolimorfismoHijos(element);
             simbolo.lstVariablesGlobales.insertarElemento(element);
@@ -147,16 +147,26 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
         }
 
 
-        public int getDimensiones()
+        public List<int> getDimensiones()
         {
 
-            int retorno = 0;
+            List<int> retorno = new List<int>();
+
             nodoModelo temp2 = getNodo("VAR_ARREGLO");
             if (temp2 != null)
             {
                 _VAR_ARREGLO tempVar = (_VAR_ARREGLO)temp2;
-                retorno = tempVar.getDimensiones();
+                int el = tempVar.getDimensiones();
+
+                for (int i = 0; i < el; i++)
+                {
+                    //lo lleno de menos uno para indicar que no se ha establecido el limite
+                    retorno.Add(-1);
+
+                }
             }
+
+
             return retorno;
         }
 

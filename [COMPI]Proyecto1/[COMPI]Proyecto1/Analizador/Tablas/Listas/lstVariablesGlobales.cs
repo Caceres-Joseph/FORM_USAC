@@ -27,12 +27,12 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Listas
                         return;
 
                     _VAL val = (_VAL)temp.LST_CUERPO;
-                    itemEntorno it = new itemEntorno(temp.nombre, temp.tipo, val.getValor(elem), temp.visibilidad, temp.dimension, tabla);
+                    itemEntorno it = new itemEntorno(temp.nombre, temp.tipo, val.getValor(elem, temp.tipo), temp.visibilidad, temp.getDimension(), tabla);
                     elem.insertarEntorno(it);
                 }
                 else
                 {
-                    itemEntorno it = new itemEntorno(temp.nombre, temp.tipo, new itemValor(), temp.visibilidad, temp.dimension, tabla);
+                    itemEntorno it = new itemEntorno(temp.nombre, temp.tipo, new itemValor(), temp.visibilidad, temp.getDimension(), tabla);
                     elem.insertarEntorno(it);
                     //hay que asignarle el valor nulo
                     //println("la variable no tiene valor");

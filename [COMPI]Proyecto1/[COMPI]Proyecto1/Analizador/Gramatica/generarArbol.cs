@@ -243,6 +243,9 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
                     retorno = new _ASIG_VALOR(nombreNoTerminal, tabla);
                     break;
 
+                case "PAR_CORCHETES_VAL":
+                    retorno = new _PAR_CORCHETES_VAL(nombreNoTerminal, tabla);
+                    break;
 
                 default:
                     retorno= new nodoModelo("Desc_"+nombreNoTerminal, tabla);

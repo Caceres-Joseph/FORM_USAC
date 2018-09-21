@@ -11,12 +11,26 @@ namespace _COMPI_Proyecto1.Analizador.Arbol.Tests
     [TestClass()]
     public class arbolTests
     {
+        String hola;
         [TestMethod()]
         public void iniciarAnalisisTest()
         {
-            Boolean tal = 3.0 == 3;
-            Console.WriteLine(tal);
 
+
+            int[] arr2 = { 3, 2 };
+            int[][] arr = { arr2, arr2};
+
+            int aess= arr.GetLength(0);
+            Console.WriteLine("dimension1:" + aess);
+            Console.WriteLine("dimension2:" + arr[0].GetLength(0));
+
+
+            Dictionary<int, String> dictou = new Dictionary<int, string>();
+            List<int> lista = new List<int>();
+        carro car0 = new carro();
+            dict(lista);
+            Console.WriteLine("diccionario->" + lista[1]);
+    
             Console.WriteLine("Salida");
             var el = !(Math.Pow(23, 2) * 34 - 34 + 23 > 434 || false != !true || 23 < 23 && 23 == 21 || 34 != 35 || 34 >= 34 && 34 <= 34 % 32 * 34 + 34);
             Console.WriteLine(el);
@@ -64,18 +78,24 @@ namespace _COMPI_Proyecto1.Analizador.Arbol.Tests
             var tal1 = Math.Pow(23, 2) * 34 - 34 + 23 > 434 || false != !true || 23 < 23 && 23 == 21 || 34 != 35 || 34 >= 34 && 34 <= 34 % 32 * 34 + 34;
         }
 
+        void dict(List<int> lista)
+        {
+            lista.Add( 34);
+            lista.Add(34);
+        }
     }
+
 
     class carro
     {
 
         // carro siguiente=new carro();
         public String nombre = "";
-
+        public Dictionary<int, String> dicto = new Dictionary<int, string>();
 
         public carro()
         {
-
+            //dicto.Add(0, "holadicto_carro");
         }
     }
 

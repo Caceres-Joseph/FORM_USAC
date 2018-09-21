@@ -12,15 +12,15 @@ namespace _COMPI_Proyecto1.GUI
 {
     class proyecto
     {
-       public  List<FastColoredTextBox> ListaEntradas = new List<FastColoredTextBox>();//Lista de errores
+        public List<FastColoredTextBox> ListaEntradas = new List<FastColoredTextBox>();//Lista de errores
         public List<tab> lstTabs = new List<tab>();
 
-       public  MetroFramework.Controls.MetroTabPage page = new MetroFramework.Controls.MetroTabPage();
+        public MetroFramework.Controls.MetroTabPage page = new MetroFramework.Controls.MetroTabPage();
         //MetroFramework.Controls.MetroTabPage page2 = new MetroFramework.Controls.MetroTabPage();
 
         public MetroFramework.Controls.MetroTabControl tab = new MetroFramework.Controls.MetroTabControl();
         public string texto = "";
-        public arbol arbol ;
+        public arbol arbol;
         FastColoredTextBox consola = new FastColoredTextBox();
         public proyecto(String texto)
         {
@@ -31,23 +31,23 @@ namespace _COMPI_Proyecto1.GUI
             page.Controls.Add(tab);
 
             this.texto = texto;
-          
+
             seleccionarRutaProyecto();
 
             page.Text = texto;
 
             crearConsola();
-            
+
 
 
         }
 
         public void crearConsola()
         {
-           
+
             arbol.tablaDeSimbolos.setConsola(consola);
             page.Controls.Add(consola);
-            consola.SetBounds(0,500,950,100);
+            consola.SetBounds(0, 500, 950, 100);
             consola.BackColor = Color.Black;
             consola.ForeColor = Color.White;
             consola.BorderStyle = System.Windows.Forms.BorderStyle.None;
@@ -71,10 +71,19 @@ namespace _COMPI_Proyecto1.GUI
             arbol = new arbol(temp);
             arbol.tablaDeSimbolos.setRutaProyecto(rutaProyecto);
 
-            String contenido= lstTabs[tab.SelectedIndex].cuadro.Text;
-            arbol.iniciarAnalisis(contenido,lstTabs[tab.SelectedIndex].page.Text);
+            String contenido = lstTabs[tab.SelectedIndex].cuadro.Text;
+            arbol.iniciarAnalisis(contenido, lstTabs[tab.SelectedIndex].page.Text);
             arbol.tablaDeSimbolos.imprimirClases();
             arbol.tablaDeSimbolos.iniciarEjecucion();
+
+
+            if (arbol.tablaDeSimbolos.tablaErrores.listaErrores.Count > 0)
+            {
+                string mensaje = "Hubieron algunos errores al momento de ejecutar, por favor consulte la tabla de errores";
+                string titulo = "Errores al momento de la ejecución";
+
+                MessageBox.Show(mensaje, titulo, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
         public void insertarTab(tab tabInsertar)
         {
@@ -88,7 +97,7 @@ namespace _COMPI_Proyecto1.GUI
         }
 
         public void seleccionarRutaProyecto()
-        { 
+        {
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
 
             var fbd = new FolderBrowserDialog();
@@ -99,7 +108,7 @@ namespace _COMPI_Proyecto1.GUI
                 arbol.setRutaProyecto(ruta);
                 //arbol.getTablaSimblos().setRutaProyecto (ruta);
                 //Console.WriteLine("[proyecto]"+ruta);
-                
+
             }
 
             return;

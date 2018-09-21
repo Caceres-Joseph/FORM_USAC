@@ -20,7 +20,7 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Objetos
         {
             this.tablaSimbolos = tabla;
             this.cuerpoClase = cuerpoClase;
-            this.tablaEntorno = new tablaEntornos(tabla);
+            this.tablaEntorno = new tablaEntornos(tabla, this);
         }
 
         public void ejecutarGlobales()
@@ -44,7 +44,7 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Objetos
         public void ejecutarPrincipal()
         {
             //hay que enviarle un nuevo enterno
-            elementoEntorno hijo1 = new elementoEntorno(tablaEntorno.raiz, tablaSimbolos, "main");
+            elementoEntorno hijo1 = new elementoEntorno(tablaEntorno.raiz, tablaSimbolos, "main", this);
             cuerpoClase.lstPrincipal.ejecutar(hijo1);
         }
     }

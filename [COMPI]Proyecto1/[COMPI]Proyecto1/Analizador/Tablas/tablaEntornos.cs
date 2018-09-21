@@ -1,4 +1,5 @@
 ﻿using _COMPI_Proyecto1.Analizador.Tablas.Items;
+using _COMPI_Proyecto1.Analizador.Tablas.Objetos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +12,9 @@ namespace _COMPI_Proyecto1.Analizador.Tablas
     {
         public elementoEntorno raiz;
         public tablaSimbolos tabla;
-        public tablaEntornos(tablaSimbolos tabla)
+        public tablaEntornos(tablaSimbolos tabla, objetoClase este)
         {
-            raiz = new elementoEntorno(null, tabla,"global");
+            raiz = new elementoEntorno(null, tabla,"global", este);
         }
 
 

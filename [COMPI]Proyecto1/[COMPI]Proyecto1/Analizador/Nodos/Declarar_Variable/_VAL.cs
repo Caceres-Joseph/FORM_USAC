@@ -25,7 +25,7 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
         }
          
 
-        public itemValor getValor(elementoEntorno elemento)
+        public itemValor getValor(elementoEntorno elemento, token tipo)
         {
 
 
@@ -40,7 +40,7 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
             {
                 nodoModelo hijo = hijos[0];
                 _VALOR ope = (_VALOR)hijo;
-                return ope.getValor(elemento);
+                return ope.getValor(elemento, tipo);
             }
 
             return retorno;

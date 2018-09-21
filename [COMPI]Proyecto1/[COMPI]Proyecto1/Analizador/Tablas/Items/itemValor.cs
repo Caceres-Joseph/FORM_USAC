@@ -1,4 +1,5 @@
-﻿using System;
+﻿using _COMPI_Proyecto1.Analizador.Tablas.Objetos;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -29,14 +30,18 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
         string tipo;
         public string tipo2 = "";
         public Object valor;
-        public int dimension = 0;
+
+        public List<int> dimensiones;
+
         public String nombreObjeto = "";
+        public Dictionary<int, itemValor> arrayValores = new Dictionary<int, itemValor>();
+
 
         public itemValor()
         {
             this.tipo = "nulo";
             setTypeNulo();
-            dimension = 0;
+            dimensiones = new List<int>();
             this.valor = new object();
         }
 
@@ -58,7 +63,7 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
 
                 this.valor = oDate;
             }
-            catch (FormatException e)
+            catch (Exception e)
             {
                 //  Console.WriteLine("[itemValor]No es fechaHora"+e);
                 try
@@ -68,7 +73,7 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
 
                     this.valor = oDate;
                 }
-                catch (FormatException e2)
+                catch (Exception e2)
                 {
                     //  Console.WriteLine("[itemValor]No es fecha" + e2);
                     try
@@ -78,7 +83,7 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
 
                         this.valor = oDate;
                     }
-                    catch (FormatException e3)
+                    catch (Exception e3)
                     {
                         // Console.WriteLine("[itemValor]No es hora" + e3);
                         this.tipo = "cadena";
@@ -121,7 +126,7 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
             {
                 return (Boolean)valor;
             }
-            catch (FormatException e)
+            catch (Exception e)
             {
                 Console.WriteLine("[itemValor]getBooleano_No se puede parser el booleano");
                 return false;
@@ -132,13 +137,14 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
         public int getEntero()
         {
 
+
             try
             {
                 return (int)valor;
             }
-            catch (FormatException e)
+            catch (Exception e)
             {
-                Console.WriteLine("[itemValor]getEntero_No se puede parser el booleano");
+                Console.WriteLine("[itemValor]getEntero_No se puede parser el getEntero");
                 return 0;
             }
         }
@@ -149,9 +155,9 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
             {
                 return (Double)valor;
             }
-            catch (FormatException e)
+            catch (Exception e)
             {
-                Console.WriteLine("[itemValor]getDecimal_No se puede parser el booleano");
+                Console.WriteLine("[itemValor]getDecimal_No se puede parser el getDecimal");
                 return 0.0;
             }
         }
@@ -162,9 +168,9 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
             {
                 return (DateTime)valor;
             }
-            catch (FormatException e)
+            catch (Exception e)
             {
-                Console.WriteLine("[itemValor]getFechaHora_No se puede parser el booleano");
+                Console.WriteLine("[itemValor]getFechaHora_No se puede parser el DateTime");
                 return new DateTime();
             }
         }
@@ -176,10 +182,24 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
             {
                 return valor.ToString();
             }
-            catch (FormatException e)
+            catch (Exception e)
             {
-                Console.WriteLine("[itemValor]getString_No se puede parser el booleano");
+                Console.WriteLine("[itemValor]getString_No se puede parser el getCadena");
                 return "";
+            }
+        }
+
+        public objetoClase getObjeto()
+        {
+
+            try
+            {
+                return (objetoClase)valor;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("[itemValor]getObjeto_No se puede parser a objetoClase");
+                return null;
             }
         }
 
@@ -194,51 +214,222 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
 
         public void imprimirVariable()
         {
-            if (isTypeCadena())
-            {
 
-                println(getCadena());
-            }
-            else if (isTypeBooleano())
+
+
+            if (arrayValores.Count > 0)
             {
-                println(getBooleano());
-            }
-            else if (isTypeEntero())
-            {
-                println(getEntero());
-            }
-            else if (isTypeDecimal())
-            {
-                println(getDecimal());
-            }
-            else if (isTypeFecha())
-            {
-                println(getFechaHora());
-            }
-            else if (isTypeFechaHora())
-            {
-                println(getFechaHora());
-            }
-            else if (isTypeHora())
-            {
-                println(getFechaHora());
-            }
-            else if (isTypeNulo())
-            {
-                println("nulo");
-            }
-            else if (isTypeObjeto())
-            {
-                println("objeto");
-            }
-            else if (isTypeVacio())
-            {
-                println("vacio");
+                /* foreach(int dim in dimensiones)
+                 {
+                     println("dimension: " + dim);
+                 }*/
+
+
+                foreach (var tem in arrayValores)
+                {
+                    println("[" + tem.Key + "] :");
+                    tem.Value.imprimirVariable();
+                }
             }
             else
             {
-                println("no se reconoce el tipo:" + tipo);
+                if (isTypeCadena())
+                {
+
+                    println(getCadena());
+                }
+                else if (isTypeBooleano())
+                {
+                    println(getBooleano());
+                }
+                else if (isTypeEntero())
+                {
+                    println(getEntero());
+                }
+                else if (isTypeDecimal())
+                {
+                    println(getDecimal());
+                }
+                else if (isTypeFecha())
+                {
+                    println(getFechaHora());
+                }
+                else if (isTypeFechaHora())
+                {
+                    println(getFechaHora());
+                }
+                else if (isTypeHora())
+                {
+                    println(getFechaHora());
+                }
+                else if (isTypeNulo())
+                {
+                    println("nulo");
+                }
+                else if (isTypeObjeto())
+                {
+                    println("objeto");
+                }
+                else if (isTypeVacio())
+                {
+                    println("vacio");
+                }
+                else
+                {
+                    println("no se reconoce el tipo:" + tipo);
+                }
             }
+        }
+
+
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Obtiene un tipo de valor en especifico
+        |--------------------------------------------------------------------------
+        */
+
+
+
+        public object getValorParseado(String tipo)
+        {
+
+            switch (tipo)
+            {
+                case "cadena":
+                    if (isTypeCadena())
+                    {
+                        return getCadena();
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                case "booleano":
+                    if (isTypeBooleano())
+                    {
+                        return getBooleano();
+                    }
+                    else if (isTypeEntero())
+                    {
+                        int entero = getEntero();
+                        if (entero == 0)
+                        {
+                            return false;
+                        } else if (entero == 1)
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            return null;
+                        }
+
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                case "entero":
+                    if (isTypeEntero())
+                    {
+                        return getEntero();
+                    }
+                    else if (isTypeBooleano())
+                    {
+                        if (getBooleano())
+                        {
+                            return 1;
+                        }
+                        else
+                        {
+                            return 0;
+                        }
+                    }
+                    else if (isTypeDecimal())
+                    {
+                        return Convert.ToInt32(getDecimal());
+                    }
+                    else
+                    {
+                        return null;
+                    }
+
+                case "decimal":
+                    if (isTypeDecimal())
+                    {
+                        return getDecimal();
+                    }
+                    else if (isTypeEntero())
+                    {
+                        return Convert.ToDouble(getEntero());
+                    }
+                    else if (isTypeBooleano())
+                    {
+                        if (getBooleano())
+                        {
+                            return 1.0;
+                        }
+                        else
+                        {
+                            return 0.0;
+                        }
+                    }
+                    else
+                    {
+                        return null;
+                    }
+
+                case "fecha":
+                    if (isTypeFecha())
+                    {
+                        return getFechaHora();
+                    }
+                    else
+                    {
+                        return null;
+                    }
+
+                case "fechahora":
+                    if (isTypeFechaHora())
+                    {
+                        return getFechaHora();
+                    }
+                    else
+                    {
+                        return null;
+                    }
+
+                case "hora":
+                    if (isTypeHora())
+                    {
+                        return getFechaHora();
+                    }
+                    else
+                    {
+                        return null;
+                    }
+
+                case "nulo":
+                    //tengo que validar el tipo antes prro
+                    return null;
+                /*case "objeto":
+
+
+                    setTypeObjeto();
+                    break;*/
+                default:
+                    if (this.nombreObjeto == tipo)
+                    {
+                        return valor;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+            }
+
         }
 
 
@@ -279,14 +470,23 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
         {
             this.tipo = "nulo";
         }
-        public void setTypeObjeto()
+        public void setTypeObjeto(String nombreObjeto)
         {
             this.tipo = "objeto";
+            this.nombreObjeto = nombreObjeto;
         }
 
         public void setTypeVacio()
         {
             this.tipo = "vacio";
+        }
+
+
+        public void setArrayTipo(List<int> dimensiones, Dictionary<int, itemValor> arrayItems, String tipo)
+        {
+            this.dimensiones = dimensiones;
+            this.arrayValores = arrayItems;
+            this.setType(tipo);
         }
         /*
       |--------------------------------------------------------------------------
@@ -339,6 +539,119 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
             this.valor = o;
         }
 
+
+        /*
+      |--------------------------------------------------------------------------
+      | getTipoApartirDeString
+      |--------------------------------------------------------------------------
+      */
+
+        public String getTipoApartirDeString(String tipo)
+        {
+
+
+
+            if (tipo.Equals("entero"))
+            {
+                return tipo;
+            }
+            else if (tipo.Equals("cadena"))
+            {
+                return tipo;
+            }
+            else if (tipo.Equals("decimal"))
+            {
+                return tipo;
+            }
+            else if (tipo.Equals("booleano"))
+            {
+                return tipo;
+            }
+            else if (tipo.Equals("fecha"))
+            {
+                return tipo;
+            }
+            else if (tipo.Equals("hora"))
+            {
+                return tipo;
+            }
+            else if (tipo.Equals("fechahora"))
+            {
+                return tipo;
+            }
+            else if (tipo.Equals("pregunta"))
+            {
+
+                return tipo;
+            }
+            else if (tipo.Equals("formulario"))
+            {
+                return tipo;
+            }
+            else if (tipo.Equals("respuesta"))
+            {
+                return tipo;
+            }
+            else if (tipo.Equals("vacio"))
+            {
+                return tipo;
+            }
+            else if (tipo.Equals("nulo"))
+            {
+                return tipo;
+            }
+            else
+            {
+                return "objeto";
+            }
+             
+        }
+
+
+        /*
+      |--------------------------------------------------------------------------
+      | Set Value
+      |--------------------------------------------------------------------------
+      */
+        public void setType(String cadena)
+        {
+            switch (cadena)
+            {
+                case "cadena":
+                    setTypeCadena();
+                    break;
+                case "booleano":
+                    setTypeBooleano();
+                    break;
+                case "entero":
+                    setTypeEntero();
+                    break;
+                case "decimal":
+                    setTypeDecimal();
+                    break;
+                case "fecha":
+                    setTypeFecha();
+                    break;
+                case "fechahora":
+                    setTypeFechaHora();
+                    break;
+                case "hora":
+                    setTypeHora();
+                    break;
+                case "nulo":
+                    setTypeNulo();
+                    break;
+                case "vacio":
+                    setTypeVacio();
+                    break;
+                //tipo objeto
+                default:
+                    setTypeObjeto(tipo);
+                    break;
+
+            }
+
+        }   
 
 
 

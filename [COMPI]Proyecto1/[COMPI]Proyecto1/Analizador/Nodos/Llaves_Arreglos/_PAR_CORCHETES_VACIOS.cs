@@ -12,5 +12,7 @@ namespace _COMPI_Proyecto1.Analizador.Nodos.Llaves_Arreglos
         public _PAR_CORCHETES_VACIOS(string nombre, tablaSimbolos tabla) : base(nombre, tabla)
         {
         }
+
+
     }
 }

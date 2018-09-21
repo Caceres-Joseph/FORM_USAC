@@ -22,7 +22,17 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
         public int dimension = 0;
 
 
-
+        public List<int> getDimension()
+        {
+            List<int> retorno = new List<int>();
+            for(int i=0; i < dimension; i++)
+            {
+                retorno.Add(-1);
+            }
+            
+            return retorno;
+            
+        }
 
 
 
@@ -153,7 +163,7 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
                     //el segundo es para comparar objetos
                     if (lst1.tipo.Equals(lst2.getTipo()) || lst1.tipo.Equals(lst2.nombreObjeto))
                     {
-                        if (lst1.dimension != lst2.dimension)
+                        if (lst1.dimension != lst2.dimensiones.Count)
                             return false;
                     }
                     else

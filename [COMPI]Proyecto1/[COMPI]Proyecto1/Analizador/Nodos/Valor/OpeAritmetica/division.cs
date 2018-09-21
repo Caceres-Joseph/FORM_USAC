@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using _COMPI_Proyecto1.Analizador.Tablas;
 using _COMPI_Proyecto1.Analizador.Tablas.Items;
+using _COMPI_Proyecto1.Analizador.Tablas.Objetos;
 
 namespace _COMPI_Proyecto1.Analizador.Nodos.Valor.OpeAritmetica
 {

@@ -10,6 +10,7 @@ using _COMPI_Proyecto1.Analizador.Nodos.Valor.OpeLogico;
 using _COMPI_Proyecto1.Analizador.Nodos.Valor.Operelacional;
 using _COMPI_Proyecto1.Analizador.Tablas;
 using _COMPI_Proyecto1.Analizador.Tablas.Items;
+using _COMPI_Proyecto1.Analizador.Tablas.Objetos;
 
 namespace _COMPI_Proyecto1.Analizador.Nodos
 {
@@ -203,14 +204,14 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
 
                     retorno = new itemValor();
                     retorno.setTypeNulo();
-                    retorno.convertirCadena(tok.tok.valLower);
+                    retorno.convertirCadena(tok.tok.val);
                     return retorno;
                 case "valCadena2":
 
 
                     retorno = new itemValor();
                     retorno.setTypeNulo();
-                    retorno.convertirCadena2(tok.tok.valLower);
+                    retorno.convertirCadena2(tok.tok.val);
                     return retorno;
                 case "valNumero":
                     try

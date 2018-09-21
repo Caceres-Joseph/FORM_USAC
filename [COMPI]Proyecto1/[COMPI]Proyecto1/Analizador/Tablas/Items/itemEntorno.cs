@@ -12,7 +12,8 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
         public token nombre;
         public itemValor valor;
         public token visibilidad;
-        public int dimension = 0;
+        //public int dimension = 0;
+        public List<int> dimension = new List<int>();
         public tablaSimbolos tabla;
 
         /*
@@ -27,24 +28,51 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
             this.tabla = tabla;
         }*/
 
-        public itemEntorno(token nombre, token tipo, itemValor valor, token visibilidad, int dimension, tablaSimbolos tabla)
+        public itemEntorno(token nombre, token tipo, itemValor valor, token visibilidad, List<int> dimension, tablaSimbolos tabla)
         {
 
-            this.tabla = tabla;
-            if (validandoTipo(tipo.valLower, valor.getTipo()))
-            {
+            //validando si lo que estoy esperando es un arreglo
 
-                this.tipo = tipo;
-                this.nombre = nombre;
-                this.valor = valor;
-                this.visibilidad = visibilidad;
-                this.dimension = dimension;
+            if (dimension.Count > 0)
+            {
+                if (dimension.Count == valor.dimensiones.Count)
+                {
+                    this.tipo = tipo;
+                    this.nombre = nombre;
+                    this.valor = valor;
+                    this.visibilidad = visibilidad;
+                    this.dimension = valor.dimensiones; //asi ya tiene dimensiones definidas
+
+                }
+                else
+                {
+                    tabla.tablaErrores.insertErrorSemantic("Se esta recibiendo :" + valor.dimensiones.Count + " en la matriz : " + nombre.val + " de dimension:" + dimension.Count, nombre);
+                }
             }
             else
             {
-                tabla.tablaErrores.insertErrorSemantic("Se está intentando guardar en :" + nombre.val + " de tipo " + tipo.valLower + ", un valor de tipo " + valor.getTipo(), nombre);
+                
+                this.tabla = tabla;
 
-                //error semantico, se está intentando asiganar un valor diferente al declarado por la variable
+                if (valor.dimensiones.Count != 0)
+                {
+                    tabla.tablaErrores.insertErrorSemantic("Se está intentando guardar en la variable :" + nombre.val + " de tipo " + tipo.valLower + ", una matriz de dimension : " + valor.dimensiones.Count, nombre);
+                }
+                else if (validandoTipo(tipo.valLower, valor.getTipo()))
+                {
+
+                    this.tipo = tipo;
+                    this.nombre = nombre;
+                    this.valor = valor;
+                    this.visibilidad = visibilidad;
+                    this.dimension = dimension;
+                }
+                else
+                {
+                    tabla.tablaErrores.insertErrorSemantic("Se está intentando guardar en :" + nombre.val + " de tipo " + tipo.valLower + ", un valor de tipo " + valor.getTipo(), nombre);
+
+                    //error semantico, se está intentando asiganar un valor diferente al declarado por la variable
+                }
             }
         }
 
@@ -52,9 +80,13 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
 
         public Boolean validandoTipo(String tipo1, String tipo2)
         {
+            //aquí también hay que verificar las dimensiones
+
+
 
             //if (tipo1.Equals(tipo2) || tipo2.Equals("nulo"))
-            if (getTipo(tipo1).Equals(tipo2) || tipo2.Equals("nulo"))
+            itemValor tempIt = new itemValor();
+            if (tempIt.getTipoApartirDeString(tipo1).Equals(tipo2) || tipo2.Equals("nulo"))
             {
                 return true;
             }
@@ -66,71 +98,20 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
         }
 
 
-        public String getTipo(String tipo)
-        {
 
-
-
-            if (tipo.Equals("entero"))
-            {
-                return tipo;
-            }
-            else if (tipo.Equals("cadena"))
-            {
-                return tipo;
-            }
-            else if (tipo.Equals("decimal"))
-            {
-                return tipo;
-            }
-            else if (tipo.Equals("booleano"))
-            {
-                return tipo;
-            }
-            else if (tipo.Equals("fecha"))
-            {
-                return tipo;
-            }
-            else if (tipo.Equals("hora"))
-            {
-                return tipo;
-            }
-            else if (tipo.Equals("fechahora"))
-            {
-                return tipo;
-            }
-            else if (tipo.Equals("pregunta"))
-            {
-
-                return tipo;
-            }
-            else if (tipo.Equals("formulario"))
-            {
-                return tipo;
-            }
-            else if (tipo.Equals("respuesta"))
-            {
-                return tipo;
-            }
-            else if (tipo.Equals("vacio"))
-            {
-                return tipo;
-            }
-            else
-            {
-                return "objeto";
-            }
-
-
-        }
-         
         public void imprimir()
         {
             Console.WriteLine("\tnombre->" + nombre.valLower);
             Console.WriteLine("\t\ttipo->" + tipo.valLower);
             valor.imprimirVariable();
             Console.WriteLine("\t\tvisibilidad->" + visibilidad.valLower);
-            Console.WriteLine("\t\tdimension->" + dimension);
+            Console.WriteLine("\t\tdimension->" + dimension.Count);
+            int indice = 0;
+            foreach( int ent in dimension)
+            {
+                Console.WriteLine("\t\t\tdim1: "+indice +"["+ ent+"]");
+                indice++;
+            }
         }
 
     }

@@ -72,17 +72,53 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Listas
         }
 
 
-        public virtual  void ejecutarMetodo(token nombre, int diemension, lstValores lista2, elementoEntorno tablaEntorno)
+        public virtual void ejecutarMetodo(token nombre, int diemension, lstValores parametros, elementoEntorno tablaEntorno)
         {
             //aqui es donde tengo que buscar si existe 
-            elementoPolimorfo temp = getElementoPolimorfo(nombre, lista2);
-            if (temp!=null)
+            Console.WriteLine("ejecutando Metodo:" + nombre.val);
+
+            elementoPolimorfo temp = getElementoPolimorfo(nombre, parametros);
+            if (temp != null)
             {
                 //tengo que crear un nuevo entorno
 
-                elementoEntorno hijo1 = new elementoEntorno(tablaEntorno, tabla, "main");
+                elementoEntorno hijo1 = new elementoEntorno(tablaEntorno, tabla, "main", tablaEntorno.este);
+
+                
+
+                int i = 0;
+                foreach (var valItem in temp.lstParametros)
+                /*
+                |---------------------------- 
+                |  Cargando los parametros a un nuevo ambito prro
+                */
+                {
+                    llaveParametro llave = valItem.Key;
+                    List<int> listaEntero = new List<int>();
+
+                    for (int j = 0; i < llave.dimension; i++)
+                    {
+                        listaEntero.Add(-1);
+                    }
+                     
+                    ;
+                    token tNombre = new token(llave.nombre);
+                    token tTipo = valItem.Value.tipo;
+                    itemValor itValor = parametros.getItemValor(i);
+                    token tVisbilidad = new token("privado");
+                    //listaEntero;
+                    //tabla
+                    itemEntorno varParametro = new itemEntorno(tNombre,tTipo,itValor,tVisbilidad,listaEntero,tabla);
+                    hijo1.insertarEntorno(varParametro); 
+                    i++;
+                }
+
 
                 if (temp.LST_CUERPO.nombre.Equals("LST_CUERPO"))
+                /*
+                |---------------------------- 
+                |  Ejecutando el cuerpo del metodo
+                */
                 {
                     _LST_CUERPO val = (_LST_CUERPO)temp.LST_CUERPO;
                     val.ejecutar(hijo1);
@@ -95,9 +131,9 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Listas
         }
 
 
-        public elementoPolimorfo getElementoPolimorfo(token nombre,  lstValores listaValores)
+        public elementoPolimorfo getElementoPolimorfo(token nombre, lstValores listaValores)
         {
-             
+
 
             foreach (elementoPolimorfo temp in listaPolimorfa)
             {
@@ -114,7 +150,7 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Listas
                 }
             }
 
-            tabla.tablaErrores.insertErrorSemantic("No se encuentra "+nombre.val+"("+listaValores.getCadenaParam()+")", nombre);
+            tabla.tablaErrores.insertErrorSemantic("No se encuentra " + nombre.val + "(" + listaValores.getCadenaParam() + ")", nombre);
             return null;
         }
         public String convertirlstValores_toString(List<itemValor> lstValores)

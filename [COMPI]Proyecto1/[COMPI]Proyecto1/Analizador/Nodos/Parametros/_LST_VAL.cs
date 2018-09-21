@@ -19,12 +19,17 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
 
         public lstValores getLstValores(elementoEntorno elemento)
         {
+            println("getlstValores");
             lstValores retorno = new lstValores();
 
             foreach (nodoModelo hijo in hijos)
             {
                 _VALOR temp = (_VALOR)hijo;
-                retorno.insertar(temp.getValor(elemento));
+
+                itemValor temporal1 = temp.getValor(elemento, new token());
+        
+
+                retorno.insertar(temporal1);
             } 
             return retorno;
 

@@ -222,6 +222,8 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
 
             NonTerminal ASIG_VALOR = new NonTerminal("ASIG_VALOR");
 
+
+            NonTerminal PAR_CORCHETES_VAL = new NonTerminal("PAR_CORCHETES_VAL");
             #endregion
 
             #region Gramatica
@@ -373,8 +375,11 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
 
             PAR_CORCHETES_VACIOS.Rule = sAbreCorchete + sCierraCorchete;
 
+            PAR_CORCHETES_VAL.Rule = sAbreCorchete + E + sCierraCorchete;
 
-            LST_CORCHETES_VAL.Rule = MakePlusRule(LST_CORCHETES_VAL, sAbreCorchete + VALOR + sCierraCorchete);
+            //PAR_CORCHETES_VAL.Rule = sAbreCorchete + VALOR + sCierraCorchete;
+
+            LST_CORCHETES_VAL.Rule = MakePlusRule(LST_CORCHETES_VAL, PAR_CORCHETES_VAL);
 
 
 
@@ -388,17 +393,26 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
 
 
             ID_VAR_FUNC.Rule = ID_VAR_FUNC + LST_PUNTOSP
-                // | LST_PUNTOSP
+
+                                                                 //| ID_VAR_FUNC + LST_CORCHETES_VAL // | LST_PUNTOSP //
                 | tEste + sPunto + valId
                 | valId
                 | tEste + sPunto + valId + sAbreParent + LST_VAL + sCierraParent
-                | valId + sAbreParent + LST_VAL + sCierraParent;
+                | valId + sAbreParent + LST_VAL + sCierraParent
+
+                //para hacer uso de corchetes
+                | tEste + sPunto + valId + LST_CORCHETES_VAL
+                | valId + LST_CORCHETES_VAL
+                | tEste + sPunto + valId + sAbreParent + LST_VAL + sCierraParent + LST_CORCHETES_VAL
+                | valId + sAbreParent + LST_VAL + sCierraParent + LST_CORCHETES_VAL;
 
 
             LST_PUNTOSP.Rule = sPunto + valId
-                // | valId + LST_CORCHETES_VAL + sPunto
                 | sPunto + valId + sAbreParent + LST_VAL + sCierraParent
-                ;
+
+                //Corchetes
+                | sPunto + valId + LST_CORCHETES_VAL
+                | sPunto + valId + sAbreParent + LST_VAL + sCierraParent + LST_CORCHETES_VAL;
 
 
 
@@ -526,6 +540,7 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
                 | tNuevo + TIPO + LST_CORCHETES_VAL
                 | LST_LLAVES_VAL
                 | tNulo
+                | tEste   //para el this solamente
                 | E;
 
 

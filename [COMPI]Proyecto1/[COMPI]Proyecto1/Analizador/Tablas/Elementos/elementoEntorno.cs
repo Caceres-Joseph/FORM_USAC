@@ -1,4 +1,5 @@
-﻿using System;
+﻿using _COMPI_Proyecto1.Analizador.Tablas.Objetos;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,9 +13,11 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
         public elementoEntorno anterior;
         public tablaSimbolos tabla;
         public String nombre;
+        public objetoClase este; //sirve para guardar el puntero de la misma clase
 
-        public elementoEntorno(elementoEntorno anterior, tablaSimbolos tabla, String nombre)
+        public elementoEntorno(elementoEntorno anterior, tablaSimbolos tabla, String nombre, objetoClase este)
         {
+            this.este = este;
             this.nombre = nombre;
             this.tabla = tabla;
             this.anterior = anterior;
@@ -75,8 +78,7 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
                     return  anterior.getItemValor(idVariable);
                 }
             }
-
-
+             
             return retorno;
         }
 

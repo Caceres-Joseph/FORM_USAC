@@ -39,7 +39,7 @@ namespace _COMPI_Proyecto1.Analizador.Nodos.FuncionesNativas
                 //se estan guardando valores en la variable
               //  println("Ejecutando el imprimir que tiene un hijo de valore ejejejejejejejejej");
 
-                itemValor temp = val.getValor(tablaEntornos);
+                itemValor temp = val.getValor(tablaEntornos, new token());
 
                 if (temp.isTypeNulo())
                 {
