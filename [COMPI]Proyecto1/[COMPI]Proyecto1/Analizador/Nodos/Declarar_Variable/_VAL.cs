@@ -17,12 +17,6 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
 
         }
 
-
-        public override void ejecutar(elementoEntorno elem)
-        {
-
-            base.ejecutar(elem);
-        }
          
 
         public itemValor getValor(elementoEntorno elemento, token tipo)

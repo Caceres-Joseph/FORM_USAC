@@ -23,23 +23,59 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Objetos
             this.tablaEntorno = new tablaEntornos(tabla, this);
         }
 
+
+        /*
+        |----------------------------------------------
+        |  Cargando las variables globales
+        |----------------------------------------------
+        */
+        
         public void ejecutarGlobales()
         {
             cuerpoClase.lstVariablesGlobales.ejecutar(tablaEntorno.raiz);
         }
 
-        public void ejecutarConstructor(token nombre, int dimension, lstValores lstValores2, elementoEntorno tablaEntorno)
-        {
-            cuerpoClase.lstConstructores.ejecutarMetodo(nombre, dimension, lstValores2, tablaEntorno);
+        /*
+        |----------------------------------------------
+        |  Ejecutando el constructor
+        |----------------------------------------------
+        */
 
+        public void ejecutarConstructor(token nombre, int dimension, lstValores parametros, elementoEntorno tablaEntorno)
+        {
+
+            /*
+             * Console.WriteLine("-------------");
+            foreach (itemValor tmp in parametros.listaValores)
+            {
+                Console.WriteLine("[ObjetoClase]->");
+
+                tmp.imprimirVariable();
+            }
+            */
+
+            cuerpoClase.lstConstructores.ejecutarMetodo(nombre, parametros, tablaEntorno);
         }
 
-        public void imprimirTablaEntornos()
+        /*
+        |----------------------------------------------
+        |  Ejecutando una función o un método.
+        |----------------------------------------------
+        */
+
+        public itemValor ejecutarMetodoFuncion(token nombre, lstValores parametros, elementoEntorno entorno)
         {
-            Console.WriteLine("---------------------- Tabla de entornos ----------------------");
-            tablaEntorno.imprimir();
+
+            return cuerpoClase.lstMetodo_funcion.getMetodoFuncion(nombre, parametros, entorno); 
+             
         }
 
+
+        /*
+        |----------------------------------------------
+        |  Ejecutando el Main
+        |----------------------------------------------
+        */
 
         public void ejecutarPrincipal()
         {
@@ -47,5 +83,16 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Objetos
             elementoEntorno hijo1 = new elementoEntorno(tablaEntorno.raiz, tablaSimbolos, "main", this);
             cuerpoClase.lstPrincipal.ejecutar(hijo1);
         }
+
+
+
+
+
+        public void imprimirTablaEntornos()
+        {
+            Console.WriteLine("---------------------- Tabla de entornos ----------------------");
+            tablaEntorno.imprimir();
+        }
+
     }
 }

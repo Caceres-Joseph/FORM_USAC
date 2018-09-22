@@ -28,17 +28,20 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
 
 
         string tipo;
-        public string tipo2 = "";
+       // public string tipo2 = "";
         public Object valor;
-
         public List<int> dimensiones;
-
         public String nombreObjeto = "";
         public Dictionary<int, itemValor> arrayValores = new Dictionary<int, itemValor>();
 
 
+        //esto sirve para el tipo del metodo/funcion
+        public token tipoFuncionMetodo = new token();
+
+
         public itemValor()
         {
+            tipoFuncionMetodo = new token("vacio");
             this.tipo = "nulo";
             setTypeNulo();
             dimensiones = new List<int>();
@@ -211,8 +214,21 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
         */
 
 
-
         public void imprimirVariable()
+        {
+
+            imprimirVariable2();
+            int i = 0;
+            foreach(int inte in dimensiones)
+            {
+                println("dimen" + i +": "+inte);
+                i++;
+            }
+
+
+        }
+
+        public void imprimirVariable2()
         {
 
 
@@ -317,7 +333,8 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
                         if (entero == 0)
                         {
                             return false;
-                        } else if (entero == 1)
+                        }
+                        else if (entero == 1)
                         {
                             return true;
                         }
@@ -604,7 +621,7 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
             {
                 return "objeto";
             }
-             
+
         }
 
 
@@ -651,7 +668,7 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
 
             }
 
-        }   
+        }
 
 
 

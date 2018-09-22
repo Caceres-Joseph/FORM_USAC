@@ -25,13 +25,13 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
         public List<int> getDimension()
         {
             List<int> retorno = new List<int>();
-            for(int i=0; i < dimension; i++)
+            for (int i = 0; i < dimension; i++)
             {
                 retorno.Add(-1);
             }
-            
+
             return retorno;
-            
+
         }
 
 
@@ -187,5 +187,54 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
             Console.WriteLine(mensaje);
         }
 
+
+        /*
+        |-------------------------------------------------------------------------------------------------------------------
+        | Comparando los parametros con una lista de valores de entrada
+        |-------------------------------------------------------------------------------------------------------------------
+        |
+        */
+
+
+
+        public Boolean compararParametrosLstValores(lstValores lst2Parametros)
+        {
+
+
+
+            if (lstParametros.Count == lst2Parametros.listaValores.Count)
+            {
+                int i = 0;
+                foreach (var dic in lstParametros)
+                {
+                    //tiene que ser del mismo tipo y dimension
+
+                    itemValor parametro2 = lst2Parametros.getItemValor(i);
+
+                    Console.WriteLine("------------------------");
+                    Console.WriteLine("dic.key.dimension-> " + dic.Key.dimension);
+                    Console.WriteLine("parametro2.dimensiones->" + parametro2.dimensiones.Count);
+
+                    if ((dic.Key.dimension == parametro2.dimensiones.Count) && (dic.Value.tipo.valLower.Equals(parametro2.getTipo())))
+                    {
+
+                    }
+                    else
+                    {
+                        return false;
+                    }
+
+                    i++;
+                }
+            }
+            else
+            {
+                return false;
+            }
+
+
+            return true;
+
+        }
     }
 }

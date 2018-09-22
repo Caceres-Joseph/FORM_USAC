@@ -108,6 +108,7 @@
     <Compile Include="Analizador\Nodos\Inicio\_S.cs" />
     <Compile Include="Analizador\Nodos\Inicio\_TIPO.cs" />
     <Compile Include="Analizador\Nodos\Inicio\_VISIBILIDAD.cs" />
+    <Compile Include="Analizador\Nodos\Sentencia_Control\_RETORNO.cs" />
     <Compile Include="Analizador\Nodos\Valor\opAritmetica.cs" />
     <Compile Include="Analizador\Nodos\Valor\OpeAritmetica\division.cs" />
     <Compile Include="Analizador\Nodos\Valor\OpeAritmetica\modulo.cs" />
@@ -140,6 +141,7 @@
     <Compile Include="Analizador\Tablas\Items\itemAtributo.cs" />
     <Compile Include="Analizador\Tablas\Items\itemEntorno.cs" />
     <Compile Include="Analizador\Tablas\Items\itemObjeto.cs" />
+    <Compile Include="Analizador\Tablas\Items\itemRetorno.cs" />
     <Compile Include="Analizador\Tablas\Items\itemValor.cs" />
     <Compile Include="Analizador\Tablas\Listas\lstAtributos.cs" />
     <Compile Include="Analizador\Tablas\Listas\lstConstructores.cs" />

@@ -100,6 +100,8 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
             var tVacio = ToTerm("vacio");
             var tEste = ToTerm("este");
             var tImprimir = ToTerm("imprimir");
+            var tRetorno = ToTerm("retorno");
+
 
             //tipos
             var tEntero = ToTerm("entero");
@@ -162,7 +164,7 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
 
 
             NonTerminal CUERPO = new NonTerminal("CUERPO");
-            NonTerminal RETORNA = new NonTerminal("RETORNA");
+            NonTerminal RETORNO = new NonTerminal("RETORNO");
             NonTerminal ROMPER = new NonTerminal("ROMPER");
             NonTerminal CONTINUAR = new NonTerminal("CONTINUAR");
             NonTerminal SENTENCIAS = new NonTerminal("SENTENCIAS");
@@ -394,7 +396,7 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
 
             ID_VAR_FUNC.Rule = ID_VAR_FUNC + LST_PUNTOSP
 
-                                                                 //| ID_VAR_FUNC + LST_CORCHETES_VAL // | LST_PUNTOSP //
+                //| ID_VAR_FUNC + LST_CORCHETES_VAL // | LST_PUNTOSP //
                 | tEste + sPunto + valId
                 | valId
                 | tEste + sPunto + valId + sAbreParent + LST_VAL + sCierraParent
@@ -495,7 +497,7 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
             CUERPO.Rule = DECLARAR_VARIABLE_SINVISIBI + sPuntoComa
                 | ID_VAR_FUNC + sPuntoComa //hay que validar que sea un metodo y no una variables
                 | ASIG_VALOR + sPuntoComa
-                | Empty
+               // | Empty
                 | SyntaxError
                 | FUNCIONES_NATIVAS + sPuntoComa
                 //| SENTENCIAS
@@ -504,8 +506,19 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
                 //| CONTINUAR
                 //| PROCEDIMIENTOS_FORMULARIO
                 //| FUNC_MULTIMEDIA
+
+                | RETORNO
                 ;
 
+            /*
+            |-------------------------------------------------------------------------------------------------------------------
+            | Sentencias de cotrol
+            |-------------------------------------------------------------------------------------------------------------------
+            |  
+            */
+
+            RETORNO.Rule = tRetorno + sPuntoComa
+                | tRetorno + VALOR + sPuntoComa;
 
 
             /*

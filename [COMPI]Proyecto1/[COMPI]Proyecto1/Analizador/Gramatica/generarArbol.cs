@@ -3,6 +3,7 @@ using _COMPI_Proyecto1.Analizador.Nodos.Asignar_Valor;
 using _COMPI_Proyecto1.Analizador.Nodos.FuncionesNativas;
 using _COMPI_Proyecto1.Analizador.Nodos.IdVar_func;
 using _COMPI_Proyecto1.Analizador.Nodos.Llaves_Arreglos;
+using _COMPI_Proyecto1.Analizador.Nodos.Sentencia_Control;
 using _COMPI_Proyecto1.Analizador.Tablas;
 using Irony.Parsing;
 using System;
@@ -245,6 +246,10 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
 
                 case "PAR_CORCHETES_VAL":
                     retorno = new _PAR_CORCHETES_VAL(nombreNoTerminal, tabla);
+                    break;
+
+                case "RETORNO":
+                    retorno = new _RETORNO(nombreNoTerminal, tabla);
                     break;
 
                 default:

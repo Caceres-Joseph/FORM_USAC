@@ -24,12 +24,23 @@ namespace _COMPI_Proyecto1.Analizador.Nodos.FuncionesNativas
         |
         */
 
-        public override void ejecutar(elementoEntorno tablaEntornos)
+        public override itemRetorno ejecutar(elementoEntorno tablaEntornos)
+        /*
+        |---------------------------- 
+        | EJECUTAR 
+        |----------------------------
+        | 0= normal
+        | 1 = return;
+        | 2 = break
+        | 3 = continue
+        | 4 = errores
+        */
         {
+            itemRetorno retorno = new itemRetorno(0);
 
             //ya estoy recibiendo la tabla donde debo trabajar prro
             if (hayErrores())
-                return;
+                return retorno;
 
 
 
@@ -76,6 +87,7 @@ namespace _COMPI_Proyecto1.Analizador.Nodos.FuncionesNativas
                 tablaSimbolos.consola.insertar("");
             }
 
+            return retorno;
         }
 
         public _VALOR getNodoVALOR()

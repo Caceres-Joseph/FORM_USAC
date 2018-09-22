@@ -26,7 +26,11 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Listas
                 if (temp.LST_CUERPO.nombre.Equals("LST_CUERPO"))
                 {
                     _LST_CUERPO val = (_LST_CUERPO)temp.LST_CUERPO;
-                    val.ejecutar(elem);
+                    itemValor retornoFuncion = new itemValor();
+
+                    retornoFuncion.setTypeVacio();
+                    
+                    val.ejecutar(elem );
                     imprimir(elem);
 
                 }

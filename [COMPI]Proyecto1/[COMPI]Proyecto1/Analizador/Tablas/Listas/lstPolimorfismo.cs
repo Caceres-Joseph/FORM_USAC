@@ -1,4 +1,5 @@
 ﻿using _COMPI_Proyecto1.Analizador.Nodos;
+using _COMPI_Proyecto1.Analizador.Tablas.Elementos;
 using _COMPI_Proyecto1.Analizador.Tablas.Items;
 using _COMPI_Proyecto1.Analizador.Tablas.Llaves;
 using System;
@@ -72,66 +73,110 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Listas
         }
 
 
-        public virtual void ejecutarMetodo(token nombre, int diemension, lstValores parametros, elementoEntorno tablaEntorno)
+        /*
+        |-------------------------------------------------------------------------------------------------------------------
+        | EJECUCIÓN DE PRINCIPAL
+        |-------------------------------------------------------------------------------------------------------------------
+        |
+        */
+         
+        
+
+        public void guardarParametrosEnLaTabla(Dictionary<llaveParametro, elementoParametro> lstParametros, lstValores lstParametros2, elementoEntorno elementoEntor)
         {
-            //aqui es donde tengo que buscar si existe 
-            Console.WriteLine("ejecutando Metodo:" + nombre.val);
 
-            elementoPolimorfo temp = getElementoPolimorfo(nombre, parametros);
-            if (temp != null)
+            if (lstParametros.Count == lstParametros2.listaValores.Count)
             {
-                //tengo que crear un nuevo entorno
-
-                elementoEntorno hijo1 = new elementoEntorno(tablaEntorno, tabla, "main", tablaEntorno.este);
-
+                int i = 0;
+                foreach (var dic in lstParametros)
+                {
+                    itemValor parametro2 = lstParametros2.getItemValor(i);
                 
 
-                int i = 0;
-                foreach (var valItem in temp.lstParametros)
-                /*
-                |---------------------------- 
-                |  Cargando los parametros a un nuevo ambito prro
-                */
-                {
-                    llaveParametro llave = valItem.Key;
-                    List<int> listaEntero = new List<int>();
 
-                    for (int j = 0; i < llave.dimension; i++)
+                    //Console.WriteLine("------------------------");
+                    //Console.WriteLine("dic.key.dimension-> " + dic.Key.dimension);
+                    //Console.WriteLine("parametro2.dimensiones->" + parametro2.dimensiones.Count);
+
+                    if ((dic.Key.dimension == parametro2.dimensiones.Count) && (dic.Value.tipo.valLower.Equals(parametro2.getTipo())))
                     {
-                        listaEntero.Add(-1);
+                        token tNombre = new token(dic.Key.nombre);
+                        token tTipo = new token(dic.Value.tipo.valLower);
+                        token tVisibilidad = new token("privado");
+
+                        //listado de enteros
+
+
+                        List<int> listaEntero = new List<int>();
+
+                        for (int j = 0; i < dic.Key.dimension; i++)
+                        {
+                            listaEntero.Add(-1);
+                        }
+
+                        itemEntorno varParametro = new itemEntorno(tNombre, tTipo, parametro2, tVisibilidad, listaEntero, tabla);
+                        elementoEntor.insertarEntorno(varParametro);
                     }
-                     
-                    ;
-                    token tNombre = new token(llave.nombre);
-                    token tTipo = valItem.Value.tipo;
-                    itemValor itValor = parametros.getItemValor(i);
-                    token tVisbilidad = new token("privado");
-                    //listaEntero;
-                    //tabla
-                    itemEntorno varParametro = new itemEntorno(tNombre,tTipo,itValor,tVisbilidad,listaEntero,tabla);
-                    hijo1.insertarEntorno(varParametro); 
+                    else
+                    {
+                        Console.WriteLine("[lstPolimorfismo]guardarParametrosEnLaTabla_Son de diferentes en tipo, o en dimensiones, aunque esto ya se tuvo que validar :/");
+                    }
+
                     i++;
                 }
 
-
-                if (temp.LST_CUERPO.nombre.Equals("LST_CUERPO"))
-                /*
-                |---------------------------- 
-                |  Ejecutando el cuerpo del metodo
-                */
-                {
-                    _LST_CUERPO val = (_LST_CUERPO)temp.LST_CUERPO;
-                    val.ejecutar(hijo1);
-                    //imprimir();
-
-                }
-
-                //Console.WriteLine("ejecutando el metodo " + nombre.val + "(" + lista2.getCadenaParam() + ")");
             }
+            else
+            {
+                Console.WriteLine("[lstPolimorfismo]guardarParametrosEnLaTabla_Son de diferentes dimensiones, aunque esto ya se tuvo que validar :/");
+            }
+
         }
 
 
-        public elementoPolimorfo getElementoPolimorfo(token nombre, lstValores listaValores)
+
+
+
+        /*
+        |-------------------------------------------------------------------------------------------------------------------
+        | Busca el elemento polimorfo
+        |-------------------------------------------------------------------------------------------------------------------
+        |
+        */
+
+
+        public elementoPolimorfo getElementoPolimorfo2(token nombre, lstValores listaValores)
+        {
+
+
+            foreach (elementoPolimorfo temp in listaPolimorfa)
+            {
+                if (nombre.valLower.Equals(temp.nombre.valLower))
+                {
+                    //ahora hay que validar los parametros
+
+
+                    if (temp.compararParametrosLstValores(listaValores))
+                    {
+                        return temp;
+                    }
+                    //ahora hay que comprobar las llaves de los atributos
+                }
+            }
+
+            tabla.tablaErrores.insertErrorSemantic("No se encuentra " + nombre.val + "(" + listaValores.getCadenaParam() + ")", nombre);
+            return null;
+        }
+
+
+
+        /*
+        |-------------------------------------------------------------------------------------------------------------------
+        | Busca el elemento polimorfo
+        |-------------------------------------------------------------------------------------------------------------------
+        |
+        */
+        public elementoPolimorfo getElementoPolimorfoNoSirve(token nombre, lstValores listaValores)
         {
 
 
@@ -153,6 +198,10 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Listas
             tabla.tablaErrores.insertErrorSemantic("No se encuentra " + nombre.val + "(" + listaValores.getCadenaParam() + ")", nombre);
             return null;
         }
+
+
+
+
         public String convertirlstValores_toString(List<itemValor> lstValores)
         {
             String retorno = "";

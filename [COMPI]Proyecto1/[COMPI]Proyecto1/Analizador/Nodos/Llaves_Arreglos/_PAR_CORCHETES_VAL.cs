@@ -22,7 +22,7 @@ namespace _COMPI_Proyecto1.Analizador.Nodos.Llaves_Arreglos
 
             if (hayErrores())
                 return retorno;
-            println(hijos[0].nombre);
+            //println(hijos[0].nombre);
 
             nodoModelo temp = getNodo("E");
             if (temp != null)

@@ -60,24 +60,50 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
         |--------------------------------------------------------------------------
         | La ejecución FINAL
         |--------------------------------------------------------------------------
-        |
+        | 0= normal
+        | 1 = return;
+        | 2 = break
+        | 3 = continue
+        | 4 = errores
         */
 
-        public virtual void ejecutar(elementoEntorno tablaEntornos)
+        public virtual itemRetorno ejecutar(elementoEntorno tablaEntornos)
         {
-            ejecutarHijos(tablaEntornos);
+             
+
+
+
+            itemRetorno resultado=ejecutarHijos(tablaEntornos);
+            return resultado;
+              
         }
 
-        public void ejecutarHijos(elementoEntorno elem)
+        public itemRetorno ejecutarHijos(elementoEntorno elem)
         {
 
+            itemRetorno retorno = new itemRetorno(0);
+
             if (hayErrores())
-                return;
+                return retorno;
+
 
             foreach (nodoModelo temp in hijos)
             {
-                    temp.ejecutar(elem);
+
+                itemRetorno resultado = temp.ejecutar(elem);
+                if (resultado.isNormal())
+                {
+                    //continua normal
+                }
+                else
+                {
+
+                    return resultado;
+                }
+               
             }
+
+            return retorno;
         }
 
 
