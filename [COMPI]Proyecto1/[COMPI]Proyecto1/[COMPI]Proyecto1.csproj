@@ -99,6 +99,16 @@
     <Compile Include="Analizador\Nodos\Llaves_Arreglos\_PAR_CORCHETES_VAL.cs" />
     <Compile Include="Analizador\Nodos\Llaves_Arreglos\_VAR_ARREGLO.cs" />
     <Compile Include="Analizador\Nodos\nodoModelo.cs" />
+    <Compile Include="Analizador\Nodos\Ope_matematica\_ABSOLUTO.cs" />
+    <Compile Include="Analizador\Nodos\Ope_matematica\_COSENO.cs" />
+    <Compile Include="Analizador\Nodos\Ope_matematica\_LOGARITMO.cs" />
+    <Compile Include="Analizador\Nodos\Ope_matematica\_LOGARITMO10.cs" />
+    <Compile Include="Analizador\Nodos\Ope_matematica\_OPE_ARITME.cs" />
+    <Compile Include="Analizador\Nodos\Ope_matematica\_PI.cs" />
+    <Compile Include="Analizador\Nodos\Ope_matematica\_POTENCIA.cs" />
+    <Compile Include="Analizador\Nodos\Ope_matematica\_RAIZ.cs" />
+    <Compile Include="Analizador\Nodos\Ope_matematica\_SENO.cs" />
+    <Compile Include="Analizador\Nodos\Ope_matematica\_TANGENTE.cs" />
     <Compile Include="Analizador\Nodos\Ope_tipo\_AHORA.cs" />
     <Compile Include="Analizador\Nodos\Ope_tipo\_HOY.cs" />
     <Compile Include="Analizador\Nodos\Ope_tipo\_MAX.cs" />

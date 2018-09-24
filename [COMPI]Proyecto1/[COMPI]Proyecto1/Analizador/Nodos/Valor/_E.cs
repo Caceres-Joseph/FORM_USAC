@@ -51,13 +51,13 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
 
                     if (hijos[0].nombre.Equals("OPE_ARITME"))
                     {
-                        
-                        return ob;
+
+                        return hijos[0].ope_tipo(elmen);
 
                     }
                     else if (hijos[0].nombre.Equals("OPE_TIPO"))
                     {
-                        println("OPE_TIPO");
+                        
                         return hijos[0].ope_tipo(elmen);
                     }
                     //operador unario

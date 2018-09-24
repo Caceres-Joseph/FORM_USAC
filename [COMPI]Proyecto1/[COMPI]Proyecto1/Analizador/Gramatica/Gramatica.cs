@@ -123,9 +123,9 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
 
             var tPi = ToTerm("pi");
             var tSqrt = ToTerm("sqrt");
-            var tTangente = ToTerm("tangente");
-            var tCoseno = ToTerm("coseno");
-            var tSeno = ToTerm("seno");
+            var tTangente = ToTerm("tan");
+            var tCoseno = ToTerm("cos");
+            var tSeno = ToTerm("sin");
             var tAbs = ToTerm("abs");
             var tLog10 = ToTerm("log10");
             var tLog = ToTerm("log");

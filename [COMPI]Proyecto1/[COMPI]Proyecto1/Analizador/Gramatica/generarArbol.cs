@@ -3,6 +3,7 @@ using _COMPI_Proyecto1.Analizador.Nodos.Asignar_Valor;
 using _COMPI_Proyecto1.Analizador.Nodos.FuncionesNativas; 
 using _COMPI_Proyecto1.Analizador.Nodos.IdVar_func;
 using _COMPI_Proyecto1.Analizador.Nodos.Llaves_Arreglos;
+using _COMPI_Proyecto1.Analizador.Nodos.Ope_matematica;
 using _COMPI_Proyecto1.Analizador.Nodos.Ope_tipo;
 using _COMPI_Proyecto1.Analizador.Nodos.Sentencia_Control;
 using _COMPI_Proyecto1.Analizador.Nodos.Sentencias;
@@ -367,6 +368,41 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
                 case "OPE_TIPO":
                     retorno = new _OPE_TIPO(nombreNoTerminal, tabla);
                     break;
+                case "OPE_ARITME":
+                    retorno = new _OPE_ARITME(nombreNoTerminal, tabla);
+                    break;
+
+
+                case "POTENCIA":
+                    retorno = new _POTENCIA(nombreNoTerminal, tabla);
+                    break;
+                case "LOGARITMO":
+                    retorno = new _LOGARITMO(nombreNoTerminal, tabla);
+                    break;
+                case "LOGARITMO10":
+                    retorno = new _LOGARITMO10(nombreNoTerminal, tabla);
+                    break;
+                case "ABSOLUTO":
+                    retorno = new _ABSOLUTO(nombreNoTerminal, tabla);
+                    break;
+                case "SENO":
+                    retorno = new _SENO(nombreNoTerminal, tabla);
+                    break;
+                case "COSENO":
+                    retorno = new _COSENO(nombreNoTerminal, tabla);
+                    break;
+                case "TANGENTE":
+                    retorno = new _TANGENTE(nombreNoTerminal, tabla);
+                    break;
+                case "RAIZ":
+                    retorno = new _RAIZ(nombreNoTerminal, tabla);
+                    break;
+                case "PI":
+                    retorno = new _PI(nombreNoTerminal, tabla);
+                    break;
+
+
+
 
                 default:
                     retorno= new nodoModelo("Desc_"+nombreNoTerminal, tabla);
