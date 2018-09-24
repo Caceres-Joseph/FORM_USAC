@@ -215,7 +215,13 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
                     Console.WriteLine("dic.key.dimension-> " + dic.Key.dimension);
                     Console.WriteLine("parametro2.dimensiones->" + parametro2.dimensiones.Count);
 
-                    if ((dic.Key.dimension == parametro2.dimensiones.Count) && (dic.Value.tipo.valLower.Equals(parametro2.getTipo())))
+                    /* if (parametro2.isTypeObjeto()&&)
+                     {
+
+                     }*/
+
+                    //if ((dic.Key.dimension == parametro2.dimensiones.Count) && (dic.Value.tipo.valLower.Equals(parametro2.getTipo())))
+                    if ((dic.Key.dimension == parametro2.dimensiones.Count) && itemEntorno.validandoTipo(dic.Value.tipo.valLower, parametro2))
                     {
 
                     }
@@ -236,5 +242,7 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
             return true;
 
         }
+
+        
     }
 }

@@ -42,69 +42,7 @@
                               </AnchorPane>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                                  <children>
-                                    <TabPane layoutX="14.0" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                      <tabs>
-                                        <Tab text="Codigo CHTML">
-                                          <content>
-                                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                                   <children>
-                                                      <TextArea layoutX="-9.0" layoutY="-29.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
-                                                   </children>
-                                                </AnchorPane>
-                                          </content>
-                                        </Tab>
-                                          <Tab text="Codigo CJS">
-                                             <content>
-                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                                   <children>
-                                                      <TextArea layoutX="-9.0" layoutY="-29.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
-                                                   </children>
-                                                </AnchorPane>
-                                             </content>
-                                          </Tab>
-                                          <Tab text="Codigo CCSS">
-                                             <content>
-                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                                   <children>
-                                                      <TextArea layoutX="-9.0" layoutY="-29.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
-                                                   </children>
-                                                </AnchorPane>
-                                             </content>
-                                          </Tab>
-                                          <Tab text="Consola Salida">
-                                             <content>
-                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                                   <children>
-                                                      <TableView layoutX="27.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
-                                                        <columns>
-                                                          <TableColumn prefWidth="75.0" text="Archivo" />
-                                                          <TableColumn prefWidth="75.0" text="Linea" />
-                                                            <TableColumn prefWidth="75.0" text="Columna" />
-                                                            <TableColumn prefWidth="75.0" text="Salida" />
-                                                        </columns>
-                                                      </TableView>
-                                                   </children>
-                                                </AnchorPane>
-                                             </content>
-                                          </Tab>
-                                          <Tab text="Consola Errores">
-                                             <content>
-                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                                   <children>
-                                                      <TableView layoutX="27.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
-                                                         <columns>
-                                                            <TableColumn prefWidth="75.0" text="Archivo" />
-                                                            <TableColumn prefWidth="75.0" text="Linea" />
-                                                            <TableColumn prefWidth="75.0" text="Columna" />
-                                                            <TableColumn prefWidth="75.0" text="Salida" />
-                                                         </columns>
-                                                      </TableView>
-                                                   </children>
-                                                </AnchorPane>
-                                             </content>
-                                          </Tab>
-                                      </tabs>
-                                    </TabPane>
+                                  
                                  </children>
                               </AnchorPane>
                           </items>
@@ -118,12 +56,12 @@
         </tabs>
       </TabPane>
       <Button fx:id="btnIr" layoutX="602.0" layoutY="34.0" mnemonicParsing="false" onAction="#btnIr" text="Ir" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="34.0" />
-      <Button layoutX="133.0" layoutY="34.0" mnemonicParsing="false" text="Favorito" />
-      <Button layoutX="216.0" layoutY="34.0" mnemonicParsing="false" text="Historial" />
+      <Button layoutX="133.0" layoutY="34.0" mnemonicParsing="false" text="Guardar" />
+      <Button layoutX="216.0" layoutY="34.0" mnemonicParsing="false" text="Ejecutar" />
       <Button layoutX="309.0" layoutY="34.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="28.0" text="Salir" />
       <Button layoutX="38.0" layoutY="34.0" mnemonicParsing="false" onAction="#btnPrueba" text="Nuevo" />
       <Button layoutX="355.0" layoutY="34.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="28.0" text="Salir" />
-      <Label layoutX="431.0" layoutY="17.0" text="USAC WEB">
+      <Label layoutX="431.0" layoutY="17.0" text="FORM USAC ">
          <font>
             <Font size="28.0" />
          </font>

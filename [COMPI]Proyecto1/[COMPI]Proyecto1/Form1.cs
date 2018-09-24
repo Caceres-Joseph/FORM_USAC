@@ -13,6 +13,7 @@ using _COMPI_Proyecto1.AST;
 using FastColoredTextBoxNS;
 using System.Text.RegularExpressions;
 using _COMPI_Proyecto1.GUI;
+using _COMPI_Proyecto1.GUI.TIpos;
 
 namespace _COMPI_Proyecto1
 {
@@ -292,6 +293,25 @@ namespace _COMPI_Proyecto1
 
         private void txtConsola_TextChanged(object sender, EventArgs e)
         {
+
+        }
+
+        private void verFomularioToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Condicion con = new Condicion();
+            con.Show();
+
+
+            Entero ent = new Entero();
+            ent.Show();
+
+           Opcion opc = new Opcion();
+            opc.Show();
+
+
+            Form1 con2 = new Form1();
+            con2.Show();
+
 
         }
     }

@@ -9,6 +9,12 @@ using _COMPI_Proyecto1.Analizador.Tablas.Items;
 namespace _COMPI_Proyecto1.Analizador.Nodos
 {
     class _DECLARAR_VARIABLE_GLOBAL : nodoModelo
+    /*
+        DECLARAR_VARIABLE_GLOBAL.Rule = TIPO + VISIBILIDAD + VAR_ARREGLO + VAL
+            | TIPO + VISIBILIDAD + VAR_ARREGLO  //solo se declaro
+            | DECLARAR_VARIABLE_SINVISIBI;
+
+ */
     {
         public _DECLARAR_VARIABLE_GLOBAL(string nombre, tablaSimbolos tabla) : base(nombre, tabla)
         {

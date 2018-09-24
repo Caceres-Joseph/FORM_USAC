@@ -35,7 +35,7 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Listas
             if (temp != null)
             //neuvo entorno
             {
-                elementoEntorno hijo1 = new elementoEntorno(tablaEntorno, tabla, "main", tablaEntorno.este);
+                elementoEntorno hijo1 = new elementoEntorno(tablaEntorno, tabla, nombre.val, tablaEntorno.este);
                 guardarParametrosEnLaTabla(temp.lstParametros, parametros, hijo1);
 
 
@@ -141,49 +141,15 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Listas
                         else
                         {
 
-                        }
-
-                        /*
-                        switch (result)
-                        {
-                            case 0:
-                                tabla.tablaErrores.insertErrorSemantic("El metodo :" + temp.nombre.val + " debe de retorar un valor", temp.nombre);
-                                break;
-                            case 1:
-                                //hay que comparar el retorno, si coincide en dimensiones y tipo
-                                if (temp.dimension == retornoFuncion.dimensiones.Count)
-                                {
-                                    if (temp.tipo.valLower.Equals(retornoFuncion.getTipo()))
-                                    {
-                                        return retornoFuncion;
-                                    }
-                                    else
-                                    {
-                                        tabla.tablaErrores.insertErrorSemantic("El metodo :" + temp.nombre.val + " es de tipo :" + temp.tipo.val + " sin embargo tiene un retorno de tipo: " + retornoFuncion.getTipo(), temp.nombre);
-                                        return retorno;
-                                    }
-                                }
-                                else
-                                {
-                                    tabla.tablaErrores.insertErrorSemantic("El metodo :" + temp.nombre.val + " es de dimensión :" + temp.dimension + " sin embargo tiene un retorno de dimensión: " + retornoFuncion.dimensiones.Count, temp.nombre);
-                                    return retorno;
-                                }
-                                
-
-                            case 2:
-                                break;
-                            case 3:
-                                break;
-                            case 4:
-                                //hubieron errores en el cuerpo
-                                break;
-
-                        }*/
+                        } 
                     }
 
                     ///hay que comparar el retorno con el tipo definido
 
                 }
+
+                //Console.WriteLine("---------------------------Imprimiendo el metodo Funcion-------------------------");
+                //hijo1.imprimir();
 
             }
 

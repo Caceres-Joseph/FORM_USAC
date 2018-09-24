@@ -23,6 +23,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
+import org.apache.poi.sl.usermodel.TextBox;
 import readExcel.readExcel;
 
 /**
@@ -168,6 +169,13 @@ public class newTab {
 
     public void crearAreaWeb(SplitPane split) {
         AnchorPane areaWeb = new AnchorPane();
+        
+         
+        TextField textField = new TextField ();
+        
+        areaWeb.getChildren().add(textField);
+        
+        
         ScrollPane scroll = new ScrollPane();
 
         AnchorPane.setBottomAnchor(scroll, 0.0);

@@ -19,7 +19,7 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
 
         public lstValores getLstValores(elementoEntorno elemento)
         {
-            println("getlstValores");
+
             lstValores retorno = new lstValores();
 
             foreach (nodoModelo hijo in hijos)

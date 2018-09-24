@@ -144,8 +144,7 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
                         {
                             _LST_CORCHETES_VAL lstVal = (_LST_CORCHETES_VAL)temp1;
                             List<int> tempLstInt = lstVal.getLstInt(elementoEntor, item1);
-
-                            println("dimension lista lst-corchetes:" + tempLstInt.Count);
+                             
                             int dimensionMaxima = 1;
                             foreach (int elemento in tempLstInt)
                             {

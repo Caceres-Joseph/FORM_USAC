@@ -84,6 +84,9 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
             var sPuntoComa = ToTerm(";");
             var sArroba = ToTerm("@");
             var sIgual = ToTerm("=");
+
+            var sCierraInterrogante = ToTerm("?");
+            var sDosPuntos = ToTerm(":");
             /*
             =============================
              Palabras reservadas
@@ -101,8 +104,39 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
             var tEste = ToTerm("este");
             var tImprimir = ToTerm("imprimir");
             var tRetorno = ToTerm("retorno");
+            var tSi = ToTerm("si");
+            var tSino = ToTerm("sino");
+            var tCaso = ToTerm("caso");
+            var tDe = ToTerm("de");
+            var tDefecto = ToTerm("defecto");
+            var tRomper = ToTerm("romper");
+            var tMientras = ToTerm("mientras");
+            var tContinuar = ToTerm("continuar");
+            var tPara = ToTerm("para");
+            var tHacer = ToTerm("hacer");
+            var tRepetir = ToTerm("repetir");
+            var tHasta = ToTerm("hasta");
+            var tMensaje = ToTerm("mensaje");
+            var tSubCad = ToTerm("subcad");
+            var tPosCad = ToTerm("poscad");
+            var tRandom = ToTerm("random");
 
-
+            var tPi = ToTerm("pi");
+            var tSqrt = ToTerm("sqrt");
+            var tTangente = ToTerm("tangente");
+            var tCoseno = ToTerm("coseno");
+            var tSeno = ToTerm("seno");
+            var tAbs = ToTerm("abs");
+            var tLog10 = ToTerm("log10");
+            var tLog = ToTerm("log");
+            var tPow = ToTerm("pow");
+            var tMax = ToTerm("max");
+            var tMin = ToTerm("min");
+            var tFecha = ToTerm("fecha");
+            var tAhora = ToTerm("ahora");
+            var tHoy = ToTerm("hoy");
+            var tTam = ToTerm("tam");
+             
             //tipos
             var tEntero = ToTerm("entero");
             var tCadena = ToTerm("cadena");
@@ -168,11 +202,11 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
             NonTerminal ROMPER = new NonTerminal("ROMPER");
             NonTerminal CONTINUAR = new NonTerminal("CONTINUAR");
             NonTerminal SENTENCIAS = new NonTerminal("SENTENCIAS");
-            NonTerminal IF = new NonTerminal("IF");
+            NonTerminal SI = new NonTerminal("SI");
             NonTerminal SINO_SI = new NonTerminal("SINO_SI");
             NonTerminal SINO = new NonTerminal("SINO");
             NonTerminal SI_SIMPLIFICADO = new NonTerminal("SI_SIMPLIFICADO");
-            NonTerminal CASE = new NonTerminal("CASE");
+            NonTerminal CASO = new NonTerminal("CASO");
             NonTerminal CUERPO_CASE = new NonTerminal("CUERPO_CASE");
             NonTerminal WHILE = new NonTerminal("WHILE");
             NonTerminal DOWHILE = new NonTerminal("DOWHILE");
@@ -217,13 +251,14 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
             NonTerminal E = new NonTerminal("E");
             NonTerminal F = new NonTerminal("F");
 
+
             NonTerminal PAR_CORCHETES_VACIOS = new NonTerminal("PAR_CORCHETES_VACIOS");
 
             NonTerminal ID_VAR_FUNC = new NonTerminal("ID_VAR_FUNC");
             NonTerminal LST_PUNTOSP = new NonTerminal("LST_PUNTOSP");
 
             NonTerminal ASIG_VALOR = new NonTerminal("ASIG_VALOR");
-
+            //NonTerminal LST_E = new NonTerminal("LST_E");
 
             NonTerminal PAR_CORCHETES_VAL = new NonTerminal("PAR_CORCHETES_VAL");
             #endregion
@@ -282,6 +317,7 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
 
             LST_VAL.Rule = MakeStarRule(LST_VAL, sComa, VALOR);
 
+            //LST_E.Rule = MakePlusRule(LST_E, sComa, E);
 
 
             /*
@@ -430,7 +466,7 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
             ASIG_VALOR.Rule = ID_VAR_FUNC + VAL
                 | ID_VAR_FUNC + sMas + sMas
                 | ID_VAR_FUNC + sMenos + sMenos
-                | ID_VAR_FUNC + LST_CORCHETES_VAL + VAL
+                // | ID_VAR_FUNC + LST_CORCHETES_VAL + VAL
                 ;
 
             #region asgi
@@ -497,18 +533,19 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
             CUERPO.Rule = DECLARAR_VARIABLE_SINVISIBI + sPuntoComa
                 | ID_VAR_FUNC + sPuntoComa //hay que validar que sea un metodo y no una variables
                 | ASIG_VALOR + sPuntoComa
-               // | Empty
+                | Empty
                 | SyntaxError
                 | FUNCIONES_NATIVAS + sPuntoComa
-                //| SENTENCIAS
+                | SENTENCIAS
                 //| USAR_METODO
-                //| ROMPERra
-                //| CONTINUAR
+                | ROMPER
+                | CONTINUAR
                 //| PROCEDIMIENTOS_FORMULARIO
                 //| FUNC_MULTIMEDIA
 
                 | RETORNO
                 ;
+
 
             /*
             |-------------------------------------------------------------------------------------------------------------------
@@ -520,6 +557,108 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
             RETORNO.Rule = tRetorno + sPuntoComa
                 | tRetorno + VALOR + sPuntoComa;
 
+            ROMPER.Rule = tRomper + sPuntoComa;
+
+            CONTINUAR.Rule = tContinuar + sPuntoComa;
+            /*
+            |-------------------------------------------------------------------------------------------------------------------
+            | Sentencias 
+            |-------------------------------------------------------------------------------------------------------------------
+            |  
+            */
+
+            SENTENCIAS.Rule = SI
+                | SI_SIMPLIFICADO
+                | CASO
+
+                //CICLOS
+                | WHILE
+                | FOR
+                | DOWHILE
+                | REPETIR;
+
+            /*
+            ------------------------------------------
+            * SI 
+            ------------------------------------------
+            *  
+            */
+
+
+            SI.Rule = tSi + sAbreParent + E + sCierraParent + sAbreLlave + LST_CUERPO + sCierraLlave
+                | tSi + sAbreParent + E + sCierraParent + sAbreLlave + LST_CUERPO + sCierraLlave + SINO_SI
+                | tSi + sAbreParent + E + sCierraParent + sAbreLlave + LST_CUERPO + sCierraLlave + SINO;
+
+            SINO_SI.Rule = tSino + tSi + sAbreParent + E + sCierraParent + sAbreLlave + LST_CUERPO + sCierraLlave + SINO_SI
+               | tSino + tSi + sAbreParent + E + sCierraParent + sAbreLlave + LST_CUERPO + sCierraLlave
+               | tSino + tSi + sAbreParent + E + sCierraParent + sAbreLlave + LST_CUERPO + sCierraLlave + SINO;
+
+            SINO.Rule = tSino + sAbreLlave + LST_CUERPO + sCierraLlave;
+
+            /*
+            ------------------------------------------
+            * SI SIMPLIFICADO
+            ------------------------------------------
+            */
+
+            SI_SIMPLIFICADO.Rule = E + sCierraInterrogante + LST_CUERPO + sDosPuntos + LST_CUERPO + sPuntoComa;
+
+            /*
+            ------------------------------------------
+            * CASE
+            ------------------------------------------
+            */
+
+            CASO.Rule = tCaso + sAbreParent + E + sCierraParent + tDe + sAbreLlave + CUERPO_CASE + sCierraLlave;
+
+            CUERPO_CASE.Rule = E + sDosPuntos + sAbreLlave + LST_CUERPO + sCierraLlave + CUERPO_CASE
+                   | E + sDosPuntos + sAbreLlave + LST_CUERPO + sCierraLlave
+                   | tDefecto + sDosPuntos + sAbreLlave + LST_CUERPO + sCierraLlave;
+
+
+            /*
+            |-------------------------------------------------------------------------------------------------------------------
+            | BUCLES 
+            |-------------------------------------------------------------------------------------------------------------------
+            |  
+
+            
+            /*
+            ------------------------------------------
+            * WHILE
+            ------------------------------------------
+           */
+
+            WHILE.Rule = tMientras + sAbreParent + E + sCierraParent + sAbreLlave + LST_CUERPO + sCierraLlave;
+
+
+            /*
+            ------------------------------------------
+            * FOR
+            ------------------------------------------
+            */
+
+            FOR.Rule = tPara + sAbreParent + DECLARAR_VARIABLE_SINVISIBI + sPuntoComa + E + sPuntoComa + ASIG_VALOR + sCierraParent + sAbreLlave + LST_CUERPO + sCierraLlave
+                | tPara + sAbreParent + ASIG_VALOR + sPuntoComa + E + sPuntoComa + ASIG_VALOR + sCierraParent + sAbreLlave + LST_CUERPO + sCierraLlave;
+
+
+
+            /*
+            ------------------------------------------
+            * DOWHILE
+            ------------------------------------------
+            */
+
+            DOWHILE.Rule = tHacer + sAbreLlave + LST_CUERPO + sCierraLlave + tMientras + sAbreParent + E + sCierraParent + sPuntoComa;
+
+
+            /*
+            ------------------------------------------
+            * DOWHILE
+            ------------------------------------------
+            */
+
+            REPETIR.Rule = tRepetir + sAbreLlave + LST_CUERPO + sCierraLlave + tHasta + sAbreParent + E + sCierraParent + sPuntoComa;
 
             /*
             |-------------------------------------------------------------------------------------------------------------------
@@ -530,13 +669,270 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
 
 
             FUNCIONES_NATIVAS.Rule = IMPRIMIR
-                //| MENSAJE
+                | MENSAJE
                 ;
 
             IMPRIMIR.Rule = tImprimir + sAbreParent + VALOR + sCierraParent
                 | tImprimir + sAbreParent + sCierraParent;
 
+            MENSAJE.Rule = tMensaje + sAbreParent + E + sCierraParent
+                | tMensaje + sAbreParent + sCierraParent;
 
+
+
+
+            /*
+            |-------------------------------------------------------------------------------------------------------------------
+            | Funciones ope Tipo
+            |-------------------------------------------------------------------------------------------------------------------
+            |  
+            */
+
+
+            OPE_TIPO.Rule = TO_CADENA
+                    | SUB_CAD
+                    | POS_CAD
+                    | TO_BOOLEAN
+                    | TO_ENTERO
+                    | HOY
+                    | AHORA
+                    | TO_FECHA
+                    | TO_HORA
+                    | TO_FECHAHORA
+                    | TAM
+                    | RANDOM
+                    | MIN
+                    | MAX;
+
+            /*
+            |-------------------------------------------------------------------------------------------------------------------
+            | Funciones Cadena
+            |-------------------------------------------------------------------------------------------------------------------
+            |  
+            */
+
+
+            /*
+            ------------------------------------------
+            * CADENA
+            ------------------------------------------
+            */
+
+
+            TO_CADENA.Rule = tCadena + sAbreParent + E + sCierraParent;
+
+            SUB_CAD.Rule = tSubCad + sAbreParent + E + sComa + E + sComa + E + sCierraParent;
+
+            POS_CAD.Rule = tPosCad + sAbreParent + E + sComa + E + sCierraParent;
+
+            /*
+            ------------------------------------------
+            * Booleana
+            ------------------------------------------
+            */
+
+
+            TO_BOOLEAN.Rule = tBooleano + sAbreParent + E + sCierraParent;
+
+
+            /*
+            ------------------------------------------
+            * Entera
+            ------------------------------------------
+            */
+
+
+            TO_ENTERO.Rule = tEntero + sAbreParent + E + sCierraParent;
+
+
+            /*
+            |-------------------------------------------------------------------------------------------------------------------
+            | Funciones Date
+            |-------------------------------------------------------------------------------------------------------------------
+            |  
+            */
+
+
+            /*
+            ------------------------------------------
+            * Hoy  
+            ------------------------------------------
+            * Retorno: fecha
+            */
+
+
+            HOY.Rule = tHoy + sAbreParent + sCierraParent;
+
+
+            /*
+            ------------------------------------------
+            * Ahora
+            ------------------------------------------
+            * Retorno: fechaHora
+            */
+
+
+            AHORA.Rule = tAhora + sAbreParent + sCierraParent;
+
+            /*
+           ------------------------------------------
+           * To Fecha
+           ------------------------------------------
+           * Retorno: fecha
+           */
+
+            TO_FECHA.Rule = tFecha + sAbreParent + E + sCierraParent;
+
+            /*
+           ------------------------------------------
+           * To Hora
+           ------------------------------------------
+           * Retorno: hora
+           */
+
+
+            TO_HORA.Rule = tHora + sAbreParent + E + sCierraParent;
+
+
+            /*
+           ------------------------------------------
+           * To FechaHora
+           ------------------------------------------
+           * Retorno: hora
+           */
+
+            TO_FECHAHORA.Rule = tFechaHora + sAbreParent + E + sCierraParent;
+
+
+
+            /*
+            |-------------------------------------------------------------------------------------------------------------------
+            | Otras Funciones
+            |-------------------------------------------------------------------------------------------------------------------
+            |  
+            */
+
+            /*
+            ------------------------------------------
+            * OBjeto
+            ------------------------------------------
+            * retorno:entero
+            */
+
+
+            TAM.Rule = tTam + sAbreParent + E + sCierraParent;
+
+
+
+            /*
+            ------------------------------------------
+            * Random
+            ------------------------------------------
+            *retorno:entero/decimal/cadena
+            */
+            RANDOM.Rule = tRandom + sAbreParent + LST_VAL + sCierraParent;
+                //| tRandom + sAbreParent + sCierraParent;
+
+            /*
+            ------------------------------------------
+            * Minimo
+            ------------------------------------------
+            *retorno:entero/decimal
+            */
+            MIN.Rule = tMin + sAbreParent + LST_VAL + sCierraParent;
+
+
+            /*
+            ------------------------------------------
+            * Maximo
+            ------------------------------------------
+            *retorno:entero/decimal
+            */
+            MAX.Rule = tMax + sAbreParent + LST_VAL + sCierraParent;
+
+
+            /*
+            |-------------------------------------------------------------------------------------------------------------------
+            | Operaciones matematicas
+            |-------------------------------------------------------------------------------------------------------------------
+            |  
+            */
+
+            OPE_ARITME.Rule = POTENCIA
+                    | LOGARITMO
+                    | LOGARITMO10
+                    | ABSOLUTO
+                    | SENO
+                    | COSENO
+                    | TANGENTE
+                    | RAIZ
+                    | PI;
+
+
+            /*
+            ------------------------------------------
+            * POTENCIA
+            ------------------------------------------
+            * Retorno:decimal
+            */
+
+            POTENCIA.Rule = tPow + sAbreParent + E + sComa + E + sCierraParent;
+
+            /*
+            ------------------------------------------
+            * LOGARITMO
+            ------------------------------------------
+            * Retorno:decimal
+            */
+
+            LOGARITMO.Rule = tLog + sAbreParent + E + sCierraParent;
+
+            /*
+            ------------------------------------------
+            * LOGARITMO10
+            ------------------------------------------
+            * Retorno:decimal
+            */
+
+            LOGARITMO10.Rule = tLog10 + sAbreParent + E + sCierraParent;
+            /*
+            ------------------------------------------
+            * ABSOLUTO
+            ------------------------------------------
+            * Retorno:decimal/enter
+            */
+
+            ABSOLUTO.Rule = tAbs + sAbreParent + E + sCierraParent;
+
+            /*
+            ------------------------------------------
+            * TRIGONOMETRICAS
+            ------------------------------------------
+            * Retorno:decimal
+            */
+
+            SENO.Rule = tSeno + sAbreParent + E + sCierraParent;
+
+            COSENO.Rule = tCoseno + sAbreParent + E + sCierraParent;
+
+            TANGENTE.Rule = tTangente + sAbreParent + E + sCierraParent;
+
+            /*
+            ------------------------------------------
+            * RAIZ
+            ------------------------------------------
+            * Retorno:decimal
+            */
+            RAIZ.Rule = tSqrt + sAbreParent + E + sCierraParent;
+
+
+            /*
+            ------------------------------------------
+            * PI
+            ------------------------------------------
+            * Retorno:decimal
+            */
+            PI.Rule = tPi + sAbreParent + sCierraParent;
 
 
 
@@ -552,7 +948,7 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
             VALOR.Rule = tNuevo + valId + sAbreParent + LST_VAL + sCierraParent //aqui tengo que reconocer el-> nuevo opciones()
                 | tNuevo + TIPO + LST_CORCHETES_VAL
                 | LST_LLAVES_VAL
-                | tNulo
+                //| tNulo
                 | tEste   //para el this solamente
                 | E;
 
@@ -594,7 +990,10 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
                 | valCadena2
                 | valCaracter
                 | valDecimal
-                | valNumero;
+                | valNumero
+                | tNulo
+                | OPE_ARITME
+                | OPE_TIPO;
 
 
 

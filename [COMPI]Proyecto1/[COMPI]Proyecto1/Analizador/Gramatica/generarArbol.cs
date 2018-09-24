@@ -1,9 +1,18 @@
 ﻿using _COMPI_Proyecto1.Analizador.Nodos;
 using _COMPI_Proyecto1.Analizador.Nodos.Asignar_Valor;
-using _COMPI_Proyecto1.Analizador.Nodos.FuncionesNativas;
+using _COMPI_Proyecto1.Analizador.Nodos.FuncionesNativas; 
 using _COMPI_Proyecto1.Analizador.Nodos.IdVar_func;
 using _COMPI_Proyecto1.Analizador.Nodos.Llaves_Arreglos;
+using _COMPI_Proyecto1.Analizador.Nodos.Ope_tipo;
 using _COMPI_Proyecto1.Analizador.Nodos.Sentencia_Control;
+using _COMPI_Proyecto1.Analizador.Nodos.Sentencias;
+using _COMPI_Proyecto1.Analizador.Nodos.Sentencias.Caso;
+using _COMPI_Proyecto1.Analizador.Nodos.Sentencias.DoWhile;
+using _COMPI_Proyecto1.Analizador.Nodos.Sentencias.For;
+using _COMPI_Proyecto1.Analizador.Nodos.Sentencias.Repetir;
+using _COMPI_Proyecto1.Analizador.Nodos.Sentencias.Si;
+using _COMPI_Proyecto1.Analizador.Nodos.Sentencias.Si_simplificado;
+using _COMPI_Proyecto1.Analizador.Nodos.Sentencias.While;
 using _COMPI_Proyecto1.Analizador.Tablas;
 using Irony.Parsing;
 using System;
@@ -40,6 +49,8 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
                     //no terminal sin hijos
                     //Console.WriteLine("NoTerminal->" + nodoIrony.ToString());
                     // grafo += nodoIrony.GetHashCode() + "[label=\"" + nodoIrony.ToString() + "\"];\n";
+                    hijoNodo = getNodo(nodoIrony.ToString(), tabla);
+                    padre.insertar(hijoNodo);
                 }
                 else
                 {
@@ -250,6 +261,111 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
 
                 case "RETORNO":
                     retorno = new _RETORNO(nombreNoTerminal, tabla);
+                    break;
+
+                case "SI":
+                    retorno = new _SI(nombreNoTerminal, tabla);
+                    break;
+
+
+                case "SINO_SI":
+                    retorno = new _SINO_SI(nombreNoTerminal, tabla);
+                    break;
+
+
+                case "SINO":
+                    retorno = new _SINO(nombreNoTerminal, tabla);
+                    break;
+
+                case "SENTENCIAS":
+                    retorno = new _SENTENCIAS(nombreNoTerminal, tabla);
+                    break;
+
+                case "SI_SIMPLIFICADO":
+                    retorno = new _SI_SIMPLIFICADO(nombreNoTerminal, tabla);
+                    break;
+                     
+                case "CASO":
+                    retorno = new _CASO(nombreNoTerminal, tabla);
+                    break;
+                    
+                case "CUERPO_CASE":
+                    retorno = new _CUERPO_CASE(nombreNoTerminal, tabla);
+                    break;
+                    
+                case "ROMPER":
+                    retorno = new _ROMPER(nombreNoTerminal, tabla);
+                    break;
+
+                case "WHILE":
+                    retorno = new _WHILE(nombreNoTerminal, tabla);
+                    break;
+
+
+                case "CONTINUAR":
+                    retorno = new _CONTINUAR(nombreNoTerminal, tabla);
+                    break;
+
+                case "FOR":
+                    retorno = new _FOR(nombreNoTerminal, tabla);
+                    break;
+                case "DOWHILE":
+                    retorno = new _DOWHILE(nombreNoTerminal, tabla);
+                    break;
+
+                case "REPETIR":
+                    retorno = new _REPETIR(nombreNoTerminal, tabla);
+                    break;
+                case "MENSAJE":
+                    retorno = new _MENSAJE(nombreNoTerminal, tabla);
+                    break;
+                      
+                case "TO_CADENA":
+                    retorno = new _TO_CADENA(nombreNoTerminal, tabla);
+                    break;
+
+                case "SUB_CAD":
+                    retorno = new _SUB_CAD(nombreNoTerminal, tabla);
+                    break;
+                case "POS_CAD":
+                    retorno = new _POS_CAD(nombreNoTerminal, tabla);
+                    break;
+                case "TO_BOOLEAN":
+                    retorno = new _TO_BOOLEAN(nombreNoTerminal, tabla);
+                    break;
+                case "TO_ENTERO":
+                    retorno = new _TO_ENTERO(nombreNoTerminal, tabla);
+                    break;
+                case "HOY":
+                    retorno = new _HOY(nombreNoTerminal, tabla);
+                    break;
+                case "AHORA":
+                    retorno = new _AHORA(nombreNoTerminal, tabla);
+                    break;
+                case "TO_FECHA":
+                    retorno = new _TO_FECHA(nombreNoTerminal, tabla);
+                    break;
+                case "TO_HORA":
+                    retorno = new _TO_HORA(nombreNoTerminal, tabla);
+                    break;
+                case "TO_FECHAHORA":
+                    retorno = new _TO_FECHAHORA(nombreNoTerminal, tabla);
+                    break;
+                case "TAM":
+                    retorno = new _TAM(nombreNoTerminal, tabla);
+                    break;
+                case "RANDOM":
+                    retorno = new _RANDOM(nombreNoTerminal, tabla);
+                    break;
+                case "MIN":
+                    retorno = new _MIN(nombreNoTerminal, tabla);
+                    break;
+                case "MAX":
+                    retorno = new _MAX(nombreNoTerminal, tabla);
+                    break;
+
+                case "OPE_TIPO":
+                    retorno = new _OPE_TIPO(nombreNoTerminal, tabla);
                     break;
 
                 default:

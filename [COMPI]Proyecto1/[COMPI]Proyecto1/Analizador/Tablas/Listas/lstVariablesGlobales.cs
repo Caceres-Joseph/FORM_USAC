@@ -32,6 +32,8 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Listas
                 }
                 else
                 {
+                    println("vienen nulos");
+
                     itemEntorno it = new itemEntorno(temp.nombre, temp.tipo, new itemValor(), temp.visibilidad, temp.getDimension(), tabla);
                     elem.insertarEntorno(it);
                     //hay que asignarle el valor nulo

@@ -44,3 +44,8 @@ C:\Users\Joseph\Documents\Compi2\GITHUB\FORM_USAC\[COMPI]Proyecto1\[COMPI]Proyec
 C:\Users\Joseph\Documents\Compi2\GITHUB\FORM_USAC\[COMPI]Proyecto1\[COMPI]Proyecto1\obj\Debug\[COMPI]Proyecto1.pdb
 C:\Users\Joseph\Documents\Compi2\GITHUB\FORM_USAC\[COMPI]Proyecto1\[COMPI]Proyecto1\bin\Debug\FastColoredTextBox.dll
 C:\Users\Joseph\Documents\Compi2\GITHUB\FORM_USAC\[COMPI]Proyecto1\[COMPI]Proyecto1\bin\Debug\FastColoredTextBox.xml
+C:\Users\Joseph\Documents\Compi2\GITHUB\FORM_USAC\[COMPI]Proyecto1\[COMPI]Proyecto1\obj\Debug\_COMPI_Proyecto1.GUI.Form1.resources
+C:\Users\Joseph\Documents\Compi2\GITHUB\FORM_USAC\[COMPI]Proyecto1\[COMPI]Proyecto1\obj\Debug\_COMPI_Proyecto1.GUI.TIpos.Condicion.resources
+C:\Users\Joseph\Documents\Compi2\GITHUB\FORM_USAC\[COMPI]Proyecto1\[COMPI]Proyecto1\obj\Debug\_COMPI_Proyecto1.GUI.TIpos.Entero.resources
+C:\Users\Joseph\Documents\Compi2\GITHUB\FORM_USAC\[COMPI]Proyecto1\[COMPI]Proyecto1\obj\Debug\_COMPI_Proyecto1.GUI.TIpos.Opcion.resources
+C:\Users\Joseph\Documents\Compi2\GITHUB\FORM_USAC\[COMPI]Proyecto1\[COMPI]Proyecto1\obj\Debug\_COMPI_Proyecto1.GUI.gui_Mensaje.gMensaje.resources

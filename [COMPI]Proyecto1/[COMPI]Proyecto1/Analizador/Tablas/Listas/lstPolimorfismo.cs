@@ -79,8 +79,8 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Listas
         |-------------------------------------------------------------------------------------------------------------------
         |
         */
-         
-        
+
+
 
         public void guardarParametrosEnLaTabla(Dictionary<llaveParametro, elementoParametro> lstParametros, lstValores lstParametros2, elementoEntorno elementoEntor)
         {
@@ -91,17 +91,19 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Listas
                 foreach (var dic in lstParametros)
                 {
                     itemValor parametro2 = lstParametros2.getItemValor(i);
-                
+
 
 
                     //Console.WriteLine("------------------------");
                     //Console.WriteLine("dic.key.dimension-> " + dic.Key.dimension);
                     //Console.WriteLine("parametro2.dimensiones->" + parametro2.dimensiones.Count);
 
-                    if ((dic.Key.dimension == parametro2.dimensiones.Count) && (dic.Value.tipo.valLower.Equals(parametro2.getTipo())))
+                    if ((dic.Key.dimension == parametro2.dimensiones.Count) && (itemEntorno.validandoTipo(dic.Value.tipo.valLower, parametro2)))
                     {
                         token tNombre = new token(dic.Key.nombre);
                         token tTipo = new token(dic.Value.tipo.valLower);
+
+                        println("guardarParametrosEnLaTabla_ tipo->" + tTipo.valLower);
                         token tVisibilidad = new token("privado");
 
                         //listado de enteros
@@ -133,7 +135,7 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Listas
 
         }
 
-
+         
 
 
 
@@ -176,29 +178,7 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Listas
         |-------------------------------------------------------------------------------------------------------------------
         |
         */
-        public elementoPolimorfo getElementoPolimorfoNoSirve(token nombre, lstValores listaValores)
-        {
-
-
-            foreach (elementoPolimorfo temp in listaPolimorfa)
-            {
-                if (nombre.valLower.Equals(temp.nombre.valLower))
-                {
-                    //ahora hay que validar los parametros
-
-
-                    if (temp.compararParametros(listaValores))
-                    {
-                        return temp;
-                    }
-                    //ahora hay que comprobar las llaves de los atributos
-                }
-            }
-
-            tabla.tablaErrores.insertErrorSemantic("No se encuentra " + nombre.val + "(" + listaValores.getCadenaParam() + ")", nombre);
-            return null;
-        }
-
+     
 
 
 
@@ -229,6 +209,11 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Listas
                     temp.imprimir();
                 }
             }
+        }
+
+        public void println(String mensaje)
+        {
+            Console.WriteLine("[lstPolimorfismo]" + mensaje);
         }
 
 

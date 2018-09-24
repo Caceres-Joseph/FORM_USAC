@@ -57,6 +57,22 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
                 return false;
         }
 
+        public Boolean isRomper()
+        {
+            if (tipoRetorno == 2)
+                return true;
+            else
+                return false;
+        }
+
+        public Boolean isContinuar()
+        {
+            if (tipoRetorno == 3)
+                return true;
+            else
+                return false;
+        }
+
 
         /*
         |--------------------------------------------------------------------------

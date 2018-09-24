@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading.Tasks; 
 using _COMPI_Proyecto1.Analizador.Nodos.IdVar_func;
 using _COMPI_Proyecto1.Analizador.Nodos.Valor;
 using _COMPI_Proyecto1.Analizador.Nodos.Valor.OpeAritmetica;
@@ -21,7 +21,7 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
         }
 
 
- 
+
 
         public itemValor getValor(elementoEntorno elmen)
         {
@@ -48,15 +48,27 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
                     }
 
                 case 1:
+
+                    if (hijos[0].nombre.Equals("OPE_ARITME"))
+                    {
+                        
+                        return ob;
+
+                    }
+                    else if (hijos[0].nombre.Equals("OPE_TIPO"))
+                    {
+                        println("OPE_TIPO");
+                        return hijos[0].ope_tipo(elmen);
+                    }
                     //operador unario
-                    if (lstAtributos.listaAtributos.Count > 0)
+                    else if (lstAtributos.listaAtributos.Count > 0)
                     {
                         String signo = lstAtributos.getValItem(0);
                         switch (signo)
                         {
                             //Logico
                             case "-":
-                                negativo opNeg=new negativo(hijos[0], tablaSimbolos, lstAtributos.getToken(0));
+                                negativo opNeg = new negativo(hijos[0], tablaSimbolos, lstAtributos.getToken(0));
                                 return opNeg.opNot(" Asignando valor Negativo", elmen);
 
                             case "!":
@@ -77,16 +89,16 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
                     //ID_VAR_FUNC
                     {
                         nodoModelo busq = getNodo("ID_VAR_FUNC");
-                        if (busq!=null)
+                        if (busq != null)
                         {
                             _ID_VAR_FUNC idFunc = (_ID_VAR_FUNC)busq;
                             return idFunc.getValor(elmen);
                         }
-                       
+
                         tablaSimbolos.tablaErrores.insertErrorSyntax("[E]Se esperaba un signo para operación unaria", new token());
                         return ob;
                     }
-                    
+
                 case 2:
                     //operador binario
                     if (lstAtributos.listaAtributos.Count > 0)
@@ -239,6 +251,11 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
                         tablaSimbolos.tablaErrores.insertErrorSemantic("No se pudo parsear a decimal el valor: " + tok.tok.val, tok.tok);
                         return retorno;
                     }
+                case "nulo":
+                    retorno = new itemValor();
+                    retorno.setTypeNulo();
+                    return retorno;
+
                 default:
                     tablaSimbolos.tablaErrores.insertErrorSemantic("No se reconoce el tipo: " + tok.tok.val, tok.tok);
                     return retorno;

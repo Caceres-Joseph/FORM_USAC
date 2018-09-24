@@ -27,7 +27,7 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
         */
 
 
-        string tipo;
+         string tipo;
        // public string tipo2 = "";
         public Object valor;
         public List<int> dimensiones;
@@ -37,6 +37,8 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
 
         //esto sirve para el tipo del metodo/funcion
         public token tipoFuncionMetodo = new token();
+
+     
 
 
         public itemValor()
@@ -284,7 +286,8 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
                 }
                 else if (isTypeObjeto())
                 {
-                    println("objeto");
+                    println("objeto."+nombreObjeto);
+
                 }
                 else if (isTypeVacio())
                 {
@@ -314,14 +317,8 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
             switch (tipo)
             {
                 case "cadena":
-                    if (isTypeCadena())
-                    {
-                        return getCadena();
-                    }
-                    else
-                    {
-                        return null;
-                    }
+                    return getCadena(); 
+
                 case "booleano":
                     if (isTypeBooleano())
                     {
@@ -343,12 +340,27 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
                             return null;
                         }
 
+                    }else if (isTypeCadena())
+                    {
+                        if (getCadena().ToLower().Equals("vardadero")|| getCadena().ToLower().Equals("true"))
+                        {
+                            return true;
+                        }else if (getCadena().ToLower().Equals("falso") || getCadena().ToLower().Equals("false"))
+                        {
+                            return false;
+                        }
+                        else
+                        {
+                            return null;
+                        }
                     }
                     else
                     {
                         return null;
                     }
                 case "entero":
+
+                    
                     if (isTypeEntero())
                     {
                         return getEntero();
@@ -368,9 +380,25 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
                     {
                         return Convert.ToInt32(getDecimal());
                     }
+                    else if (isTypeFechaHora()||isTypeFecha()||isTypeHora())
+                    {
+
+
+                        int ret= unchecked((int)getFechaHora().Ticks);
+                        return ret;
+                    }
                     else
                     {
-                        return null;
+                        try
+                        {
+                            int el = Convert.ToInt32(valor);
+                            return el;
+                        }
+                        catch (Exception e)
+                        {
+                            println("error al parsear a entrero"+e.ToString());
+                            return null;
+                        }
                     }
 
                 case "decimal":

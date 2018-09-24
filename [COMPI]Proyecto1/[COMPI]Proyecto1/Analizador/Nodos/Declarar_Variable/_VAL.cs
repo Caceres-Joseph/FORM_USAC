@@ -9,9 +9,12 @@ using _COMPI_Proyecto1.Analizador.Tablas.Items;
 namespace _COMPI_Proyecto1.Analizador.Nodos
 {
     class _VAL : nodoModelo
+    /*
+     * VAL.Rule = sIgual + VALOR
+     */
     {
 
-        
+
         public _VAL(string nombre, tablaSimbolos tabla) : base(nombre, tabla)
         {
 
@@ -38,6 +41,11 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
             }
 
             return retorno;
+        }
+
+        public token getTokenIgual()
+        {
+            return lstAtributos.getToken(0);
         }
 
     }

@@ -65,6 +65,16 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Objetos
 
         public itemValor ejecutarMetodoFuncion(token nombre, lstValores parametros, elementoEntorno entorno)
         {
+            /*foreach (itemValor tmp in parametros.listaValores)
+            {
+
+
+
+                Console.WriteLine("[ObjetoClase]->");
+                Console.WriteLine("tipo->"+tmp.getTipo());
+                Console.WriteLine("nombreObjeto->" + tmp.nombreObjeto);
+                tmp.imprimirVariable();
+            }*/
 
             return cuerpoClase.lstMetodo_funcion.getMetodoFuncion(nombre, parametros, entorno); 
              

@@ -70,9 +70,7 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
         public virtual itemRetorno ejecutar(elementoEntorno tablaEntornos)
         {
              
-
-
-
+            
             itemRetorno resultado=ejecutarHijos(tablaEntornos);
             return resultado;
               
@@ -199,6 +197,21 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
             }
         }
 
+
+
+        /*
+        |-------------------------------------------------------------------------------------------------------------------
+        | Funciones ope Tipo
+        |-------------------------------------------------------------------------------------------------------------------
+        |  
+        */
+
+        public virtual itemValor ope_tipo( elementoEntorno elem)
+        {
+            itemValor retorno = new itemValor();
+            retorno.setTypeNulo();
+            return retorno;
+        }
 
 
 

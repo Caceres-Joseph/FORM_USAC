@@ -82,12 +82,15 @@
     <Compile Include="Analizador\Nodos\Declarar_Variable\_VAL.cs" />
     <Compile Include="Analizador\Nodos\FuncionesNativas\_FUNCIONES_NATIVAS.cs" />
     <Compile Include="Analizador\Nodos\FuncionesNativas\_IMPRIMIR.cs" />
+    <Compile Include="Analizador\Nodos\FuncionesNativas\_MENSAJE.cs" />
     <Compile Include="Analizador\Nodos\Funciones_Metodos\_CONSTRUCTOR.cs" />
     <Compile Include="Analizador\Nodos\Funciones_Metodos\_MAIN.cs" />
     <Compile Include="Analizador\Nodos\Funciones_Metodos\_METODO.cs" />
     <Compile Include="Analizador\Nodos\Funciones_Metodos\_SOBRESCRITURA.cs" />
     <Compile Include="Analizador\Nodos\IdVar_func\_ID_VAR_FUNC.cs" />
+    <Compile Include="Analizador\Nodos\IdVar_func\_ID_VAR_FUNC_PADRE.cs" />
     <Compile Include="Analizador\Nodos\IdVar_func\_LST_PUNTOSP.cs" />
+    <Compile Include="Analizador\Nodos\IdVar_func\_LST_PUNTOSP_PADRE.cs" />
     <Compile Include="Analizador\Nodos\Llaves_Arreglos\_LLAVES_VAL_P.cs" />
     <Compile Include="Analizador\Nodos\Llaves_Arreglos\_LST_CORCHETES.cs" />
     <Compile Include="Analizador\Nodos\Llaves_Arreglos\_LST_CORCHETES_VAL.cs" />
@@ -96,6 +99,21 @@
     <Compile Include="Analizador\Nodos\Llaves_Arreglos\_PAR_CORCHETES_VAL.cs" />
     <Compile Include="Analizador\Nodos\Llaves_Arreglos\_VAR_ARREGLO.cs" />
     <Compile Include="Analizador\Nodos\nodoModelo.cs" />
+    <Compile Include="Analizador\Nodos\Ope_tipo\_AHORA.cs" />
+    <Compile Include="Analizador\Nodos\Ope_tipo\_HOY.cs" />
+    <Compile Include="Analizador\Nodos\Ope_tipo\_MAX.cs" />
+    <Compile Include="Analizador\Nodos\Ope_tipo\_MIN.cs" />
+    <Compile Include="Analizador\Nodos\Ope_tipo\_OPE_TIPO.cs" />
+    <Compile Include="Analizador\Nodos\Ope_tipo\_POS_CAD.cs" />
+    <Compile Include="Analizador\Nodos\Ope_tipo\_RANDOM.cs" />
+    <Compile Include="Analizador\Nodos\Ope_tipo\_SUB_CAD.cs" />
+    <Compile Include="Analizador\Nodos\Ope_tipo\_TAM.cs" />
+    <Compile Include="Analizador\Nodos\Ope_tipo\_TO_BOOLEAN.cs" />
+    <Compile Include="Analizador\Nodos\Ope_tipo\_TO_CADENA.cs" />
+    <Compile Include="Analizador\Nodos\Ope_tipo\_TO_ENTERO.cs" />
+    <Compile Include="Analizador\Nodos\Ope_tipo\_TO_FECHA.cs" />
+    <Compile Include="Analizador\Nodos\Ope_tipo\_TO_FECHAHORA.cs" />
+    <Compile Include="Analizador\Nodos\Ope_tipo\_TO_HORA.cs" />
     <Compile Include="Analizador\Nodos\Parametros\_LST_PARAMETROS.cs" />
     <Compile Include="Analizador\Nodos\Parametros\_LST_VAL.cs" />
     <Compile Include="Analizador\Nodos\Parametros\_PARAMETRO.cs" />
@@ -108,7 +126,20 @@
     <Compile Include="Analizador\Nodos\Inicio\_S.cs" />
     <Compile Include="Analizador\Nodos\Inicio\_TIPO.cs" />
     <Compile Include="Analizador\Nodos\Inicio\_VISIBILIDAD.cs" />
+    <Compile Include="Analizador\Nodos\Sentencias\Caso\_CASO.cs" />
+    <Compile Include="Analizador\Nodos\Sentencias\Caso\_CUERPO_CASE.cs" />
+    <Compile Include="Analizador\Nodos\Sentencias\DoWhile\_DOWHILE.cs" />
+    <Compile Include="Analizador\Nodos\Sentencias\For\_FOR.cs" />
+    <Compile Include="Analizador\Nodos\Sentencias\Repetir\_REPETIR.cs" />
+    <Compile Include="Analizador\Nodos\Sentencias\Si\_SI.cs" />
+    <Compile Include="Analizador\Nodos\Sentencias\Si\_SINO.cs" />
+    <Compile Include="Analizador\Nodos\Sentencias\Si\_SINO_SI.cs" />
+    <Compile Include="Analizador\Nodos\Sentencias\Si_simplificado\_SI_SIMPLIFICADO.cs" />
+    <Compile Include="Analizador\Nodos\Sentencias\While\_WHILE.cs" />
+    <Compile Include="Analizador\Nodos\Sentencias\_SENTENCIAS.cs" />
+    <Compile Include="Analizador\Nodos\Sentencia_Control\_CONTINUAR.cs" />
     <Compile Include="Analizador\Nodos\Sentencia_Control\_RETORNO.cs" />
+    <Compile Include="Analizador\Nodos\Sentencia_Control\_ROMPER.cs" />
     <Compile Include="Analizador\Nodos\Valor\opAritmetica.cs" />
     <Compile Include="Analizador\Nodos\Valor\OpeAritmetica\division.cs" />
     <Compile Include="Analizador\Nodos\Valor\OpeAritmetica\modulo.cs" />
@@ -169,13 +200,58 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="GeneradorAst\generarRecorrido.cs" />
+    <Compile Include="GUI\Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\gui_Mensaje\gMensaje.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\gui_Mensaje\gMensaje.Designer.cs">
+      <DependentUpon>gMensaje.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\proyecto.cs" />
     <Compile Include="GUI\tab.cs" />
+    <Compile Include="GUI\TIpos\Condicion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\TIpos\Condicion.Designer.cs">
+      <DependentUpon>Condicion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\TIpos\Entero.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\TIpos\Entero.Designer.cs">
+      <DependentUpon>Entero.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\TIpos\Opcion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\TIpos\Opcion.Designer.cs">
+      <DependentUpon>Opcion.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reporte\ErrorEjecucion.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\gui_Mensaje\gMensaje.resx">
+      <DependentUpon>gMensaje.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\TIpos\Condicion.resx">
+      <DependentUpon>Condicion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\TIpos\Entero.resx">
+      <DependentUpon>Entero.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\TIpos\Opcion.resx">
+      <DependentUpon>Opcion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

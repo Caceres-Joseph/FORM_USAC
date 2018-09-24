@@ -9,13 +9,48 @@ using System.Threading.Tasks;
 namespace _COMPI_Proyecto1.Analizador.Arbol.Tests
 {
     [TestClass()]
+
+
+
     public class arbolTests
     {
         String hola;
+
         [TestMethod()]
+        public void dowhilte()
+        {
+            int x = 0;
+            do
+            {
+                Console.WriteLine(x);
+                x++;
+            } while (x < 10);
+        }
+
+        
         public void iniciarAnalisisTest()
         {
 
+            switch (1)
+            {
+                case 1:
+
+                    /*switch (2)
+                    {
+                        case 1:
+                            break;
+                        case 2:
+                            break;
+                    }*/
+                    
+
+                case 2:
+                    break;
+
+                default:
+
+                    break;
+            }
 
             int[] arr2 = { 3, 2 };
             int[][] arr = { arr2, arr2};
@@ -28,12 +63,16 @@ namespace _COMPI_Proyecto1.Analizador.Arbol.Tests
             Dictionary<int, String> dictou = new Dictionary<int, string>();
             List<int> lista = new List<int>();
         carro car0 = new carro();
+
             dict(lista);
             Console.WriteLine("diccionario->" + lista[1]);
     
             Console.WriteLine("Salida");
             var el = !(Math.Pow(23, 2) * 34 - 34 + 23 > 434 || false != !true || 23 < 23 && 23 == 21 || 34 != 35 || 34 >= 34 && 34 <= 34 % 32 * 34 + 34);
             Console.WriteLine(el);
+
+
+
 
             /*
             arbol tree = new arbol();
@@ -51,6 +90,16 @@ namespace _COMPI_Proyecto1.Analizador.Arbol.Tests
             Assert.AreEqual("honda", hola.nombre);
 
             int a = 0;
+
+            asdf()[1] = "23";
+            int indi = 0;
+         
+        }
+
+        public String[] asdf()
+        {
+            String[] temp = { "uno", "dos" };
+            return temp;
         }
 
 

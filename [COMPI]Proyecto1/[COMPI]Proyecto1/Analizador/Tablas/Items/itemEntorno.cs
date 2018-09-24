@@ -16,6 +16,9 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
         public List<int> dimension = new List<int>();
         public tablaSimbolos tabla;
 
+
+        public List<int> lstDimensionesAcceso = new List<int>();
+
         /*
         public itemEntorno(tablaSimbolos tabla)
         {
@@ -39,7 +42,17 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
                 {
                     this.tipo = tipo;
                     this.nombre = nombre;
-                    this.valor = valor;
+
+
+                    //aqui tengo qee validar los objetos
+                    this.valor = valor; 
+                    itemValor tempIt = new itemValor();
+                    String tipoDato1 = tempIt.getTipoApartirDeString(tipo.valLower);
+
+                    if (tipoDato1.Equals("objeto")!= valor.isTypeNulo()) 
+                        this.valor.setTypeObjeto(tipo.valLower);
+ 
+
                     this.visibilidad = visibilidad;
                     this.dimension = valor.dimensiones; //asi ya tiene dimensiones definidas
 
@@ -51,19 +64,51 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
             }
             else
             {
-                
+
                 this.tabla = tabla;
 
                 if (valor.dimensiones.Count != 0)
                 {
                     tabla.tablaErrores.insertErrorSemantic("Se está intentando guardar en la variable :" + nombre.val + " de tipo " + tipo.valLower + ", una matriz de dimension : " + valor.dimensiones.Count, nombre);
                 }
-                else if (validandoTipo(tipo.valLower, valor.getTipo()))
+                else if (sePuedeParsear(tipo.valLower, valor))
+                {
+                    this.tipo = tipo;
+                    this.nombre = nombre;
+
+
+                    //guardar el valor parseado.
+
+                    this.valor = valor;
+                    this.valor.valor = valor.getValorParseado(tipo.valLower);
+                     
+
+                    itemValor tempIt = new itemValor();
+                    String tipoDato1 = tempIt.getTipoApartirDeString(tipo.valLower);
+                    if (tipoDato1.Equals("objeto") != valor.isTypeNulo())
+                        this.valor.setTypeObjeto(tipo.valLower);
+
+
+
+                    this.visibilidad = visibilidad;
+                    this.dimension = dimension;
+                }
+                else if (validandoTipo(tipo.valLower, valor))
                 {
 
                     this.tipo = tipo;
                     this.nombre = nombre;
+                     
+
+                    //aqui tengo qee validar los objetos
                     this.valor = valor;
+                    itemValor tempIt = new itemValor();
+                    String tipoDato1 = tempIt.getTipoApartirDeString(tipo.valLower);
+                    if (tipoDato1.Equals("objeto") != valor.isTypeNulo())
+                        this.valor.setTypeObjeto(tipo.valLower);
+
+
+
                     this.visibilidad = visibilidad;
                     this.dimension = dimension;
                 }
@@ -78,15 +123,60 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
 
 
 
-        public Boolean validandoTipo(String tipo1, String tipo2)
+        /*public Boolean validandoTipo(String tipo1, String tipo2, itemValor valor2)
         {
             //aquí también hay que verificar las dimensiones
 
 
+            //if (tipo1.Equals(tipo2) || tipo2.Equals("nulo"))
+            itemValor tempIt = new itemValor();
+            String tipoDato1 = tempIt.getTipoApartirDeString(tipo1);
+
+            if (tipoDato1.Equals("objeto") && valor2.isTypeObjeto())
+            //validando que sean los mismos tipos
+            {
+                if (tipo1.Equals(valor2.nombreObjeto))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else if (tipoDato1.Equals(tipo2) || tipo2.Equals("nulo"))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }*/
+
+        public static Boolean validandoTipo(String tipo1, itemValor valor2)
+        {
+            //aquí también hay que verificar las dimensiones
+
 
             //if (tipo1.Equals(tipo2) || tipo2.Equals("nulo"))
             itemValor tempIt = new itemValor();
-            if (tempIt.getTipoApartirDeString(tipo1).Equals(tipo2) || tipo2.Equals("nulo"))
+            String tipoDato1 = tempIt.getTipoApartirDeString(tipo1);
+
+            if (tipoDato1.Equals("objeto") && valor2.isTypeObjeto() || valor2.getTipo().Equals("nulo"))
+            //validando que sean los mismos tipos
+            {
+                if (tipo1.Equals(valor2.nombreObjeto))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else if (tipoDato1.Equals(valor2.getTipo()) || valor2.getTipo().Equals("nulo"))
             {
                 return true;
             }
@@ -97,8 +187,21 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
 
         }
 
+        public static Boolean sePuedeParsear(String tipo1, itemValor valor2)
+        {
+         
+            Object objetoParseado = valor2.getValorParseado(tipo1);
+            if (objetoParseado!=null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
 
-
+         
         public void imprimir()
         {
             Console.WriteLine("\tnombre->" + nombre.valLower);
@@ -107,9 +210,9 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
             Console.WriteLine("\t\tvisibilidad->" + visibilidad.valLower);
             Console.WriteLine("\t\tdimension->" + dimension.Count);
             int indice = 0;
-            foreach( int ent in dimension)
+            foreach (int ent in dimension)
             {
-                Console.WriteLine("\t\t\tdim1: "+indice +"["+ ent+"]");
+                Console.WriteLine("\t\t\tdim1: " + indice + "[" + ent + "]");
                 indice++;
             }
         }

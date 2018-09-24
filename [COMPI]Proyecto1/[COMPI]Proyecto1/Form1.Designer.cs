@@ -47,6 +47,8 @@
             this.treeView1 = new System.Windows.Forms.TreeView();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.metroTile2 = new MetroFramework.Controls.MetroTile();
+            this.generarFormularioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.verFomularioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -72,10 +74,12 @@
             this.herramientasToolStripMenuItem,
             this.erroresToolStripMenuItem,
             this.otroToolStripMenuItem,
-            this.graficarToolStripMenuItem});
+            this.graficarToolStripMenuItem,
+            this.generarFormularioToolStripMenuItem,
+            this.verFomularioToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(219, 17);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(278, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(626, 24);
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -129,7 +133,7 @@
             // ejecutarToolStripMenuItem
             // 
             this.ejecutarToolStripMenuItem.Name = "ejecutarToolStripMenuItem";
-            this.ejecutarToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.ejecutarToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.ejecutarToolStripMenuItem.Text = "Ejecutar";
             this.ejecutarToolStripMenuItem.Click += new System.EventHandler(this.ejecutarToolStripMenuItem_Click);
             // 
@@ -221,6 +225,19 @@
             this.metroTile2.TileTextFontSize = MetroFramework.MetroTileTextSize.Tall;
             this.metroTile2.UseSelectable = true;
             // 
+            // generarFormularioToolStripMenuItem
+            // 
+            this.generarFormularioToolStripMenuItem.Name = "generarFormularioToolStripMenuItem";
+            this.generarFormularioToolStripMenuItem.Size = new System.Drawing.Size(121, 20);
+            this.generarFormularioToolStripMenuItem.Text = "Generar Formulario";
+            // 
+            // verFomularioToolStripMenuItem
+            // 
+            this.verFomularioToolStripMenuItem.Name = "verFomularioToolStripMenuItem";
+            this.verFomularioToolStripMenuItem.Size = new System.Drawing.Size(92, 20);
+            this.verFomularioToolStripMenuItem.Text = "Ver Fomulario";
+            this.verFomularioToolStripMenuItem.Click += new System.EventHandler(this.verFomularioToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -262,6 +279,8 @@
         private System.Windows.Forms.ToolStripMenuItem nuevoProyectoToolStripMenuItem;
         private MetroFramework.Controls.MetroTile metroTile2;
         private System.Windows.Forms.ToolStripMenuItem eliminarClaseToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem generarFormularioToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem verFomularioToolStripMenuItem;
     }
 }
 
