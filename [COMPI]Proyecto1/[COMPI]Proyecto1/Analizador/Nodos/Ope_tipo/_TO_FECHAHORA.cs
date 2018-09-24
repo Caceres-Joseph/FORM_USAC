@@ -28,7 +28,6 @@ namespace _COMPI_Proyecto1.Analizador.Nodos.Ope_tipo
         */
 
 
-
         public override itemValor ope_tipo(elementoEntorno elem)
         {
 
@@ -38,8 +37,48 @@ namespace _COMPI_Proyecto1.Analizador.Nodos.Ope_tipo
             if (hayErrores())
                 return retorno;
 
+            if (hijos.Count != 1)
+                return retorno;
 
-            return retorno;
+
+
+
+
+            _E nodoE2 = (_E)hijos[0];
+
+            if (hayErrores())
+                return retorno;
+
+            itemValor itemInicio = nodoE2.getValor(elem);
+
+
+
+            if (itemInicio.isTypeFechaHora())
+            {
+                return itemInicio;
+            }
+            else if (itemInicio.isTypeCadena())
+            {
+                itemValor tel = new itemValor();
+                tel.convertirCadena(itemInicio.getCadena());
+
+                if (tel.isTypeFechaHora())
+                {
+                    retorno = tel;
+                    return retorno;
+                }
+                else
+                {
+                    tablaSimbolos.tablaErrores.insertErrorSemantic("No se pudo parsear a fecha hora", lstAtributos.getToken(0));
+                    return retorno;
+                }
+
+            }
+            else
+            {
+                tablaSimbolos.tablaErrores.insertErrorSemantic("No se pueden parsear a fecha hora expresiones que no sean cadenas", lstAtributos.getToken(0));
+                return retorno;
+            }
 
         }
     }

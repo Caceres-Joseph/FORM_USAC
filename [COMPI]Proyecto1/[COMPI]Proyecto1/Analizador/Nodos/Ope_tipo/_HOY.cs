@@ -40,6 +40,11 @@ namespace _COMPI_Proyecto1.Analizador.Nodos.Ope_tipo
                 return retorno;
 
 
+
+            String temP = DateTime.Now.ToString("dd/MM/yyyy");
+            retorno.convertirCadena(temP);
+            println(temP);
+
             return retorno;
 
         }

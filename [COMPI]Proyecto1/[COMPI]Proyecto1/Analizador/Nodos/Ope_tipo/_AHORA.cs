@@ -30,8 +30,7 @@ namespace _COMPI_Proyecto1.Analizador.Nodos.Ope_tipo
         |  
         */
 
-
-
+             
         public override itemValor ope_tipo(elementoEntorno elem)
         {
 
@@ -41,6 +40,10 @@ namespace _COMPI_Proyecto1.Analizador.Nodos.Ope_tipo
             if (hayErrores())
                 return retorno;
 
+             
+            String temP = DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss");
+            retorno.convertirCadena(temP);
+            println(temP);
 
             return retorno;
 

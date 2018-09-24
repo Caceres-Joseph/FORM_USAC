@@ -73,8 +73,7 @@ namespace _COMPI_Proyecto1.Analizador.Nodos.Ope_matematica
             {
                 tablaSimbolos.tablaErrores.insertErrorSemantic("No se puede parsear a entero el valor", lstAtributos.getToken(0));
                 return retorno;
-            }
-
+            } 
         }
     }
 }
