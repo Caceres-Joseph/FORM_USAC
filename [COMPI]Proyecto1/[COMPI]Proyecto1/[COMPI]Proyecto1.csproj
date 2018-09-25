@@ -91,6 +91,7 @@
     <Compile Include="Analizador\Nodos\IdVar_func\_ID_VAR_FUNC_PADRE.cs" />
     <Compile Include="Analizador\Nodos\IdVar_func\_LST_PUNTOSP.cs" />
     <Compile Include="Analizador\Nodos\IdVar_func\_LST_PUNTOSP_PADRE.cs" />
+    <Compile Include="Analizador\Nodos\Inicio\_SUPER.cs" />
     <Compile Include="Analizador\Nodos\Llaves_Arreglos\_LLAVES_VAL_P.cs" />
     <Compile Include="Analizador\Nodos\Llaves_Arreglos\_LST_CORCHETES.cs" />
     <Compile Include="Analizador\Nodos\Llaves_Arreglos\_LST_CORCHETES_VAL.cs" />

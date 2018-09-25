@@ -80,6 +80,18 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Objetos
              
         }
 
+        /*
+        |----------------------------------------------
+        |  Ejecutando Constructor Heredado
+        |----------------------------------------------
+        */
+
+        public void ejecutarConstructorHeredado( lstValores parametros, elementoEntorno tablaEntorno, token linea)
+        {
+             
+            cuerpoClase.lstConstructoresHeredados.ejecutarConstructorHeredad( parametros, tablaEntorno, linea);
+        }
+
 
         /*
         |----------------------------------------------

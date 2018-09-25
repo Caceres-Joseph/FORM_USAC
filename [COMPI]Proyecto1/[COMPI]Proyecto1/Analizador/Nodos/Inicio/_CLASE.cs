@@ -9,6 +9,10 @@ using _COMPI_Proyecto1.Analizador.Tablas.Items;
 namespace _COMPI_Proyecto1.Analizador.Nodos
 {
     class _CLASE : nodoModelo
+    /*
+        CLASE.Rule = tClase + valId + EXTENDER + sAbreLlave + CP_CLASE + sCierraLlave
+            | tClase + valId + VISIBILIDAD + EXTENDER + sAbreLlave + CP_CLASE + sCierraLlave;
+     */
     {
         public _CLASE(string nombre, tablaSimbolos tabla) : base(nombre, tabla)
         {
@@ -23,22 +27,20 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
 
             if (hayErrores())
                 return;
-
-
-
-
+             
             token nombreClase = getNombre();
             token extender = getExtender();
-            token visibilidad = getVisibilidad(); 
-             
-            elementoClase nuevaClase = new elementoClase(nombreClase,visibilidad,extender, hijos,tablaSimbolos);
+            token visibilidad = getVisibilidad();
+
+            elementoClase nuevaClase = new elementoClase(nombreClase, visibilidad, extender, hijos, tablaSimbolos);
             ejecutarHijos(nuevaClase); //aqui cargo ele elmento clase 
             //ahora lo ingreso a la tabla de simbolos
             tablaSimbolos.lstClases.Add(nuevaClase);
 
         }
-         
 
+
+         
         public token getVisibilidad()
         {
 
@@ -60,7 +62,7 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
             return retorno;
         }
 
-       
+
 
         public token getExtender()
         {
@@ -76,7 +78,7 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
             else
             {
                 retorno = new token("");
-            } 
+            }
 
             return retorno;
         }

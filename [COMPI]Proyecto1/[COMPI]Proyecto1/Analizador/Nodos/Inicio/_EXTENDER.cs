@@ -27,7 +27,7 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
         {
             token retorno = new token();
 
-            if (lstAtributos.listaAtributos.Count > 0)
+            if (lstAtributos.listaAtributos.Count > 1)
             {//si hay visibilidad
                 //tPadre + valId
                 retorno = lstAtributos.getToken(1);

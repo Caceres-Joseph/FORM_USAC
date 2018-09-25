@@ -165,6 +165,8 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
         {
             cargarPolimorfismoHijos(elem);
         }
+
+
         public void cargarPolimorfismoHijos(elementoPolimorfo elemento)
         {
              

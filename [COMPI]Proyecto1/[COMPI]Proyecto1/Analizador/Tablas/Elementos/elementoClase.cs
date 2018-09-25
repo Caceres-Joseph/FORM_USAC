@@ -13,6 +13,7 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
         public lstPrincipal lstPrincipal;
         public lstMetodo_funcion lstMetodo_funcion;
         public lstConstructores lstConstructores;
+        public lstConstructores lstConstructoresHeredados;
         //public lstPolimorfismo lstSobrescritura;
         public lstVariablesGlobales lstVariablesGlobales;
 
@@ -57,6 +58,7 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
             this.lstConstructores = new lstConstructores(this.tablaErrores, "constructores");
             //this.lstSobrescritura = new lstPolimorfismo(this.tablaErrores, "sobrescritura");
             this.lstVariablesGlobales = new lstVariablesGlobales(this.tablaErrores, "var_globales");
+            this.lstConstructoresHeredados = new lstConstructores(this.tablaErrores, "constructores_heredados");
         }
 
 
@@ -87,14 +89,14 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
         {
             lstPrincipal.imprimir();
             lstMetodo_funcion.imprimir();
-            lstConstructores.imprimir();
+            lstConstructores.imprimir();  
+            lstConstructoresHeredados.imprimir();
             //lstSobrescritura.imprimir();
             lstVariablesGlobales.imprimir();
 
         }
 
-
-
+         
         /*
         |--------------------------------------------------------------------------
         | Cargando ya la tabla de entornos

@@ -20,7 +20,7 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Listas
             foreach (elementoPolimorfo temp in listaPolimorfa)
             {
 
-                 
+
                 if (temp.LST_CUERPO.nombre.Equals("VAL"))
                 {
                     if (tabla.hayErrores("lstVariablesGlobales_ejecutar"))
@@ -41,6 +41,17 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Listas
                 }
             }
         }
+
+
+
+
+
+        /*
+        |-------------------------------------------------------------------------------------------------------------------
+        | Imprimir
+        |-------------------------------------------------------------------------------------------------------------------
+        |
+        */
 
 
         public void println(String mensaje)

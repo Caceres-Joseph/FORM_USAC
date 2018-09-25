@@ -2,6 +2,7 @@
 using _COMPI_Proyecto1.Analizador.Nodos.Asignar_Valor;
 using _COMPI_Proyecto1.Analizador.Nodos.FuncionesNativas; 
 using _COMPI_Proyecto1.Analizador.Nodos.IdVar_func;
+using _COMPI_Proyecto1.Analizador.Nodos.Inicio;
 using _COMPI_Proyecto1.Analizador.Nodos.Llaves_Arreglos;
 using _COMPI_Proyecto1.Analizador.Nodos.Ope_matematica;
 using _COMPI_Proyecto1.Analizador.Nodos.Ope_tipo;
@@ -402,8 +403,11 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
                     break;
 
 
+                case "SUPER":
+                    retorno = new _SUPER(nombreNoTerminal, tabla);
+                    return retorno;
 
-
+                     
                 default:
                     retorno= new nodoModelo("Desc_"+nombreNoTerminal, tabla);
                     Console.WriteLine("[generarArbol]No se encontró el nodo:"+nombreNoTerminal);

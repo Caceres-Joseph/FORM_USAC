@@ -73,6 +73,7 @@ namespace _COMPI_Proyecto1.GUI
 
             String contenido = lstTabs[tab.SelectedIndex].cuadro.Text;
             arbol.iniciarAnalisis(contenido, lstTabs[tab.SelectedIndex].page.Text);
+            arbol.tablaDeSimbolos.cargarExtends();
             arbol.tablaDeSimbolos.imprimirClases();
             arbol.tablaDeSimbolos.iniciarEjecucion();
 

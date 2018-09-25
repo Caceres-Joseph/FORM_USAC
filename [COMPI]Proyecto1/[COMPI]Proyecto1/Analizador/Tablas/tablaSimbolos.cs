@@ -122,6 +122,11 @@ namespace _COMPI_Proyecto1.Analizador.Tablas
 
         public void iniciarEjecucion()
         {
+            //antes carglo los extends
+
+
+            
+
 
             foreach (elementoClase temp in lstClases)
             {
@@ -134,6 +139,39 @@ namespace _COMPI_Proyecto1.Analizador.Tablas
             }
             tablaErrores.println("[tablaSimbolos]No hay principal para ejecutar ");
         }
+
+
+
+        public void cargarExtends()
+        {
+            foreach (elementoClase clase in lstClases)
+            {
+                if (!clase.extender.valLower.Equals(""))
+                {
+                    //hay que buscar la clase y cargar los metodos
+
+                    elementoClase tempClase = getClase(clase.extender);
+                    if (tempClase == null)
+                    {
+                        tablaErrores.insertErrorSemantic("No se encuentra la clase: "+clase.extender.val+" de la que se quiere heredar",clase.extender);
+                        return;
+                    }
+
+
+                    //heredando metodos, funciones, y constructores
+                    clase.lstVariablesGlobales.heredar(tempClase.lstVariablesGlobales.listaPolimorfa); 
+
+
+                    clase.lstMetodo_funcion.heredar(tempClase.lstMetodo_funcion.listaPolimorfa);
+                    clase.lstConstructoresHeredados.heredar(tempClase.lstConstructores.listaPolimorfa);
+                    //clase.lstVariablesGlobales.heredar(tempClase.lstVariablesGlobales.listaPolimorfa);
+
+                    //cargando 
+
+                }
+            }
+        }
+         
 
         public void ejecutandoClase(elementoClase clase)
         {

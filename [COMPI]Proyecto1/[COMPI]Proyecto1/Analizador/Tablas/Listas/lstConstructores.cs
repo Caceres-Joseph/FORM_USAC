@@ -49,5 +49,42 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Listas
             }
         }
 
+
+
+        /*
+        |-------------------------------------------------------------------------------------------------------------------
+        | EJECUCIÓN DE METODO  CONSTRUCTOR Heredado
+        |-------------------------------------------------------------------------------------------------------------------
+        |
+        */
+
+        public void ejecutarConstructorHeredad(lstValores parametros, elementoEntorno tablaEntorno, token mensaje)
+        {
+            //aqui es donde tengo que buscar si existe 
+            Console.WriteLine("ejecutando Constructor Heredado:");
+            elementoPolimorfo temp = getConstructoHeredado( parametros, mensaje);
+            if (temp != null)
+            //neuvo entorno
+            {
+                elementoEntorno hijo1 = new elementoEntorno(tablaEntorno, tabla, "main", tablaEntorno.este);
+                guardarParametrosEnLaTabla(temp.lstParametros, parametros, hijo1);
+
+
+                if (temp.LST_CUERPO.nombre.Equals("LST_CUERPO"))
+                /*
+                |---------------------------- 
+                |  Ejecutando el cuerpo del metodo
+                |-----------------------
+                | Los constructores no retornan nada
+                */
+                {
+                    _LST_CUERPO val = (_LST_CUERPO)temp.LST_CUERPO;
+                    val.ejecutar(hijo1);
+
+                }
+
+            }
+        }
+
     }
 }

@@ -136,7 +136,9 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
             var tAhora = ToTerm("ahora");
             var tHoy = ToTerm("hoy");
             var tTam = ToTerm("tam");
-             
+            var tSuper = ToTerm("super");
+
+
             //tipos
             var tEntero = ToTerm("entero");
             var tCadena = ToTerm("cadena");
@@ -259,6 +261,8 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
 
             NonTerminal ASIG_VALOR = new NonTerminal("ASIG_VALOR");
             //NonTerminal LST_E = new NonTerminal("LST_E");
+
+            NonTerminal SUPER = new NonTerminal("SUPER");
 
             NonTerminal PAR_CORCHETES_VAL = new NonTerminal("PAR_CORCHETES_VAL");
             #endregion
@@ -537,6 +541,8 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
                 | SyntaxError
                 | FUNCIONES_NATIVAS + sPuntoComa
                 | SENTENCIAS
+                | SUPER
+                
                 //| USAR_METODO
                 | ROMPER
                 | CONTINUAR
@@ -546,6 +552,14 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
                 | RETORNO
                 ;
 
+            /*
+            |-------------------------------------------------------------------------------------------------------------------
+            | SUPER
+            |-------------------------------------------------------------------------------------------------------------------
+            |  
+            */
+
+            SUPER.Rule =tSuper + sAbreParent + LST_VAL + sCierraParent + sPuntoComa;
 
             /*
             |-------------------------------------------------------------------------------------------------------------------

@@ -41,6 +41,75 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Listas
 
         }
 
+
+        /*
+        |-------------------------------------------------------------------------------------------------------------------
+        | Heredando variables
+        |-------------------------------------------------------------------------------------------------------------------
+        |
+        */
+
+
+        public void heredar(List<elementoPolimorfo> lstPolimorfos)
+        {
+
+
+            /*      elementoPolimorfo element = new elementoPolimorfo(visbilidad, tablaSimbolos, tipo, nombre, getVAL(), dimension);
+
+                    cargarPolimorfismoHijos(element);
+                    simbolo.lstVariablesGlobales.insertarElemento(element);
+            */
+
+            foreach (elementoPolimorfo tempPolimorfo in lstPolimorfos)
+            {
+                token tipo = tempPolimorfo.tipo;
+                token nombre = tempPolimorfo.nombre;
+                token visibilidad = tempPolimorfo.visibilidad;
+
+                if (visibilidad.valLower.Equals("privado"))
+                //los privados no los extiendos
+                {
+                    Console.WriteLine("Los metodos/var privados no son cargados->:" + nombre.val);
+                }
+                else
+                {
+
+                    int dimension = tempPolimorfo.dimension;
+                    elementoPolimorfo element = new elementoPolimorfo(visibilidad, tabla, tipo, nombre, tempPolimorfo.LST_CUERPO, dimension);
+                    //cargo los parámetros
+                    element.lstParametros = tempPolimorfo.lstParametros;
+
+                    insertarElementoHeredado(element);
+                }
+            } 
+        }
+
+
+        public void insertarElementoHeredado(elementoPolimorfo elem)
+        {
+            //tengo que verificar si ya existe validando los parametros
+
+            if (siExiste(elem))//Si existe
+            {
+                Console.WriteLine("[lstPolimorfismo]InsertandoHeredados  -> Ya existe el mteodo/var/func: " + elem.nombre.val);
+                // tabla.tablaErrores.insertErrorSyntax("El metodo/funcion  :" + elem.nombre.val + " ya está declarada con los mismos parámetros.", elem.nombre);
+            }
+            else
+            {
+                listaPolimorfa.Add(elem);
+            }
+
+        }
+
+
+
+        /*
+        |-------------------------------------------------------------------------------------------------------------------
+        | Si existe
+        |-------------------------------------------------------------------------------------------------------------------
+        |
+        */
+
         public Boolean siExiste(elementoPolimorfo elem)
         {
 
@@ -135,7 +204,7 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Listas
 
         }
 
-         
+
 
 
 
@@ -172,13 +241,41 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Listas
 
 
 
+
+        public elementoPolimorfo getConstructoHeredado( lstValores listaValores, token mensaje)
+        {
+
+
+            foreach (elementoPolimorfo temp in listaPolimorfa)
+            {
+             
+
+
+                    if (temp.compararParametrosLstValores(listaValores))
+                    {
+                        return temp;
+                    }
+                    //ahora hay que comprobar las llaves de los atributos
+                
+            }
+
+            tabla.tablaErrores.insertErrorSemantic("No se encuentra el constructor Heredado: super(" + listaValores.getCadenaParam() + ")", mensaje);
+            return null;
+        }
+
+
+
+
+
+
+
         /*
         |-------------------------------------------------------------------------------------------------------------------
         | Busca el elemento polimorfo
         |-------------------------------------------------------------------------------------------------------------------
         |
         */
-     
+
 
 
 
