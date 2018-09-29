@@ -19,7 +19,10 @@ namespace _COMPI_Proyecto1.Analizador.Tablas
 
         public tablaErrores tablaErrores = new tablaErrores();
         public String rutaProyect = "";
+
         public List<elementoClase> lstClases;
+        public List<elementoClase> lstPreguntas;
+
         public elementoConsola consola; 
         
 
@@ -40,6 +43,8 @@ namespace _COMPI_Proyecto1.Analizador.Tablas
             this.consola = new elementoConsola(cuadro);
             //lstAst = new List<nodoModelo>();
             lstClases = new List<elementoClase>();
+            lstPreguntas = new List<elementoClase>();
+
 
         }
 
@@ -118,6 +123,12 @@ namespace _COMPI_Proyecto1.Analizador.Tablas
             {
                 temp.imprimir();
             }
+
+            Console.WriteLine("------------- Preguntas ----------------------");
+            foreach (elementoClase temp in lstPreguntas)
+            {
+                temp.imprimir();
+            }
         }
 
         public void iniciarEjecucion()
@@ -170,9 +181,39 @@ namespace _COMPI_Proyecto1.Analizador.Tablas
 
                 }
             }
+
+            cargarExtendsPreguntas();
+        }
+        public void cargarExtendsPreguntas()
+        {
+            foreach (elementoClase clase in lstPreguntas)
+            {
+                if (!clase.extender.valLower.Equals(""))
+                {
+                    //hay que buscar la clase y cargar los metodos
+
+                    elementoClase tempClase = getClase(clase.extender);
+                    if (tempClase == null)
+                    {
+                        tablaErrores.insertErrorSemantic("No se encuentra la clase: " + clase.extender.val + " de la que se quiere heredar", clase.extender);
+                        return;
+                    }
+
+
+                    //heredando metodos, funciones, y constructores
+                    clase.lstVariablesGlobales.heredar(tempClase.lstVariablesGlobales.listaPolimorfa);
+
+
+                    clase.lstMetodo_funcion.heredar(tempClase.lstMetodo_funcion.listaPolimorfa);
+                    clase.lstConstructoresHeredados.heredar(tempClase.lstConstructores.listaPolimorfa);
+                    //clase.lstVariablesGlobales.heredar(tempClase.lstVariablesGlobales.listaPolimorfa);
+
+                    //cargando 
+
+                }
+            }
         }
          
-
         public void ejecutandoClase(elementoClase clase)
         {
             ///hay que crear una instancia al objeto
@@ -202,6 +243,27 @@ namespace _COMPI_Proyecto1.Analizador.Tablas
 
             //no encontro la clase 
             tablaErrores.insertErrorSemantic("No se puede crear una instancia al objeto: " + nombre.val + " debido a que no existe esa clase en este ambito", nombre);
+            return null;
+
+        }
+
+
+
+
+        public elementoClase getPregunta(token nombre)
+        {
+
+            foreach (elementoClase temp in lstPreguntas)
+            {
+                if (temp.nombreClase.valLower.Equals(nombre.valLower))
+                {
+                    return temp;
+
+                }
+            }
+
+            //no encontro la clase 
+            //tablaErrores.insertErrorSemantic("No se puede crear una instancia al objeto: " + nombre.val + " debido a que no existe esa clase en este ambito", nombre);
             return null;
 
         }

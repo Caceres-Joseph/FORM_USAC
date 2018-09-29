@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using _COMPI_Proyecto1.Analizador.Nodos;
+using _COMPI_Proyecto1.Analizador.Nodos.Cuerpo;
 using _COMPI_Proyecto1.Analizador.Tablas.Items;
 
 namespace _COMPI_Proyecto1.Analizador.Tablas.Listas
@@ -23,6 +24,7 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Listas
 
         public void ejecutarMetodo(token nombre, lstValores parametros, elementoEntorno tablaEntorno)
         {
+            
             //aqui es donde tengo que buscar si existe 
             Console.WriteLine("ejecutando Metodo:" + nombre.val);
             elementoPolimorfo temp = getElementoPolimorfo2(nombre, parametros);
@@ -30,7 +32,7 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Listas
             //neuvo entorno
             {
                 elementoEntorno hijo1 = new elementoEntorno(tablaEntorno, tabla, "main", tablaEntorno.este);
-                guardarParametrosEnLaTabla(temp.lstParametros, parametros, hijo1);
+               
 
 
                 if (temp.LST_CUERPO.nombre.Equals("LST_CUERPO"))
@@ -41,8 +43,22 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Listas
                 | Los constructores no retornan nada
                 */
                 {
+                    guardarParametrosEnLaTabla(temp.lstParametros, parametros, hijo1);
                     _LST_CUERPO val = (_LST_CUERPO)temp.LST_CUERPO;
                     val.ejecutar(hijo1);
+
+                }else if (temp.LST_CUERPO.nombre.Equals("LST_CUERPO2"))
+                /*
+                |---------------------------- 
+                |  Ejecutando el cuerpo del metodo
+                |-----------------------
+                | Los constructores no retornan nada
+                */
+                {
+                    //cargo los parametros en el ambito global, jejejejeje
+                    guardarParametrosEnLaTabla(temp.lstParametros, parametros, tablaEntorno);
+                    //_LST_CUERPO2 val = (_LST_CUERPO2)temp.LST_CUERPO;
+                    //val.ejecutarConstructor(hijo1, parametros);
 
                 }
 

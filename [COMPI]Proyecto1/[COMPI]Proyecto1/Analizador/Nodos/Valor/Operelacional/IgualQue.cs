@@ -271,7 +271,7 @@ namespace _COMPI_Proyecto1.Analizador.Nodos.Valor.Operelacional
                 else if (val1.isTypeCadena() && val2.isTypeCadena())
                 {
 
-                    if (val1.getCadena().Length == val2.getCadena().Length)
+                    if (val1.getCadena().Equals(val2.getCadena()))
                         retorno.setValue(true);
                     else
                         retorno.setValue(false);
@@ -764,7 +764,7 @@ namespace _COMPI_Proyecto1.Analizador.Nodos.Valor.Operelacional
                 else if (val1.isTypeCadena() && val2.isTypeCadena())
                 {
 
-                    if (val1.getCadena().Length == val2.getCadena().Length)
+                    if (val1.getCadena().Equals(val2.getCadena()))
                         retorno.setValue(true);
                     else
                         retorno.setValue(false);

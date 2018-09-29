@@ -172,7 +172,7 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Listas
                         token tNombre = new token(dic.Key.nombre);
                         token tTipo = new token(dic.Value.tipo.valLower);
 
-                        println("guardarParametrosEnLaTabla_ tipo->" + tTipo.valLower);
+                        //println("guardarParametrosEnLaTabla_ tipo->" + tTipo.valLower);
                         token tVisibilidad = new token("privado");
 
                         //listado de enteros

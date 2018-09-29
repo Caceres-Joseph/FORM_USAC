@@ -40,6 +40,7 @@ namespace _COMPI_Proyecto1.Analizador.Nodos.IdVar_func
 
         public itemValor getValor(elementoEntorno elementoEntorno, itemValor item)
         {
+           
             itemValor retorno = new itemValor();
             retorno.setTypeVacio();
 
@@ -234,6 +235,9 @@ namespace _COMPI_Proyecto1.Analizador.Nodos.IdVar_func
                         */
                         {
 
+
+
+
                             #region cuerpo
                             String esteId = lstAtributos.listaAtributos[1].nombretoken;
 
@@ -244,7 +248,10 @@ namespace _COMPI_Proyecto1.Analizador.Nodos.IdVar_func
                             {
                                 nodoModelo nodoTemp = getNodo("LST_VAL");
                                 _LST_VAL lstParametros = (_LST_VAL)nodoTemp;
-                                return tempObjeto.ejecutarMetodoFuncion(lstAtributos.getToken(1), lstParametros.getLstValores(elementoEntorno), tempObjeto.tablaEntorno.raiz);
+                                itemValor reto= tempObjeto.ejecutarMetodoFuncion(lstAtributos.getToken(1), lstParametros.getLstValores(elementoEntorno), tempObjeto.tablaEntorno.raiz);
+                                reto.nombrePregunta = item.nombrePregunta;
+
+                                return reto; 
                             }
                             else
                             {

@@ -128,18 +128,11 @@ namespace _COMPI_Proyecto1.Analizador.Nodos.FuncionesNativas
 
             testDialog.mensaje(mensaje);
             testDialog.Show();
-            /*
-            if (testDialog.ShowDialog() == DialogResult.OK)
-            {
-                // Read the contents of testDialog's TextBox.
 
-            }
-            else
-            {
 
-            }
-            testDialog.Dispose();
-            */
+            //Para detener la ejecución
+            //testDialog.ShowDialog();
+ 
         }
 
     }

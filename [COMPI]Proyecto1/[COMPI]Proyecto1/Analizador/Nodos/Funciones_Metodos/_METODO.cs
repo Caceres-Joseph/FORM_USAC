@@ -9,6 +9,9 @@ using _COMPI_Proyecto1.Analizador.Tablas.Items;
 namespace _COMPI_Proyecto1.Analizador.Nodos
 {
     class _METODO : nodoModelo
+    /* METODO.Rule = VISIBILIDAD + TIPO + VAR_ARREGLO + sAbreParent + LST_PARAMETROS + sCierraParent + sAbreLlave + LST_CUERPO + sCierraLlave
+            | TIPO + VAR_ARREGLO + sAbreParent + LST_PARAMETROS + sCierraParent + sAbreLlave + LST_CUERPO + sCierraLlave;
+     */
     {
         public _METODO(string nombre, tablaSimbolos tabla) : base(nombre, tabla)
         {
@@ -31,6 +34,8 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
 
             cargarPolimorfismoHijos(element);
             simbolo.lstMetodo_funcion.insertarElemento(element);
+
+
         }
 
         

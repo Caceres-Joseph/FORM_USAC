@@ -116,7 +116,7 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
             var tHacer = ToTerm("hacer");
             var tRepetir = ToTerm("repetir");
             var tHasta = ToTerm("hasta");
-            var tMensaje = ToTerm("mensaje");
+            var tMensaje = ToTerm("mensajes");
             var tSubCad = ToTerm("subcad");
             var tPosCad = ToTerm("poscad");
             var tRandom = ToTerm("random");
@@ -138,6 +138,10 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
             var tTam = ToTerm("tam");
             var tSuper = ToTerm("super");
 
+            var tPagina = ToTerm("pagina");
+            var tTodo = ToTerm("todo");
+            var tCuadriculo = ToTerm("cuadricula");
+            var tNativo = ToTerm("_nativo");
 
             //tipos
             var tEntero = ToTerm("entero");
@@ -150,6 +154,9 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
             var tPregunta = ToTerm("pregunta");
             var tFormulario = ToTerm("formulario");
             var tRespuesta = ToTerm("respuesta");
+            var tMostrar = ToTerm("mostrar");
+            var tCalcular = ToTerm("calcular");
+            var tGrupo = ToTerm("grupo");
 
             //visibilidad
             var tPublico = ToTerm("publico");
@@ -264,7 +271,16 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
 
             NonTerminal SUPER = new NonTerminal("SUPER");
 
+            NonTerminal CUERPO_PREGUNTA = new NonTerminal("CUERPO_PREGUNTA");
+            NonTerminal LST_CUERPO_PREGUNTA = new NonTerminal("LST_CUERPO_PREGUNTA");
+            NonTerminal PREGUNTA = new NonTerminal("PREGUNTA");
+            NonTerminal GRUPO = new NonTerminal("GRUPO");
+
+
+
             NonTerminal PAR_CORCHETES_VAL = new NonTerminal("PAR_CORCHETES_VAL");
+
+            NonTerminal PREGUNTA_NATIVA = new NonTerminal("PREGUNTA_NATIVA");
             #endregion
 
             #region Gramatica
@@ -294,9 +310,9 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
                 | tfecha
                 | tFechaHora
                 | valId
-                | tPregunta
-                | tFormulario
-                | tRespuesta
+                //  | tPregunta
+                //  | tFormulario
+                //  | tRespuesta
                 | tVacio //Para el metodo void, tengo que validar que no lo acepten las variables
                 ;
 
@@ -339,6 +355,12 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
                 | METODO
                 //| SOBRESCRITURA
                 | MAIN
+
+
+                | FORMULARIO
+                | PREGUNTA
+                | GRUPO
+
                 | SyntaxError;
             ;
 
@@ -516,7 +538,7 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
             */
             #endregion
 
-            LLAMADA_FORMULARIO.Rule = tNuevo + USAR_VARIABLEP; //aqui hay duda we
+            //LLAMADA_FORMULARIO.Rule = tNuevo + USAR_VARIABLEP; //aqui hay duda we
 
             //identificador
 
@@ -542,15 +564,23 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
                 | FUNCIONES_NATIVAS + sPuntoComa
                 | SENTENCIAS
                 | SUPER
-                
+
                 //| USAR_METODO
                 | ROMPER
                 | CONTINUAR
+                | RETORNO
                 //| PROCEDIMIENTOS_FORMULARIO
                 //| FUNC_MULTIMEDIA
+                | LLAMADA_FORMULARIO;
 
-                | RETORNO
-                ;
+            ;
+
+
+
+            LLAMADA_FORMULARIO.Rule = tNuevo + valId + sAbreParent + LST_VAL + sCierraParent + sPunto + tPagina + sPuntoComa
+                | tNuevo + valId + sAbreParent + LST_VAL + sCierraParent + sPunto + tTodo + sPuntoComa
+                | tNuevo + valId + sAbreParent + LST_VAL + sCierraParent + sPunto + tCuadriculo + sPuntoComa;
+
 
             /*
             |-------------------------------------------------------------------------------------------------------------------
@@ -559,7 +589,7 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
             |  
             */
 
-            SUPER.Rule =tSuper + sAbreParent + LST_VAL + sCierraParent + sPuntoComa;
+            SUPER.Rule = tSuper + sAbreParent + LST_VAL + sCierraParent + sPuntoComa;
 
             /*
             |-------------------------------------------------------------------------------------------------------------------
@@ -582,7 +612,7 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
             */
 
             SENTENCIAS.Rule = SI
-                | SI_SIMPLIFICADO
+                // | SI_SIMPLIFICADO
                 | CASO
 
                 //CICLOS
@@ -615,7 +645,7 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
             ------------------------------------------
             */
 
-            SI_SIMPLIFICADO.Rule = E + sCierraInterrogante + LST_CUERPO + sDosPuntos + LST_CUERPO + sPuntoComa;
+            SI_SIMPLIFICADO.Rule = VALOR + sCierraInterrogante + E + sDosPuntos + E;
 
             /*
             ------------------------------------------
@@ -683,7 +713,7 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
 
 
             FUNCIONES_NATIVAS.Rule = IMPRIMIR
-                | MENSAJE
+                | MENSAJE 
                 ;
 
             IMPRIMIR.Rule = tImprimir + sAbreParent + VALOR + sCierraParent
@@ -693,6 +723,15 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
                 | tMensaje + sAbreParent + sCierraParent;
 
 
+
+            /*
+            ------------------------------------------
+            * Internas del lenguaje
+            ------------------------------------------
+            */
+
+
+            PREGUNTA_NATIVA.Rule = tNativo + valId + sAbreParent +LST_VAL+ sCierraParent;
 
 
             /*
@@ -845,7 +884,7 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
             *retorno:entero/decimal/cadena
             */
             RANDOM.Rule = tRandom + sAbreParent + LST_VAL + sCierraParent;
-                //| tRandom + sAbreParent + sCierraParent;
+            //| tRandom + sAbreParent + sCierraParent;
 
             /*
             ------------------------------------------
@@ -948,6 +987,39 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
             */
             PI.Rule = tPi + sAbreParent + sCierraParent;
 
+            /*
+            |-------------------------------------------------------------------------------------------------------------------
+            | Formulario
+            |-------------------------------------------------------------------------------------------------------------------
+            |  
+            */
+
+            FORMULARIO.Rule = tFormulario + valId + sAbreParent + LST_PARAMETROS + sCierraParent + sAbreLlave + LST_CUERPO + sCierraLlave;
+
+            PREGUNTA.Rule = tPregunta + valId + sAbreParent + LST_PARAMETROS + sCierraParent + sAbreLlave + LST_CUERPO_PREGUNTA + sCierraLlave;
+
+            GRUPO.Rule = tGrupo + valId + sAbreParent + LST_PARAMETROS + sCierraParent + sAbreLlave + LST_CUERPO + sCierraLlave;
+
+
+            LST_CUERPO_PREGUNTA.Rule = MakeStarRule(LST_CUERPO_PREGUNTA, CUERPO_PREGUNTA);
+
+
+            CUERPO_PREGUNTA.Rule = DECLARAR_VARIABLE_GLOBAL + sPuntoComa
+                | METODO
+                | VISIBILIDAD + tRespuesta + sAbreParent + LST_PARAMETROS + sCierraParent + sAbreLlave + LST_CUERPO + sCierraLlave
+                | VISIBILIDAD + tMostrar + sAbreParent + LST_PARAMETROS + sCierraParent + sAbreLlave + LST_CUERPO + sCierraLlave
+                | VISIBILIDAD + tCalcular + sAbreParent + LST_PARAMETROS + sCierraParent + sAbreLlave + LST_CUERPO + sCierraLlave;
+
+
+            /*
+            |-------------------------------------------------------------------------------------------------------------------
+            | PROCEDIMIENTO
+            |-------------------------------------------------------------------------------------------------------------------
+            |  
+            */
+
+
+
 
 
             /*
@@ -963,6 +1035,7 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
                 | tNuevo + TIPO + LST_CORCHETES_VAL
                 | LST_LLAVES_VAL
                 //| tNulo
+                | PREGUNTA_NATIVA
                 | tEste   //para el this solamente
                 | E;
 
@@ -1006,8 +1079,12 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
                 | valDecimal
                 | valNumero
                 | tNulo
+                | SI_SIMPLIFICADO
                 | OPE_ARITME
                 | OPE_TIPO;
+
+
+
 
 
 

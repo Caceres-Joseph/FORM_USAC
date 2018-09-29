@@ -67,7 +67,6 @@
     <Compile Include="Analizador\Arbol\arbol.cs" />
     <Compile Include="Analizador\Gramatica\generarArbol.cs" />
     <Compile Include="Analizador\Gramatica\gramatica.cs" />
-    <Compile Include="Analizador\Nodos\AsginarValor_UsarMetodo\_LLAMADA_FORMULARIO.cs" />
     <Compile Include="Analizador\Nodos\AsginarValor_UsarMetodo\_USAR_METODO.cs" />
     <Compile Include="Analizador\Nodos\AsginarValor_UsarMetodo\_USAR_METO_VAR.cs" />
     <Compile Include="Analizador\Nodos\AsginarValor_UsarMetodo\_USAR_VARIABLE.cs" />
@@ -75,14 +74,19 @@
     <Compile Include="Analizador\Nodos\Asignar_Valor\_ASIG_VALOR.cs" />
     <Compile Include="Analizador\Nodos\Cuerpo\_CUERPO.cs" />
     <Compile Include="Analizador\Nodos\Cuerpo\_LST_CUERPO.cs" />
+    <Compile Include="Analizador\Nodos\Cuerpo\_LST_CUERPO2.cs" />
     <Compile Include="Analizador\Nodos\Cuerpo_Clase\_CP_CLASE.cs" />
     <Compile Include="Analizador\Nodos\Cuerpo_Clase\_CUERPO_CLASE.cs" />
     <Compile Include="Analizador\Nodos\Declarar_Variable\_DECLARAR_VARIABLE_GLOBAL.cs" />
     <Compile Include="Analizador\Nodos\Declarar_Variable\_DECLARAR_VARIABLE_SINVISIBI.cs" />
     <Compile Include="Analizador\Nodos\Declarar_Variable\_VAL.cs" />
+    <Compile Include="Analizador\Nodos\Formulario\_FORMULARIO.cs" />
+    <Compile Include="Analizador\Nodos\Formulario\_GRUPO.cs" />
+    <Compile Include="Analizador\Nodos\Formulario\_LLAMADA_FORMULARIO.cs" />
     <Compile Include="Analizador\Nodos\FuncionesNativas\_FUNCIONES_NATIVAS.cs" />
     <Compile Include="Analizador\Nodos\FuncionesNativas\_IMPRIMIR.cs" />
     <Compile Include="Analizador\Nodos\FuncionesNativas\_MENSAJE.cs" />
+    <Compile Include="Analizador\Nodos\FuncionesNativas\_PREGUNTA_NATIVA.cs" />
     <Compile Include="Analizador\Nodos\Funciones_Metodos\_CONSTRUCTOR.cs" />
     <Compile Include="Analizador\Nodos\Funciones_Metodos\_MAIN.cs" />
     <Compile Include="Analizador\Nodos\Funciones_Metodos\_METODO.cs" />
@@ -128,6 +132,9 @@
     <Compile Include="Analizador\Nodos\Parametros\_LST_PARAMETROS.cs" />
     <Compile Include="Analizador\Nodos\Parametros\_LST_VAL.cs" />
     <Compile Include="Analizador\Nodos\Parametros\_PARAMETRO.cs" />
+    <Compile Include="Analizador\Nodos\Pregunta\_CUERPO_PREGUNTA.cs" />
+    <Compile Include="Analizador\Nodos\Pregunta\_LST_CUERPO_PREGUNTA.cs" />
+    <Compile Include="Analizador\Nodos\Pregunta\_PREGUNTA.cs" />
     <Compile Include="Analizador\Nodos\prueba.cs" />
     <Compile Include="Analizador\Nodos\Inicio\_CLASE.cs" />
     <Compile Include="Analizador\Nodos\Inicio\_EXTENDER.cs" />
@@ -185,6 +192,7 @@
     <Compile Include="Analizador\Tablas\Items\itemObjeto.cs" />
     <Compile Include="Analizador\Tablas\Items\itemRetorno.cs" />
     <Compile Include="Analizador\Tablas\Items\itemValor.cs" />
+    <Compile Include="Analizador\Tablas\Items\itemValorPregunta.cs" />
     <Compile Include="Analizador\Tablas\Listas\lstAtributos.cs" />
     <Compile Include="Analizador\Tablas\Listas\lstConstructores.cs" />
     <Compile Include="Analizador\Tablas\Listas\lstMetodo_funcion.cs" />
@@ -223,6 +231,54 @@
     <Compile Include="GUI\gui_Mensaje\gMensaje.Designer.cs">
       <DependentUpon>gMensaje.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\Preguntas\frmBooleano.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Preguntas\frmBooleano.Designer.cs">
+      <DependentUpon>frmBooleano.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Preguntas\frmCadena.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Preguntas\frmCadena.Designer.cs">
+      <DependentUpon>frmCadena.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Preguntas\frmDecimal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Preguntas\frmDecimal.Designer.cs">
+      <DependentUpon>frmDecimal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Preguntas\frmEntero.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Preguntas\frmEntero.Designer.cs">
+      <DependentUpon>frmEntero.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Preguntas\frmFecha.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Preguntas\frmFecha.Designer.cs">
+      <DependentUpon>frmFecha.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Preguntas\frmFechaHora.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Preguntas\frmFechaHora.Designer.cs">
+      <DependentUpon>frmFechaHora.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Preguntas\frmHora.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Preguntas\frmHora.Designer.cs">
+      <DependentUpon>frmHora.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Preguntas\frmNota.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Preguntas\frmNota.Designer.cs">
+      <DependentUpon>frmNota.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\proyecto.cs" />
     <Compile Include="GUI\tab.cs" />
     <Compile Include="GUI\TIpos\Condicion.cs">
@@ -254,6 +310,30 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\gui_Mensaje\gMensaje.resx">
       <DependentUpon>gMensaje.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Preguntas\frmBooleano.resx">
+      <DependentUpon>frmBooleano.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Preguntas\frmCadena.resx">
+      <DependentUpon>frmCadena.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Preguntas\frmDecimal.resx">
+      <DependentUpon>frmDecimal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Preguntas\frmEntero.resx">
+      <DependentUpon>frmEntero.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Preguntas\frmFecha.resx">
+      <DependentUpon>frmFecha.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Preguntas\frmFechaHora.resx">
+      <DependentUpon>frmFechaHora.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Preguntas\frmHora.resx">
+      <DependentUpon>frmHora.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Preguntas\frmNota.resx">
+      <DependentUpon>frmNota.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\TIpos\Condicion.resx">
       <DependentUpon>Condicion.cs</DependentUpon>

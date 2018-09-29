@@ -42,13 +42,13 @@
             this.graficarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aSTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.diagramaDeClasesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.generarFormularioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.verFomularioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.metroTabControl1 = new MetroFramework.Controls.MetroTabControl();
             this.txtConsola = new System.Windows.Forms.RichTextBox();
             this.treeView1 = new System.Windows.Forms.TreeView();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.metroTile2 = new MetroFramework.Controls.MetroTile();
-            this.generarFormularioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.verFomularioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -93,6 +93,7 @@
             this.archivoToolStripMenuItem.Name = "archivoToolStripMenuItem";
             this.archivoToolStripMenuItem.Size = new System.Drawing.Size(60, 20);
             this.archivoToolStripMenuItem.Text = "Archivo";
+            this.archivoToolStripMenuItem.Click += new System.EventHandler(this.archivoToolStripMenuItem_Click);
             // 
             // abrirToolStripMenuItem
             // 
@@ -133,7 +134,7 @@
             // ejecutarToolStripMenuItem
             // 
             this.ejecutarToolStripMenuItem.Name = "ejecutarToolStripMenuItem";
-            this.ejecutarToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.ejecutarToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
             this.ejecutarToolStripMenuItem.Text = "Ejecutar";
             this.ejecutarToolStripMenuItem.Click += new System.EventHandler(this.ejecutarToolStripMenuItem_Click);
             // 
@@ -174,6 +175,19 @@
             this.diagramaDeClasesToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
             this.diagramaDeClasesToolStripMenuItem.Text = "Diagrama de Clases";
             this.diagramaDeClasesToolStripMenuItem.Click += new System.EventHandler(this.diagramaDeClasesToolStripMenuItem_Click);
+            // 
+            // generarFormularioToolStripMenuItem
+            // 
+            this.generarFormularioToolStripMenuItem.Name = "generarFormularioToolStripMenuItem";
+            this.generarFormularioToolStripMenuItem.Size = new System.Drawing.Size(121, 20);
+            this.generarFormularioToolStripMenuItem.Text = "Generar Formulario";
+            // 
+            // verFomularioToolStripMenuItem
+            // 
+            this.verFomularioToolStripMenuItem.Name = "verFomularioToolStripMenuItem";
+            this.verFomularioToolStripMenuItem.Size = new System.Drawing.Size(92, 20);
+            this.verFomularioToolStripMenuItem.Text = "Ver Fomulario";
+            this.verFomularioToolStripMenuItem.Click += new System.EventHandler(this.verFomularioToolStripMenuItem_Click);
             // 
             // metroTabControl1
             // 
@@ -224,19 +238,6 @@
             this.metroTile2.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             this.metroTile2.TileTextFontSize = MetroFramework.MetroTileTextSize.Tall;
             this.metroTile2.UseSelectable = true;
-            // 
-            // generarFormularioToolStripMenuItem
-            // 
-            this.generarFormularioToolStripMenuItem.Name = "generarFormularioToolStripMenuItem";
-            this.generarFormularioToolStripMenuItem.Size = new System.Drawing.Size(121, 20);
-            this.generarFormularioToolStripMenuItem.Text = "Generar Formulario";
-            // 
-            // verFomularioToolStripMenuItem
-            // 
-            this.verFomularioToolStripMenuItem.Name = "verFomularioToolStripMenuItem";
-            this.verFomularioToolStripMenuItem.Size = new System.Drawing.Size(92, 20);
-            this.verFomularioToolStripMenuItem.Text = "Ver Fomulario";
-            this.verFomularioToolStripMenuItem.Click += new System.EventHandler(this.verFomularioToolStripMenuItem_Click);
             // 
             // Form1
             // 

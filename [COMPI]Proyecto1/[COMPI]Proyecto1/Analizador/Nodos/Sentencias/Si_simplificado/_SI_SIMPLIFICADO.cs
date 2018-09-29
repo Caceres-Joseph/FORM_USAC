@@ -10,75 +10,83 @@ namespace _COMPI_Proyecto1.Analizador.Nodos.Sentencias.Si_simplificado
 {
     class _SI_SIMPLIFICADO : nodoModelo
     /*
-        E + sCierraInterrogante + LST_CUERPO + sDosPuntos + LST_CUERPO + sPuntoComa;
+        SI_SIMPLIFICADO.Rule = VALOR + sCierraInterrogante + E + sDosPuntos + E + sPuntoComa;
      */
     {
         public _SI_SIMPLIFICADO(string nombre, tablaSimbolos tabla) : base(nombre, tabla)
         {
         }
 
-        
+
+
+
 
         /*
         |-------------------------------------------------------------------------------------------------------------------
-        | EJECUCIÓN FINAL
+        | Funciones ope Tipo
         |-------------------------------------------------------------------------------------------------------------------
-        |
+        |  
         */
-
-        public override itemRetorno ejecutar(elementoEntorno elementoEntor)
-        /*
-        |---------------------------- 
-        | EJECUTAR 
-        |----------------------------
-        | 0 = normal
-        | 1 = return;
-        | 2 = break
-        | 3 = continue
-        | 4 = errores
-        */
+         
+        public  itemValor getValor(elementoEntorno elem)
         {
-            itemRetorno retorno = new itemRetorno(0);
+
+            itemValor retorno = new itemValor();
+            retorno.setTypeNulo();
+
             if (hayErrores())
                 return retorno;
 
-            _E nodoE = (_E)getNodo("E");
-            itemValor valE = nodoE.getValor(elementoEntor);
+            if (hijos.Count != 3)
+                return retorno;
+
+
+
+
+            _VALOR nodoE = (_VALOR)hijos[0];
+            itemValor valE = nodoE.getValor(elem,new token(""));
             Object objetoValor = valE.getValorParseado("booleano");
             Boolean condicion = false;
 
             if (objetoValor != null)
-
-            /*
-            |---------------------------- 
-            | E + sCierraInterrogante + LST_CUERPO + sDosPuntos + LST_CUERPO + sPuntoComa;
-            */
             {
                 condicion = (Boolean)objetoValor;
 
-                if (condicion)
-                {
-                    _LST_CUERPO nodoCuerpo = (_LST_CUERPO)hijos[1];
-                    elementoEntorno entornoIf = new elementoEntorno(elementoEntor, tablaSimbolos, "Si", elementoEntor.este);
-                    return nodoCuerpo.ejecutar(entornoIf);
-
-                }
-                else
-                {
-                    _LST_CUERPO nodoCuerpo = (_LST_CUERPO)hijos[2];
-                    elementoEntorno entornoIf = new elementoEntorno(elementoEntor, tablaSimbolos, "Sino", elementoEntor.este);
-                    return nodoCuerpo.ejecutar(entornoIf);
-                }
             }
             else
             {
                 tablaSimbolos.tablaErrores.insertErrorSemantic("La condición devulelta no es de tipo booleano,es de tipo:" + valE.getTipo(), lstAtributos.getToken(0));
                 return retorno;
             }
+
+
+             
+            _E nodoE2 = (_E)hijos[1];
+            _E nodoE3 = (_E)hijos[2];
+
+            if (hayErrores())
+                return retorno;
              
 
-        }
+            itemValor itemVerdadero = nodoE2.getValor(elem);   
+            itemValor itemFalso = nodoE3.getValor(elem); 
 
+
+
+            
+
+            if (condicion)
+            {
+                return itemVerdadero;
+            }
+            else
+            {
+                return itemFalso;
+            }
+
+
+             
+        }
 
     }
 }

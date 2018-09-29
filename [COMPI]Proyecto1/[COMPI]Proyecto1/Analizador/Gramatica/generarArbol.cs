@@ -1,11 +1,13 @@
 ﻿using _COMPI_Proyecto1.Analizador.Nodos;
 using _COMPI_Proyecto1.Analizador.Nodos.Asignar_Valor;
-using _COMPI_Proyecto1.Analizador.Nodos.FuncionesNativas; 
+using _COMPI_Proyecto1.Analizador.Nodos.Formulario;
+using _COMPI_Proyecto1.Analizador.Nodos.FuncionesNativas;
 using _COMPI_Proyecto1.Analizador.Nodos.IdVar_func;
 using _COMPI_Proyecto1.Analizador.Nodos.Inicio;
 using _COMPI_Proyecto1.Analizador.Nodos.Llaves_Arreglos;
 using _COMPI_Proyecto1.Analizador.Nodos.Ope_matematica;
 using _COMPI_Proyecto1.Analizador.Nodos.Ope_tipo;
+using _COMPI_Proyecto1.Analizador.Nodos.Pregunta;
 using _COMPI_Proyecto1.Analizador.Nodos.Sentencia_Control;
 using _COMPI_Proyecto1.Analizador.Nodos.Sentencias;
 using _COMPI_Proyecto1.Analizador.Nodos.Sentencias.Caso;
@@ -32,7 +34,7 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
         {
             this.nombreArchivo = archivo;
         }
-         
+
         public nodoModelo generar(nodoModelo raiz, ParseTreeNode AST, tablaSimbolos tabla)
         {
             crearArbol(raiz, AST, tabla);
@@ -42,8 +44,8 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
 
         private void crearArbol(nodoModelo padre, ParseTreeNode nodoIrony, tablaSimbolos tabla)
         {
-             
-            nodoModelo hijoNodo=null;
+
+            nodoModelo hijoNodo = null;
             if (nodoIrony.ChildNodes.Count == 0)
             {
                 if (nodoIrony.Token == null)
@@ -58,17 +60,17 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
                 {
                     String terminal = escapar(nodoIrony.Token.Value.ToString());
                     String nombreTerminal = nodoIrony.Term.Name;
-                    token tok = new token(terminal,nodoIrony.Token.Location.Line, nodoIrony.Token.Location.Column, nombreArchivo);
+                    token tok = new token(terminal, nodoIrony.Token.Location.Line, nodoIrony.Token.Location.Column, nombreArchivo);
 
                     //Console.WriteLine("[generarArbol]crearArbol:"+nodoIrony.Term.ToString());
-                    padre.lstAtributos.insertar(nombreTerminal,tok);
+                    padre.lstAtributos.insertar(nombreTerminal, tok);
 
                     //Console.WriteLine("terminal->" + terminal);
                     //grafo += nodoIrony.GetHashCode() + "[label=\"" + terminal + "\"];\n";
                 }
             }
             else
-            { 
+            {
                 hijoNodo = getNodo(nodoIrony.ToString(), tabla);
                 //Console.WriteLine("insertando| " + padre.nombre + "->" + hijoNodo.nombre);
                 padre.insertar(hijoNodo);
@@ -78,31 +80,31 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
 
             foreach (ParseTreeNode hijo in nodoIrony.ChildNodes)
             {
-                  
-                    crearArbol(hijoNodo, hijo, tabla);
- 
+
+                crearArbol(hijoNodo, hijo, tabla);
+
                 //grafo += nodoIrony.GetHashCode() + "->" + hijo.GetHashCode() + ";\n";
-                
+
             }
 
             return;
         }
-         
+
 
         public nodoModelo getNodo(String nombreNoTerminal, tablaSimbolos tabla)
         {
-            nodoModelo retorno=null;
+            nodoModelo retorno = null;
 
             switch (nombreNoTerminal)
             {
                 case "S":
                     retorno = new _S(nombreNoTerminal, tabla);
-                    
+
                     break;
-                    
+
                 case "LST_IMPORT":
                     retorno = new _LST_IMPORT(nombreNoTerminal, tabla);
-                    
+
                     break;
                 case "IMPORT":
                     retorno = new _IMPORT(nombreNoTerminal, tabla);
@@ -172,7 +174,7 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
                 case "DECLARAR_VARIABLE_SINVISIBI":
                     retorno = new _DECLARAR_VARIABLE_SINVISIBI(nombreNoTerminal, tabla);
 
-                    break; 
+                    break;
 
                 case "VAL":
                     retorno = new _VAL(nombreNoTerminal, tabla);
@@ -232,7 +234,7 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
 
                     break;
                 case "PAR_CORCHETES_VACIOS":
-                    retorno = new _PAR_CORCHETES_VACIOS(nombreNoTerminal, tabla); 
+                    retorno = new _PAR_CORCHETES_VACIOS(nombreNoTerminal, tabla);
                     break;
                 case "E":
                     retorno = new _E(nombreNoTerminal, tabla);
@@ -286,15 +288,15 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
                 case "SI_SIMPLIFICADO":
                     retorno = new _SI_SIMPLIFICADO(nombreNoTerminal, tabla);
                     break;
-                     
+
                 case "CASO":
                     retorno = new _CASO(nombreNoTerminal, tabla);
                     break;
-                    
+
                 case "CUERPO_CASE":
                     retorno = new _CUERPO_CASE(nombreNoTerminal, tabla);
                     break;
-                    
+
                 case "ROMPER":
                     retorno = new _ROMPER(nombreNoTerminal, tabla);
                     break;
@@ -321,7 +323,7 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
                 case "MENSAJE":
                     retorno = new _MENSAJE(nombreNoTerminal, tabla);
                     break;
-                      
+
                 case "TO_CADENA":
                     retorno = new _TO_CADENA(nombreNoTerminal, tabla);
                     break;
@@ -406,18 +408,44 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
                 case "SUPER":
                     retorno = new _SUPER(nombreNoTerminal, tabla);
                     return retorno;
+                case "FORMULARIO":
+                    retorno = new _FORMULARIO(nombreNoTerminal, tabla);
+                    return retorno;
 
-                     
+
+                case "PREGUNTA":
+                    retorno = new _PREGUNTA(nombreNoTerminal, tabla);
+                    return retorno;
+
+
+                case "GRUPO":
+                    retorno = new _GRUPO(nombreNoTerminal, tabla);
+                    return retorno;
+
+
+                case "LST_CUERPO_PREGUNTA":
+                    retorno = new _LST_CUERPO_PREGUNTA(nombreNoTerminal, tabla);
+                    return retorno;
+
+
+                case "CUERPO_PREGUNTA":
+                    retorno = new _CUERPO_PREGUNTA(nombreNoTerminal, tabla);
+                    return retorno;
+
+                case "PREGUNTA_NATIVA":
+                    retorno = new _PREGUNTA_NATIVA(nombreNoTerminal, tabla);
+                    return retorno;
+
                 default:
-                    retorno= new nodoModelo("Desc_"+nombreNoTerminal, tabla);
-                    Console.WriteLine("[generarArbol]No se encontró el nodo:"+nombreNoTerminal);
+                    retorno = new nodoModelo("Desc_" + nombreNoTerminal, tabla);
+                    Console.WriteLine("[generarArbol]No se encontró el nodo:" + nombreNoTerminal);
                     break;
             }
-            
+
             return retorno;
         }
-         
-         
+
+
         private static String escapar(String cadena)
         {
             cadena = cadena.Replace("\\", "\\\\");

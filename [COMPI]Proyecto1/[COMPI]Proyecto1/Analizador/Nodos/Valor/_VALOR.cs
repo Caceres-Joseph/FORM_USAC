@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using _COMPI_Proyecto1.Analizador.Nodos.FuncionesNativas;
 using _COMPI_Proyecto1.Analizador.Tablas;
 using _COMPI_Proyecto1.Analizador.Tablas.Items;
 using _COMPI_Proyecto1.Analizador.Tablas.Listas;
@@ -17,6 +18,7 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
      *           | tNuevo + TIPO + LST_CORCHETES_VAL
      *           | LST_LLAVES_VAL
      *           | tNulo
+     *           | PREGUNTA_NATIVA
      *           | tEste   //para el this solamente
      *           | E; 
      */
@@ -114,6 +116,12 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
 
                 switch (hijo.nombre)
                 {
+                    case "PREGUNTA_NATIVA":
+
+                        _PREGUNTA_NATIVA preg = (_PREGUNTA_NATIVA)hijo;
+
+                        return preg.getValor(elementoEntor);
+
 
                     case "TIPO":
                         if (hayErrores())

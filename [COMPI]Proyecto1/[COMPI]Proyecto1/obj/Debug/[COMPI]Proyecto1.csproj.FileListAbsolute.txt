@@ -49,3 +49,11 @@ C:\Users\Joseph\Documents\Compi2\GITHUB\FORM_USAC\[COMPI]Proyecto1\[COMPI]Proyec
 C:\Users\Joseph\Documents\Compi2\GITHUB\FORM_USAC\[COMPI]Proyecto1\[COMPI]Proyecto1\obj\Debug\_COMPI_Proyecto1.GUI.TIpos.Entero.resources
 C:\Users\Joseph\Documents\Compi2\GITHUB\FORM_USAC\[COMPI]Proyecto1\[COMPI]Proyecto1\obj\Debug\_COMPI_Proyecto1.GUI.TIpos.Opcion.resources
 C:\Users\Joseph\Documents\Compi2\GITHUB\FORM_USAC\[COMPI]Proyecto1\[COMPI]Proyecto1\obj\Debug\_COMPI_Proyecto1.GUI.gui_Mensaje.gMensaje.resources
+C:\Users\Joseph\Documents\Compi2\GITHUB\FORM_USAC\[COMPI]Proyecto1\[COMPI]Proyecto1\obj\Debug\_COMPI_Proyecto1.GUI.Preguntas.frmCadena.resources
+C:\Users\Joseph\Documents\Compi2\GITHUB\FORM_USAC\[COMPI]Proyecto1\[COMPI]Proyecto1\obj\Debug\_COMPI_Proyecto1.GUI.Preguntas.frmEntero.resources
+C:\Users\Joseph\Documents\Compi2\GITHUB\FORM_USAC\[COMPI]Proyecto1\[COMPI]Proyecto1\obj\Debug\_COMPI_Proyecto1.GUI.Preguntas.frmDecimal.resources
+C:\Users\Joseph\Documents\Compi2\GITHUB\FORM_USAC\[COMPI]Proyecto1\[COMPI]Proyecto1\obj\Debug\_COMPI_Proyecto1.GUI.Preguntas.frmBooleano.resources
+C:\Users\Joseph\Documents\Compi2\GITHUB\FORM_USAC\[COMPI]Proyecto1\[COMPI]Proyecto1\obj\Debug\_COMPI_Proyecto1.GUI.Preguntas.frmNota.resources
+C:\Users\Joseph\Documents\Compi2\GITHUB\FORM_USAC\[COMPI]Proyecto1\[COMPI]Proyecto1\obj\Debug\_COMPI_Proyecto1.GUI.Preguntas.frmFecha.resources
+C:\Users\Joseph\Documents\Compi2\GITHUB\FORM_USAC\[COMPI]Proyecto1\[COMPI]Proyecto1\obj\Debug\_COMPI_Proyecto1.GUI.Preguntas.frmHora.resources
+C:\Users\Joseph\Documents\Compi2\GITHUB\FORM_USAC\[COMPI]Proyecto1\[COMPI]Proyecto1\obj\Debug\_COMPI_Proyecto1.GUI.Preguntas.frmFechaHora.resources

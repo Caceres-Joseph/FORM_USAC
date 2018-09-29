@@ -43,7 +43,7 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Objetos
 
         public void ejecutarConstructor(token nombre, int dimension, lstValores parametros, elementoEntorno tablaEntorno)
         {
-
+         
             /*
              * Console.WriteLine("-------------");
             foreach (itemValor tmp in parametros.listaValores)
@@ -76,8 +76,32 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Objetos
                 tmp.imprimirVariable();
             }*/
 
-            return cuerpoClase.lstMetodo_funcion.getMetodoFuncion(nombre, parametros, entorno); 
+            return cuerpoClase.lstMetodo_funcion.getMetodoFuncion(nombre, parametros, entorno, nombre.valLower); 
              
+        }
+
+
+        /*
+        |----------------------------------------------
+        |  Ejecutando Forulario.
+        |----------------------------------------------
+        */
+
+        public itemValor ejecutarFormulario(token nombre, lstValores parametros, elementoEntorno entorno)
+        {
+            /*foreach (itemValor tmp in parametros.listaValores)
+            {
+
+
+
+                Console.WriteLine("[ObjetoClase]->");
+                Console.WriteLine("tipo->"+tmp.getTipo());
+                Console.WriteLine("nombreObjeto->" + tmp.nombreObjeto);
+                tmp.imprimirVariable();
+            }*/
+
+            return cuerpoClase.lstFormularios.getMetodoFuncion(nombre, parametros, entorno,"formulario");
+
         }
 
         /*

@@ -33,32 +33,35 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
             String llave = param.nombre.valLower;
             if (!lstEntorno.ContainsKey(llave))
             {
-                lstEntorno.Add(llave,param);
+                lstEntorno.Add(llave, param);
             }
             else
             {
-                tabla.tablaErrores.insertErrorSemantic("La variable " + param.nombre.val +" ya se encuentra declarada en el mismo ambito.", param.nombre);
+                tabla.tablaErrores.insertErrorSemantic("La variable " + param.nombre.val + " ya se encuentra declarada en el mismo ambito.", param.nombre);
             }
         }
 
         public void imprimir()
         {
             Console.WriteLine("+--------------------+");
-            Console.WriteLine("| Entorno ["+nombre+"]");
+            Console.WriteLine("| Entorno [" + nombre + "]");
             Console.WriteLine("+--------------------+");
             foreach (var el in lstEntorno)
             {
-                Console.WriteLine("\tkey->"+el.Key);
+                Console.WriteLine("\tkey->" + el.Key);
                 el.Value.imprimir();
             }
 
-            if (anterior!=null)
+            if (anterior != null)
             {
                 anterior.imprimir();
             }
         }
 
-         public itemEntorno getItemValor(String idVariable)
+
+
+
+        public itemEntorno getItemValor(String idVariable)
         {
             itemEntorno retorno = null;
 
@@ -75,10 +78,111 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
 
                 if (anterior != null)
                 {
-                    return  anterior.getItemValor(idVariable);
+                    return anterior.getItemValor(idVariable);
                 }
             }
-             
+
+            return retorno;
+        }
+
+
+        /*
+        |-------------------------------------------------------------------------------------------------------------------
+        | EJECUCIÓN FINAL
+        |-------------------------------------------------------------------------------------------------------------------
+        |
+        */
+
+
+        public elementoEntorno getGlobal()
+        {
+
+
+            if (nombre.Equals("global"))
+            {
+                return this;
+            }
+            else
+            {
+                if (anterior != null)
+                {
+                    return anterior.getGlobal();
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
+
+        public String getEtiqueta()
+        {
+            String retorno = "";
+            foreach (var el in lstEntorno)
+            {
+                if (el.Key.Equals("etiqueta"))
+                {
+
+                    Object temp = el.Value.valor.getValorParseado("cadena");
+                    if (temp != null)
+                    {
+                        return (String)temp;
+                    }
+                    else
+                    {
+                        return "";
+                    }
+                }
+            }
+            return retorno;
+        }
+
+
+
+        public String getSugerir()
+        {
+            String retorno = "";
+            foreach (var el in lstEntorno)
+            {
+                if (el.Key.Equals("sugerir"))
+                {
+
+                    Object temp = el.Value.valor.getValorParseado("cadena");
+                    if (temp != null)
+                    {
+                        return (String)temp;
+                    }
+                    else
+                    {
+                        return "";
+                    }
+                }
+            }
+            return retorno;
+        }
+
+
+
+        public String getRequerido()
+        {
+            String retorno = "";
+            foreach (var el in lstEntorno)
+            {
+                if (el.Key.Equals("requeridomsn"))
+                {
+
+                    Object temp = el.Value.valor.getValorParseado("cadena");
+                    if (temp != null)
+                    {
+                        return (String)temp;
+                    }
+                    else
+                    {
+                        return "";
+                    }
+                }
+            }
             return retorno;
         }
 

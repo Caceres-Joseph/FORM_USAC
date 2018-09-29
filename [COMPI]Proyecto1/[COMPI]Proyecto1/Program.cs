@@ -11,9 +11,12 @@ namespace _COMPI_Proyecto1
         /// <summary>
         /// Punto de entrada principal para la aplicación.
         /// </summary>
+        /// Form1 
+        /// 
         [STAThread]
         static void Main()
         {
+            
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());

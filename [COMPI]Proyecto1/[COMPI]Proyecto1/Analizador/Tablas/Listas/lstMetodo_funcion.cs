@@ -23,7 +23,7 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Listas
         */
 
 
-        public itemValor getMetodoFuncion(token nombre, lstValores parametros, elementoEntorno tablaEntorno)
+        public itemValor getMetodoFuncion(token nombre, lstValores parametros, elementoEntorno tablaEntorno, String nombreAmbitoEntorno)
         {
 
             itemValor retorno = new itemValor();
@@ -35,7 +35,8 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Listas
             if (temp != null)
             //neuvo entorno
             {
-                elementoEntorno hijo1 = new elementoEntorno(tablaEntorno, tabla, nombre.val, tablaEntorno.este);
+
+                elementoEntorno hijo1 = new elementoEntorno(tablaEntorno, tabla, nombreAmbitoEntorno, tablaEntorno.este);
                 guardarParametrosEnLaTabla(temp.lstParametros, parametros, hijo1);
 
 
@@ -58,7 +59,7 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Listas
 
                 {
 
-                     
+
                     _LST_CUERPO val = (_LST_CUERPO)temp.LST_CUERPO;
 
                     itemRetorno result = val.ejecutar(hijo1);
@@ -86,7 +87,7 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Listas
 
                         }
                     }
-                    else 
+                    else
                     /* 
                     | 0 = normal
                     | 1 = return;
@@ -105,32 +106,17 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Listas
                         {
                             if (temp.dimension == result.valor.dimensiones.Count)
                             {
-                                if (result.valor.isTypeObjeto())
+
+                                //para los tipos
+                                if (itemEntorno.validandoTipo(temp.tipo.valLower, result.valor))
                                 {
-                                    if (temp.tipo.valLower.Equals(result.valor.nombreObjeto))
-                                    {
-                                        return result.valor;
-                                    }
-                                    else
-                                    {
-                                        tabla.tablaErrores.insertErrorSemantic("El metodo :" + temp.nombre.val + " es de tipo :" + temp.tipo.val + " sin embargo tiene un retorno de tipo: " + result.valor.nombreObjeto, temp.nombre);
-                                        return retorno;
-                                    }
-                                }
+                                    return result.valor;
+                                } 
                                 else
                                 {
-                                    if (temp.tipo.valLower.Equals(result.valor.getTipo()))
-                                    {
-                                        return result.valor;
-                                    }
-                                    else
-                                    {
-                                        tabla.tablaErrores.insertErrorSemantic("El metodo :" + temp.nombre.val + " es de tipo :" + temp.tipo.val + " sin embargo tiene un retorno de tipo: " + result.valor.getTipo(), temp.nombre);
-                                        return retorno;
-                                    }
-                                }
-
-                                
+                                    tabla.tablaErrores.insertErrorSemantic("El metodo :" + temp.nombre.val + " es de tipo :" + temp.tipo.val + " sin embargo tiene un retorno de tipo: " + result.valor.getTipo(), temp.nombre);
+                                    return retorno;
+                                } 
                             }
                             else
                             {
@@ -141,7 +127,7 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Listas
                         else
                         {
 
-                        } 
+                        }
                     }
 
                     ///hay que comparar el retorno con el tipo definido

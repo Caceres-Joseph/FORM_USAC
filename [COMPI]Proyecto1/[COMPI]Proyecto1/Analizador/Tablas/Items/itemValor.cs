@@ -38,6 +38,9 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
         //esto sirve para el tipo del metodo/funcion
         public token tipoFuncionMetodo = new token();
 
+        //esto sirve para el nombre de la pregunta
+        public token nombrePregunta = new token();
+
      
 
 

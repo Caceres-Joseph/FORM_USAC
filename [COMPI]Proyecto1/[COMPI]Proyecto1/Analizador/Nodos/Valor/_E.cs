@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks; 
 using _COMPI_Proyecto1.Analizador.Nodos.IdVar_func;
+using _COMPI_Proyecto1.Analizador.Nodos.Sentencias.Si_simplificado;
 using _COMPI_Proyecto1.Analizador.Nodos.Valor;
 using _COMPI_Proyecto1.Analizador.Nodos.Valor.OpeAritmetica;
 using _COMPI_Proyecto1.Analizador.Nodos.Valor.OpeLogico;
@@ -59,6 +60,10 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
                     {
                         
                         return hijos[0].ope_tipo(elmen);
+                    }else if (hijos[0].nombre.Equals("SI_SIMPLIFICADO"))
+                    {
+                        _SI_SIMPLIFICADO simplif = (_SI_SIMPLIFICADO)hijos[0];
+                        return simplif.getValor(elmen);
                     }
                     //operador unario
                     else if (lstAtributos.listaAtributos.Count > 0)

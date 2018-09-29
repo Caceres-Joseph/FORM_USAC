@@ -45,13 +45,13 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
 
 
                     //aqui tengo qee validar los objetos
-                    this.valor = valor; 
+                    this.valor = valor;
                     itemValor tempIt = new itemValor();
                     String tipoDato1 = tempIt.getTipoApartirDeString(tipo.valLower);
 
-                    if (tipoDato1.Equals("objeto")!= valor.isTypeNulo()) 
+                    if (tipoDato1.Equals("objeto") != valor.isTypeNulo())
                         this.valor.setTypeObjeto(tipo.valLower);
- 
+
 
                     this.visibilidad = visibilidad;
                     this.dimension = valor.dimensiones; //asi ya tiene dimensiones definidas
@@ -81,7 +81,7 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
 
                     this.valor = valor;
                     this.valor.valor = valor.getValorParseado(tipo.valLower);
-                     
+
 
                     itemValor tempIt = new itemValor();
                     String tipoDato1 = tempIt.getTipoApartirDeString(tipo.valLower);
@@ -98,7 +98,7 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
 
                     this.tipo = tipo;
                     this.nombre = nombre;
-                     
+
 
                     //aqui tengo qee validar los objetos
                     this.valor = valor;
@@ -164,7 +164,11 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
             itemValor tempIt = new itemValor();
             String tipoDato1 = tempIt.getTipoApartirDeString(tipo1);
 
-            if (tipoDato1.Equals("objeto") && valor2.isTypeObjeto() || valor2.getTipo().Equals("nulo"))
+            if (valor2.getTipo().Equals("nulo"))
+            {
+                return true;
+            }
+            else if (tipoDato1.Equals("objeto") && valor2.isTypeObjeto())
             //validando que sean los mismos tipos
             {
                 if (tipo1.Equals(valor2.nombreObjeto))
@@ -176,6 +180,7 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
                     return false;
                 }
             }
+
             else if (tipoDato1.Equals(valor2.getTipo()) || valor2.getTipo().Equals("nulo"))
             {
                 return true;
@@ -189,9 +194,9 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
 
         public static Boolean sePuedeParsear(String tipo1, itemValor valor2)
         {
-         
+
             Object objetoParseado = valor2.getValorParseado(tipo1);
-            if (objetoParseado!=null)
+            if (objetoParseado != null)
             {
                 return true;
             }
@@ -201,7 +206,10 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
             }
         }
 
-         
+
+
+
+
         public void imprimir()
         {
             Console.WriteLine("\tnombre->" + nombre.valLower);

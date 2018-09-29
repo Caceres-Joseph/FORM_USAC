@@ -14,6 +14,9 @@ namespace _COMPI_Proyecto1.Analizador
         public String archivo;
         public String valLower;
 
+
+        public Boolean esPregunta = false;
+
         public token()
         {
             this.val = "--";

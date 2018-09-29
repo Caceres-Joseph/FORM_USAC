@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using _COMPI_Proyecto1.Analizador.Tablas;
 using _COMPI_Proyecto1.Analizador.Tablas.Items;
 using _COMPI_Proyecto1.Analizador.Tablas.Listas;
+using _COMPI_Proyecto1.Analizador.Tablas.Objetos;
 
 namespace _COMPI_Proyecto1.Analizador.Nodos.IdVar_func
 {
@@ -38,7 +39,7 @@ namespace _COMPI_Proyecto1.Analizador.Nodos.IdVar_func
 
         //elementoEntorno elementoEntorno;
 
- 
+
         /*
       |-------------------------------------------------------------------------------------------------------------------
       | EJECUCIÓN DESDE EL CUERPO DEL METODO
@@ -60,7 +61,35 @@ namespace _COMPI_Proyecto1.Analizador.Nodos.IdVar_func
         */
         {
             itemRetorno retorno = new itemRetorno(0);
-            getValor(tablaEntornos);
+            itemValor te2 = getValor(tablaEntornos);
+
+            //println(te2.getTipo() + "|" + te2.nombrePregunta.valLower + "|entorno de ejecutar final ===================================0");
+
+
+            //if (!(te2.nombrePregunta.valLower.Equals("---") && te2.nombrePregunta.valLower.Equals("") && te2.nombrePregunta.valLower.Equals("--")))
+            if (te2.nombrePregunta.esPregunta)
+            {
+                //println("Estoy ejecutando");
+                if (te2 != null)
+                {
+                    //ahora hay que buscarl la pregunta en la tabla de simbolos prro.
+                    itemValor te3 = getValId(te2.nombrePregunta, tablaEntornos);
+                    if (te3.isTypeObjeto())
+                    {
+                        elementoEntorno entor = te3.getObjeto().tablaEntorno.raiz;
+                        entor.este.ejecutarMetodoFuncion(new token("ejecutarfinal"), new lstValores(), entor);
+                    }
+                    else
+                    {
+                        println("no me retorno un objeto");
+                    }
+                }
+                else
+                {
+                    println("[Error]sin mvalor fue nulo");
+                }
+            }
+
             return retorno;
         }
 
@@ -71,7 +100,7 @@ namespace _COMPI_Proyecto1.Analizador.Nodos.IdVar_func
         |-------------------------------------------------------------------------------------------------------------------
         |
         */
-         
+
         public itemValor getValor(elementoEntorno elementoEntorno)
         {
             itemValor retorno = new itemValor();
@@ -104,6 +133,29 @@ namespace _COMPI_Proyecto1.Analizador.Nodos.IdVar_func
 
                         itemValor te1 = temp1.getValor(elementoEntorno);
                         itemValor te2 = puntos.getValor(elementoEntorno, te1);
+
+
+                        //aquí puedo revisar si fue una pregunta para poder guardarla en el entorno
+                        if (te2.isTypeObjeto())
+                        {
+                            if (te2.nombreObjeto.Equals("form"))
+                            {
+
+                                //guardando la pregunta dentro de la tabla de simbolos, jejejejejejejejejejejejejeje
+                                itemEntorno sim = new itemEntorno(te1.nombrePregunta, te1.nombrePregunta, te1, new token("publico"), new List<int>(), tablaSimbolos);
+                                elementoEntorno.insertarEntorno(sim);
+
+
+                                ///ejecuto el metodo ejecutar final, es el que muestra las preguntas
+                                //elementoEntorno.este.ejecutarMetodoFuncion(new token("ejecutarfinal"), new lstValores(), sim.valor.getObjeto().tablaEntorno.raiz);
+                                //println("entorno de ejecutar final ===================================0");
+
+                                // sim.valor.getObjeto().tablaEntorno.raiz.este.ejecutarMetodoFuncion(new token("ejecutarfinal"), new lstValores(), sim.valor.getObjeto().tablaEntorno.raiz);
+
+
+                            }
+                        }
+
                         return te2;
 
                         //tengo que obtener el objeto de id_var_func
@@ -338,11 +390,33 @@ namespace _COMPI_Proyecto1.Analizador.Nodos.IdVar_func
                         |  valId + sAbreParent + LST_VAL + sCierraParent;
                         |-------------
                         | Esto es un metodo
+                        | Desde aquí puedo llamar a las preguntas, y tiene mayor prioridad
+                        | si me encuentro dentro de un entorno de nombre, formulario, o de nombre grupo
                         */
                         {
                             #region cuerpo
                             String esteId = lstAtributos.listaAtributos[0].nombretoken;
 
+
+                            /*if (elementoEntorno.nombre.Equals("formulario") || elementoEntorno.nombre.Equals("grupo"))
+
+                            * Esto es como el constructor nuevo pregunta() 
+
+                           { 
+                           }*/
+
+                            //primero busco en las preguntas, luego en los metodos, jejejejeje
+                            itemValor ret = crearPregunta(elementoEntorno);
+                            if (ret != null)
+                            {
+                                //eso quiere decir que es una pregunta
+
+                                ret.nombrePregunta = lstAtributos.getToken(0);
+                                ret.nombrePregunta.esPregunta = true;
+                                return ret;
+                            }
+
+                            //si no lo encuentro como pregunta, sigo la ejecución en busca de un metodo.
                             if (esteId.Equals("valId"))
 
                             {
@@ -727,6 +801,69 @@ namespace _COMPI_Proyecto1.Analizador.Nodos.IdVar_func
 
         }
 
+
+
+        public itemValor crearPregunta(elementoEntorno elementoEntor)
+        /*
+          |--------------------------------------------------------------------------
+          |  valId + sAbreParent + LST_VAL + sCierraParent;
+          |  tNuevo + valId + sAbreParent + LST_VAL + sCierraParent
+          |--------------------------------------------------------------------------
+          | 
+          | tengo que crear una nueva clase y cargar los valores globales con sus metdos, funciones, y validar constructores
+          | hay que buscar la clase primero
+          |
+          */
+        {
+
+            itemValor retorno = new itemValor();
+            retorno.setTypeVacio();
+
+
+            if (hayErrores())
+                return null;
+
+
+            //token tokId = lstAtributos.getToken(1);
+            token tokInstancia = lstAtributos.getToken(0);
+            elementoClase temp = tablaSimbolos.getPregunta(tokInstancia);
+            if (temp != null)
+            {
+                objetoClase ObjClase = new objetoClase(temp, tablaSimbolos);
+                lstValores lstValores2 = new lstValores();
+                //ahora tengo que llamar al constructor, pero digamos que no tiene, jejejeje
+
+
+                if (hijos.Count > 0)
+                {
+                    nodoModelo hijo = hijos[0];
+                    _LST_VAL lstval = (_LST_VAL)hijo;
+                    lstValores2 = lstval.getLstValores(elementoEntor);
+                    //me tiene que devolver una lista de valores,
+
+                }
+                ObjClase.ejecutarConstructor(lstAtributos.getToken(0), 0, lstValores2, ObjClase.tablaEntorno.raiz);
+                ObjClase.ejecutarGlobales();//cargando sus valores globales 
+                                            // jlk
+
+
+
+
+                // println("========================00     imprimir lo que contiene la pregunta   00 ==================");
+                // elementoEntor.imprimir();
+                //println("ejecutando constructor de la claes, new objeto()");
+
+                retorno.setValue(ObjClase, lstAtributos.getToken(0).valLower);
+                retorno.setTypeObjeto(tokInstancia.valLower);
+                //println("Es un objeto");
+                return retorno;
+            }
+            else
+            {
+                return null;
+            }
+
+        }
 
     }
 }

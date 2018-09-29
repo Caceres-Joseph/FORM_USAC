@@ -25,6 +25,10 @@ namespace _COMPI_Proyecto1.Analizador.Arbol.Tests
                 Console.WriteLine(x);
                 x++;
             } while (x < 10);
+
+
+       
+
         }
 
         

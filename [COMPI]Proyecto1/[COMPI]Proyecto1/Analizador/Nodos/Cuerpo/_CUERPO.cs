@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using _COMPI_Proyecto1.Analizador.Nodos.IdVar_func;
 using _COMPI_Proyecto1.Analizador.Tablas;
 using _COMPI_Proyecto1.Analizador.Tablas.Items;
+using _COMPI_Proyecto1.Analizador.Tablas.Listas;
 
 namespace _COMPI_Proyecto1.Analizador.Nodos
 {
@@ -14,33 +16,6 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
         {
         }
 
-        /*public override itemRetorno ejecutar(elementoEntorno tablaEntornos)
-        {
-
-            itemRetorno retorno = new itemRetorno(0);
-
-            if (hayErrores())
-                return retorno;
-
-            foreach (nodoModelo temp in hijos)
-            {
-
-                int resultado = temp.ejecutar(tablaEntornos, retornoFuncion);
-                if (resultado == 0)
-                {
-                    //continua normal
-                }
-                else
-                {
-
-                    println("ejecutarHijos->retorno :" + resultado);
-                    println("retornoFuncion->" + retornoFuncion.getTipo());
-                    return resultado;
-                }
-
-            }
-
-            return 0;
-        }*/
+         
     }
 }

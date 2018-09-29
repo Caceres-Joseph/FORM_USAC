@@ -314,5 +314,10 @@ namespace _COMPI_Proyecto1
 
 
         }
+
+        private void archivoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -16,6 +16,8 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
         public lstConstructores lstConstructoresHeredados;
         //public lstPolimorfismo lstSobrescritura;
         public lstVariablesGlobales lstVariablesGlobales;
+        
+        public lstMetodo_funcion lstFormularios;
 
 
         //extend saber de donde extendio 
@@ -59,6 +61,8 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
             //this.lstSobrescritura = new lstPolimorfismo(this.tablaErrores, "sobrescritura");
             this.lstVariablesGlobales = new lstVariablesGlobales(this.tablaErrores, "var_globales");
             this.lstConstructoresHeredados = new lstConstructores(this.tablaErrores, "constructores_heredados");
+            this.lstFormularios = new lstMetodo_funcion(this.tablaErrores, "formulario");
+
         }
 
 
@@ -93,6 +97,7 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
             lstConstructoresHeredados.imprimir();
             //lstSobrescritura.imprimir();
             lstVariablesGlobales.imprimir();
+            lstFormularios.imprimir();
 
         }
 
