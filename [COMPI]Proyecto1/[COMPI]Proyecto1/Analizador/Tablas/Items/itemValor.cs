@@ -55,10 +55,10 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
 
 
 
-
+        CultureInfo enUS = new CultureInfo("en-US");
         public void convertirCadena(String cadena)
         {
-            CultureInfo enUS = new CultureInfo("en-US");
+            
             //parseando a fecha/hora
             //parseando a fecha
             //paresando a hora
@@ -312,7 +312,7 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
         |--------------------------------------------------------------------------
         */
 
-
+       
 
         public object getValorParseado(String tipo)
         {
@@ -386,9 +386,11 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
                     else if (isTypeFechaHora()||isTypeFecha()||isTypeHora())
                     {
 
+                        DateTime starDate = DateTime.ParseExact("01/01/2000 00:00:00", "dd/MM/yyyy hh:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
+                        DateTime endDate = getFechaHora();
 
-                        int ret= unchecked((int)getFechaHora().Ticks);
-                        return ret;
+                        Double numDays = (endDate - starDate).Days; 
+                        return Convert.ToInt32(numDays); 
                     }
                     else
                     {
@@ -423,6 +425,20 @@ namespace _COMPI_Proyecto1.Analizador.Tablas.Items
                         {
                             return 0.0;
                         }
+                    }
+                    else if (isTypeFechaHora() || isTypeFecha() || isTypeHora())
+                    {
+
+
+
+
+
+                        DateTime starDate = DateTime.ParseExact("01/01/2000 00:00:00", "dd/MM/yyyy hh:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
+                        DateTime endDate = getFechaHora();
+
+                        Double numDays = (endDate - starDate).Days;
+
+                        return numDays; 
                     }
                     else
                     {

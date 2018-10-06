@@ -36,7 +36,7 @@ public class repeticion extends etiqueta {
         }
 
 //        if (simbolo.tipoPregunta.equals("entero") || simbolo.tipoPregunta.equals("decimal")) {
-            retorno += "\n\t\tPara(Entero " + simbolo.idPregunta + "_it=0, " + simbolo.idPregunta + "_it <" + calcular(celdaCalc) + ", " + simbolo.idPregunta + "_iter++){";
+            retorno += "\n\t\tPara(Entero " + simbolo.idPregunta + "_it=0 ; " + simbolo.idPregunta + "_it <" + calcular(celdaCalc) + "; " + simbolo.idPregunta + "_iter++){";
 
             retorno += apli.getCadenaNivel2();
             retorno += "\n\t\t}";

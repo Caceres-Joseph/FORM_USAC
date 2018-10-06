@@ -14,15 +14,16 @@ using FastColoredTextBoxNS;
 using System.Text.RegularExpressions;
 using _COMPI_Proyecto1.GUI;
 using _COMPI_Proyecto1.GUI.TIpos;
+using System.IO;
 
 namespace _COMPI_Proyecto1
 {
     public partial class Form1 : MetroForm
     {
-         List<proyecto> ListaDeProyectos = new List<proyecto>();
+        List<proyecto> ListaDeProyectos = new List<proyecto>();
         //public List<List<FastColoredTextBox>> ListaDeProyectos = new List<List<FastColoredTextBox>>();
-        public  List<MetroFramework.Controls.MetroTabControl> listaDeTabs=new List<MetroFramework.Controls.MetroTabControl>();
-     
+        public List<MetroFramework.Controls.MetroTabControl> listaDeTabs = new List<MetroFramework.Controls.MetroTabControl>();
+
 
         public Form1()
         {
@@ -48,6 +49,9 @@ namespace _COMPI_Proyecto1
 
 
             ListaDeProyectos[metroTabControl1.SelectedIndex].ejecutarTab();
+
+            agregarItemsRespuestas();
+
             /*
 
             String cadena = "";
@@ -79,26 +83,76 @@ namespace _COMPI_Proyecto1
                  txtConsola.Text = ">>Cadena incorrecta, no se pudo recuperar del error :(";
                  // Console.WriteLine("cadena incorrecta");
              }*/
+
+
+
+        }
+
+
+        public void agregarItemsRespuestas()
+        {
+
+
+            verFomularioToolStripMenuItem.DropDownItems.Clear();
+
+
+            string carpeta = "Respuestas";
+
+            foreach (string file in Directory.EnumerateFiles(carpeta, "*.html"))
+            {
+                // string contents = File.ReadAllText(file);
+
+                ToolStripMenuItem it = new ToolStripMenuItem();
+                it.Text = file;
+
+
+                it.Click += (s, e2) =>
+                {
+
+                    try
+                    {
+                        System.Diagnostics.Process proc = new System.Diagnostics.Process();
+                        proc.EnableRaisingEvents = false;
+                        proc.StartInfo.FileName = file;
+                        proc.Start();
+                    }
+                    catch(Exception )
+                    {
+
+                    }
+                };
+
+
+                verFomularioToolStripMenuItem.DropDownItems.Add(it);
+
+
+            }
+
+        }
+
+        private void AbrirRespuestas(object sender, ColumnClickEventArgs a)
+        {
+            MessageBox.Show("hola");
         }
 
         private void otroToolStripMenuItem_Click(object sender, EventArgs e)
         {
             imagen im = new imagen();
 
-            im.generarImagen("grafo.dot",  "grafo.png");
+            im.generarImagen("grafo.dot", "grafo.png");
         }
         public void crearTab()
         {
             tab ta = new tab();
 
-           // metroTabControl2.Controls.Add(page);
-           // listaDeTabs[metroTabControl1.SelectedIndex].Controls.Add(ta.page);
+            // metroTabControl2.Controls.Add(page);
+            // listaDeTabs[metroTabControl1.SelectedIndex].Controls.Add(ta.page);
 
             ListaDeProyectos[metroTabControl1.SelectedIndex].insertarTab(ta);
             //ListaEntradas.Add(cuadro);
             treeView1.Nodes[metroTabControl1.SelectedIndex].Nodes.Add(ta.texto);
 
-        } 
+        }
 
         public void crearTab(String nombre, String contenido)
         {
@@ -123,6 +177,8 @@ namespace _COMPI_Proyecto1
         {
             // crearTab();
             nuevoProyecto();
+
+            agregarItemsRespuestas();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -171,13 +227,13 @@ namespace _COMPI_Proyecto1
 
 
 
-                            
+
                             // openFileDialog1.OpenFile.ToString();
                             string[] words = ruta.Split(Convert.ToChar(92));
                             string nombre = words[words.Length - 1];
                             string text = System.IO.File.ReadAllText(@ruta);
                             crearTab(nombre, text);
-                           
+
                             /*
                             Console.WriteLine(words[words.Length - 1]);
                             foreach (string word in words)
@@ -208,7 +264,7 @@ namespace _COMPI_Proyecto1
         }
 
         private void diagramaDeClasesToolStripMenuItem_Click(object sender, EventArgs e)
-        { 
+        {
         }
 
         private void aSTToolStripMenuItem_Click(object sender, EventArgs e)
@@ -242,7 +298,7 @@ namespace _COMPI_Proyecto1
               "Nombre del proyecto",
               "Nombre del proyecto",
               "Proyecto");
-            if (texto.Length>0)
+            if (texto.Length > 0)
             {
                 proyecto proyect = new proyecto(texto);
 
@@ -280,14 +336,14 @@ namespace _COMPI_Proyecto1
             treeView1.Nodes[metroTabControl1.SelectedIndex].Nodes[indice].Remove();
 
             listaDeTabs[metroTabControl1.SelectedIndex].Controls.RemoveAt(indice);
-           // ListaDeProyectos[metroTabControl1.SelectedIndex].RemoveAt(indice);
+            // ListaDeProyectos[metroTabControl1.SelectedIndex].RemoveAt(indice);
 
 
             //treeView1.Nodes[metroTabControl1.SelectedIndex].Nodes.RemoveAt(listaDeTabs[metroTabControl1.SelectedIndex].SelectedIndex); //para elimiar la clase de la vista árbol
-                                                                                                                                       //treeView1.Nodes[metroTabControl1.SelectedIndex].Nodes.RemoveByKey(listaDeTabs[metroTabControl1.SelectedIndex].SelectedIndex.)
-                                                                                                                                       //treeView1.Nodes[metroTabControl1.SelectedIndex].Nodes.RemoveByKey("Fecha.java");
-           // treeView1.Nodes[metroTabControl1.SelectedIndex].Nodes[listaDeTabs[metroTabControl1.SelectedIndex].SelectedIndex].Remove();
-          
+            //treeView1.Nodes[metroTabControl1.SelectedIndex].Nodes.RemoveByKey(listaDeTabs[metroTabControl1.SelectedIndex].SelectedIndex.)
+            //treeView1.Nodes[metroTabControl1.SelectedIndex].Nodes.RemoveByKey("Fecha.java");
+            // treeView1.Nodes[metroTabControl1.SelectedIndex].Nodes[listaDeTabs[metroTabControl1.SelectedIndex].SelectedIndex].Remove();
+
 
         }
 
@@ -298,19 +354,6 @@ namespace _COMPI_Proyecto1
 
         private void verFomularioToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Condicion con = new Condicion();
-            con.Show();
-
-
-            Entero ent = new Entero();
-            ent.Show();
-
-           Opcion opc = new Opcion();
-            opc.Show();
-
-
-            Form1 con2 = new Form1();
-            con2.Show();
 
 
         }

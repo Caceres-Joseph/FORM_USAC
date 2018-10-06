@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using _COMPI_Proyecto1.Analizador.Nodos.FuncionesNativas;
 using _COMPI_Proyecto1.Analizador.Tablas;
 using _COMPI_Proyecto1.Analizador.Tablas.Items;
 
@@ -54,8 +55,10 @@ namespace _COMPI_Proyecto1.Analizador.Nodos.Formulario
 
             token nombre = lstAtributos.getToken(1);
 
+            _ESCRIBIR_ARCHIVO.resetVariables(nombre.val);
             elementoEntorno.este.ejecutarFormulario(nombre, lstParametros.getLstValores(elementoEntorno), elementoEntorno.este.tablaEntorno.raiz);
             
+
             return retorno;
         }
 

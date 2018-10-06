@@ -48,6 +48,21 @@ namespace _COMPI_Proyecto1.Analizador.Tablas
 
         }
 
+        public Boolean esPregunta(String idVal)
+        {
+            Boolean retorno = false;
+
+            foreach(elementoClase el in lstPreguntas)
+            {
+                if (el.nombreClase.valLower.Equals(idVal))
+                {
+                    return true;
+                }
+            }
+
+            return retorno;
+        }
+
         public void setRutaProyecto(String ruta)
         {
 

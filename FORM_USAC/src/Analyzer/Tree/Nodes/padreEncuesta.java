@@ -40,7 +40,7 @@ public class padreEncuesta extends nodeModel{
         retorno+=getCadenaMetodos();
         
         retorno+="\n\tFormulario prueba(){";
-        retorno+="\n\t\tRespuestas resp;";
+        retorno+="\n\t\tRespuesta resp = nuevo Respuesta();";
         retorno+=getLlamadoFunciones();
         retorno+="\n\t}";
         
@@ -65,6 +65,7 @@ public class padreEncuesta extends nodeModel{
         for (String key : tablaSimbolos.lstSimbolos.keySet()) {
             
             elementoSimbolo tempSimbolo=tablaSimbolos.lstSimbolos.get(key);
+            
             retorno+=tempSimbolo.cadenaFinal;
             
         }

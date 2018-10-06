@@ -56,10 +56,10 @@ public class codigoPost extends etiqueta {
 
         if (INPUT2.contains("@")) {
             if (simbolo.lstFunciones.get("respuesta") != null) {
-                retorno = INPUT2.replaceAll(REGEX2, simbolo.idPregunta + "().Respuesta");
+                retorno = INPUT2.replaceAll(REGEX2, simbolo.idPregunta + ".Respuesta");
                 return retorno;
             }else if(simbolo.lstFunciones.get("calcular")!=null){
-                retorno = INPUT2.replaceAll(REGEX2, simbolo.idPregunta + "().Respuesta");
+                retorno = INPUT2.replaceAll(REGEX2, simbolo.idPregunta + ".Respuesta");
                 return retorno;
             }else{
                 tablaSimbolos.tablaErrores.insertErrorSemantic(celda.ambito, celda.posY, celda.posX, "No se puede remplazar @ ya que la pregunta :"+simbolo.idPregunta+" no tiene el atributo respuesta");

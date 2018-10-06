@@ -142,7 +142,12 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
             var tTodo = ToTerm("todo");
             var tCuadriculo = ToTerm("cuadricula");
             var tNativo = ToTerm("_nativo");
-
+            var tEscribirArchivo = ToTerm("escribir_archivo");
+            var tImagen = ToTerm("imagen");
+            var tVideo = ToTerm("video");
+            var tAudio = ToTerm("audio");
+            var tLen = ToTerm("_len");
+            var tNada = ToTerm("nada");
             //tipos
             var tEntero = ToTerm("entero");
             var tCadena = ToTerm("cadena");
@@ -281,6 +286,11 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
             NonTerminal PAR_CORCHETES_VAL = new NonTerminal("PAR_CORCHETES_VAL");
 
             NonTerminal PREGUNTA_NATIVA = new NonTerminal("PREGUNTA_NATIVA");
+
+            NonTerminal ESCRIBIR_ARCHIVO = new NonTerminal("ESCRIBIR_ARCHIVO");
+
+            NonTerminal LEN = new NonTerminal("LEN");
+
             #endregion
 
             #region Gramatica
@@ -569,8 +579,10 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
                 | ROMPER
                 | CONTINUAR
                 | RETORNO
+                | ESCRIBIR_ARCHIVO
                 //| PROCEDIMIENTOS_FORMULARIO
                 //| FUNC_MULTIMEDIA
+                | FUNC_MULTIMEDIA + sPuntoComa
                 | LLAMADA_FORMULARIO;
 
             ;
@@ -582,6 +594,25 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
                 | tNuevo + valId + sAbreParent + LST_VAL + sCierraParent + sPunto + tCuadriculo + sPuntoComa;
 
 
+            /*
+            |-------------------------------------------------------------------------------------------------------------------
+            | MULTIMEDIA
+            |-------------------------------------------------------------------------------------------------------------------
+            |  
+            */
+
+            FUNC_MULTIMEDIA.Rule = AUDIO
+                | VIDEO
+                | IMAGEN
+                ;
+
+
+            AUDIO.Rule = tAudio + sAbreParent + E + sComa + E + sCierraParent;
+
+            VIDEO.Rule = tVideo + sAbreParent + E + sComa + E + sCierraParent;
+
+            IMAGEN.Rule = tImagen + sAbreParent + E + sComa + E + sCierraParent;
+             
             /*
             |-------------------------------------------------------------------------------------------------------------------
             | SUPER
@@ -713,7 +744,7 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
 
 
             FUNCIONES_NATIVAS.Rule = IMPRIMIR
-                | MENSAJE 
+                | MENSAJE
                 ;
 
             IMPRIMIR.Rule = tImprimir + sAbreParent + VALOR + sCierraParent
@@ -723,7 +754,6 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
                 | tMensaje + sAbreParent + sCierraParent;
 
 
-
             /*
             ------------------------------------------
             * Internas del lenguaje
@@ -731,7 +761,7 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
             */
 
 
-            PREGUNTA_NATIVA.Rule = tNativo + valId + sAbreParent +LST_VAL+ sCierraParent;
+            PREGUNTA_NATIVA.Rule = tNativo + valId + sAbreParent + LST_VAL + sCierraParent;
 
 
             /*
@@ -1013,11 +1043,13 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
 
             /*
             |-------------------------------------------------------------------------------------------------------------------
-            | PROCEDIMIENTO
+            | ESCRIBIR_ARCHIVO
             |-------------------------------------------------------------------------------------------------------------------
             |  
             */
 
+
+            ESCRIBIR_ARCHIVO.Rule = tEscribirArchivo + sAbreParent + LST_VAL + sCierraParent + sPuntoComa;
 
 
 
@@ -1079,11 +1111,13 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
                 | valDecimal
                 | valNumero
                 | tNulo
+                | tNada
                 | SI_SIMPLIFICADO
                 | OPE_ARITME
-                | OPE_TIPO;
+                | OPE_TIPO
+                | LEN;
 
-
+            LEN.Rule = tLen + sAbreParent + E + sCierraParent;
 
 
 
@@ -1128,7 +1162,6 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
             }
 
             base.ReportParseError(context);
-        }
-
+        } 
     }
 }

@@ -5,6 +5,7 @@
  */
 package Analyzer.Tree;
 
+import Analyzer.Tree.NodTemp.nodoString;
 import Analyzer.Tree.Tablas.tablaSimbolos;
 import java.util.ArrayList; 
 import readExcel.cell;
@@ -36,6 +37,20 @@ public class nodeModel {
  
 
     } 
+    
+    
+    public void executeSinLlamar(nodoString nodCad) {
+//        tablaSimbolos.tablaErrores.print("[nodeModel]"+this.nombreNodo+"_execute()");
+    } 
+    
+    
+     public void ejectuarHijosSinLlamar(nodoString nodCad){
+ 
+        for (nodeModel model : children) {
+//            System.out.println(model.nombreNodo);
+            model.executeSinLlamar(nodCad);
+        }
+    }
     
     public void ejectuarHijos(){
         if (tablaSimbolos!=null) {

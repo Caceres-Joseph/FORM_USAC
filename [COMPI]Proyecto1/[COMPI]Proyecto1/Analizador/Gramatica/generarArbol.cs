@@ -5,6 +5,7 @@ using _COMPI_Proyecto1.Analizador.Nodos.FuncionesNativas;
 using _COMPI_Proyecto1.Analizador.Nodos.IdVar_func;
 using _COMPI_Proyecto1.Analizador.Nodos.Inicio;
 using _COMPI_Proyecto1.Analizador.Nodos.Llaves_Arreglos;
+using _COMPI_Proyecto1.Analizador.Nodos.Multimedia;
 using _COMPI_Proyecto1.Analizador.Nodos.Ope_matematica;
 using _COMPI_Proyecto1.Analizador.Nodos.Ope_tipo;
 using _COMPI_Proyecto1.Analizador.Nodos.Pregunta;
@@ -434,6 +435,26 @@ namespace _COMPI_Proyecto1.Analizador.Gramatica
 
                 case "PREGUNTA_NATIVA":
                     retorno = new _PREGUNTA_NATIVA(nombreNoTerminal, tabla);
+                    return retorno;
+
+                case "ESCRIBIR_ARCHIVO":
+                    retorno = new _ESCRIBIR_ARCHIVO(nombreNoTerminal, tabla);
+                    return retorno;
+
+                case "FUNC_MULTIMEDIA":
+                    retorno = new _FUNC_MULTIMEDIA(nombreNoTerminal, tabla);
+                    return retorno;
+                case "AUDIO":
+                    retorno = new _AUDIO(nombreNoTerminal, tabla);
+                    return retorno;
+                case "VIDEO":
+                    retorno = new _VIDEO(nombreNoTerminal, tabla);
+                    return retorno;
+                case "IMAGEN":
+                    retorno = new _IMAGEN(nombreNoTerminal, tabla);
+                    return retorno;
+                case "LEN":
+                    retorno = new _LEN(nombreNoTerminal, tabla);
                     return retorno;
 
                 default:

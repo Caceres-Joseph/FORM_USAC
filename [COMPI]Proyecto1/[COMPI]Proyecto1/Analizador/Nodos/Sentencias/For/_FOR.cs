@@ -56,7 +56,7 @@ namespace _COMPI_Proyecto1.Analizador.Nodos.Sentencias.For
             {
 
 
-                elementoEntorno entornoFor = new elementoEntorno(elementoEntor, tablaSimbolos, "para", elementoEntor.este);
+                
                 nodoModelo nodotemp = getNodo("DECLARAR_VARIABLE_SINVISIBI");
 
                 if (nodotemp == null)
@@ -64,10 +64,10 @@ namespace _COMPI_Proyecto1.Analizador.Nodos.Sentencias.For
 
 
                 _DECLARAR_VARIABLE_SINVISIBI decla = (_DECLARAR_VARIABLE_SINVISIBI)nodotemp;
-                decla.ejecutar(entornoFor);
+                decla.ejecutar(elementoEntor);
 
                 _E nodoE = (_E)getNodo("E");
-                itemValor valE = nodoE.getValor(entornoFor);
+                itemValor valE = nodoE.getValor(elementoEntor);
                 Object objetoValor = valE.getValorParseado("booleano");
                 Boolean condicion = false;
 
@@ -87,7 +87,7 @@ namespace _COMPI_Proyecto1.Analizador.Nodos.Sentencias.For
                 while (condicion)
                 {
 
-
+                    elementoEntorno entornoFor = new elementoEntorno(elementoEntor, tablaSimbolos, "para", elementoEntor.este);
                     _LST_CUERPO nodoCuerpo = (_LST_CUERPO)getNodo("LST_CUERPO");
 
                     retorno = nodoCuerpo.ejecutar(entornoFor);
@@ -144,7 +144,7 @@ namespace _COMPI_Proyecto1.Analizador.Nodos.Sentencias.For
             */
             {
 
-                elementoEntorno entornoFor = new elementoEntorno(elementoEntor, tablaSimbolos, "para", elementoEntor.este);
+                
                 nodoModelo nodotemp = getNodo("ASIG_VALOR");
 
                 if (nodotemp == null)
@@ -152,10 +152,10 @@ namespace _COMPI_Proyecto1.Analizador.Nodos.Sentencias.For
 
 
                 _ASIG_VALOR decla = (_ASIG_VALOR)hijos[0];
-                decla.ejecutar(entornoFor);
+                decla.ejecutar(elementoEntor);
 
                 _E nodoE = (_E)getNodo("E");
-                itemValor valE = nodoE.getValor(entornoFor);
+                itemValor valE = nodoE.getValor(elementoEntor);
                 Object objetoValor = valE.getValorParseado("booleano");
                 Boolean condicion = false;
 
@@ -174,7 +174,7 @@ namespace _COMPI_Proyecto1.Analizador.Nodos.Sentencias.For
 
                 while (condicion)
                 {
-
+                    elementoEntorno entornoFor = new elementoEntorno(elementoEntor, tablaSimbolos, "para", elementoEntor.este);
 
                     _LST_CUERPO nodoCuerpo = (_LST_CUERPO)getNodo("LST_CUERPO");
 

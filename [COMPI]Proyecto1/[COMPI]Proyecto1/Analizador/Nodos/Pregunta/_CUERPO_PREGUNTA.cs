@@ -38,10 +38,11 @@ namespace _COMPI_Proyecto1.Analizador.Nodos.Pregunta
                 }
                 else if (nombreToken.Equals("mostrar"))
                 {
-
+                    ejecutarOtros(simbolo);
                 }
                 else if (nombreToken.Equals("calcular"))
                 {
+                    ejecutarOtros(simbolo);
 
                 }
             }
@@ -64,10 +65,13 @@ namespace _COMPI_Proyecto1.Analizador.Nodos.Pregunta
                 return;
 
             token tipo = new token("vacio");
-
             token nombre = lstAtributos.getToken(0);
+
+
             nombre.val = "_respuesta";
             nombre.valLower = "_respuesta";
+
+
 
             nodoModelo LST_CUERPO = getLST_CUERPO();
             token visbilidad = getVisibilidad(simbolo);
@@ -78,8 +82,26 @@ namespace _COMPI_Proyecto1.Analizador.Nodos.Pregunta
             cargarPolimorfismoHijos(element);
             simbolo.lstMetodo_funcion.insertarElemento(element);
 
+
         }
 
+        public void ejecutarOtros(elementoClase simbolo)
+        {
+            if (hayErrores())
+                return;
+
+            token tipo = new token("vacio");
+            token nombre = lstAtributos.getToken(0);
+
+            nodoModelo LST_CUERPO = getLST_CUERPO();
+            token visbilidad = getVisibilidad(simbolo);
+            int dimension = 0;
+
+            elementoPolimorfo element = new elementoPolimorfo(visbilidad, tablaSimbolos, tipo, nombre, LST_CUERPO, dimension);
+
+            cargarPolimorfismoHijos(element);
+            simbolo.lstMetodo_funcion.insertarElemento(element);
+        }
 
         public token getVisibilidad(elementoClase elem)
         {
@@ -105,6 +127,6 @@ namespace _COMPI_Proyecto1.Analizador.Nodos.Pregunta
                 return new nodoModelo("---", tablaSimbolos);
 
         }
-    
+
     }
 }

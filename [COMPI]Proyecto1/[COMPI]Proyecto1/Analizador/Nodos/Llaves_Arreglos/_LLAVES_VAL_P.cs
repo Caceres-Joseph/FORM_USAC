@@ -83,7 +83,7 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
                             item.setTypeNulo();
                             int dimensionArray = diccionario.Count;
                             diccionario.Add(dimensionArray, item);
-                        }
+                        } 
                         else if (it.isTypeObjeto())
                         {
 
@@ -116,9 +116,32 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
                             if (objeto == null)
                             //no se pudo parsear
                             {
+
+                                /*if (tipo.val.Equals("--")) //no indicaron el tipo, asi que se vaya alv
+                                {
+
+                                    itemValor item = new itemValor();
+                                    item.setType(it.getTipo());
+                                    item.valor = objeto;
+
+                                    //hay que insertarlo al diccionario
+                                    int dimensionArray = diccionario.Count;
+                                    diccionario.Add(dimensionArray, item);
+
+                                }
+                                else
+                                {
+
+                                    //retorno un error 
+                                    tablaSimbolos.tablaErrores.insertErrorSemantic("NO se puede introducir un tipo : " + it.getTipo() + " a una matriz de tipo : " + tipo.val, tipo);
+                                    return;
+                                }*/
+
+
                                 //retorno un error 
-                                tablaSimbolos.tablaErrores.insertErrorSemantic("No se puede introducir un tipo : " + it.getTipo() + " a una matriz de tipo : " + tipo.val, tipo);
+                                tablaSimbolos.tablaErrores.insertErrorSemantic("NO se puede introducir un tipo : " + it.getTipo() + " a una matriz de tipo : " + tipo.val, tipo);
                                 return;
+
                             }
                             else
                             //si se pudo parsear

@@ -11,12 +11,12 @@ namespace _COMPI_Proyecto1.GUI
 {
     class tab
     {
-       public  FastColoredTextBox cuadro = new FastColoredTextBox();
-       public MetroFramework.Controls.MetroTabPage page = new MetroFramework.Controls.MetroTabPage();
-       public String texto = "";
+        public FastColoredTextBox cuadro = new FastColoredTextBox();
+        public MetroFramework.Controls.MetroTabPage page = new MetroFramework.Controls.MetroTabPage();
+        public String texto = "";
 
 
-        public  tab()
+        public tab()
         {
 
             cuadro.TextChanged += textChangedEventHandler;
@@ -69,21 +69,21 @@ namespace _COMPI_Proyecto1.GUI
                @"entero|cadena|booleano|decimal|hora|fecha|fechaHora|pregunta|formulario|respuesta|vacio"
                , RegexOptions.IgnoreCase);
 
-                e.ChangedRange.SetStyle(BlueStyle, r2);
-  
+            e.ChangedRange.SetStyle(BlueStyle, r2);
+
 
             e.ChangedRange.SetStyle(BlueStyle, r);
 
         }
-            private void textChangedEventHandler(object sender, TextChangedEventArgs e)
+        private void textChangedEventHandler(object sender, TextChangedEventArgs e)
         {
 
 
             Regex JScriptCommentRegex1 = new Regex(@"(\$\$.*)", RegexOptions.Singleline |
                 RegexOptions.RightToLeft);
-           // e.ChangedRange.SetStyle(GrayStyle, JScriptCommentRegex1);
+            // e.ChangedRange.SetStyle(GrayStyle, JScriptCommentRegex1);
 
-            
+
 
             Regex r2 = new Regex(
                // "\"(\\w)*\""
@@ -94,7 +94,7 @@ namespace _COMPI_Proyecto1.GUI
             e.ChangedRange.SetStyle(OrangeStyle, r2);
 
 
-            
+
 
 
             // Regex JScriptCommentRegex2 = new Regex(@"(/\*.*?\*/)|(/\*.*)", RegexOptions.Singleline);

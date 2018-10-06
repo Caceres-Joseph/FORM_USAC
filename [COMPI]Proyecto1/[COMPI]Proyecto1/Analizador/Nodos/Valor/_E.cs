@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks; 
+using System.Threading.Tasks;
+using _COMPI_Proyecto1.Analizador.Nodos.FuncionesNativas;
 using _COMPI_Proyecto1.Analizador.Nodos.IdVar_func;
 using _COMPI_Proyecto1.Analizador.Nodos.Sentencias.Si_simplificado;
 using _COMPI_Proyecto1.Analizador.Nodos.Valor;
@@ -58,12 +59,18 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
                     }
                     else if (hijos[0].nombre.Equals("OPE_TIPO"))
                     {
-                        
+
                         return hijos[0].ope_tipo(elmen);
-                    }else if (hijos[0].nombre.Equals("SI_SIMPLIFICADO"))
+                    }
+                    else if (hijos[0].nombre.Equals("SI_SIMPLIFICADO"))
                     {
                         _SI_SIMPLIFICADO simplif = (_SI_SIMPLIFICADO)hijos[0];
                         return simplif.getValor(elmen);
+                    }
+                    else if (hijos[0].nombre.Equals("LEN"))
+                    {
+                        _LEN len = (_LEN)hijos[0];
+                        return len.getValor(elmen);
                     }
                     //operador unario
                     else if (lstAtributos.listaAtributos.Count > 0)
@@ -257,6 +264,11 @@ namespace _COMPI_Proyecto1.Analizador.Nodos
                         return retorno;
                     }
                 case "nulo":
+                    retorno = new itemValor();
+                    retorno.setTypeNulo();
+                    return retorno;
+
+                case "nada":
                     retorno = new itemValor();
                     retorno.setTypeNulo();
                     return retorno;

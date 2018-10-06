@@ -83,8 +83,10 @@
     <Compile Include="Analizador\Nodos\Formulario\_FORMULARIO.cs" />
     <Compile Include="Analizador\Nodos\Formulario\_GRUPO.cs" />
     <Compile Include="Analizador\Nodos\Formulario\_LLAMADA_FORMULARIO.cs" />
+    <Compile Include="Analizador\Nodos\FuncionesNativas\_ESCRIBIR_ARCHIVO.cs" />
     <Compile Include="Analizador\Nodos\FuncionesNativas\_FUNCIONES_NATIVAS.cs" />
     <Compile Include="Analizador\Nodos\FuncionesNativas\_IMPRIMIR.cs" />
+    <Compile Include="Analizador\Nodos\FuncionesNativas\_LEN.cs" />
     <Compile Include="Analizador\Nodos\FuncionesNativas\_MENSAJE.cs" />
     <Compile Include="Analizador\Nodos\FuncionesNativas\_PREGUNTA_NATIVA.cs" />
     <Compile Include="Analizador\Nodos\Funciones_Metodos\_CONSTRUCTOR.cs" />
@@ -103,6 +105,10 @@
     <Compile Include="Analizador\Nodos\Llaves_Arreglos\_PAR_CORCHETES_VACIOS.cs" />
     <Compile Include="Analizador\Nodos\Llaves_Arreglos\_PAR_CORCHETES_VAL.cs" />
     <Compile Include="Analizador\Nodos\Llaves_Arreglos\_VAR_ARREGLO.cs" />
+    <Compile Include="Analizador\Nodos\Multimedia\_AUDIO.cs" />
+    <Compile Include="Analizador\Nodos\Multimedia\_FUNC_MULTIMEDIA.cs" />
+    <Compile Include="Analizador\Nodos\Multimedia\_IMAGEN.cs" />
+    <Compile Include="Analizador\Nodos\Multimedia\_VIDEO.cs" />
     <Compile Include="Analizador\Nodos\nodoModelo.cs" />
     <Compile Include="Analizador\Nodos\Ope_matematica\_ABSOLUTO.cs" />
     <Compile Include="Analizador\Nodos\Ope_matematica\_COSENO.cs" />
@@ -231,6 +237,12 @@
     <Compile Include="GUI\gui_Mensaje\gMensaje.Designer.cs">
       <DependentUpon>gMensaje.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\Preguntas\frmAudio.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Preguntas\frmAudio.Designer.cs">
+      <DependentUpon>frmAudio.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\Preguntas\frmBooleano.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -279,6 +291,24 @@
     <Compile Include="GUI\Preguntas\frmNota.Designer.cs">
       <DependentUpon>frmNota.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\Preguntas\frmSeleccionarUno.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Preguntas\frmSeleccionarUno.Designer.cs">
+      <DependentUpon>frmSeleccionarUno.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Preguntas\frmSeleccionarVarios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Preguntas\frmSeleccionarVarios.Designer.cs">
+      <DependentUpon>frmSeleccionarVarios.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Preguntas\frmVideo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Preguntas\frmVideo.Designer.cs">
+      <DependentUpon>frmVideo.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\proyecto.cs" />
     <Compile Include="GUI\tab.cs" />
     <Compile Include="GUI\TIpos\Condicion.cs">
@@ -311,6 +341,9 @@
     <EmbeddedResource Include="GUI\gui_Mensaje\gMensaje.resx">
       <DependentUpon>gMensaje.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Preguntas\frmAudio.resx">
+      <DependentUpon>frmAudio.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\Preguntas\frmBooleano.resx">
       <DependentUpon>frmBooleano.cs</DependentUpon>
     </EmbeddedResource>
@@ -334,6 +367,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\Preguntas\frmNota.resx">
       <DependentUpon>frmNota.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Preguntas\frmSeleccionarUno.resx">
+      <DependentUpon>frmSeleccionarUno.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Preguntas\frmSeleccionarVarios.resx">
+      <DependentUpon>frmSeleccionarVarios.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Preguntas\frmVideo.resx">
+      <DependentUpon>frmVideo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\TIpos\Condicion.resx">
       <DependentUpon>Condicion.cs</DependentUpon>
@@ -366,6 +408,24 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <COMReference Include="AxWMPLib">
+      <Guid>{6BF52A50-394A-11D3-B153-00C04F79FAA6}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>aximp</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+    <COMReference Include="WMPLib">
+      <Guid>{6BF52A50-394A-11D3-B153-00C04F79FAA6}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

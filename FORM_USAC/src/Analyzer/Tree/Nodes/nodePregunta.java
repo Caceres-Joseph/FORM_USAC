@@ -6,6 +6,7 @@
 package Analyzer.Tree.Nodes;
 
 import Analyzer.Tree.Columnas.Encuesta.*;
+import Analyzer.Tree.NodTemp.nodoString;
 import Analyzer.Tree.Tablas.elementoSimbolo;
 import Analyzer.Tree.Tablas.tablaSimbolos;
 import Analyzer.Tree.nodeModel;
@@ -28,6 +29,27 @@ public class nodePregunta extends nodeModel {
     public void execute() {
 //        this.mensajeDeEjecucion();
         generandoContenido();
+        simbolo.codigoEjecucion = codEjec();
+        
+        //Tiene incluido el aplicable, la cadena de salida, post y pre
+        repeticion repe = new repeticion(tablaSimbolos, simbolo);
+        String salida = repe.getCadena();
+        
+        simbolo.cadenaFinal=salida;
+    }
+    
+    @Override
+    public void executeSinLlamar(nodoString nodCad){
+        
+        generandoContenido();
+        nodCad.cadena += "\n\t\t"+codEjec();
+        
+        //Tiene incluido el aplicable, la cadena de salida, post y pre
+        repeticion repe = new repeticion(tablaSimbolos, simbolo);
+        String salida = repe.getCadena();
+        
+        simbolo.cadenaFinal=salida;
+        
     }
 
     public void generandoContenido() {
@@ -89,13 +111,7 @@ public class nodePregunta extends nodeModel {
         simbolo.cadenaContenido=cadenaContenido;
 //        System.out.println(cadenaContenido);
 
-        codEjec();
-
-        //Tiene incluido el aplicable, la cadena de salida, post y pre
-        repeticion repe = new repeticion(tablaSimbolos, simbolo);
-        String salida = repe.getCadena();
-        
-        simbolo.cadenaFinal=salida;
+       
 //        System.out.println(salida);
 
     }
@@ -141,7 +157,7 @@ public class nodePregunta extends nodeModel {
         }
     }
 
-    public void codEjec() {
+    public String codEjec() {
         String retorno = "";
         retorno = simbolo.idPregunta + "(";
         retorno += codEjecGetParam() + ")";
@@ -172,7 +188,7 @@ public class nodePregunta extends nodeModel {
 
         retorno += ";";
 
-        simbolo.codigoEjecucion = retorno;
+        return  retorno;
     }
 
     public String codEjecGetParam() {
@@ -183,9 +199,9 @@ public class nodePregunta extends nodeModel {
 //            String val = simbolo.lstParametros.get(key);
 
             if (contador == 0) {
-                retorno += key + "().Respuesta";
+                retorno += key + ".Respuesta";
             } else {
-                retorno += ", " + key + "().Respuesta";
+                retorno += ", " + key + ".Respuesta";
             }
 
             contador++;

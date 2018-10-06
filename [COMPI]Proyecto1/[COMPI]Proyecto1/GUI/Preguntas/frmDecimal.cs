@@ -43,6 +43,9 @@ namespace _COMPI_Proyecto1.GUI.Preguntas
                 SetValores("", "", "");
             }
 
+
+            numericUpDown1.Maximum = decimal.MaxValue;
+            numericUpDown1.Minimum = decimal.MinValue;
         }
         private void btnSiguiente_Click(object sender, EventArgs e)
         {

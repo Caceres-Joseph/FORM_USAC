@@ -136,7 +136,7 @@ namespace _COMPI_Proyecto1.Analizador.Nodos.IdVar_func
 
 
                         //aquí puedo revisar si fue una pregunta para poder guardarla en el entorno
-                        if (te2.isTypeObjeto())
+                       /* if (te2.isTypeObjeto())
                         {
                             if (te2.nombreObjeto.Equals("form"))
                             {
@@ -155,7 +155,34 @@ namespace _COMPI_Proyecto1.Analizador.Nodos.IdVar_func
 
                             }
                         }
+                       
+                        if(te1.nombrePregunta.esPregunta)
+                        {
 
+                            if (temp1.lstAtributos.listaAtributos.Count > 0)
+                            {
+                                String nombreToken = temp1.lstAtributos.listaAtributos[0].nombretoken;
+
+                                if (nombreToken.Equals("valId"))
+                                {
+                                    //ahora ya que revisar que se encuentre entre la lsita de preguntas.
+                                    //     elementoEntorno.este.cuerpoClase.ls
+                                    if (tablaSimbolos.esPregunta(temp1.lstAtributos.getToken(0).valLower))
+                                    {
+                                        //es pregunta
+                                        itemEntorno sim = new itemEntorno(te1.nombrePregunta, te1.nombrePregunta, te1, new token("publico"), new List<int>(), tablaSimbolos);
+                                        elementoEntorno.insertarEntorno(sim);
+
+                                    }
+
+                                }
+
+                            }
+
+
+                        }
+*/
+                        
                         return te2;
 
                         //tengo que obtener el objeto de id_var_func
@@ -413,6 +440,11 @@ namespace _COMPI_Proyecto1.Analizador.Nodos.IdVar_func
 
                                 ret.nombrePregunta = lstAtributos.getToken(0);
                                 ret.nombrePregunta.esPregunta = true;
+
+                                itemEntorno sim = new itemEntorno(ret.nombrePregunta, ret.nombrePregunta, ret, new token("publico"), new List<int>(), tablaSimbolos);
+                                elementoEntorno.insertarEntorno(sim);
+
+
                                 return ret;
                             }
 
