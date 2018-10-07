@@ -59,11 +59,19 @@ public class columna {
             simbolo.tipoPregunta = "hora";
 
         } else if (tipo.toLowerCase().contains("selecciona") && tipo.toLowerCase().contains("uno")) {
-            simbolo.tipoPregunta = "cadena";
-
+            simbolo.tipoPregunta = "selecciona_uno";
+            String temp= tipo.toLowerCase();
+            temp= temp.replace("selecciona_uno", "");
+            simbolo.nombreListaOpciones= temp.replace(" ", "").toLowerCase();
+            
         } else if (tipo.toLowerCase().contains("selecciona") && tipo.toLowerCase().contains("multiple")) {
-            simbolo.tipoPregunta = "cadena";
+            simbolo.tipoPregunta = "selecciona_multiples";
 
+            String temp= tipo.toLowerCase();
+            temp= temp.replace("selecciona_multiples", "");
+            temp= temp.replace("selecciona_multiple", "");
+            simbolo.nombreListaOpciones= temp.replace(" ", "").toLowerCase();
+            
         } else if (tipo.toLowerCase().contains("nota")) {
             simbolo.tipoPregunta = "nota";
             //No tiene respuesta

@@ -35,6 +35,9 @@ public class elementoSimbolo {
     public String cadenaFinal="";
     public String cadenaContenido="";
 
+    
+    public String nombreListaOpciones="";
+    
     public elementoSimbolo(cell celda, atributos lstAtributos, String idPregunta) {
         this.idPregunta = idPregunta.replace(" ", "");
         this.celda = celda;

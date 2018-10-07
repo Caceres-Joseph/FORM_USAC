@@ -45,19 +45,25 @@ public class atributos {
         
         return false;
     }
-    
-    public cell get(String contenido){
+
+    public cell get(String contenido) {
         cell retorno = null;
-        
+
         for (String key : lstCell.keySet()) {
-            
-            if(key.toLowerCase().contains(contenido.toLowerCase())){
-                return lstCell.get(key); 
-            } 
+
+            if (contenido.toLowerCase().equals("restringir") || contenido.toLowerCase().equals("requerido")) {
+                if (key.toLowerCase().equals(contenido.toLowerCase())) {
+                    return lstCell.get(key);
+                }
+            } else {
+                if (key.toLowerCase().contains(contenido.toLowerCase())) {
+                    return lstCell.get(key);
+                }
+            }
         }
         return retorno;
     }
-    
+
     public void imprimir(){
         String cadena="";
         Iterator it = lstCell.keySet().iterator();

@@ -20,8 +20,7 @@ import readExcel.cell;
  * @author joseph
  */
 public class nodeGrupo extends nodeModelGrupoCiclo {
-
-    public elementoSimbolo simbolo;
+ 
 
     public nodeGrupo(tablaSimbolos tabla) {
         this.tablaSimbolos = tabla;
@@ -96,9 +95,8 @@ public class nodeGrupo extends nodeModelGrupoCiclo {
 
         repeticion repe = new repeticion(tablaSimbolos, simbolo);
         String salida = repe.getCadena();
-
+  
         simbolo.cadenaFinal = salida;
 
-    }
-
+    } 
 }

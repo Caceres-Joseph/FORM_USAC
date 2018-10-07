@@ -7,6 +7,7 @@ package Analyzer.Tree.Nodes;
 
 import Analyzer.Tree.Tablas.tablaSimbolos;
 import Analyzer.Tree.nodeModel;
+import Analyzer.Tree.tree;
 
 /**
  *
@@ -21,11 +22,43 @@ public class nodeRaiz extends nodeModel {
 
     @Override
     public void execute() {
-        this.mensajeDeEjecucion();
-        this.ejectuarHijos();
+        //this.mensajeDeEjecucion();
+        //primero hay que ejecutar configuracion
+        //imprimir();
+       this.ejecutar2();
+       // ejectuarHijos();
 //        ejecutarPrueba();
+
+        
     }
     
+    public void ejecutar2(){
+        
+        nodeModel configuracion= getNodo("padreconfiguracion");
+        if(configuracion!=null){
+            configuracion.execute();
+        }
+        
+        
+        //System.out.println("[nodeRaiz]entrada  treee->"+tree.salida);
+        
+        
+        
+        nodeModel opciones= getNodo("padreopcion");
+        if(opciones!=null){ 
+            //opciones.imprimir();
+            opciones.execute(); 
+        }
+        
+        
+        nodeModel encuesta= getNodo("padreEncuesta");
+        if(encuesta!=null){
+            
+            encuesta.execute(); 
+        }
+    }
+    
+   
     
     public void ejecutarPrueba(){
         if (tablaSimbolos!=null) {

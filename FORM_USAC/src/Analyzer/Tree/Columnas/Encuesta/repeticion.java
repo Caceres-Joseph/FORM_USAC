@@ -47,6 +47,29 @@ public class repeticion extends etiqueta {
 
         return retorno;
     }
+    
+    public String getCadena2() {
+        String retorno = "";
+        aplicable apli = new aplicable(tablaSimbolos, simbolo);
+
+        cell celdaCalc = simbolo.lstAtributos.get("repeticion");
+
+        if (celdaCalc == null) {
+            retorno = apli.getCadena();
+            return retorno;
+        }
+
+//        if (simbolo.tipoPregunta.equals("entero") || simbolo.tipoPregunta.equals("decimal")) {
+            retorno += "\n\t\tPara(Entero " + simbolo.idPregunta + "_it=0 ; " + simbolo.idPregunta + "_it <" + calcular(celdaCalc) + "; " + simbolo.idPregunta + "_iter++){";
+
+           
+//        } else {
+//            retorno = apli.getCadena();
+//            tablaSimbolos.tablaErrores.insertErrorSemantic(celdaCalc.ambito, celdaCalc.posY, celdaCalc.posX, "No se puede iterar el tipo:" + simbolo.tipoPregunta);
+//        }
+
+        return retorno;
+    }
 
     public String calcular(cell celda) {
         String retorno = "";

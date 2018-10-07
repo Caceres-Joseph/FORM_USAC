@@ -6,6 +6,7 @@
 package Analyzer.Tree;
 
 import Analyzer.Tree.NodTemp.nodoString;
+import Analyzer.Tree.Tablas.elementoSimbolo;
 import Analyzer.Tree.Tablas.tablaSimbolos;
 import java.util.ArrayList; 
 import readExcel.cell;
@@ -15,7 +16,9 @@ import readExcel.cell;
  * @author joseph
  */
 public class nodeModel {
-
+    
+    public elementoSimbolo simbolo;
+    
     public String nombreNodo = "";
     public atributos atrib = new atributos();
     public ArrayList<nodeModel> children = new ArrayList<>();
@@ -37,6 +40,17 @@ public class nodeModel {
  
 
     } 
+
+    public nodeModel getNodo(String nombre) {
+  
+        for (nodeModel model : children) {
+            if(model.nombreNodo.toLowerCase().equals(nombre.toLowerCase())){
+                return model;
+            }
+        }
+        return null;
+    }
+    
     
     
     public void executeSinLlamar(nodoString nodCad) {

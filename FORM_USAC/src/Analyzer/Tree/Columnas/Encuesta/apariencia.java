@@ -38,7 +38,7 @@ public class apariencia extends etiqueta{
          
         if(tempApar.contains("cadena")){
             
-            simbolo.tipoPreguntaApariencia="cadena"; 
+            simbolo.tipoPreguntaApariencia="cadEna"; 
         
         }else if(tempApar.contains("entero")){
             

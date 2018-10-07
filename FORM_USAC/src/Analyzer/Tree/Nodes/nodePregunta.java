@@ -10,6 +10,7 @@ import Analyzer.Tree.NodTemp.nodoString;
 import Analyzer.Tree.Tablas.elementoSimbolo;
 import Analyzer.Tree.Tablas.tablaSimbolos;
 import Analyzer.Tree.nodeModel;
+import Analyzer.Tree.tree;
 import readExcel.cell;
 
 /**
@@ -17,8 +18,6 @@ import readExcel.cell;
  * @author joseph
  */
 public class nodePregunta extends nodeModel {
-
-    elementoSimbolo simbolo;
 
     public nodePregunta(tablaSimbolos tabla) {
         this.tablaSimbolos = tabla;
@@ -30,26 +29,26 @@ public class nodePregunta extends nodeModel {
 //        this.mensajeDeEjecucion();
         generandoContenido();
         simbolo.codigoEjecucion = codEjec();
-        
+
         //Tiene incluido el aplicable, la cadena de salida, post y pre
         repeticion repe = new repeticion(tablaSimbolos, simbolo);
         String salida = repe.getCadena();
-        
-        simbolo.cadenaFinal=salida;
+
+        simbolo.cadenaFinal = salida;
     }
-    
+
     @Override
-    public void executeSinLlamar(nodoString nodCad){
-        
+    public void executeSinLlamar(nodoString nodCad) {
+
         generandoContenido();
-        nodCad.cadena += "\n\t\t"+codEjec();
-        
+        nodCad.cadena += "\n\t\t" + codEjec();
+
         //Tiene incluido el aplicable, la cadena de salida, post y pre
         repeticion repe = new repeticion(tablaSimbolos, simbolo);
         String salida = repe.getCadena();
-        
-        simbolo.cadenaFinal=salida;
-        
+
+        simbolo.cadenaFinal = salida;
+
     }
 
     public void generandoContenido() {
@@ -108,12 +107,10 @@ public class nodePregunta extends nodeModel {
 
         cadenaContenido += "\n\t}";
 
-        simbolo.cadenaContenido=cadenaContenido;
+        simbolo.cadenaContenido = cadenaContenido;
 //        System.out.println(cadenaContenido);
 
-       
 //        System.out.println(salida);
-
     }
 
     public String getParametros(elementoSimbolo simbolo) {
@@ -162,7 +159,42 @@ public class nodePregunta extends nodeModel {
         retorno = simbolo.idPregunta + "(";
         retorno += codEjecGetParam() + ")";
         String tipo = simbolo.tipoPregunta.substring(0, 1).toUpperCase() + simbolo.tipoPregunta.substring(1);
-        if (simbolo.lstFunciones.get("respuesta") != null) {
+
+        if (simbolo.tipoPregunta.toLowerCase().contains("selecciona_uno")) {
+
+            if (tree.listas.containsKey(simbolo.nombreListaOpciones)) {
+                String nombreLista = simbolo.nombreListaOpciones;
+                String cad = "\n\tOpciones " + nombreLista + "= nuevo Opciones();";
+                String ret = tree.listas.get(simbolo.nombreListaOpciones);
+                cad = cad + ret;
+
+                retorno += ".Respuesta(resp.esCadena)";
+                retorno += ".Seleccionar_1(" + simbolo.nombreListaOpciones + ");";
+                cad = cad + "\n\t" + retorno;
+                retorno = cad;
+            } else {
+                retorno="";
+                tablaSimbolos.tablaErrores.insertErrorSyntax(tipo, 0,0,"[lista Opciones()]la lista "+simbolo.nombreListaOpciones+" no se encunetra en el ambito actal");
+            }
+
+        }else if (simbolo.tipoPregunta.toLowerCase().contains("selecciona_multiples")) {
+
+            if (tree.listas.containsKey(simbolo.nombreListaOpciones)) {
+                String nombreLista = simbolo.nombreListaOpciones;
+                String cad = "\n\tOpciones " + nombreLista + "= nuevo Opciones();";
+                String ret = tree.listas.get(simbolo.nombreListaOpciones);
+                cad = cad + ret;
+
+                retorno += ".Respuesta(resp.esCadena)";
+                retorno += ".Seleccionar(" + simbolo.nombreListaOpciones + ");";
+                cad = cad + "\n\t" + retorno;
+                retorno = cad;
+            } else {
+                retorno="";
+                tablaSimbolos.tablaErrores.insertErrorSyntax(tipo, 0,0,"[lista Opciones()]la lista "+simbolo.nombreListaOpciones+" no se encunetra en el ambito actal");
+            }
+
+        } else if (simbolo.lstFunciones.get("respuesta") != null) {
 
             retorno += ".Respuesta(resp.es" + tipo + ")";
 
@@ -172,7 +204,7 @@ public class nodePregunta extends nodeModel {
             if (apariencia.length() < 4) {//No viene apariencia prro
                 retorno += codEjecGetParamResp(tipo);
             } else {
-                retorno += apariencia; 
+                retorno += apariencia;
             }
 
         } else if (simbolo.lstFunciones.get("calcular") != null) {
@@ -180,15 +212,15 @@ public class nodePregunta extends nodeModel {
             retorno += ".Calcular()";
         } else if (simbolo.lstFunciones.get("mostrar") != null) {
             retorno += codEjecGetParamResp(tipo);
-            retorno += ".Mostrar()"; 
-            
-        } else if (simbolo.tipoPregunta.contains("nota")){//ESTE IF PUEDE QUE EESTE DE MAS PRRO
-            retorno+=".Nota()";
+            retorno += ".Mostrar()";
+
+        } else if (simbolo.tipoPregunta.toLowerCase().contains("nota")) {//ESTE IF PUEDE QUE EESTE DE MAS PRRO
+            retorno += ".Nota()";
+        } else {
+            retorno += ";";
         }
 
-        retorno += ";";
-
-        return  retorno;
+        return retorno;
     }
 
     public String codEjecGetParam() {

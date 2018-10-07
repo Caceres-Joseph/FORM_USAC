@@ -7,6 +7,7 @@ package Analyzer.Tree.Nodes;
  
 import Analyzer.Tree.Tablas.tablaSimbolos;
 import Analyzer.Tree.nodeModel; 
+import Analyzer.Tree.tree;
 
 /**
  *
@@ -22,10 +23,10 @@ public class padreConfiguracion extends nodeModel {
     
     @Override
     public void execute() {
-//        this.mensajeDeEjecucion();
-//       System.out.println("Ejecutando el nodo Opcion");
-//        this.mensajeDeEjecucion();
-//        this.ejectuarHijos();
+        this.ejectuarHijos();
+        //System.out.println("Ejecutando el nodo configuracion");
+        //System.out.println(tree.salida);
+        //imprimir();
     }
     
  

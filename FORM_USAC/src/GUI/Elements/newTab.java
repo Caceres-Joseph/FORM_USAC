@@ -43,6 +43,8 @@ public class newTab {
 
     public TextArea entrada = new TextArea("");//tengo que abrir el archivo 
 
+    public TextArea entradCodigo = new TextArea("");//tengo que abrir el archivo 
+
     Tab tab = new Tab("tab1");
     AnchorPane contenedor = new AnchorPane();//padre
 
@@ -53,6 +55,8 @@ public class newTab {
     Tab tabTerminal = new Tab();
     Tab tabErro = new Tab();
     Tab tabExcel = new Tab();
+
+    AnchorPane areaWeb = new AnchorPane();
 
     public newTab() {
 
@@ -140,10 +144,17 @@ public class newTab {
 
                 tablaErrores.concat(leer.getTablaErrores());
                 this.setTextTabExcel(contenido);
+                
                 this.showTableErrors();
             }
 
         });
+        
+        
+        
+  
+        
+        
 
         this.accBtnGenerar();
         this.accBtnLeer();
@@ -168,20 +179,23 @@ public class newTab {
     }
 
     public void crearAreaWeb(SplitPane split) {
-        AnchorPane areaWeb = new AnchorPane();
-        
-         
-        TextField textField = new TextField ();
-        
+        areaWeb = new AnchorPane();
+
+        TextField textField = new TextField("adfdasf");
+
         areaWeb.getChildren().add(textField);
-        
-        
+
         ScrollPane scroll = new ScrollPane();
 
         AnchorPane.setBottomAnchor(scroll, 0.0);
         AnchorPane.setLeftAnchor(scroll, 0.0);
         AnchorPane.setRightAnchor(scroll, 0.0);
         AnchorPane.setTopAnchor(scroll, 0.0);
+
+        AnchorPane.setBottomAnchor(areaWeb, 10.0);
+        AnchorPane.setLeftAnchor(areaWeb, 40.0);
+        AnchorPane.setRightAnchor(areaWeb, 10.0);
+        AnchorPane.setTopAnchor(areaWeb, 10.0);
 
 //        AnchorPane panAreaWeb=new AnchorPane();
 //        //scroll.get
@@ -257,6 +271,7 @@ public class newTab {
     public void accBtnGenerar() {
         this.btnGenerar.setOnAction((ActionEvent event) -> {
             this.accGenerar();
+            
         });
     }
 
@@ -326,6 +341,41 @@ public class newTab {
         ctn.getChildren().setAll(entrada);
 
         tabExcel.setContent(ctn);
+
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Code editor
+    |-------------------------------------------------------------------------- 
+     */
+    public void setTextCode(String texto) {
+
+        entradCodigo.setText(texto);
+        TextArea lineas2 = new TextArea();
+        String numeros = "";
+        for (int i = 0; i < 999; i++) {
+            numeros += String.valueOf(i) + "\n";
+        }
+        lineas2.setText(numeros);
+        entradCodigo.scrollTopProperty().addListener((obs, oldVal, newVal) -> {
+            lineas2.setScrollTop((double) newVal);
+        });
+
+        lineas2.setEditable(false);
+        lineas2.setDisable(true); 
+
+//        contenido.setStyle("-fx-background-color: green;");
+        AnchorPane.setBottomAnchor(entradCodigo, 10.0);
+        AnchorPane.setLeftAnchor(entradCodigo, 40.0);
+        AnchorPane.setRightAnchor(entradCodigo, 10.0);
+        AnchorPane.setTopAnchor(entradCodigo, 10.0);
+
+        AnchorPane.setBottomAnchor(lineas2, 10.0);
+        AnchorPane.setLeftAnchor(lineas2, 0.0);
+        AnchorPane.setTopAnchor(lineas2, 10.0);
+        areaWeb.getChildren().setAll(lineas2, entradCodigo);
+       // areaWeb.getChildren().setAll(entradCodigo);
 
     }
 

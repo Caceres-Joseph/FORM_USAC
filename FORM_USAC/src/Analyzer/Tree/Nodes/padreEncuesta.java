@@ -8,6 +8,7 @@ package Analyzer.Tree.Nodes;
 import Analyzer.Tree.Tablas.elementoSimbolo;
 import Analyzer.Tree.Tablas.tablaSimbolos;
 import Analyzer.Tree.nodeModel; 
+import Analyzer.Tree.tree;
 
 /**
  *
@@ -25,21 +26,25 @@ public class padreEncuesta extends nodeModel{
     public void execute() {
 //        this.mensajeDeEjecucion();
         this.ejectuarHijos();
-        System.out.println(getCadenaClass());
-        
+        //System.out.println(getCadenaClass());
+        tree.salida=getCadenaClass();
     }
     
     public String getCadenaClass(){
         String retorno="";
+        retorno+= tree.importar;
         
-        retorno="Clase prueba{";
+        retorno+="\nClase principal{";
+        retorno+="\n\t"+tree.codigoGlobal;
+        
         retorno+="\n\tPrincipal(){";
-        retorno+="\n\t\tNuevo prueba();";
+        retorno +="\n\t"+tree.principal;
+        retorno+="\n\t\tNuevo "+tree.idForm+"()."+tree.estilo+";";
         retorno+="\n\t}";
         
         retorno+=getCadenaMetodos();
         
-        retorno+="\n\tFormulario prueba(){";
+        retorno+="\n\tFormulario "+tree.idForm+"(){";
         retorno+="\n\t\tRespuesta resp = nuevo Respuesta();";
         retorno+=getLlamadoFunciones();
         retorno+="\n\t}";

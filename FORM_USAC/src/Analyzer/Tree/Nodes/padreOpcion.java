@@ -25,7 +25,7 @@ public class padreOpcion extends nodeModel{
     public void execute() {
 
 //        this.mensajeDeEjecucion();
-//        this.ejectuarHijos();
+    this.ejectuarHijos();
     }
  
     
